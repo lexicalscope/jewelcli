@@ -2,7 +2,7 @@ package uk.co.flamingpenguin.jewel.cli;
 
 import java.util.HashMap;
 
-public class TypedArgumentsImpl implements TypedArguments
+class TypedArgumentsImpl implements TypedArguments
 {
    private final HashMap<OptionSpecification, Object> m_values = new HashMap<OptionSpecification, Object>();
 

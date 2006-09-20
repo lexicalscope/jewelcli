@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArgumentTyperImpl<O> implements ArgumentTyper<O>
+class ArgumentTyperImpl<O> implements ArgumentTyper<O>
 {
    private final OptionsSpecification<O> m_specification;
 

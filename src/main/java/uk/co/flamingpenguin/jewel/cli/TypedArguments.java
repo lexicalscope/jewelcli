@@ -1,6 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-public interface TypedArguments
+interface TypedArguments
 {
    Object getValue(OptionSpecification specification);
 
