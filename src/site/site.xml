@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+  <bannerRight>
+    <href>http://sourceforge.net</href>
+    <src>http://sflogo.sourceforge.net/sflogo.php?group_id=166725&amp;type=1</src>
+  </bannerRight>
+  <body>
+    ${reports}
+  </body>
+</project>
