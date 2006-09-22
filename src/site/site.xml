@@ -5,6 +5,16 @@
     <src>http://sflogo.sourceforge.net/sflogo.php?group_id=166725&amp;type=1</src>
   </bannerRight>
   <body>
+    <links>
+      <item name="SourceForge Page" href="http://sourceforge.net/projects/jewelcli" />
+    </links>
+
+    <menu name="JewelCli">
+      <item name="Introduction" href="index.html" />
+      <item name="Examples" href="examples.html" />
+      <item name="Download" href="download.html" />
+    </menu>
+
     ${reports}
   </body>
 </project>

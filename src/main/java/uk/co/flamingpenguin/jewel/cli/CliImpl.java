@@ -29,7 +29,7 @@ class CliImpl<O> implements Cli<O>
    /**
     * @inheritdoc
     */
-   public O parseArguments(final String[] arguments) throws InvalidArgumentsException, ArgumentValidationException
+   public O parseArguments(final String[] arguments) throws ArgumentValidationException
    {
       final ValidatedArguments validatedArguments = new ArgumentValidatorImpl<O>(m_specification).validateArguments(new ArgumentParserImpl(arguments).parseArguments());
       final TypedArguments typedArguments = new ArgumentTyperImpl<O>(m_specification).typeArguments(validatedArguments);

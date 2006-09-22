@@ -1,0 +1,7 @@
+Downloads
+
+ You can download a jar from our
+ {{{http://sourceforge.net/project/showfiles.php?group_id=166725} SourceForge download page}}
+
+ Or you can checkout the code from {{{source-repository.html} subversion}} and build it with
+ {{{http://maven.apache.org/} maven 2}}

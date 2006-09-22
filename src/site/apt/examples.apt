@@ -1,0 +1,33 @@
+Examples
+
+* Simple example
+
+  A simple example with one option:
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/SimpleExample.html} Example Interface}}
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestSimpleExample.html} Example Test Case}}
+
+* Optional option
+
+  An example with an optional option
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/OptionalOption.html} Example Interface}}
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestOptionalOption.html} Example Test Case}}
+
+* List example
+
+  Options can also have lists of values
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/ListExample.html} Example Interface}}
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestListExample.html} Example Test Case}}
+
+* Custom Types
+
+  Any class with a constructor that takes a single String can be used as an option type
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/FileExample.html} Example Interface}}
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestFileExample.html} Example Test Case}}

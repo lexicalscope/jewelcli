@@ -28,33 +28,33 @@ public class TestCliImpl extends TestCase
       Integer getName();
    }
 
-   public void testSingleOption() throws ArgumentValidationException, InvalidArgumentsException
+   public void testSingleOption() throws ArgumentValidationException
    {
        final SingleOption option = new CliImpl<SingleOption>(SingleOption.class).parseArguments(new String[]{"-name", "value"});
        assertEquals(option.getName(), "value");
    }
 
-   public void testIntegerOption() throws ArgumentValidationException, InvalidArgumentsException
+   public void testIntegerOption() throws ArgumentValidationException
    {
        final IntegerOption option = new CliImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[]{"-name", "10"});
        assertEquals(Integer.valueOf(10), option.getName());
    }
 
-   public void testInvalidIntegerOption() throws InvalidArgumentsException
+   public void testInvalidIntegerOption()
    {
       try
       {
-       final IntegerOption option = new CliImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[]{"-name", "abc"});
+       new CliImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[]{"-name", "abc"});
        fail();
       }
-      catch(ArgumentValidationException e)
+      catch(final ArgumentValidationException e)
       {
          assertEquals(1, e.getValidationErrors().size());
          assertEquals(ErrorType.InvalidValueForType, e.getValidationErrors().get(0).getErrorType());
       }
    }
 
-   public void testInvalidOption() throws ArgumentValidationException, InvalidArgumentsException
+   public void testInvalidOption() throws ArgumentValidationException
    {
       try
       {
@@ -72,7 +72,7 @@ public class TestCliImpl extends TestCase
       }
    }
 
-   public void testSingleOptionalOption() throws ArgumentValidationException, InvalidArgumentsException
+   public void testSingleOptionalOption() throws ArgumentValidationException
    {
        SingleOptionalOption option = new CliImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[]{"-name", "value"});
        assertEquals(option.getName(), "value");

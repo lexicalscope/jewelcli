@@ -22,6 +22,6 @@ public interface Cli<O>
     * @throws InvalidArgumentsException
     * @throws ArgumentValidationException
     */
-   O parseArguments(final String[] arguments) throws InvalidArgumentsException, ArgumentValidationException;
+   O parseArguments(final String[] arguments) throws ArgumentValidationException;
 
 }

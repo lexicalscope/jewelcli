@@ -7,7 +7,7 @@ import java.util.List;
 import uk.co.flamingpenguin.jewel.JewelException;
 import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
 
-class ArgumentValidationException extends JewelException
+public class ArgumentValidationException extends JewelException
 {
    public interface ValidationError
    {

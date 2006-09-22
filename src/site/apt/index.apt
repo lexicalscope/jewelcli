@@ -1,0 +1,24 @@
+Welcome to JewelCli
+
+ JewelCli uses an annotated interface definition to automatically parse and
+present command line arguments.
+
+* Features
+
+  * Declarative option definition
+
+    Options are described in a declarative manner, by annotating a standard Java interface.
+
+  * Type enforcement
+
+    Options are automatically constrained to the Java type in the interface.
+
+  * Generic list support
+
+    Lists are automatically created for options defined to return any type assignable
+    from java.util.List. All values are checked against the defined generic type of the list.
+
+  * Enum support
+
+    Options defined as an enum type are automatically converted.
+
