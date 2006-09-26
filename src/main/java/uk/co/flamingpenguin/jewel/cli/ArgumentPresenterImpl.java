@@ -38,7 +38,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O>
 
                   final OptionSpecification specification = m_specification.getSpecification(method);
 
-                  if(m_specification.isExistenceChecker(method))
+                  if(m_specification.isExistenceChecker(method) || !specification.hasValue())
                   {
                      return optionPresent(arguments, specification);
                   }

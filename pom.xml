@@ -7,7 +7,7 @@
   <groupId>uk.co.flamingpenguin.jewel</groupId>
   <artifactId>jewelcli</artifactId>
   <packaging>jar</packaging>
-  <version>0.3</version>
+  <version>0.31</version>
   <name>JewelCli</name>
   <url>http://jewelcli.sourceforge.net</url>
   <description>JewelCli uses an annotated interface definition to automatically parse and present command line arguments</description>

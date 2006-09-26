@@ -31,3 +31,11 @@ Examples
   * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/FileExample.html} Example Interface}}
 
   * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestFileExample.html} Example Test Case}}
+
+* Primitive Types
+
+  All primitive types, and there Object equivilents are supported
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/PrimitiveExample.html} Example Interface}}
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestPrimitiveExample.html} Example Test Case}}

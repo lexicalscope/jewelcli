@@ -14,6 +14,15 @@ public class TestCliImpl extends TestCase
       String getName();
    }
 
+   public interface SingleBooleanOption
+   {
+      @Option
+      boolean getName0();
+
+      @Option
+      boolean isName1();
+   }
+
    public interface SingleOptionalOption
    {
       @Option
@@ -32,6 +41,13 @@ public class TestCliImpl extends TestCase
    {
        final SingleOption option = new CliImpl<SingleOption>(SingleOption.class).parseArguments(new String[]{"-name", "value"});
        assertEquals(option.getName(), "value");
+   }
+
+   public void testSingleBooleanOption() throws ArgumentValidationException
+   {
+       final SingleBooleanOption option = new CliImpl<SingleBooleanOption>(SingleBooleanOption.class).parseArguments(new String[]{"-name1"});
+       assertEquals(option.getName0(), false);
+       assertEquals(option.isName1(), true);
    }
 
    public void testIntegerOption() throws ArgumentValidationException

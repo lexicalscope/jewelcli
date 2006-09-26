@@ -29,9 +29,21 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
          {
             if(validatedArguments.contains(optionSpecification.getShortName(), optionSpecification.getLongName()))
             {
-               final Object value = getValue(validatedArguments, optionSpecification.getMethod(), optionSpecification);
+               final Object value;
+               if(optionSpecification.hasValue())
+               {
+                  value = getValue(validatedArguments, optionSpecification.getMethod(), optionSpecification);
+               }
+               else
+               {
+                  value = Boolean.TRUE;
+               }
                typedArguments.add(optionSpecification, value);
             }
+         }
+         catch (final NumberFormatException e)
+         {
+            validationErrorBuilder.invalidValueForType(optionSpecification, e.getMessage());
          }
          catch (final NoSuchMethodException e)
          {
@@ -49,12 +61,17 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
          {
             validationErrorBuilder.invalidValueForType(optionSpecification, e.getMessage());
          }
+         catch (final ValueFormatException e)
+         {
+            validationErrorBuilder.invalidValueForType(optionSpecification, e.getMessage());
+         }
       }
       validationErrorBuilder.validate();
       return typedArguments;
    }
 
-   private Object getValue(final ValidatedArguments arguments, final Method method, final OptionSpecification specification) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
+   @SuppressWarnings("unchecked")
+   private Object getValue(final ValidatedArguments arguments, final Method method, final OptionSpecification specification) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException, ValueFormatException
    {
       final List<String> values = arguments.getValues(specification.getShortName(), specification.getLongName());
 
@@ -72,6 +89,10 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
             if(type.equals(Character.TYPE) || type.equals(Character.class))
             {
                return value.charAt(0);
+            }
+            else if(type.equals(Byte.TYPE) || type.equals(Short.class))
+            {
+               return Byte.parseByte(value);
             }
             else if(type.equals(Short.TYPE) || type.equals(Short.class))
             {
@@ -95,7 +116,19 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
             }
             else
             {
-               throw new UnsupportedOperationException(String.format("Method <%s> return type not supported for reading argument values", method.toGenericString()));
+               throw new UnsupportedOperationException(String.format("Method (%s) return type not supported for reading argument values", method.toGenericString()));
+            }
+         }
+         else if(type.equals(Character.class))
+         {
+            // there is always an exception, and java.lang.Character can't constructed from a string
+            if(value.length() == 1)
+            {
+               return value.charAt(0);
+            }
+            else
+            {
+               throw new ValueFormatException(String.format("value is not a charecter (%s)", value));
             }
          }
          else

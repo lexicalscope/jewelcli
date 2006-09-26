@@ -9,6 +9,8 @@ import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationErro
 
 public class ArgumentValidationException extends JewelException
 {
+   private static final long serialVersionUID = -4781861924515211053L;
+
    public interface ValidationError
    {
       enum ErrorType
@@ -121,9 +123,9 @@ public class ArgumentValidationException extends JewelException
    private final ArrayList<ValidationError> m_validationErrors;
    private final String m_message;
 
-   public ArgumentValidationException(final ValidationError validationErrors)
+   public ArgumentValidationException(final ValidationError validationError)
    {
-      this(Arrays.asList(validationErrors));
+      this(Arrays.asList(validationError));
    }
 
    public ArgumentValidationException(final List<ValidationError> validationErrors)

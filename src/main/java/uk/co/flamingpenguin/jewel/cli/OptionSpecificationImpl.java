@@ -136,14 +136,12 @@ class OptionSpecificationImpl implements OptionSpecification
 
    private String extractOptionName(final String methodName)
    {
-      if(hasValue())
+      final String isPrefix = "is";
+      if(!hasValue() && methodName.startsWith(isPrefix))
       {
-         return stripPrefix(methodName, "get");
+         return stripPrefix(methodName, isPrefix);
       }
-      else
-      {
-         return stripPrefix(methodName, "is");
-      }
+      return stripPrefix(methodName, "get");
    }
 
    private String stripPrefix(final String methodName, final String prefix)
@@ -185,7 +183,7 @@ class OptionSpecificationImpl implements OptionSpecification
     */
    public boolean isOptional()
    {
-      return m_optionalityValue != null;
+      return m_optionalityValue != null || !hasValue();
    }
 
    /**
