@@ -115,17 +115,12 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    public String toString()
    {
       final StringBuilder result = new StringBuilder();
+
       String separator = "";
       for (final OptionSpecification specification : m_optionsLongName.values())
       {
-         result.append(separator);
-         specification.getSummary(result);
-         separator = " ";
-      }
-
-      for (final OptionSpecification specification : m_optionsLongName.values())
-      {
-         result.append("\t").append(System.getProperty("line.separator")).append(specification);
+         result.append(separator).append("\t").append(specification);
+         separator = System.getProperty("line.separator");
       }
 
       return result.toString();

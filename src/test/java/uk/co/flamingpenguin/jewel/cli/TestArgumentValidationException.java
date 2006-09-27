@@ -1,5 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import uk.co.flamingpenguin.jewel.TestUtils;
 import junit.framework.TestCase;
 
 public class TestArgumentValidationException extends TestCase
@@ -28,7 +29,7 @@ public class TestArgumentValidationException extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals(joinLines("Option is manditory: -count1 value",
+         assertEquals(TestUtils.joinLines("Option is manditory: -count1 value",
                                 "Unexpected Option: coutn : Option not recognised"),
                       e.getMessage());
       }
@@ -56,7 +57,7 @@ public class TestArgumentValidationException extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals(joinLines("Option is manditory: -count0 value",
+         assertEquals(TestUtils.joinLines("Option is manditory: -count0 value",
                                 "Option is manditory: -count1 value"),
                       e.getMessage());
       }
@@ -73,18 +74,5 @@ public class TestArgumentValidationException extends TestCase
       {
          assertEquals("Option is manditory: -count value : the count", e.getMessage());
       }
-   }
-
-   private static String joinLines(final String... lines)
-   {
-      final StringBuilder result = new StringBuilder();
-
-      String separator = "";
-      for (final String line : lines)
-      {
-         result.append(separator).append(line);
-         separator = System.getProperty("line.separator");
-      }
-      return result.toString();
    }
 }

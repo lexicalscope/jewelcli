@@ -18,6 +18,7 @@ class OptionSpecificationImpl implements OptionSpecification
    private final Method m_optionalityValue;
    private final String m_description;
    private final Method m_method;
+   private final String m_pattern;
 
    public OptionSpecificationImpl(final Method method, final Class<?> klass)
    {
@@ -41,6 +42,8 @@ class OptionSpecificationImpl implements OptionSpecification
       m_optionalityValue = getOptionalityMethod(m_name, klass);
 
       m_description = optionAnnotation.description().trim();
+
+      m_pattern = optionAnnotation.pattern();
 
       g_logger.finer(String.format("Create option specification name:%s, shortName:%s, type:%s (multiValued:%b, hasValue:%b, isOptional:%b)) ",
                                   getName(), getShortName(), getType(), isMultiValued(), hasValue(), isOptional()));
@@ -106,6 +109,11 @@ class OptionSpecificationImpl implements OptionSpecification
    public boolean isMultiValued()
    {
       return m_multiValued;
+   }
+
+   public boolean hasCustomPattern()
+   {
+      return !m_pattern.equals(".*");
    }
 
    /**
@@ -210,7 +218,14 @@ class OptionSpecificationImpl implements OptionSpecification
 
       if(hasValue())
       {
-         result.append(" value");
+         if(hasCustomPattern())
+         {
+            result.append(" /").append(m_pattern).append("/");
+         }
+         else
+         {
+            result.append(" value");
+         }
          if(isMultiValued())
          {
             result.append("...");

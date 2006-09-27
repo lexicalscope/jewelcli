@@ -14,7 +14,7 @@
 
 package uk.co.flamingpenguin.jewel.cli;
 
-interface ParsedArguments extends Arguments 
+interface ParsedArguments extends ArgumentCollection 
 {
    // marker for parsed arguments
 }

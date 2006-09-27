@@ -14,151 +14,154 @@ public class TestOptionSpecificationImpl extends TestCase
    {
       Logger.getLogger(OptionSpecificationImpl.class.getName()).setLevel(Level.FINEST);
    }
-   
+
    public interface HasShortName
    {
       @Option(shortName="n")
       String getName1();
-      
+
       @Option
-      String getName2();   
+      String getName2();
    }
-   
+
    public interface ShortName
    {
       @Option(shortName="")
       String getName0();
-      
+
       @Option(shortName="n")
       String getName1();
-      
+
       @Option(shortName="excessive")
       String getName2();
    }
-   
+
    public interface LongName
    {
       @Option(longName="")
       String getName0();
-      
+
       @Option(longName="totallyDifferent")
       String getName1();
-      
+
       @Option(longName="name2")
       String getName2();
    }
-   
+
    public interface Value
    {
       @Option
       String getName();
-      
+
       @Option
       boolean getDebug();
    }
-   
+
    public interface Name
    {
       @Option
       String getName();
-      
+
       @Option
       String name();
-      
+
       @Option
       boolean isDebug();
-      
+
       @Option
       boolean debug();
    }
-   
+
    public interface Type
    {
       @Option
       String getString();
-      
+
       @Option
       Integer getInteger();
-      
+
       @Option
       int getInt();
-      
+
       @Option
       List<String> getStringList();
-      
+
       @Option
       List getList();
    }
-   
+
    public interface MultiValued
    {
       @Option
       List<String> getStringList();
-      
+
       @Option
       List getList();
    }
-   
+
    public interface HasOptionalOption
    {
       @Option
       String getName1();
-      
+
       @Option
       String getName2();
-      
-      boolean isName2();   
+
+      boolean isName2();
    }
-   
+
    public interface ToString
    {
       @Option(longName="aLongName")
       String getLongName();
-      
+
       @Option(shortName="s")
       String getShortName();
-      
+
       @Option
       String getOptional();
       boolean isOptional();
-      
+
       @Option
       List<String> getOptionalMulti();
       boolean isOptionalMulti();
-      
+
       @Option(description="this is a description")
       List<String> getDescription();
-      
+
       @Option(description="this is a description", shortName="a")
       List<String> getAll();
       boolean isAll();
    }
-   
+
    public interface Summary
    {
       @Option(shortName="s")
       String getShortName();
-      
+
       @Option(longName="aLongName")
       String getLongName();
-      
+
       @Option(description="this is a description")
       String getWithDescription();
-      
+
       @Option(longName="aLongName", shortName="s")
       String getLongNameShortName();
-      
+
+      @Option(pattern="[a-z]")
+      char getPattern();
+
       @Option
       String getOptional();
       boolean isOptional();
-      
+
       @Option
       List<String> getList();
-      
+
       @Option
       List<String> getOptionalList();
       boolean isOptionalList();
-      
+
       @Option(longName="aLongName", shortName="s")
       List<String> getOptionalListShortNameLongName();
       boolean isOptionalListShortNameLongName();
@@ -174,7 +177,8 @@ public class TestOptionSpecificationImpl extends TestCase
       checkSummary("getList", "-list value...");
       checkSummary("getOptionalList", "[-optionalList value...]");
       checkSummary("getOptionalListShortNameLongName", "[-aLongName -s value...]");
-      
+      checkSummary("getPattern", "-pattern /[a-z]/");
+
       // TODO[tim]: test summary
       // TODO[tim]: test option specifications (plural) summary.
    }
@@ -183,7 +187,7 @@ public class TestOptionSpecificationImpl extends TestCase
    {
       assertEquals(expectedSummary, createOption(Summary.class, method).getSummary(new StringBuilder()).toString());
    }
-   
+
    /*
     * Test method for 'uk.co.flamingpenguin.jewel.cli.OptionSpecification.toString()'
     */
@@ -196,7 +200,7 @@ public class TestOptionSpecificationImpl extends TestCase
       assertEquals("-description value... : this is a description", createOption(ToString.class, "getDescription").toString());
       assertEquals("[-all -a value...] : this is a description", createOption(ToString.class, "getAll").toString());
    }
-   
+
    /*
     * Test method for 'uk.co.flamingpenguin.jewel.cli.OptionSpecification.isMultiValued()'
     */
@@ -217,7 +221,7 @@ public class TestOptionSpecificationImpl extends TestCase
       assertEquals(String.class, createOption(Type.class, "getStringList").getType());
       assertEquals(String.class, createOption(Type.class, "getList").getType());
    }
-   
+
    /*
     * Test method for 'uk.co.flamingpenguin.jewel.cli.OptionSpecification.getName()'
     */
@@ -228,7 +232,7 @@ public class TestOptionSpecificationImpl extends TestCase
       assertEquals("debug", createOption(Name.class, "isDebug").getName());
       assertEquals("debug", createOption(Name.class, "debug").getName());
    }
-   
+
    /*
     * Test method for 'uk.co.flamingpenguin.jewel.cli.OptionSpecification.getShortName()'
     */
@@ -248,7 +252,7 @@ public class TestOptionSpecificationImpl extends TestCase
       assertEquals("totallyDifferent", createOption(LongName.class, "getName1").getLongName());
       assertEquals("name2", createOption(LongName.class, "getName2").getLongName());
    }
-   
+
    /*
     * Test method for 'uk.co.flamingpenguin.jewel.cli.OptionSpecification.hasValue()'
     */
@@ -266,7 +270,7 @@ public class TestOptionSpecificationImpl extends TestCase
       assertTrue(createOption(HasShortName.class, "getName1").hasShortName());
       assertFalse(createOption(HasShortName.class, "getName2").hasShortName());
    }
-   
+
    /*
     * Test method for 'uk.co.flamingpenguin.jewel.cli.OptionSpecification.isOptional()'
     */
@@ -275,7 +279,7 @@ public class TestOptionSpecificationImpl extends TestCase
       assertFalse(createOption(HasOptionalOption.class, "getName1").isOptional());
       assertTrue(createOption(HasOptionalOption.class, "getName2").isOptional());
    }
-   
+
    private OptionSpecification createOption(Class<?> klass, final String methodName) throws NoSuchMethodException
    {
       return new OptionSpecificationImpl(klass.getMethod(methodName, (Class[]) null), klass);
