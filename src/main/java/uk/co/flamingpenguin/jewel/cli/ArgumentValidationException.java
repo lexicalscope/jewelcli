@@ -70,7 +70,15 @@ public class ArgumentValidationException extends JewelException
             {
                return String.format("Unexpected error (%s)", error.getMessage());
             }
-         };
+         },
+         PatternMismatch
+         {
+            public String getDescription(final ValidationError error)
+            {
+               return String.format("Cannot match (%s) to pattern ", error.getMessage());
+            }
+         }
+         ;
 
          public abstract String getDescription(ValidationError error);
       }
@@ -184,8 +192,13 @@ public class ArgumentValidationException extends JewelException
       return new ValidationErrorImpl(ErrorType.InvalidValueForType, optionSpecification, message);
    }
 
-   public static ValidationError createUnableToCOnstructType(OptionSpecification optionSpecification, String message)
+   public static ValidationError createUnableToConstructType(final OptionSpecification optionSpecification, final String message)
    {
       return new ValidationErrorImpl(ErrorType.UnableToConstructType, optionSpecification, message);
+   }
+
+   public static ValidationError createPatternMismatch(final OptionSpecification optionSpecification, final String message)
+   {
+      return new ValidationErrorImpl(ErrorType.PatternMismatch, optionSpecification, message);
    }
 }

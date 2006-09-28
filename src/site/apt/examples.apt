@@ -32,6 +32,14 @@ Examples
 
   * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestFileExample.html} Example Test Case}}
 
+* Regular Expressions
+
+  Values can be automatically validated against a regular expression
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/PatternExample.html} Example Interface}}
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestPatternExample.html} Example Test Case}}
+
 * Primitive Types
 
   All primitive types, and there Object equivilents are supported

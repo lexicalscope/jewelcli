@@ -14,6 +14,12 @@ public class TestCliImpl extends TestCase
       String getName();
    }
 
+   public interface CharacterValue
+   {
+      @Option
+      Character getName();
+   }
+
    public interface SingleBooleanOption
    {
       @Option
@@ -96,5 +102,26 @@ public class TestCliImpl extends TestCase
 
        option = new CliImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[]{});
        assertFalse(option.isName());
+   }
+
+   public void testCharacterValue() throws ArgumentValidationException
+   {
+      final CharacterValue option = new CliImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[]{"-name", "a"});
+      assertEquals((Character) 'a', option.getName());
+   }
+
+   public void testInvalidCharacterValue()
+   {
+      try
+      {
+         new CliImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[]{"-name", "aa"});
+         fail();
+      }
+      catch (final ArgumentValidationException e)
+      {
+         final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
+         assertEquals(1, validationErrors.size());
+         assertEquals(ErrorType.InvalidValueForType, validationErrors.get(0).getErrorType());
+      }
    }
 }

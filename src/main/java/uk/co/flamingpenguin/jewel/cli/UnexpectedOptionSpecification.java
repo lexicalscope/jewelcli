@@ -74,4 +74,9 @@ class UnexpectedOptionSpecification implements OptionSpecification
    {
       return null;
    }
+
+   public boolean patternMatches(final String value)
+   {
+      return false;
+   }
 }

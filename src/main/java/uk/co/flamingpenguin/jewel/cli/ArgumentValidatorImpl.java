@@ -1,10 +1,10 @@
 /*
- * Copyright 2006 Tim Wood 
- *                 
+ * Copyright 2006 Tim Wood
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,11 +24,19 @@ import java.util.Map.Entry;
 
 class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
 {
+   private final ValidationErrorBuilder m_validationErrorBuilder;
+   private final List<String> m_validatedUnparsedArguments;
+   private final Map<String, List<String>> m_validatedArguments;
    private final OptionsSpecification<O> m_specification;
 
    public ArgumentValidatorImpl(OptionsSpecification<O> specification)
    {
       this.m_specification = specification;
+
+      m_validatedArguments = new LinkedHashMap<String, List<String>>();
+      m_validatedUnparsedArguments = new ArrayList<String>();
+
+      m_validationErrorBuilder = new ValidationErrorBuilderImpl();
    }
 
    /**
@@ -36,19 +44,16 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
     */
    public ValidatedArguments validateArguments(final ParsedArguments arguments) throws ArgumentValidationException
    {
-      final ValidationErrorBuilder validationErrorBuilder = new ValidationErrorBuilderImpl();
-
       for(final OptionSpecification optionSpecification : m_specification.getManditoryOptions())
       {
          if(!arguments.contains(optionSpecification.getShortName(), optionSpecification.getLongName()))
          {
-            validationErrorBuilder.missingOption(optionSpecification);
+            m_validationErrorBuilder.missingOption(optionSpecification);
          }
       }
- 
-      final Map<String, List<String>> validatedArguments = new LinkedHashMap<String, List<String>>();
-      final List<String> validatedUnparsedArguments = new ArrayList<String>(arguments.getUnparsed());
-      
+
+      m_validatedUnparsedArguments.addAll(arguments.getUnparsed());
+
       final Iterator<Entry<String, List<String>>> argumentsIterator = arguments.iterator();
       while (argumentsIterator.hasNext())
       {
@@ -57,42 +62,54 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
 
          if(!m_specification.isSpecified(entry.getKey()))
          {
-            validationErrorBuilder.unexpectedOption(entry.getKey());
+            m_validationErrorBuilder.unexpectedOption(entry.getKey());
          }
-         else 
+         else
          {
             final OptionSpecification optionSpecification = m_specification.getSpecification(entry.getKey());
             if(entry.getValue().size() == 0 && optionSpecification.hasValue() && !optionSpecification.isMultiValued())
             {
-               validationErrorBuilder.missingValue(optionSpecification);
+               m_validationErrorBuilder.missingValue(optionSpecification);
             }
             else if(entry.getValue().size() > 0 && !optionSpecification.hasValue())
             {
-               validationErrorBuilder.unexpectedValue(optionSpecification);
+               m_validationErrorBuilder.unexpectedValue(optionSpecification);
             }
             else if(!isLast && entry.getValue().size() > 1 && !optionSpecification.isMultiValued())
             {
-               validationErrorBuilder.unexpectedAdditionalValues(optionSpecification);
+               m_validationErrorBuilder.unexpectedAdditionalValues(optionSpecification);
             }
-            
+
             if(isLast && !optionSpecification.isMultiValued() && entry.getValue().size() > 1)
             {
                final ArrayList<String> values = new ArrayList<String>();
                values.add(entry.getValue().get(0));
-               validatedArguments.put(entry.getKey(), values);
-               
+               m_validatedArguments.put(entry.getKey(), values);
+
                final ArrayList<String> unparsed = new ArrayList<String>(entry.getValue().subList(1, entry.getValue().size()));
-               validatedUnparsedArguments.addAll(0, unparsed);
+               m_validatedUnparsedArguments.addAll(0, unparsed);
             }
             else
             {
-               validatedArguments.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
+               checkAndAddValues(optionSpecification, entry.getKey(), new ArrayList<String>(entry.getValue()));
             }
          }
       }
 
-      validationErrorBuilder.validate();
-      
-      return new ArgumentsImpl(validatedArguments, validatedUnparsedArguments);
+      m_validationErrorBuilder.validate();
+
+      return new ArgumentsImpl(m_validatedArguments, m_validatedUnparsedArguments);
+   }
+
+   private void checkAndAddValues(final OptionSpecification optionSpecification, final String option, final ArrayList<String> values)
+   {
+      for (final String value : values)
+      {
+         if(!optionSpecification.patternMatches(value))
+         {
+            m_validationErrorBuilder.patternMismatch(optionSpecification, value);
+         }
+      }
+      m_validatedArguments.put(option, new ArrayList<String>(values));
    }
 }

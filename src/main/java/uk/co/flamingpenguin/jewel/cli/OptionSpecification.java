@@ -13,7 +13,7 @@ interface OptionSpecification
    String getLongName();
 
    String getDescription();
-   
+
    boolean isMultiValued();
 
    boolean hasValue();
@@ -21,8 +21,10 @@ interface OptionSpecification
    boolean hasShortName();
 
    boolean isOptional();
-   
+
    StringBuilder getSummary(StringBuilder result);
 
    Method getMethod();
+
+   boolean patternMatches(String value);
 }

@@ -36,7 +36,7 @@ public class CliFactory
     * @throws InvalidArgumentsException
     * @throws ArgumentValidationException
     */
-   public static <O> O parseArguments(final Class<O> klass, final String[] arguments) throws ArgumentValidationException
+   public static <O> O parseArguments(final Class<O> klass, final String... arguments) throws ArgumentValidationException
    {
       return createCli(klass).parseArguments(arguments);
    }

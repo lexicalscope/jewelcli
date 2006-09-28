@@ -116,6 +116,11 @@ class OptionSpecificationImpl implements OptionSpecification
       return !m_pattern.equals(".*");
    }
 
+   public boolean patternMatches(final String value)
+   {
+      return value.matches(m_pattern);
+   }
+
    /**
     * @inheritdoc
     */
