@@ -21,7 +21,20 @@ class ParsedArgumentsBuilder
       {
          if(argument.length() > 2 && argument.startsWith("--"))
          {
-            addOption(argument.substring(2, argument.length()).trim());
+            if(argument.contains("="))
+            {
+               final int separatorIndex = argument.indexOf("=");
+               addOption(argument.substring(2, separatorIndex).trim());
+
+               if(argument.length() > (separatorIndex + 1))
+               {
+                  addValue(argument.substring(separatorIndex + 1).trim());
+               }
+            }
+            else
+            {
+               addOption(argument.substring(2, argument.length()).trim());
+            }
          }
          else
          {
