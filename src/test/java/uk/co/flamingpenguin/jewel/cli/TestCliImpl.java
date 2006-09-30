@@ -62,20 +62,20 @@ public class TestCliImpl extends TestCase
 
    public void testSingleOption() throws ArgumentValidationException
    {
-       final SingleOption option = new CliImpl<SingleOption>(SingleOption.class).parseArguments(new String[]{"-name", "value"});
+       final SingleOption option = new CliImpl<SingleOption>(SingleOption.class).parseArguments(new String[]{"--name", "value"});
        assertEquals(option.getName(), "value");
    }
 
    public void testSingleBooleanOption() throws ArgumentValidationException
    {
-       final SingleBooleanOption option = new CliImpl<SingleBooleanOption>(SingleBooleanOption.class).parseArguments(new String[]{"-name1"});
+       final SingleBooleanOption option = new CliImpl<SingleBooleanOption>(SingleBooleanOption.class).parseArguments(new String[]{"--name1"});
        assertEquals(option.getName0(), false);
        assertEquals(option.isName1(), true);
    }
 
    public void testIntegerOption() throws ArgumentValidationException
    {
-       final IntegerOption option = new CliImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[]{"-name", "10"});
+       final IntegerOption option = new CliImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[]{"--name", "10"});
        assertEquals(Integer.valueOf(10), option.getName());
    }
 
@@ -83,7 +83,7 @@ public class TestCliImpl extends TestCase
    {
       try
       {
-       new CliImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[]{"-name", "abc"});
+       new CliImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[]{"--name", "abc"});
        fail();
       }
       catch(final ArgumentValidationException e)
@@ -98,7 +98,7 @@ public class TestCliImpl extends TestCase
    {
       try
       {
-       new CliImpl<IntOption>(IntOption.class).parseArguments(new String[]{"-name", "abc"});
+       new CliImpl<IntOption>(IntOption.class).parseArguments(new String[]{"--name", "abc"});
        fail();
       }
       catch(final ArgumentValidationException e)
@@ -113,7 +113,7 @@ public class TestCliImpl extends TestCase
    {
       try
       {
-         new CliImpl<SingleOption>(SingleOption.class).parseArguments(new String[]{"-invalid", "value"});
+         new CliImpl<SingleOption>(SingleOption.class).parseArguments(new String[]{"--invalid", "value"});
          fail();
       }
       catch(final ArgumentValidationException e)
@@ -129,7 +129,7 @@ public class TestCliImpl extends TestCase
 
    public void testSingleOptionalOption() throws ArgumentValidationException
    {
-       SingleOptionalOption option = new CliImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[]{"-name", "value"});
+       SingleOptionalOption option = new CliImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[]{"--name", "value"});
        assertEquals(option.getName(), "value");
        assertTrue(option.isName());
 
@@ -139,7 +139,7 @@ public class TestCliImpl extends TestCase
 
    public void testCharacterValue() throws ArgumentValidationException
    {
-      final CharacterValue option = new CliImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[]{"-name", "a"});
+      final CharacterValue option = new CliImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[]{"--name", "a"});
       assertEquals((Character) 'a', option.getName());
    }
 
@@ -147,7 +147,7 @@ public class TestCliImpl extends TestCase
    {
       try
       {
-         new CliImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[]{"-name", "aa"});
+         new CliImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[]{"--name", "aa"});
          fail();
       }
       catch (final ArgumentValidationException e)
@@ -162,7 +162,7 @@ public class TestCliImpl extends TestCase
    {
       try
       {
-         final SingleOptionWithArgument result = new CliImpl<SingleOptionWithArgument>(SingleOptionWithArgument.class).parseArguments(new String[]{"-name", "value"});
+         final SingleOptionWithArgument result = new CliImpl<SingleOptionWithArgument>(SingleOptionWithArgument.class).parseArguments(new String[]{"--name", "value"});
          result.getName("fred");
          fail();
       }

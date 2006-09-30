@@ -50,7 +50,7 @@ public class TestArgumentValidatorImpl extends TestCase
    {
       try
       {
-         validate(new String[]{"-name1", "value"}, OptionalOption.class);
+         validate(new String[]{"--name1", "value"}, OptionalOption.class);
          fail();
       }
       catch (final ArgumentValidationException e)
@@ -63,19 +63,19 @@ public class TestArgumentValidatorImpl extends TestCase
 
    public void testMultipleValue() throws ArgumentValidationException
    {
-      validate(new String[]{"-name", "a", "b"}, MultipleValue.class);
+      validate(new String[]{"--name", "a", "b"}, MultipleValue.class);
    }
 
    public void testMultipleValueEndOfArguments() throws ArgumentValidationException
    {
-      final ValidatedArguments validated = validate(new String[]{"-name", "a", "b", "--", "c", "d"}, MultipleValue.class);
+      final ValidatedArguments validated = validate(new String[]{"--name", "a", "b", "--", "c", "d"}, MultipleValue.class);
       assertEquals(2, validated.getUnparsed().size());
       assertEquals(2, validated.getValues("name").size());
    }
 
    public void testMultipleValueNotEndOfArguments() throws ArgumentValidationException
    {
-      final ValidatedArguments validated = validate(new String[]{"-name0", "a", "b", "-name1", "c", "d", "e", "--", "f", "g"}, ExtraValue.class);
+      final ValidatedArguments validated = validate(new String[]{"--name0", "a", "b", "--name1", "c", "d", "e", "--", "f", "g"}, ExtraValue.class);
       assertEquals(4, validated.getUnparsed().size());
       assertEquals(2, validated.getValues("name0").size());
       assertEquals(1, validated.getValues("name1").size());
@@ -83,14 +83,14 @@ public class TestArgumentValidatorImpl extends TestCase
 
    public void testSingleValue() throws ArgumentValidationException
    {
-      validate(new String[]{"-name", "a"}, MultipleValue.class);
+      validate(new String[]{"--name", "a"}, MultipleValue.class);
    }
 
    public void testExtraOption() throws ArgumentValidationException
    {
       try
       {
-         validate(new String[]{"-name1", "value", "wrong", "-name0"}, ExtraValue.class);
+         validate(new String[]{"--name1", "value", "wrong", "--name0"}, ExtraValue.class);
          fail();
       }
       catch (final ArgumentValidationException e)
@@ -105,7 +105,7 @@ public class TestArgumentValidatorImpl extends TestCase
    {
       try
       {
-         validate(new String[]{"-name"}, SingleValue.class);
+         validate(new String[]{"--name"}, SingleValue.class);
          fail();
       }
       catch (final ArgumentValidationException e)
@@ -120,7 +120,7 @@ public class TestArgumentValidatorImpl extends TestCase
    {
       try
       {
-         validate(new String[]{"-name", "value"}, NoValue.class);
+         validate(new String[]{"--name", "value"}, NoValue.class);
          fail();
       }
       catch (final ArgumentValidationException e)
@@ -133,7 +133,7 @@ public class TestArgumentValidatorImpl extends TestCase
 
    public void testMissingMultipleValue() throws ArgumentValidationException
    {
-      validate(new String[]{"-name"}, MultipleValue.class);
+      validate(new String[]{"--name"}, MultipleValue.class);
       // TODO[tim]:support minimum/maximum value list lengths
    }
 

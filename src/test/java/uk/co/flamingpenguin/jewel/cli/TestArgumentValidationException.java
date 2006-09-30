@@ -24,12 +24,12 @@ public class TestArgumentValidationException extends TestCase
    {
       try
       {
-          CliFactory.parseArguments(TwoOptions.class, new String[]{"-count0", "3", "-coutn", "5"});
+          CliFactory.parseArguments(TwoOptions.class, new String[]{"--count0", "3", "--coutn", "5"});
           fail();
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals(TestUtils.joinLines("Option is manditory: -count1 value",
+         assertEquals(TestUtils.joinLines("Option is manditory: --count1 value",
                                 "Unexpected Option: coutn : Option not recognised"),
                       e.getMessage());
       }
@@ -39,12 +39,12 @@ public class TestArgumentValidationException extends TestCase
    {
       try
       {
-          CliFactory.parseArguments(TwoOptions.class, new String[]{"-count0", "3"});
+          CliFactory.parseArguments(TwoOptions.class, new String[]{"--count0", "3"});
           fail();
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals("Option is manditory: -count1 value", e.getMessage());
+         assertEquals("Option is manditory: --count1 value", e.getMessage());
       }
    }
 
@@ -57,8 +57,8 @@ public class TestArgumentValidationException extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals(TestUtils.joinLines("Option is manditory: -count0 value",
-                                "Option is manditory: -count1 value"),
+         assertEquals(TestUtils.joinLines("Option is manditory: --count0 value",
+                                "Option is manditory: --count1 value"),
                       e.getMessage());
       }
    }
@@ -72,7 +72,7 @@ public class TestArgumentValidationException extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals("Option is manditory: -count value : the count", e.getMessage());
+         assertEquals("Option is manditory: --count value : the count", e.getMessage());
       }
    }
 }

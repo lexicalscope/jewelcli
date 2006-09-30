@@ -19,7 +19,17 @@ class ParsedArgumentsBuilder
    {
       if(argument.length() > 1 && argument.startsWith("-"))
       {
-         addOption(argument.substring(1, argument.length()).trim());
+         if(argument.length() > 2 && argument.startsWith("--"))
+         {
+            addOption(argument.substring(2, argument.length()).trim());
+         }
+         else
+         {
+            for (int i = 1; i < argument.length(); i++)
+            {
+               addOption(argument.substring(i, i+1));
+            }
+         }
       }
       else
       {

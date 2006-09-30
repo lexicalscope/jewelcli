@@ -10,12 +10,12 @@ public class TestPatternExample extends TestCase
    {
       try
       {
-         CliFactory.parseArguments(PatternExample.class, new String[]{"-classes", "java.util.String", "my.invalid..Klass"});
+         CliFactory.parseArguments(PatternExample.class, new String[]{"--classes", "java.util.String", "my.invalid..Klass"});
          fail();
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals("Cannot match (my.invalid..Klass) to pattern : -classes /(\\w+\\.)*\\w+/...", e.getMessage());
+         assertEquals("Cannot match (my.invalid..Klass) to pattern : --classes /(\\w+\\.)*\\w+/...", e.getMessage());
       }
    }
 }

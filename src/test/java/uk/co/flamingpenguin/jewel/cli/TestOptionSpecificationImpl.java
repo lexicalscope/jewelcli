@@ -169,15 +169,15 @@ public class TestOptionSpecificationImpl extends TestCase
 
    public void testSumary() throws NoSuchMethodException
    {
-      checkSummary("getShortName", "-shortName -s value");
-      checkSummary("getLongName", "-aLongName value");
-      checkSummary("getWithDescription", "-withDescription value");
-      checkSummary("getLongNameShortName", "-aLongName -s value");
-      checkSummary("getOptional", "[-optional value]");
-      checkSummary("getList", "-list value...");
-      checkSummary("getOptionalList", "[-optionalList value...]");
-      checkSummary("getOptionalListShortNameLongName", "[-aLongName -s value...]");
-      checkSummary("getPattern", "-pattern /[a-z]/");
+      checkSummary("getShortName", "--shortName -s value");
+      checkSummary("getLongName", "--aLongName value");
+      checkSummary("getWithDescription", "--withDescription value");
+      checkSummary("getLongNameShortName", "--aLongName -s value");
+      checkSummary("getOptional", "[--optional value]");
+      checkSummary("getList", "--list value...");
+      checkSummary("getOptionalList", "[--optionalList value...]");
+      checkSummary("getOptionalListShortNameLongName", "[--aLongName -s value...]");
+      checkSummary("getPattern", "--pattern /[a-z]/");
 
       // TODO[tim]: test summary
       // TODO[tim]: test option specifications (plural) summary.
@@ -193,12 +193,12 @@ public class TestOptionSpecificationImpl extends TestCase
     */
    public void testToString() throws NoSuchMethodException
    {
-      assertEquals("-aLongName value", createOption(ToString.class, "getLongName").toString());
-      assertEquals("-shortName -s value", createOption(ToString.class, "getShortName").toString());
-      assertEquals("[-optional value]", createOption(ToString.class, "getOptional").toString());
-      assertEquals("[-optionalMulti value...]", createOption(ToString.class, "getOptionalMulti").toString());
-      assertEquals("-description value... : this is a description", createOption(ToString.class, "getDescription").toString());
-      assertEquals("[-all -a value...] : this is a description", createOption(ToString.class, "getAll").toString());
+      assertEquals("--aLongName value", createOption(ToString.class, "getLongName").toString());
+      assertEquals("--shortName -s value", createOption(ToString.class, "getShortName").toString());
+      assertEquals("[--optional value]", createOption(ToString.class, "getOptional").toString());
+      assertEquals("[--optionalMulti value...]", createOption(ToString.class, "getOptionalMulti").toString());
+      assertEquals("--description value... : this is a description", createOption(ToString.class, "getDescription").toString());
+      assertEquals("[--all -a value...] : this is a description", createOption(ToString.class, "getAll").toString());
    }
 
    /*

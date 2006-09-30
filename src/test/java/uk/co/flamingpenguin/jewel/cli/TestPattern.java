@@ -18,7 +18,7 @@ public class TestPattern extends TestCase
    {
       try
       {
-         CliFactory.parseArguments(TestStringPattern.class, "-option", "ABC");
+         CliFactory.parseArguments(TestStringPattern.class, "--option", "ABC");
          fail();
       }
       catch (final ArgumentValidationException e)
@@ -26,12 +26,12 @@ public class TestPattern extends TestCase
          final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
          assertEquals(1, validationErrors.size());
          assertEquals(ErrorType.PatternMismatch, validationErrors.get(0).getErrorType());
-         assertEquals("Cannot match (ABC) to pattern : -option /[a-z]+/", validationErrors.get(0).toString());
+         assertEquals("Cannot match (ABC) to pattern : --option /[a-z]+/", validationErrors.get(0).toString());
       }
    }
 
    public void testStringPattern() throws ArgumentValidationException
    {
-      CliFactory.parseArguments(TestStringPattern.class, "-option", "abc");
+      CliFactory.parseArguments(TestStringPattern.class, "--option", "abc");
    }
 }

@@ -17,10 +17,10 @@ public class TestHelpExample extends TestCase
       final List<String> helpMessage = TestUtils.splitLines(cli.getHelpMessage());
 
       final List<String> expectedMessage =
-                         Arrays.asList("\t-location value : the location of something",
-                                       "\t-count value",
-                                       "\t-pattern -p value : a pattern",
-                                       "\t-email /^[^\\S@]+@[\\w.]+$/ : your email address");
+                         Arrays.asList("\t--location value : the location of something",
+                                       "\t--count value",
+                                       "\t--pattern -p value : a pattern",
+                                       "\t--email /^[^\\S@]+@[\\w.]+$/ : your email address");
 
       assertTrue(helpMessage.containsAll(expectedMessage));
       assertTrue(expectedMessage.containsAll(helpMessage));

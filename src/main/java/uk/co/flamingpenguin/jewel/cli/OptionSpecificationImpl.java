@@ -214,7 +214,7 @@ class OptionSpecificationImpl implements OptionSpecification
          result.append("[");
       }
 
-      result.append("-").append(getLongName());
+      result.append("--").append(getLongName());
 
       if(hasShortName())
       {
