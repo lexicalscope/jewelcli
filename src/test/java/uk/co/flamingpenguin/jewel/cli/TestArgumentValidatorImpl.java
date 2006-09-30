@@ -9,6 +9,12 @@ import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationErro
 
 public class TestArgumentValidatorImpl extends TestCase
 {
+   public interface NoValue
+   {
+      @Option
+      boolean getName();
+   }
+
    public interface SingleValue
    {
       @Option
@@ -67,6 +73,14 @@ public class TestArgumentValidatorImpl extends TestCase
       assertEquals(2, validated.getValues("name").size());
    }
 
+   public void testMultipleValueNotEndOfArguments() throws ArgumentValidationException
+   {
+      final ValidatedArguments validated = validate(new String[]{"-name0", "a", "b", "-name1", "c", "d", "e", "--", "f", "g"}, ExtraValue.class);
+      assertEquals(4, validated.getUnparsed().size());
+      assertEquals(2, validated.getValues("name0").size());
+      assertEquals(1, validated.getValues("name1").size());
+   }
+
    public void testSingleValue() throws ArgumentValidationException
    {
       validate(new String[]{"-name", "a"}, MultipleValue.class);
@@ -102,18 +116,18 @@ public class TestArgumentValidatorImpl extends TestCase
       }
    }
 
-   public void testExtraValue()
+   public void testUnexpectedValue()
    {
       try
       {
-         validate(new String[]{"-name"}, SingleValue.class);
+         validate(new String[]{"-name", "value"}, NoValue.class);
          fail();
       }
       catch (final ArgumentValidationException e)
       {
          final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
          assertEquals(1, validationErrors.size());
-         assertEquals(ErrorType.MissingValue, validationErrors.get(0).getErrorType());
+         assertEquals(ErrorType.UnexpectedValue, validationErrors.get(0).getErrorType());
       }
    }
 

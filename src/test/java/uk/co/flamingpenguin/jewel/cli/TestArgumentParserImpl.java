@@ -1,5 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
 import junit.framework.TestCase;
 
 public class TestArgumentParserImpl extends TestCase
@@ -56,5 +57,23 @@ public class TestArgumentParserImpl extends TestCase
       final ArgumentParserImpl impl = new ArgumentParserImpl(new String[]{"--"});
       final ParsedArguments parsed = impl.parseArguments();
       assertEquals(0, parsed.getUnparsed().size());
+   }
+
+   /*
+    * Test method for 'uk.co.flamingpenguin.jewel.cli.impl.ArgumentParserImpl.parseArguments()'
+    */
+   public void testParseArgumentsMisplacedValue()
+   {
+      final ArgumentParserImpl impl = new ArgumentParserImpl(new String[]{"a", "-b"});
+      try
+      {
+         impl.parseArguments();
+         fail();
+      }
+      catch (final ArgumentValidationException e)
+      {
+          assertEquals(1, e.getValidationErrors().size());
+          assertEquals(ErrorType.MisplacedOption, e.getValidationErrors().get(0).getErrorType());
+      }
    }
 }

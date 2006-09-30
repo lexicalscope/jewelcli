@@ -10,9 +10,10 @@ import java.util.Map.Entry;
 
 class ParsedArgumentsBuilder
 {
-   private final Map<String, List<String>> arguments = new LinkedHashMap<String, List<String>>();
-   private List<String> currentValues;
-   private final List<String> unparsed = new ArrayList<String>();
+   private final Map<String, List<String>> m_arguments = new LinkedHashMap<String, List<String>>();
+   private List<String> m_currentValues;
+   private final List<String> m_unparsed = new ArrayList<String>();
+   private boolean m_moreOptionsExpected = true;
 
    public void add(final String argument) throws ArgumentValidationException
    {
@@ -26,52 +27,60 @@ class ParsedArgumentsBuilder
       }
    }
 
-   private void addValue(final String value) throws ArgumentValidationException
+   private void addValue(final String value)
    {
-      if(currentValues == null)
+      if(m_currentValues == null)
       {
-         throw new ArgumentValidationException(new ArgumentValidationException.ValidationError(){
-            public ErrorType getErrorType()
-            {
-               return ArgumentValidationException.ValidationError.ErrorType.MisplacedValue;
-            }
-
-            public String getMessage()
-            {
-               return value;
-            }
-
-            public OptionSpecification getSpecification()
-            {
-               return null;
-            }});
+         m_moreOptionsExpected = false;
+         m_unparsed.add(value);
       }
       else
       {
-         currentValues.add(value);
+         m_currentValues.add(value);
       }
    }
 
-   private void addOption(final String option)
+   private void addOption(final String option) throws ArgumentValidationException
    {
-      currentValues = new ArrayList<String>();
-      arguments.put(option, currentValues);
+      if(m_moreOptionsExpected)
+      {
+         m_currentValues = new ArrayList<String>();
+         m_arguments.put(option, m_currentValues);
+      }
+      else
+      {
+          throw new ArgumentValidationException(new ArgumentValidationException.ValidationError(){
+          public ErrorType getErrorType()
+          {
+             return ArgumentValidationException.ValidationError.ErrorType.MisplacedOption;
+          }
+
+          public String getMessage()
+          {
+             return option;
+          }
+
+          public OptionSpecification getSpecification()
+          {
+             return null;
+          }});
+      }
    }
 
    public void setUnparsed(final String[] unparsed)
    {
-      this.unparsed.addAll(Arrays.asList(unparsed));
+      this.m_unparsed.addAll(Arrays.asList(unparsed));
    }
 
    public ParsedArguments getParsedArguments()
    {
       final Map<String, List<String>> finalArguments = new LinkedHashMap<String, List<String>>();
 
-      for (final Entry<String, List<String>> entry : arguments.entrySet())
+      for (final Entry<String, List<String>> entry : m_arguments.entrySet())
       {
          finalArguments.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
       }
 
-      return new ArgumentsImpl(finalArguments, new ArrayList<String>(unparsed));
+      return new ArgumentsImpl(finalArguments, new ArrayList<String>(m_unparsed));
    }
 }

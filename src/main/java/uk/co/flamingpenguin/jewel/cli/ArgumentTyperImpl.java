@@ -43,7 +43,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
          }
          catch (final NumberFormatException e)
          {
-            validationErrorBuilder.invalidValueForType(optionSpecification, e.getMessage());
+            validationErrorBuilder.invalidValueForType(optionSpecification, unsupportedNumberFormatMessage(e));
          }
          catch (final NoSuchMethodException e)
          {
@@ -59,7 +59,15 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
          }
          catch (final InvocationTargetException e)
          {
-            validationErrorBuilder.invalidValueForType(optionSpecification, e.getMessage());
+            final Throwable cause = e.getCause();
+            if(cause instanceof NumberFormatException)
+            {
+               validationErrorBuilder.invalidValueForType(optionSpecification, unsupportedNumberFormatMessage((NumberFormatException) cause));
+            }
+            else
+            {
+               validationErrorBuilder.invalidValueForType(optionSpecification, cause.getMessage());
+            }
          }
          catch (final ValueFormatException e)
          {
@@ -128,7 +136,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
             }
             else
             {
-               throw new ValueFormatException(String.format("value is not a charecter (%s)", value));
+               throw new ValueFormatException(String.format("value is not a character (%s)", value));
             }
          }
          else
@@ -146,5 +154,10 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
       {
          return result.get(0);
       }
+   }
+
+   private String unsupportedNumberFormatMessage(final NumberFormatException e1)
+   {
+      return "Unsupported number format: " + e1.getMessage();
    }
 }

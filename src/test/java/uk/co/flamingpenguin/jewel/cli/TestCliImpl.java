@@ -43,6 +43,23 @@ public class TestCliImpl extends TestCase
       Integer getName();
    }
 
+   public interface IntOption
+   {
+      @Option
+      int getName();
+   }
+
+   public interface SingleOptionWithArgument
+   {
+      @Option
+      String getName(String argument);
+   }
+
+   public interface SingleOptionMissingAnnotation
+   {
+      String getName();
+   }
+
    public void testSingleOption() throws ArgumentValidationException
    {
        final SingleOption option = new CliImpl<SingleOption>(SingleOption.class).parseArguments(new String[]{"-name", "value"});
@@ -73,6 +90,22 @@ public class TestCliImpl extends TestCase
       {
          assertEquals(1, e.getValidationErrors().size());
          assertEquals(ErrorType.InvalidValueForType, e.getValidationErrors().get(0).getErrorType());
+         assertEquals("Unsupported number format: For input string: \"abc\"", e.getValidationErrors().get(0).getMessage());
+      }
+   }
+
+   public void testInvalidIntOption()
+   {
+      try
+      {
+       new CliImpl<IntOption>(IntOption.class).parseArguments(new String[]{"-name", "abc"});
+       fail();
+      }
+      catch(final ArgumentValidationException e)
+      {
+         assertEquals(1, e.getValidationErrors().size());
+         assertEquals(ErrorType.InvalidValueForType, e.getValidationErrors().get(0).getErrorType());
+         assertEquals("Unsupported number format: For input string: \"abc\"", e.getValidationErrors().get(0).getMessage());
       }
    }
 
@@ -122,6 +155,34 @@ public class TestCliImpl extends TestCase
          final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
          assertEquals(1, validationErrors.size());
          assertEquals(ErrorType.InvalidValueForType, validationErrors.get(0).getErrorType());
+      }
+   }
+
+   public void testMethodWithArguments() throws ArgumentValidationException
+   {
+      try
+      {
+         final SingleOptionWithArgument result = new CliImpl<SingleOptionWithArgument>(SingleOptionWithArgument.class).parseArguments(new String[]{"-name", "value"});
+         result.getName("fred");
+         fail();
+      }
+      catch (final UnsupportedOperationException e)
+      {
+         assertEquals("Method (public abstract java.lang.String uk.co.flamingpenguin.jewel.cli.TestCliImpl$SingleOptionWithArgument.getName(java.lang.String)) with arguments not supported for reading argument values", e.getMessage());
+      }
+   }
+
+   public void testMethodWithMissingAnnotation() throws ArgumentValidationException
+   {
+      try
+      {
+         final SingleOptionMissingAnnotation result = new CliImpl<SingleOptionMissingAnnotation>(SingleOptionMissingAnnotation.class).parseArguments(new String[]{});
+         result.getName();
+         fail();
+      }
+      catch (final UnsupportedOperationException e)
+      {
+         assertEquals("Method (public abstract java.lang.String uk.co.flamingpenguin.jewel.cli.TestCliImpl$SingleOptionMissingAnnotation.getName()) is not annotated for option specification", e.getMessage());
       }
    }
 }

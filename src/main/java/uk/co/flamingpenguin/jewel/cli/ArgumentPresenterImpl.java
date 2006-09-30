@@ -29,11 +29,11 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O>
                {
                   if(args != null && args.length != 0)
                   {
-                     throw new UnsupportedOperationException(String.format("Method <%s> with arguments not supported for reading argument values", method.toGenericString()));
+                     throw new UnsupportedOperationException(String.format("Method (%s) with arguments not supported for reading argument values", method.toGenericString()));
                   }
                   else if(!m_specification.isSpecified(method))
                   {
-                     throw new UnsupportedOperationException(String.format("Method <%s> is not annotated for option specification", method.toGenericString()));
+                     throw new UnsupportedOperationException(String.format("Method (%s) is not annotated for option specification", method.toGenericString()));
                   }
 
                   final OptionSpecification specification = m_specification.getSpecification(method);

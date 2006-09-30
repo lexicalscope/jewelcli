@@ -29,11 +29,11 @@ public class ArgumentValidationException extends JewelException
                return "Option must have a value";
             }
          },
-         MisplacedValue
+         MisplacedOption
          {
             public String getDescription(final ValidationError error)
             {
-               return String.format("Value mispaced (%s)", error.getMessage());
+               return String.format("Option misplaced (%s)", error.getMessage());
             }
          },
          UnexpectedValue
