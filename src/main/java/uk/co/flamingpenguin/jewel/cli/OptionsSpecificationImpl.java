@@ -27,25 +27,35 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    private final LinkedHashMap<String, OptionSpecificationImpl> m_optionsLongName = new LinkedHashMap<String, OptionSpecificationImpl>();
    private final LinkedHashMap<Method, OptionSpecificationImpl> m_optionsMethod = new LinkedHashMap<Method, OptionSpecificationImpl>();
    private final LinkedHashMap<Method, OptionSpecificationImpl> m_optionalOptionsMethod = new LinkedHashMap<Method, OptionSpecificationImpl>();
+   private UnparsedSpecificationImpl m_unparsed = null;
 
    public OptionsSpecificationImpl(final Class<O> klass)
    {
       final Method[] declaredMethods = klass.getDeclaredMethods();
       for (final Method method : declaredMethods)
       {
-         if(method.isAnnotationPresent(Option.class) && !Void.class.equals(method.getReturnType()))
+         if(!Void.class.equals(method.getReturnType()))
          {
-            final OptionSpecificationImpl optionSpecification = new OptionSpecificationImpl(method, klass);
-            if(optionSpecification.hasShortName())
+            if(method.isAnnotationPresent(Option.class))
             {
-               m_optionsShortName.put(optionSpecification.getShortName(), optionSpecification);
-            }
-            m_optionsLongName.put(optionSpecification.getLongName(), optionSpecification);
-            m_optionsMethod.put(method, optionSpecification);
+               final OptionSpecificationImpl optionSpecification = new OptionSpecificationImpl(method, klass);
 
-            if(optionSpecification.isOptional())
+               for (final String shortName : optionSpecification.getShortNames())
+               {
+                  m_optionsShortName.put(shortName, optionSpecification);
+               }
+
+               m_optionsLongName.put(optionSpecification.getLongName(), optionSpecification);
+               m_optionsMethod.put(method, optionSpecification);
+
+               if(optionSpecification.isOptional())
+               {
+                  m_optionalOptionsMethod.put(optionSpecification.getOptionalityMethod(), optionSpecification);
+               }
+            }
+            else if (method.isAnnotationPresent(Unparsed.class))
             {
-               m_optionalOptionsMethod.put(optionSpecification.getOptionalityMethod(), optionSpecification);
+               m_unparsed = new UnparsedSpecificationImpl(method, klass);
             }
          }
       }
@@ -117,7 +127,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
       final StringBuilder result = new StringBuilder();
 
       String separator = "";
-      for (final OptionSpecification specification : m_optionsLongName.values())
+      for (final ArgumentSpecification specification : m_optionsLongName.values())
       {
          result.append(separator).append("\t").append(specification);
          separator = System.getProperty("line.separator");
@@ -134,5 +144,15 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    public Iterator<OptionSpecification> iterator()
    {
       return new ArrayList<OptionSpecification>(m_optionsMethod.values()).iterator();
+   }
+
+   public ArgumentSpecification getUnparsedSpecification()
+   {
+      return m_unparsed;
+   }
+
+   public boolean hasUnparsedSpecification()
+   {
+      return m_unparsed != null;
    }
 }

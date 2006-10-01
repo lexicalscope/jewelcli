@@ -25,20 +25,6 @@ public interface Cli<O>
    O parseArguments(final String[] arguments) throws ArgumentValidationException;
 
    /**
-    * Parse the arguments and present them as an instance of the
-    * interface O
-    *
-    * @param arguments The arguments that will be parsed
-    *
-    * @return An instance of the interface O which will present
-    *         the parsed arguments, accompanied by any unpased arguments
-    *
-    * @throws InvalidArgumentsException
-    * @throws ArgumentValidationException
-    */
-   Arguments<O> parseAllArguments(final String[] arguments) throws ArgumentValidationException;
-
-   /**
     * Get a help message suitable for describing the options to the user
     *
     * @param programName The name of the program to use in the help message

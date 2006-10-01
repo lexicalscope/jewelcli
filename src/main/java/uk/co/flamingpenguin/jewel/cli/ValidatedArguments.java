@@ -4,5 +4,6 @@ import java.util.List;
 
 interface ValidatedArguments extends ArgumentCollection
 {
-   List<String> getValues(final String... options);
+   List<String> getValues(String... options);
+   List<String> getValues(List<String> options);
 }

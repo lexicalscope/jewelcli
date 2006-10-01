@@ -1,20 +1,14 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import java.lang.reflect.Method;
+import java.util.List;
 
-interface OptionSpecification
+interface OptionSpecification extends ArgumentSpecification
 {
-   Class<?> getType();
-
-   String getName();
-
-   String getShortName();
+   List<String> getShortNames();
 
    String getLongName();
 
    String getDescription();
-
-   boolean isMultiValued();
 
    boolean hasValue();
 
@@ -24,7 +18,7 @@ interface OptionSpecification
 
    StringBuilder getSummary(StringBuilder result);
 
-   Method getMethod();
-
    boolean patternMatches(String value);
+
+   List<String> getAllNames();
 }

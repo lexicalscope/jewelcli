@@ -1,43 +1,45 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 
-class OptionSpecificationImpl implements OptionSpecification
+class OptionSpecificationImpl extends ArgumentSpecificationImpl implements OptionSpecification
 {
    private static final Logger g_logger = Logger.getLogger(OptionSpecificationImpl.class.getName());
    private final String m_name;
-   private final String m_shortName;
+   private final List<String> m_allNames = new ArrayList<String>();
+   private final List<String> m_shortNames;
    private final String m_longName;
-   private final Class<?> m_type;
-   private final boolean m_multiValued;
    private final Method m_optionalityValue;
    private final String m_description;
-   private final Method m_method;
    private final String m_pattern;
 
    public OptionSpecificationImpl(final Method method, final Class<?> klass)
    {
-      final Class<?> returnType = method.getReturnType();
-
-      m_type = isList(returnType) ? getListType(method) : returnType;
-      m_multiValued = isList(returnType);
+      super(method);
 
       final Option optionAnnotation = method.getAnnotation(Option.class);
 
       m_name = extractOptionName(method.getName());
 
-      final String shortNameSpecification = optionAnnotation.shortName().trim();
-      m_shortName = shortNameSpecification.length() > 0 ? shortNameSpecification.substring(0, 1) : "";
+      final String[] shortNameSpecification = optionAnnotation.shortName();
+      m_shortNames = new ArrayList<String>();
+      for (int i = 0; i < shortNameSpecification.length; i++)
+      {
+         final String shortName = shortNameSpecification[i].trim();
+         if(shortName.length() > 0)
+         {
+            m_shortNames.add(shortNameSpecification[i].substring(0, 1));
+         }
+      }
+      m_allNames.addAll(m_shortNames);
 
       final String longNameSpecification = optionAnnotation.longName().trim();
       m_longName = nullOrBlank(longNameSpecification) ? m_name : longNameSpecification;
-
-      m_method = method;
+      m_allNames.add(m_longName);
 
       m_optionalityValue = getOptionalityMethod(m_name, klass);
 
@@ -46,7 +48,7 @@ class OptionSpecificationImpl implements OptionSpecification
       m_pattern = optionAnnotation.pattern();
 
       g_logger.finer(String.format("Create option specification name:%s, shortName:%s, type:%s (multiValued:%b, hasValue:%b, isOptional:%b)) ",
-                                  getName(), getShortName(), getType(), isMultiValued(), hasValue(), isOptional()));
+                                  getName(), getShortNames(), getType(), isMultiValued(), hasValue(), isOptional()));
    }
 
    private Method getOptionalityMethod(final String name, Class<?> klass)
@@ -74,14 +76,6 @@ class OptionSpecificationImpl implements OptionSpecification
    /**
     * @inheritdoc
     */
-   public Class<?> getType()
-   {
-      return m_type;
-   }
-
-   /**
-    * @inheritdoc
-    */
    public String getName()
    {
       return m_name;
@@ -90,9 +84,9 @@ class OptionSpecificationImpl implements OptionSpecification
    /**
     * @inheritdoc
     */
-   public String getShortName()
+   public List<String> getShortNames()
    {
-      return m_shortName;
+      return m_shortNames;
    }
 
    /**
@@ -101,14 +95,6 @@ class OptionSpecificationImpl implements OptionSpecification
    public String getLongName()
    {
       return m_longName;
-   }
-
-   /**
-    * @inheritdoc
-    */
-   public boolean isMultiValued()
-   {
-      return m_multiValued;
    }
 
    public boolean hasCustomPattern()
@@ -126,7 +112,7 @@ class OptionSpecificationImpl implements OptionSpecification
     */
    public boolean hasValue()
    {
-      return !isBoolean(m_type) ;
+      return !isBoolean(getType());
    }
 
    private boolean isBoolean(final Class<?> type)
@@ -139,7 +125,7 @@ class OptionSpecificationImpl implements OptionSpecification
     */
    public boolean hasShortName()
    {
-      return !nullOrBlank(m_shortName);
+      return m_shortNames.size() > 0;
    }
 
    private boolean nullOrBlank(final String string)
@@ -172,25 +158,6 @@ class OptionSpecificationImpl implements OptionSpecification
       return prefix + name.substring(0, 1).toUpperCase() + name.substring(1);
    }
 
-   private boolean isList(final Class<?> klass)
-   {
-      return klass.isAssignableFrom(List.class);
-   }
-
-   private Class<?> getListType(final Method method)
-   {
-      final Type genericReturnType = method.getGenericReturnType();
-      if(genericReturnType instanceof ParameterizedType)
-      {
-         return (Class<?>) ((ParameterizedType) genericReturnType).getActualTypeArguments()[0];
-      }
-      else
-      {
-         g_logger.finer("Found raw List type; assuming List<String>.");
-         return String.class;
-      }
-   }
-
    /**
     * @inheritdoc
     */
@@ -216,9 +183,9 @@ class OptionSpecificationImpl implements OptionSpecification
 
       result.append("--").append(getLongName());
 
-      if(hasShortName())
+      for (final String shortName : getShortNames())
       {
-         result.append(" -").append(getShortName());
+         result.append(" -").append(shortName);
       }
 
       if(hasValue())
@@ -260,8 +227,8 @@ class OptionSpecificationImpl implements OptionSpecification
       return result.toString();
    }
 
-   public Method getMethod()
+   public List<String> getAllNames()
    {
-      return m_method;
+      return m_allNames;
    }
 }

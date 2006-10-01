@@ -238,9 +238,9 @@ public class TestOptionSpecificationImpl extends TestCase
     */
    public void testGetShortName() throws SecurityException, NoSuchMethodException
    {
-      assertEquals("", createOption(ShortName.class, "getName0").getShortName());
-      assertEquals("n", createOption(ShortName.class, "getName1").getShortName());
-      assertEquals("e", createOption(ShortName.class, "getName2").getShortName());
+      assertEquals(0, createOption(ShortName.class, "getName0").getShortNames().size());
+      assertEquals("n", createOption(ShortName.class, "getName1").getShortNames().get(0));
+      assertEquals("e", createOption(ShortName.class, "getName2").getShortNames().get(0));
    }
 
    /*

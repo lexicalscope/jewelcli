@@ -14,9 +14,6 @@
 
 package uk.co.flamingpenguin.jewel.cli;
 
-import java.util.List;
-
-
 class CliImpl<O> implements Cli<O>
 {
    private final OptionsSpecification<O> m_specification;
@@ -36,24 +33,6 @@ class CliImpl<O> implements Cli<O>
       final ValidatedArguments validatedArguments = new ArgumentValidatorImpl<O>(m_specification).validateArguments(new ArgumentParserImpl(arguments).parseArguments());
       final TypedArguments typedArguments = new ArgumentTyperImpl<O>(m_specification).typeArguments(validatedArguments);
       return new ArgumentPresenterImpl<O>(m_klass, m_specification).presentArguments(typedArguments);
-   }
-
-   public Arguments<O> parseAllArguments(String[] arguments) throws ArgumentValidationException
-   {
-      final ValidatedArguments validatedArguments = new ArgumentValidatorImpl<O>(m_specification).validateArguments(new ArgumentParserImpl(arguments).parseArguments());
-      final TypedArguments typedArguments = new ArgumentTyperImpl<O>(m_specification).typeArguments(validatedArguments);
-      final O presentedArguments = new ArgumentPresenterImpl<O>(m_klass, m_specification).presentArguments(typedArguments);
-      return new Arguments<O>(){
-
-         public O parsedArguments()
-         {
-            return presentedArguments;
-         }
-
-         public List<String> unparsedArguments()
-         {
-            return validatedArguments.getUnparsed();
-         }};
    }
 
    /**

@@ -83,7 +83,7 @@ class ParsedArgumentsBuilder
              return option;
           }
 
-          public OptionSpecification getSpecification()
+          public ArgumentSpecification getSpecification()
           {
              return null;
           }});

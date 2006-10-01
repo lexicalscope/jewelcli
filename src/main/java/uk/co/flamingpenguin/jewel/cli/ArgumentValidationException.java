@@ -83,7 +83,7 @@ public class ArgumentValidationException extends JewelException
          public abstract String getDescription(ValidationError error);
       }
 
-      OptionSpecification getSpecification();
+      ArgumentSpecification getSpecification();
       String getMessage();
       ErrorType getErrorType();
    }
@@ -91,15 +91,15 @@ public class ArgumentValidationException extends JewelException
    private static class ValidationErrorImpl implements ValidationError
    {
       private final ErrorType m_errorType;
-      private final OptionSpecification m_specification;
+      private final ArgumentSpecification m_specification;
       private final String m_message;
 
-      public ValidationErrorImpl(final ErrorType errorType, final OptionSpecification specification)
+      public ValidationErrorImpl(final ErrorType errorType, final ArgumentSpecification specification)
       {
          this(errorType, specification, "");
       }
 
-      public ValidationErrorImpl(final ErrorType errorType, final OptionSpecification specification, final String message)
+      public ValidationErrorImpl(final ErrorType errorType, final ArgumentSpecification specification, final String message)
       {
          m_errorType = errorType;
          m_specification = specification;
@@ -111,7 +111,7 @@ public class ArgumentValidationException extends JewelException
          return m_errorType;
       }
 
-      public OptionSpecification getSpecification()
+      public ArgumentSpecification getSpecification()
       {
          return m_specification;
       }
@@ -167,37 +167,37 @@ public class ArgumentValidationException extends JewelException
       return new ValidationErrorImpl(ErrorType.UnexpectedOption, new UnexpectedOptionSpecification(name));
    }
 
-   public static ValidationError createAdditionalValuesError(final OptionSpecification optionSpecification)
+   public static ValidationError createAdditionalValuesError(final ArgumentSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.AdditionalValue, optionSpecification);
    }
 
-   public static ValidationError createMissingValueError(final OptionSpecification optionSpecification)
+   public static ValidationError createMissingValueError(final ArgumentSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.MissingValue, optionSpecification);
    }
 
-   public static ValidationError createUnexpectedValueError(final OptionSpecification optionSpecification)
+   public static ValidationError createUnexpectedValueError(final ArgumentSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.UnexpectedValue, optionSpecification);
    }
 
-   public static ValidationError createMissingOptionError(OptionSpecification optionSpecification)
+   public static ValidationError createMissingOptionError(ArgumentSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.MissingOption, optionSpecification);
    }
 
-   public static ValidationError createInvalidValueForType(final OptionSpecification optionSpecification, final String message)
+   public static ValidationError createInvalidValueForType(final ArgumentSpecification optionSpecification, final String message)
    {
       return new ValidationErrorImpl(ErrorType.InvalidValueForType, optionSpecification, message);
    }
 
-   public static ValidationError createUnableToConstructType(final OptionSpecification optionSpecification, final String message)
+   public static ValidationError createUnableToConstructType(final ArgumentSpecification optionSpecification, final String message)
    {
       return new ValidationErrorImpl(ErrorType.UnableToConstructType, optionSpecification, message);
    }
 
-   public static ValidationError createPatternMismatch(final OptionSpecification optionSpecification, final String message)
+   public static ValidationError createPatternMismatch(final ArgumentSpecification optionSpecification, final String message)
    {
       return new ValidationErrorImpl(ErrorType.PatternMismatch, optionSpecification, message);
    }

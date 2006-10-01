@@ -4,19 +4,19 @@ interface ValidationErrorBuilder
 {
    void unexpectedOption(String name);
 
-   void unexpectedValue(OptionSpecification optionSpecification);
+   void unexpectedValue(ArgumentSpecification optionSpecification);
 
-   void missingValue(OptionSpecification optionSpecification);
+   void missingValue(ArgumentSpecification optionSpecification);
 
-   void unexpectedAdditionalValues(OptionSpecification optionSpecification);
+   void unexpectedAdditionalValues(ArgumentSpecification optionSpecification);
 
-   void missingOption(OptionSpecification optionSpecification);
+   void missingOption(ArgumentSpecification optionSpecification);
 
-   void unableToConstructType(OptionSpecification optionSpecification, String message);
+   void unableToConstructType(ArgumentSpecification optionSpecification, String message);
 
-   void invalidValueForType(OptionSpecification optionSpecification, String message);
+   void invalidValueForType(ArgumentSpecification optionSpecification, String message);
 
-   void patternMismatch(OptionSpecification optionSpecification, String value);
+   void patternMismatch(ArgumentSpecification optionSpecification, String value);
 
    void validate() throws ArgumentValidationException;
 }

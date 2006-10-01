@@ -6,13 +6,17 @@ import java.util.List;
 import junit.framework.TestCase;
 import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError;
 import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
+import uk.co.flamingpenguin.jewel.cli.examples.RmExample;
 
 public class TestArgumentValidatorImpl extends TestCase
 {
    public interface NoValue
    {
       @Option
-      boolean getName();
+      boolean getName0();
+
+      @Option
+      boolean getName1();
    }
 
    public interface SingleValue
@@ -81,6 +85,12 @@ public class TestArgumentValidatorImpl extends TestCase
       assertEquals(1, validated.getValues("name1").size());
    }
 
+   public void testAdjacentShortOptions() throws ArgumentValidationException
+   {
+      final ValidatedArguments validated = validate(new String[]{"-vrf", "./"}, RmExample.class);
+      assertEquals(1, validated.getUnparsed().size());
+   }
+
    public void testSingleValue() throws ArgumentValidationException
    {
       validate(new String[]{"--name", "a"}, MultipleValue.class);
@@ -120,7 +130,7 @@ public class TestArgumentValidatorImpl extends TestCase
    {
       try
       {
-         validate(new String[]{"--name", "value"}, NoValue.class);
+         validate(new String[]{"--name1", "value", "--name0"}, NoValue.class);
          fail();
       }
       catch (final ArgumentValidationException e)

@@ -14,8 +14,10 @@
 
 package uk.co.flamingpenguin.jewel.cli;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Tags a method as an option
@@ -23,6 +25,7 @@ import java.lang.annotation.RetentionPolicy;
  * @author Tim Wood
  */
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
 public @interface Option
 {
    /**
@@ -37,7 +40,7 @@ public @interface Option
     *
     * @return The short name of this option
     */
-   String shortName() default "";
+   String[] shortName() default "";
 
    /**
     * The regexp that the values of this option must match

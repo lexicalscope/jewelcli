@@ -46,7 +46,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
    {
       for(final OptionSpecification optionSpecification : m_specification.getManditoryOptions())
       {
-         if(!arguments.contains(optionSpecification.getShortName(), optionSpecification.getLongName()))
+         if(!(arguments.containsAny(optionSpecification.getAllNames())))
          {
             m_validationErrorBuilder.missingOption(optionSpecification);
          }
@@ -71,7 +71,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
             {
                m_validationErrorBuilder.missingValue(optionSpecification);
             }
-            else if(entry.getValue().size() > 0 && !optionSpecification.hasValue())
+            else if(!isLast && entry.getValue().size() > 0 && !optionSpecification.hasValue())
             {
                m_validationErrorBuilder.unexpectedValue(optionSpecification);
             }
@@ -80,13 +80,21 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
                m_validationErrorBuilder.unexpectedAdditionalValues(optionSpecification);
             }
 
-            if(isLast && !optionSpecification.isMultiValued() && entry.getValue().size() > 1)
+            if(isLast && hasExcessValues(entry, optionSpecification))
             {
-               final ArrayList<String> values = new ArrayList<String>();
-               values.add(entry.getValue().get(0));
-               m_validatedArguments.put(entry.getKey(), values);
+               final List<String> values = new ArrayList<String>();
+               final List<String> unparsed;
+               if(optionSpecification.hasValue())
+               {
+                  values.add(entry.getValue().get(0));
+                  unparsed = new ArrayList<String>(entry.getValue().subList(1, entry.getValue().size()));
+               }
+               else
+               {
+                  unparsed = entry.getValue();
+               }
 
-               final ArrayList<String> unparsed = new ArrayList<String>(entry.getValue().subList(1, entry.getValue().size()));
+               m_validatedArguments.put(entry.getKey(), values);
                m_validatedUnparsedArguments.addAll(0, unparsed);
             }
             else
@@ -99,6 +107,12 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
       m_validationErrorBuilder.validate();
 
       return new ArgumentsImpl(m_validatedArguments, m_validatedUnparsedArguments);
+   }
+
+   private boolean hasExcessValues(final Entry<String, List<String>> entry, final OptionSpecification optionSpecification)
+   {
+      return (!optionSpecification.isMultiValued()
+                && (entry.getValue().size() > 1 || (entry.getValue().size() > 0 && !optionSpecification.hasValue())));
    }
 
    private void checkAndAddValues(final OptionSpecification optionSpecification, final String option, final ArrayList<String> values)
