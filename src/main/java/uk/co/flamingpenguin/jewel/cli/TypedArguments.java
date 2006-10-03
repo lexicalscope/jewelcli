@@ -2,7 +2,9 @@ package uk.co.flamingpenguin.jewel.cli;
 
 interface TypedArguments
 {
-   Object getValue(OptionSpecification specification);
+   Object getValue(ArgumentSpecification specification);
 
-   boolean contains(OptionSpecification specification);
+   boolean contains(ArgumentSpecification specification);
+
+   Object getUnparsedValue();
 }

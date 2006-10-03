@@ -29,28 +29,32 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O>
                {
                   if(args != null && args.length != 0)
                   {
-                     throw new UnsupportedOperationException(String.format("Method <%s> with arguments not supported for reading argument values", method.toGenericString()));
+                     throw new UnsupportedOperationException(String.format("Method (%s) with arguments not supported for reading argument values", method.toGenericString()));
+                  }
+                  else if(method.isAnnotationPresent(Unparsed.class))
+                  {
+                     return arguments.getUnparsedValue();
                   }
                   else if(!m_specification.isSpecified(method))
                   {
-                     throw new UnsupportedOperationException(String.format("Method <%s> is not annotated for option specification", method.toGenericString()));
+                     throw new UnsupportedOperationException(String.format("Method (%s) is not annotated for option specification", method.toGenericString()));
                   }
 
                   final OptionSpecification specification = m_specification.getSpecification(method);
 
-                  if(m_specification.isExistenceChecker(method))
+                  if(m_specification.isExistenceChecker(method) || !specification.hasValue())
                   {
                      return optionPresent(arguments, specification);
                   }
                   return getValue(arguments, method, specification);
                }
 
-               private Object optionPresent(final TypedArguments arguments, final OptionSpecification specification)
+               private Object optionPresent(final TypedArguments arguments, final ArgumentSpecification specification)
                {
                   return arguments.contains(specification);
                }
 
-               private Object getValue(final TypedArguments arguments, final Method method, final OptionSpecification specification) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
+               private Object getValue(final TypedArguments arguments, final Method method, final ArgumentSpecification specification) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
                {
                   return arguments.getValue(specification);
                }});

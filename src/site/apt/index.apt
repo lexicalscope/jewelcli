@@ -22,3 +22,6 @@ present command line arguments.
 
     Options defined as an enum type are automatically converted.
 
+  * Regular Expression argument validation
+
+    A regular expression can be specifed for each option, which the option's values must match.

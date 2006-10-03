@@ -14,7 +14,6 @@
 
 package uk.co.flamingpenguin.jewel.cli;
 
-
 class CliImpl<O> implements Cli<O>
 {
    private final OptionsSpecification<O> m_specification;
@@ -34,5 +33,13 @@ class CliImpl<O> implements Cli<O>
       final ValidatedArguments validatedArguments = new ArgumentValidatorImpl<O>(m_specification).validateArguments(new ArgumentParserImpl(arguments).parseArguments());
       final TypedArguments typedArguments = new ArgumentTyperImpl<O>(m_specification).typeArguments(validatedArguments);
       return new ArgumentPresenterImpl<O>(m_klass, m_specification).presentArguments(typedArguments);
+   }
+
+   /**
+    * @inheritdoc
+    */
+   public String getHelpMessage()
+   {
+      return m_specification.toString();
    }
 }

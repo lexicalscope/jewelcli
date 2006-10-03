@@ -24,4 +24,12 @@ public interface Cli<O>
     */
    O parseArguments(final String[] arguments) throws ArgumentValidationException;
 
+   /**
+    * Get a help message suitable for describing the options to the user
+    *
+    * @param programName The name of the program to use in the help message
+    *
+    * @return A help message
+    */
+   String getHelpMessage();
 }

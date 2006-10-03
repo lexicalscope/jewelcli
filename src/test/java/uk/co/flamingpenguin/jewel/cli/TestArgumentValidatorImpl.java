@@ -6,9 +6,19 @@ import java.util.List;
 import junit.framework.TestCase;
 import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError;
 import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
+import uk.co.flamingpenguin.jewel.cli.examples.RmExample;
 
 public class TestArgumentValidatorImpl extends TestCase
 {
+   public interface NoValue
+   {
+      @Option
+      boolean getName0();
+
+      @Option
+      boolean getName1();
+   }
+
    public interface SingleValue
    {
       @Option
@@ -44,7 +54,7 @@ public class TestArgumentValidatorImpl extends TestCase
    {
       try
       {
-         validate(new String[]{"-name1", "value"}, OptionalOption.class);
+         validate(new String[]{"--name1", "value"}, OptionalOption.class);
          fail();
       }
       catch (final ArgumentValidationException e)
@@ -57,26 +67,40 @@ public class TestArgumentValidatorImpl extends TestCase
 
    public void testMultipleValue() throws ArgumentValidationException
    {
-      validate(new String[]{"-name", "a", "b"}, MultipleValue.class);
+      validate(new String[]{"--name", "a", "b"}, MultipleValue.class);
    }
 
    public void testMultipleValueEndOfArguments() throws ArgumentValidationException
    {
-      final ValidatedArguments validated = validate(new String[]{"-name", "a", "b", "--", "c", "d"}, MultipleValue.class);
+      final ValidatedArguments validated = validate(new String[]{"--name", "a", "b", "--", "c", "d"}, MultipleValue.class);
       assertEquals(2, validated.getUnparsed().size());
       assertEquals(2, validated.getValues("name").size());
    }
 
+   public void testMultipleValueNotEndOfArguments() throws ArgumentValidationException
+   {
+      final ValidatedArguments validated = validate(new String[]{"--name0", "a", "b", "--name1", "c", "d", "e", "--", "f", "g"}, ExtraValue.class);
+      assertEquals(4, validated.getUnparsed().size());
+      assertEquals(2, validated.getValues("name0").size());
+      assertEquals(1, validated.getValues("name1").size());
+   }
+
+   public void testAdjacentShortOptions() throws ArgumentValidationException
+   {
+      final ValidatedArguments validated = validate(new String[]{"-vrf", "./"}, RmExample.class);
+      assertEquals(1, validated.getUnparsed().size());
+   }
+
    public void testSingleValue() throws ArgumentValidationException
    {
-      validate(new String[]{"-name", "a"}, MultipleValue.class);
+      validate(new String[]{"--name", "a"}, MultipleValue.class);
    }
 
    public void testExtraOption() throws ArgumentValidationException
    {
       try
       {
-         validate(new String[]{"-name1", "value", "wrong", "-name0"}, ExtraValue.class);
+         validate(new String[]{"--name1", "value", "wrong", "--name0"}, ExtraValue.class);
          fail();
       }
       catch (final ArgumentValidationException e)
@@ -91,7 +115,7 @@ public class TestArgumentValidatorImpl extends TestCase
    {
       try
       {
-         validate(new String[]{"-name"}, SingleValue.class);
+         validate(new String[]{"--name"}, SingleValue.class);
          fail();
       }
       catch (final ArgumentValidationException e)
@@ -102,24 +126,24 @@ public class TestArgumentValidatorImpl extends TestCase
       }
    }
 
-   public void testExtraValue()
+   public void testUnexpectedValue()
    {
       try
       {
-         validate(new String[]{"-name"}, SingleValue.class);
+         validate(new String[]{"--name1", "value", "--name0"}, NoValue.class);
          fail();
       }
       catch (final ArgumentValidationException e)
       {
          final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
          assertEquals(1, validationErrors.size());
-         assertEquals(ErrorType.MissingValue, validationErrors.get(0).getErrorType());
+         assertEquals(ErrorType.UnexpectedValue, validationErrors.get(0).getErrorType());
       }
    }
 
    public void testMissingMultipleValue() throws ArgumentValidationException
    {
-      validate(new String[]{"-name"}, MultipleValue.class);
+      validate(new String[]{"--name"}, MultipleValue.class);
       // TODO[tim]:support minimum/maximum value list lengths
    }
 

@@ -8,7 +8,7 @@ public class TestOptionalOption extends TestCase
 {
    public void testOptionalOption() throws ArgumentValidationException
    {
-      final OptionalOption result0 = CliFactory.parseArguments(OptionalOption.class, new String[]{"-count", "3"});
+      final OptionalOption result0 = CliFactory.parseArguments(OptionalOption.class, new String[]{"--count", "3"});
       assertEquals(true, result0.isCount());
       assertEquals(3, result0.getCount());
 

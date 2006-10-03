@@ -18,13 +18,15 @@ public class TestParsedArgumentsBuilder extends TestCase
    {
       try
       {
-         new ParsedArgumentsBuilder().add("a");
-         fail("rouge value should have been detected");
+         final ParsedArgumentsBuilder parsedArgumentsBuilder = new ParsedArgumentsBuilder();
+         parsedArgumentsBuilder.add("a");
+         parsedArgumentsBuilder.add("-b");
+         fail("rouge option should have been detected");
       }
       catch(final ArgumentValidationException e)
       {
          assertEquals(1, e.getValidationErrors().size());
-         assertEquals(ErrorType.MisplacedValue, e.getValidationErrors().get(0).getErrorType());
+         assertEquals(ErrorType.MisplacedOption, e.getValidationErrors().get(0).getErrorType());
       }
 
       new ParsedArgumentsBuilder().add("-a");
@@ -62,7 +64,19 @@ public class TestParsedArgumentsBuilder extends TestCase
    public void testGetUnparsed()
    {
       final ParsedArgumentsBuilder parsedArguments = new ParsedArgumentsBuilder();
-      assertTrue(parsedArguments.getParsedArguments().getUnparsed().size() == 0);
+      assertEquals(0, parsedArguments.getParsedArguments().getUnparsed().size());
+   }
+
+   /*
+    * Test method for 'uk.co.flamingpenguin.jewel.cli.ParsedArgumentsImpl.getUnparsed()'
+    */
+   public void testNoOptions() throws ArgumentValidationException
+   {
+      final ParsedArgumentsBuilder parsedArgumentsBuilder = new ParsedArgumentsBuilder();
+      parsedArgumentsBuilder.add("v0");
+      parsedArgumentsBuilder.add("v1");
+      parsedArgumentsBuilder.add("v2");
+      assertEquals(3, parsedArgumentsBuilder.getParsedArguments().getUnparsed().size());
    }
 
    /*
