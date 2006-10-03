@@ -47,3 +47,11 @@ Examples
   * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/PrimitiveExample.html} Example Interface}}
 
   * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestPrimitiveExample.html} Example Test Case}}
+
+* rm example
+
+  An example definition of the unix "rm" tool's interface
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/RmExample.html} Example Interface}}
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestRmExample.html} Example Test Case}}

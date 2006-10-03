@@ -16,18 +16,21 @@ package uk.co.flamingpenguin.jewel.cli;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
 {
-   private final LinkedHashMap<String, OptionSpecificationImpl> m_optionsShortName = new LinkedHashMap<String, OptionSpecificationImpl>();
-   private final LinkedHashMap<String, OptionSpecificationImpl> m_optionsLongName = new LinkedHashMap<String, OptionSpecificationImpl>();
-   private final LinkedHashMap<Method, OptionSpecificationImpl> m_optionsMethod = new LinkedHashMap<Method, OptionSpecificationImpl>();
-   private final LinkedHashMap<Method, OptionSpecificationImpl> m_optionalOptionsMethod = new LinkedHashMap<Method, OptionSpecificationImpl>();
+   private final Map<String, OptionSpecificationImpl> m_optionsShortName = new HashMap<String, OptionSpecificationImpl>();
+   private final Map<String, OptionSpecificationImpl> m_optionsLongName = new TreeMap<String, OptionSpecificationImpl>();
+   private final Map<Method, OptionSpecificationImpl> m_optionsMethod = new HashMap<Method, OptionSpecificationImpl>();
+   private final Map<Method, OptionSpecificationImpl> m_optionalOptionsMethod = new HashMap<Method, OptionSpecificationImpl>();
    private UnparsedSpecificationImpl m_unparsed = null;
+   private CliSpecificationImpl m_cliSpecification = null;
 
    public OptionsSpecificationImpl(final Class<O> klass)
    {
@@ -59,6 +62,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
             }
          }
       }
+      m_cliSpecification = new CliSpecificationImpl(klass.getAnnotation(CommandLineInterface.class), m_unparsed, !getManditoryOptions().isEmpty());
    }
 
    /**
@@ -124,13 +128,15 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    @Override
    public String toString()
    {
+      final String lineSeparator = System.getProperty("line.separator");
       final StringBuilder result = new StringBuilder();
+      result.append(m_cliSpecification).append(lineSeparator);
 
       String separator = "";
       for (final ArgumentSpecification specification : m_optionsLongName.values())
       {
          result.append(separator).append("\t").append(specification);
-         separator = System.getProperty("line.separator");
+         separator = lineSeparator;
       }
 
       return result.toString();

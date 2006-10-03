@@ -10,7 +10,7 @@ import uk.co.flamingpenguin.jewel.cli.Unparsed;
 @CommandLineInterface(application="rm")
 public interface RmExample
 {
-   @Option(shortName="d", longName="directory", description="unlink  FILE, even if it is a non-empty directory (super-user only)")
+   @Option(shortName="d", longName="directory", description="unlink FILE, even if it is a non-empty directory (super-user only)")
    boolean isRemoveNonEmptyDirectory();
 
    @Option(shortName="f", description="ignore nonexistent files, never prompt")

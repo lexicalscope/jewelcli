@@ -7,7 +7,7 @@ package uk.co.flamingpenguin.jewel.cli;
  *
  * @author Tim Wood
  */
-public class CliFactory
+public abstract class CliFactory
 {
    /**
     * Construct a Cli from an annotated interface definition

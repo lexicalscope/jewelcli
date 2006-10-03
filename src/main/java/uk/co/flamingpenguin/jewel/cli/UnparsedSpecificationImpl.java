@@ -4,17 +4,17 @@ import java.lang.reflect.Method;
 
 class UnparsedSpecificationImpl extends ArgumentSpecificationImpl implements ArgumentSpecification
 {
-   private final String m_name;
+   private final String m_longName;
 
    public UnparsedSpecificationImpl(final Method method, final Class<?> klass)
    {
-      super(method);
+      super(method, klass);
       final Unparsed annotation = method.getAnnotation(Unparsed.class);
-      m_name = annotation.name();
+      m_longName = annotation.name();
    }
 
-   public final String getName()
+   public final String getLongName()
    {
-      return m_name;
+      return m_longName;
    }
 }
