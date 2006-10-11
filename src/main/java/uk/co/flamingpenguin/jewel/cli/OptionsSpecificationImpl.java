@@ -34,8 +34,8 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
 
    public OptionsSpecificationImpl(final Class<O> klass)
    {
-      final Method[] declaredMethods = klass.getDeclaredMethods();
-      for (final Method method : declaredMethods)
+      final Method[] methods = klass.getMethods();
+      for (final Method method : methods)
       {
          if(!Void.class.equals(method.getReturnType()))
          {

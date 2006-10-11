@@ -12,7 +12,7 @@ Introduction
 
 Definition Stage
 
-  JewelCli uses an annotated Java interface definition to descrine the Comman Line Interface in a
+  JewelCli uses an annotated Java interface definition to describe the Command Line Interface in a
   declarative style. The main annotation is the
   {{{apidocs/uk/co/flamingpenguin/jewel/cli/Option.html} Option Annotation}}
 
@@ -81,7 +81,7 @@ public interface MyExample
 
 ** boolean
 
-  A boolean return makes the option behave as a flag: and option that takes no arguments and is only
+  A boolean return makes the option behave as a flag: an option that takes no arguments and is only
   optionally specified.
 
 ** other primitive
@@ -113,7 +113,7 @@ public interface MyExample
 * Optional Options
 
   So far, the only way to produce an optional option with JewelCli has been to define it as a flag
-  by using a boolean return type. Some optional options need to take arguments so another facility
+  by using a boolean return type. Some optional options need to take, arguments so another facility
   is provided. To make an option optional, define a bean style "is" method with the same suffix as
   the getter for the option:
 
@@ -131,7 +131,7 @@ public interface MyExample
 
   In some applications, the last arguments on the command line are not arguments to any option, but are
   arguments to the central function of the program itself. The
-  {{{apidocs/uk/co/flamingpenguin/jewel/cli/Option.html} Option Annotation}} annotation is used to mark
+  {{{apidocs/uk/co/flamingpenguin/jewel/cli/Unparsed.html} Unparsed Annotation}} annotation is used to mark
   a method as the accessor for these unparsed options.
 
   The <Unparsed> method may use any of the return types that normal <Option> methods may, with the
@@ -158,6 +158,28 @@ public interface MyExample
   boolean isFiles();
 }
 +------------------------------------------+
+
+* Option Inheritance
+
+   Interface inheritance is supported. Options defined in a super interface will work in the same way
+   as options defined directly in the interface.
+
++------------------------------------------+
+public interface MySuperExample
+{
+  @Option
+  String getMySuperOption();
+}
+
+public interface MySubExample extends MySuperExample
+{
+  @Option
+  String getMySubOption();
+}
++------------------------------------------+
+
+   <MySubExample> will produce a Command Line with a two options <--mySuperOption> and <--mySubOption>
+
 
 Parsing Stage
 
