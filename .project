@@ -1,6 +1,6 @@
 <projectDescription>
   <name>jewelcli</name>
-  <comment/>
+  <comment>JewelCli uses an annotated interface definition to automatically parse and present command line arguments</comment>
   <projects/>
   <buildSpec>
     <buildCommand>

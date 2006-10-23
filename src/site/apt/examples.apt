@@ -40,6 +40,14 @@ Examples
 
   * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestPatternExample.html} Example Test Case}}
 
+* Default Values
+
+  Options can have default values
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/DefaultExample.html} Example Interface}}
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestDefaultExample.html} Example Test Case}}
+
 * Primitive Types
 
   All primitive types, and there Object equivilents are supported

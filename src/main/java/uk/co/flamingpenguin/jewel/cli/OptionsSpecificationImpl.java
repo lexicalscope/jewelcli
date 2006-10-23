@@ -116,7 +116,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
       final ArrayList<OptionSpecification> result = new ArrayList<OptionSpecification>();
       for (OptionSpecificationImpl specification : m_optionsLongName.values())
       {
-         if(!specification.isOptional())
+         if(!specification.isOptional() && !specification.hasDefaultValue())
          {
             result.add(specification);
          }

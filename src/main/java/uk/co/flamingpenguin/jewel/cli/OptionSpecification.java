@@ -21,4 +21,8 @@ interface OptionSpecification extends ArgumentSpecification
    boolean patternMatches(String value);
 
    List<String> getAllNames();
+   
+   boolean hasDefaultValue();
+   
+   List<String> getDefaultValue();
 }

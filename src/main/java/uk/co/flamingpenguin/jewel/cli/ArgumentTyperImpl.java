@@ -43,7 +43,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
 
       for(final OptionSpecification optionSpecification : m_specification)
       {
-         if(validatedArguments.containsAny(optionSpecification.getAllNames()))
+         if(validatedArguments.containsAny(optionSpecification.getAllNames()) || optionSpecification.hasDefaultValue())
          {
             final Object value;
             if(optionSpecification.hasValue())
@@ -62,7 +62,8 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
 
    private Object getValue(final ValidatedArguments arguments, final Method method, final OptionSpecification specification)
    {
-      return getValue(method, arguments.getValues(specification.getAllNames()), specification);
+	  final List<String> values = arguments.containsAny(specification.getAllNames()) ? arguments.getValues(specification.getAllNames()) : specification.getDefaultValue();
+      return getValue(method, values, specification);
    }
 
    @SuppressWarnings("unchecked")

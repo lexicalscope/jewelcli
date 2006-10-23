@@ -18,6 +18,6 @@ public class TestInheritedOptions extends TestCase
 
    public void testSubInterface() throws ArgumentValidationException
    {
-      final SubInterface result0 = CliFactory.parseArguments(SubInterface.class, new String[]{"--superOption", "--superOption"});
+      CliFactory.parseArguments(SubInterface.class, new String[]{"--superOption", "--superOption"});
    }
 }

@@ -2,6 +2,7 @@ package uk.co.flamingpenguin.jewel.cli;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ class OptionSpecificationImpl extends ArgumentSpecificationImpl implements Optio
    private final String m_longName;
    private final String m_description;
    private final String m_pattern;
+   private final List<String> m_default;
 
    public OptionSpecificationImpl(final Method method, final Class<?> klass)
    {
@@ -40,9 +42,10 @@ class OptionSpecificationImpl extends ArgumentSpecificationImpl implements Optio
       m_description = optionAnnotation.description().trim();
 
       m_pattern = optionAnnotation.pattern();
+      m_default = Arrays.asList(optionAnnotation.defaultValue());
 
-      g_logger.finer(String.format("Create option specification name:%s, shortName:%s, type:%s (multiValued:%b, hasValue:%b, isOptional:%b)) ",
-                                  getName(), getShortNames(), getType(), isMultiValued(), hasValue(), isOptional()));
+      g_logger.finer(String.format("Create option specification name:%s, shortName:%s, type:%s (multiValued:%b, hasValue:%b, isOptional:%b, defaultValue:%s)) ",
+                                  getName(), getShortNames(), getType(), isMultiValued(), hasValue(), isOptional(), getDefaultValue()));
    }
 
    /**
@@ -151,5 +154,15 @@ class OptionSpecificationImpl extends ArgumentSpecificationImpl implements Optio
    public List<String> getAllNames()
    {
       return m_allNames;
+   }
+
+   public List<String> getDefaultValue()
+   {
+		return m_default;
+   }
+
+   public boolean hasDefaultValue()
+   {
+	   return m_default.size() > 0;
    }
 }

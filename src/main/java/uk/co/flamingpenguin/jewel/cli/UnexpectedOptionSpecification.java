@@ -86,4 +86,14 @@ class UnexpectedOptionSpecification implements OptionSpecification
    {
       return false;
    }
+
+   public List<String> getDefaultValue()
+   {
+      return Collections.emptyList();
+   }
+
+   public boolean hasDefaultValue()
+   {
+      return false;
+   }
 }

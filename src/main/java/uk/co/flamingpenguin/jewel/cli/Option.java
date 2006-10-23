@@ -55,4 +55,11 @@ public @interface Option
     * @return A description of this option
     */
    String description() default "";
+
+   /**
+    * The default value if none is specified
+    * 
+    * @return The value to present if none is specified
+    */
+   String[] defaultValue() default {};
 }

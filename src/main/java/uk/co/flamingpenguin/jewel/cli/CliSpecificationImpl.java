@@ -1,14 +1,11 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
-
 class CliSpecificationImpl
 {
    private final String m_message;
 
    public CliSpecificationImpl(final CommandLineInterface cliSpecification, final UnparsedSpecificationImpl unparsedSpecification, final boolean manditoryOptions)
    {
-      final String lineSeparator = System.getProperty("line.separator");
       if(cliSpecification == null && unparsedSpecification == null)
       {
          m_message = "The options available are:";
