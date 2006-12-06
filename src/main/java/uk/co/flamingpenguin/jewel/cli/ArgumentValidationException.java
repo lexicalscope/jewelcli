@@ -54,7 +54,7 @@ public class ArgumentValidationException extends JewelException
          {
             public String getDescription(final ValidationError error)
             {
-               return "Option is manditory";
+               return "Option is mandatory";
             }
          },
          InvalidValueForType

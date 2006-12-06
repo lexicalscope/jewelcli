@@ -62,7 +62,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
             }
          }
       }
-      m_cliSpecification = new CliSpecificationImpl(klass.getAnnotation(CommandLineInterface.class), m_unparsed, !getManditoryOptions().isEmpty());
+      m_cliSpecification = new CliSpecificationImpl(klass.getAnnotation(CommandLineInterface.class), m_unparsed, !getMandatoryOptions().isEmpty());
    }
 
    /**
@@ -111,7 +111,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    /**
     * @inheritdoc
     */
-   public List<OptionSpecification> getManditoryOptions()
+   public List<OptionSpecification> getMandatoryOptions()
    {
       final ArrayList<OptionSpecification> result = new ArrayList<OptionSpecification>();
       for (OptionSpecificationImpl specification : m_optionsLongName.values())

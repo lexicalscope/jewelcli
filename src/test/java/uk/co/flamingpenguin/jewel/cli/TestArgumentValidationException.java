@@ -29,7 +29,7 @@ public class TestArgumentValidationException extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals(TestUtils.joinLines("Option is manditory: --count1 value",
+         assertEquals(TestUtils.joinLines("Option is mandatory: --count1 value",
                                 "Unexpected Option: coutn : Option not recognised"),
                       e.getMessage());
       }
@@ -44,7 +44,7 @@ public class TestArgumentValidationException extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals("Option is manditory: --count1 value", e.getMessage());
+         assertEquals("Option is mandatory: --count1 value", e.getMessage());
       }
    }
 
@@ -57,8 +57,8 @@ public class TestArgumentValidationException extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals(TestUtils.joinLines("Option is manditory: --count0 value",
-                                "Option is manditory: --count1 value"),
+         assertEquals(TestUtils.joinLines("Option is mandatory: --count0 value",
+                                "Option is mandatory: --count1 value"),
                       e.getMessage());
       }
    }
@@ -72,7 +72,7 @@ public class TestArgumentValidationException extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals("Option is manditory: --count value : the count", e.getMessage());
+         assertEquals("Option is mandatory: --count value : the count", e.getMessage());
       }
    }
 }

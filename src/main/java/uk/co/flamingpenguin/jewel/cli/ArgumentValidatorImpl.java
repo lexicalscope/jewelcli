@@ -44,7 +44,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
     */
    public ValidatedArguments validateArguments(final ParsedArguments arguments) throws ArgumentValidationException
    {
-      for(final OptionSpecification optionSpecification : m_specification.getManditoryOptions())
+      for(final OptionSpecification optionSpecification : m_specification.getMandatoryOptions())
       {
          if(!(arguments.containsAny(optionSpecification.getAllNames())))
          {

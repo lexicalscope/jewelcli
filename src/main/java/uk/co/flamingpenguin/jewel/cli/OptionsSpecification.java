@@ -15,7 +15,7 @@ interface OptionsSpecification<O> extends Iterable<OptionSpecification>
 
    OptionSpecification getSpecification(final Method key);
 
-   List<OptionSpecification> getManditoryOptions();
+   List<OptionSpecification> getMandatoryOptions();
 
    boolean hasUnparsedSpecification();
 

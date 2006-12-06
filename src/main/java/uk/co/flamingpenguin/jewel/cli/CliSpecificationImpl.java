@@ -4,7 +4,7 @@ class CliSpecificationImpl
 {
    private final String m_message;
 
-   public CliSpecificationImpl(final CommandLineInterface cliSpecification, final UnparsedSpecificationImpl unparsedSpecification, final boolean manditoryOptions)
+   public CliSpecificationImpl(final CommandLineInterface cliSpecification, final UnparsedSpecificationImpl unparsedSpecification, final boolean mandatoryOptions)
    {
       if(cliSpecification == null && unparsedSpecification == null)
       {
@@ -19,12 +19,12 @@ class CliSpecificationImpl
             message.append(String.format("%s ", cliSpecification.application().trim()));
          }
 
-         if(!manditoryOptions)
+         if(!mandatoryOptions)
          {
             message.append("[");
          }
          message.append("options");
-         if(!manditoryOptions)
+         if(!mandatoryOptions)
          {
             message.append("]");
          }
