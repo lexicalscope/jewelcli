@@ -48,6 +48,19 @@ public class TestArgumentValidationException extends TestCase
       }
    }
 
+   public void testMissingDashes()
+   {
+      try
+      {
+          CliFactory.parseArguments(TwoOptions.class, new String[]{"count0", "3", "--count1", "4"});
+          fail();
+      }
+      catch (final ArgumentValidationException e)
+      {
+         assertEquals("Option not expected in this position: count1", e.getMessage());
+      }
+   }
+
    public void testMultipleMissingOption()
    {
       try

@@ -86,6 +86,12 @@ class ParsedArgumentsBuilder
           public ArgumentSpecification getSpecification()
           {
              return null;
+          }
+
+          @Override
+          public String toString()
+          {
+             return String.format("Option not expected in this position: %s", getMessage());
           }});
       }
    }
