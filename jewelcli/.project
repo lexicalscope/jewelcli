@@ -1,0 +1,14 @@
+<projectDescription>
+  <name>jewelcli</name>
+  <comment>JewelCli uses an annotated interface definition to automatically parse and present command line arguments</comment>
+  <projects/>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+      <arguments/>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>

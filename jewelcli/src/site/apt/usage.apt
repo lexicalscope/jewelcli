@@ -1,0 +1,242 @@
+                                       -----
+                                       Usage
+                                       -----
+
+Introduction
+
+  As with other command line processing libraries there are three stages to command line processing;
+  the definition stage, the parsing stage and the interogation stage.
+
+  The other importaint facility provided by command line processing libraries is error reporting
+  and usage help.
+
+Definition Stage
+
+  JewelCli uses an annotated Java interface definition to describe the Command Line Interface in a
+  declarative style. The main annotation is the
+  {{{apidocs/uk/co/flamingpenguin/jewel/cli/Option.html} Option Annotation}}
+
+* Option Annotation
+
+  The option annotation is used to mark a method as an option method, and to give additional information
+  to JewelCli. In JewelCli, defining an option is as simple as:
+
++------------------------------------------+
+public interface MyExample
+{
+  @Option
+  String getMyOption();
+}
++------------------------------------------+
+
+  This produces a Command Line with a single option <--myOption> which takes a single string value
+
+** Short Name
+
+  It is often convinent to allow your users to specify options using a short hand notation. JewelCli
+  supports this through an argument to the Option annotation:
+
++------------------------------------------+
+public interface MyExample
+{
+  @Option(shortName="m")
+  String getMyOption();
+}
++------------------------------------------+
+
+  This produces a Command Line with a single option, however, the option may be specified using either
+  <--myOption> or <-m>
+
+  Multiple short names may be defined for each option
+
++------------------------------------------+
+public interface MyExample
+{
+  @Option(shortName={"m","x"})
+  String getMyOption();
+}
++------------------------------------------+
+
+  Now the option may be specified using either <--myOption>, <-m> or <-x>
+
+** Long Name
+
+  Sometimes the option name does not make a very good method name, or vice-versa, in this situation
+  the <<longName>> argument can be used:
+
++------------------------------------------+
+public interface MyExample
+{
+  @Option(longName="alternateName")
+  String getMyOption();
+}
++------------------------------------------+
+
+  This produces a Command Line with a single option <--alternateName>
+
+* Return Type
+
+  The return type of the option method describes what arguments the option takes. There are four general
+  classes of return type; boolean, other primitive, Class, generic List.
+
+** boolean
+
+  A boolean return makes the option behave as a flag: an option that takes no arguments and is only
+  optionally specified.
+
+** other primitive
+
+  All of the java primitive types, and there Object equivilents, are supported, numbers will
+  automatically be parsed.
+
+** Class
+
+  Any class which has a construtor that takes a single <java.lang.String> argument can be used as a
+  return type.
+
+** List
+
+  A list will produce an option that takes a variable length list of arguments. The generic type of
+  the list will define the type of each individual argument in the list.
+
++------------------------------------------+
+public interface MyExample
+{
+  @Option
+  List<Integer> getMyOption();
+}
++------------------------------------------+
+
+  This produces a Command Line with a single option <--myOption> that takes a list of integers, for
+  example <--myOption 1 2 3 4>
+
+* Optional Options
+
+  So far, the only way to produce an optional option with JewelCli has been to define it as a flag
+  by using a boolean return type. Some optional options need to take, arguments so another facility
+  is provided. To make an option optional, define a bean style "is" method with the same suffix as
+  the getter for the option:
+
++------------------------------------------+
+public interface MyExample
+{
+  @Option
+  List<Integer> getMyOption();
+
+  boolean isMyOption();
+}
++------------------------------------------+
+
+* Unparsed arguments
+
+  In some applications, the last arguments on the command line are not arguments to any option, but are
+  arguments to the central function of the program itself. The
+  {{{apidocs/uk/co/flamingpenguin/jewel/cli/Unparsed.html} Unparsed Annotation}} annotation is used to mark
+  a method as the accessor for these unparsed options.
+
+  The <Unparsed> method may use any of the return types that normal <Option> methods may, with the
+  exception of the <boolean> (flag) return type
+
++------------------------------------------+
+public interface MyExample
+{
+  @Unparsed
+  List<Files> getFiles();
+}
++------------------------------------------+
+
+** Optional unparsed arguments
+
+  Optional <Unparsed> arguments are supported by the same method as normal <Option> options:
+
++------------------------------------------+
+public interface MyExample
+{
+  @Unparsed
+  List<Files> getFiles();
+
+  boolean isFiles();
+}
++------------------------------------------+
+
+* Option Inheritance
+
+   Interface inheritance is supported. Options defined in a super interface will work in the same way
+   as options defined directly in the interface.
+
++------------------------------------------+
+public interface MySuperExample
+{
+  @Option
+  String getMySuperOption();
+}
+
+public interface MySubExample extends MySuperExample
+{
+  @Option
+  String getMySubOption();
+}
++------------------------------------------+
+
+   <MySubExample> will produce a Command Line with a two options <--mySuperOption> and <--mySubOption>
+
+
+Parsing Stage
+
+  JewelCli's parsing stage is very simple. Use the
+  {{{apidocs/uk/co/flamingpenguin/jewel/cli/CliFactory.html} CliFactory}} to produce an instance of your
+  annotate Java interface.
+
++------------------------------------------+
+public static void main(String [] args)
+{
+  try
+  {
+    MyExample result = CliFactory.parseArguments(MyExample.class, args);
+    [...]
+  }
+  catch(ArgumentValidationException e)
+  {
+    [...]
+  }
+}
++------------------------------------------+
+
+ * Error Handling
+
+   If any errors are found durring parsing an
+   {{{apidocs/uk/co/flamingpenguin/jewel/cli/ArgumentValidationException.html} ArgumentValidationException}}
+   is thrown. The message of the <ArgumentValidationException> can be displayed to the user to inform them
+   of the problem.
+
+Interogation Stage
+
+  JewelCli's interogation stage is even simpler than the parsing stage. The parsing stage creates an
+  instance of your annotated interface populated with the processed command line, all that is left is
+  for you to use it!
+
+Alternatives
+
+ There are many Java Cli processing libraries available. Some of the ones I am aware of are:
+
+  * {{{http://jakarta.apache.org/commons/cli/} Jakarta Commons Cli}}
+
+  * {{{http://www.javaworld.com/javaworld/jw-08-2004/jw-0816-command.html} Dr. Matthias Laux}}
+
+  * {{{http://te-code.sourceforge.net/} TE-Code Command}}
+
+  * {{{http://jargp.sourceforge.net/} jargp}}
+
+  * {{{http://jcmdline.sourceforge.net/} jcmdline}}
+
+  * {{{http://www.urbanophile.com/arenn/hacking/download.html} java-getopt}}
+
+  * {{{http://dolphin.sourceforge.net/getopt/} dolphin getopt}}
+
+  * {{{http://jargs.sourceforge.net/} jargs}}
+
+  * {{{http://jcommando.sourceforge.net/} jcommando}}
+
+  * {{{http://www.martiansoftware.com/jsap/} jsap}}
+
+  * {{{https://args4j.dev.java.net/} args4j}}
