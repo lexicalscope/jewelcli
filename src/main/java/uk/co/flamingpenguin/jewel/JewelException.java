@@ -1,7 +1,7 @@
 package uk.co.flamingpenguin.jewel;
 
 /**
- * Superclass o all Jewel Exceptions
+ * Superclass of all Jewel Exceptions
  *
  * @author Tim Wood
  */

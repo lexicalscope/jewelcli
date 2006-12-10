@@ -7,6 +7,11 @@ import java.util.List;
 import uk.co.flamingpenguin.jewel.JewelException;
 import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
 
+/**
+ * The arguments are not valid
+ *
+ * @author tim
+ */
 public class ArgumentValidationException extends JewelException
 {
    private static final long serialVersionUID = -4781861924515211053L;
@@ -162,42 +167,42 @@ public class ArgumentValidationException extends JewelException
       return m_message;
    }
 
-   public static ValidationError createUnexpectedOptionError(final String name)
+   static ValidationError createUnexpectedOptionError(final String name)
    {
       return new ValidationErrorImpl(ErrorType.UnexpectedOption, new UnexpectedOptionSpecification(name));
    }
 
-   public static ValidationError createAdditionalValuesError(final ArgumentSpecification optionSpecification)
+   static ValidationError createAdditionalValuesError(final ArgumentSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.AdditionalValue, optionSpecification);
    }
 
-   public static ValidationError createMissingValueError(final ArgumentSpecification optionSpecification)
+   static ValidationError createMissingValueError(final ArgumentSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.MissingValue, optionSpecification);
    }
 
-   public static ValidationError createUnexpectedValueError(final ArgumentSpecification optionSpecification)
+   static ValidationError createUnexpectedValueError(final ArgumentSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.UnexpectedValue, optionSpecification);
    }
 
-   public static ValidationError createMissingOptionError(ArgumentSpecification optionSpecification)
+   static ValidationError createMissingOptionError(ArgumentSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.MissingOption, optionSpecification);
    }
 
-   public static ValidationError createInvalidValueForType(final ArgumentSpecification optionSpecification, final String message)
+   static ValidationError createInvalidValueForType(final ArgumentSpecification optionSpecification, final String message)
    {
       return new ValidationErrorImpl(ErrorType.InvalidValueForType, optionSpecification, message);
    }
 
-   public static ValidationError createUnableToConstructType(final ArgumentSpecification optionSpecification, final String message)
+   static ValidationError createUnableToConstructType(final ArgumentSpecification optionSpecification, final String message)
    {
       return new ValidationErrorImpl(ErrorType.UnableToConstructType, optionSpecification, message);
    }
 
-   public static ValidationError createPatternMismatch(final ArgumentSpecification optionSpecification, final String message)
+   static ValidationError createPatternMismatch(final ArgumentSpecification optionSpecification, final String message)
    {
       return new ValidationErrorImpl(ErrorType.PatternMismatch, optionSpecification, message);
    }

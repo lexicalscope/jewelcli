@@ -56,7 +56,12 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O>
 
                private Object getValue(final TypedArguments arguments, final Method method, final ArgumentSpecification specification) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
                {
-                  return arguments.getValue(specification);
+                  final Object value = arguments.getValue(specification);
+                  if(value == null)
+                  {
+                     throw new OptionNotPresentException(specification);
+                  }
+                  return value;
                }});
       return result;
    }

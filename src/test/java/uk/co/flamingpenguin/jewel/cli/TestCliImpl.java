@@ -137,6 +137,19 @@ public class TestCliImpl extends TestCase
        assertFalse(option.isName());
    }
 
+   public void testSingleOptionalOptionRequestMissing() throws ArgumentValidationException
+   {
+      final SingleOptionalOption option = new CliImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[]{});
+      try
+      {
+         option.getName();
+      }
+      catch (final OptionNotPresentException e)
+      {
+         assertEquals("Unable to find value for option: [--name value]", e.getMessage());
+      }
+   }
+
    public void testCharacterValue() throws ArgumentValidationException
    {
       final CharacterValue option = new CliImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[]{"--name", "a"});
