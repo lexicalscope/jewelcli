@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-
 class ParsedArgumentsBuilder
 {
    private final Map<String, List<String>> m_arguments = new LinkedHashMap<String, List<String>>();
@@ -81,11 +80,6 @@ class ParsedArgumentsBuilder
           public String getMessage()
           {
              return option;
-          }
-
-          public ArgumentSpecification getSpecification()
-          {
-             return null;
           }
 
           @Override

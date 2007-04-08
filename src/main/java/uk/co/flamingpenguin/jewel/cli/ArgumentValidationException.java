@@ -82,13 +82,19 @@ public class ArgumentValidationException extends JewelException
             {
                return String.format("Cannot match (%s) to pattern ", error.getMessage());
             }
+         },
+         HelpRequested
+         {
+            public String getDescription(final ValidationError error)
+            {
+               return error.getMessage();
+            }
          }
          ;
 
          public abstract String getDescription(ValidationError error);
       }
 
-      ArgumentSpecification getSpecification();
       String getMessage();
       ErrorType getErrorType();
    }
@@ -205,5 +211,10 @@ public class ArgumentValidationException extends JewelException
    static ValidationError createPatternMismatch(final ArgumentSpecification optionSpecification, final String message)
    {
       return new ValidationErrorImpl(ErrorType.PatternMismatch, optionSpecification, message);
+   }
+
+   static ValidationError createhelpRequested(final OptionsSpecification specification)
+   {
+      return new HelpValidationErrorImpl(specification);
    }
 }

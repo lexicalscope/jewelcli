@@ -121,9 +121,9 @@ public class TestCliImpl extends TestCase
          final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
          assertEquals(2, validationErrors.size());
          final ValidationError error0 = validationErrors.get(0);
-         assertEquals(ErrorType.MissingOption, error0.getErrorType());
+         assertEquals(ErrorType.UnexpectedOption, error0.getErrorType());
          final ValidationError error1 = validationErrors.get(1);
-         assertEquals(ErrorType.UnexpectedOption, error1.getErrorType());
+         assertEquals(ErrorType.MissingOption, error1.getErrorType());
       }
    }
 

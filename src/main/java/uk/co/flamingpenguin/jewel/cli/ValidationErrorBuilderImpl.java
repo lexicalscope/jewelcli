@@ -1,7 +1,10 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
 
 
 class ValidationErrorBuilderImpl implements ValidationErrorBuilder
@@ -48,10 +51,23 @@ class ValidationErrorBuilderImpl implements ValidationErrorBuilder
       m_validationException.add(ArgumentValidationException.createPatternMismatch(optionSpecification, value));
    }
 
+   public void helpRequested(final OptionsSpecification specification)
+   {
+      m_validationException.add(ArgumentValidationException.createhelpRequested(specification));
+   }
+
    public void validate() throws ArgumentValidationException
    {
       if(m_validationException.size() > 0)
       {
+         for (ArgumentValidationException.ValidationError error : m_validationException)
+         {
+            if(ErrorType.HelpRequested.equals(error.getErrorType()))
+            {
+               throw new ArgumentValidationException(Arrays.asList(error));
+            }
+         }
+
          throw new ArgumentValidationException(m_validationException);
       }
    }

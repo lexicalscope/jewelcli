@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 
-
 class UnexpectedOptionSpecification implements OptionSpecification
 {
    private final String m_name;
@@ -93,6 +92,11 @@ class UnexpectedOptionSpecification implements OptionSpecification
    }
 
    public boolean hasDefaultValue()
+   {
+      return false;
+   }
+
+   public boolean isHelpOption()
    {
       return false;
    }

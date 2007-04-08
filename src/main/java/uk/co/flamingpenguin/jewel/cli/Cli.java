@@ -22,7 +22,7 @@ public interface Cli<O>
     * @throws InvalidArgumentsException
     * @throws ArgumentValidationException
     */
-   O parseArguments(final String[] arguments) throws ArgumentValidationException;
+   O parseArguments(final String... arguments) throws ArgumentValidationException;
 
    /**
     * Get a help message suitable for describing the options to the user

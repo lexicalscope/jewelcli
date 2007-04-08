@@ -16,6 +16,7 @@ class OptionSpecificationImpl extends ArgumentSpecificationImpl implements Optio
    private final String m_description;
    private final String m_pattern;
    private final List<String> m_default;
+   private final boolean m_helpRequest;
 
    public OptionSpecificationImpl(final Method method, final Class<?> klass)
    {
@@ -43,6 +44,8 @@ class OptionSpecificationImpl extends ArgumentSpecificationImpl implements Optio
 
       m_pattern = optionAnnotation.pattern();
       m_default = Arrays.asList(optionAnnotation.defaultValue());
+
+      m_helpRequest = optionAnnotation.helpRequest();
 
       g_logger.finer(String.format("Create option specification name:%s, shortName:%s, type:%s (multiValued:%b, hasValue:%b, isOptional:%b, defaultValue:%s)) ",
                                   getName(), getShortNames(), getType(), isMultiValued(), hasValue(), isOptional(), getDefaultValue()));
@@ -74,7 +77,6 @@ class OptionSpecificationImpl extends ArgumentSpecificationImpl implements Optio
       return value.matches(m_pattern);
    }
 
-
    /**
     * @inheritdoc
     */
@@ -87,8 +89,6 @@ class OptionSpecificationImpl extends ArgumentSpecificationImpl implements Optio
    {
       return string == null || string.equals("");
    }
-
-
 
    /**
     * @inheritdoc
@@ -158,11 +158,16 @@ class OptionSpecificationImpl extends ArgumentSpecificationImpl implements Optio
 
    public List<String> getDefaultValue()
    {
-		return m_default;
+      return m_default;
    }
 
    public boolean hasDefaultValue()
    {
-	   return m_default.size() > 0;
+      return m_default.size() > 0;
+   }
+
+   public boolean isHelpOption()
+   {
+      return m_helpRequest;
    }
 }

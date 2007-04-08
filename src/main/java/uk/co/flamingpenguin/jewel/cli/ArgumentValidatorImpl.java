@@ -44,14 +44,6 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
     */
    public ValidatedArguments validateArguments(final ParsedArguments arguments) throws ArgumentValidationException
    {
-      for(final OptionSpecification optionSpecification : m_specification.getMandatoryOptions())
-      {
-         if(!(arguments.containsAny(optionSpecification.getAllNames())))
-         {
-            m_validationErrorBuilder.missingOption(optionSpecification);
-         }
-      }
-
       m_validatedUnparsedArguments.addAll(arguments.getUnparsed());
 
       final Iterator<Entry<String, List<String>>> argumentsIterator = arguments.iterator();
@@ -67,7 +59,11 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
          else
          {
             final OptionSpecification optionSpecification = m_specification.getSpecification(entry.getKey());
-            if(entry.getValue().size() == 0 && optionSpecification.hasValue() && !optionSpecification.isMultiValued())
+            if(optionSpecification.isHelpOption())
+            {
+               m_validationErrorBuilder.helpRequested(m_specification);
+            }
+            else if(entry.getValue().size() == 0 && optionSpecification.hasValue() && !optionSpecification.isMultiValued())
             {
                m_validationErrorBuilder.missingValue(optionSpecification);
             }
@@ -101,6 +97,14 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
             {
                checkAndAddValues(optionSpecification, entry.getKey(), new ArrayList<String>(entry.getValue()));
             }
+         }
+      }
+
+      for(final OptionSpecification optionSpecification : m_specification.getMandatoryOptions())
+      {
+         if(!(arguments.containsAny(optionSpecification.getAllNames())))
+         {
+            m_validationErrorBuilder.missingOption(optionSpecification);
          }
       }
 

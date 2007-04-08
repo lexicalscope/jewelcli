@@ -18,5 +18,7 @@ interface ValidationErrorBuilder
 
    void patternMismatch(ArgumentSpecification optionSpecification, String value);
 
+   void helpRequested(OptionsSpecification specification);
+
    void validate() throws ArgumentValidationException;
 }

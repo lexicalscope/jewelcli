@@ -58,8 +58,16 @@ public @interface Option
 
    /**
     * The default value if none is specified
-    * 
+    *
     * @return The value to present if none is specified
     */
    String[] defaultValue() default {};
+
+   /**
+    * Should help be displayed if this option is
+    * present.
+    *
+    * @return True if this option is a help option
+    */
+   boolean helpRequest() default false;
 }

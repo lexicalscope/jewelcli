@@ -29,8 +29,8 @@ public class TestArgumentValidationException extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals(TestUtils.joinLines("Option is mandatory: --count1 value",
-                                "Unexpected Option: coutn : Option not recognised"),
+         assertEquals(TestUtils.joinLines("Unexpected Option: coutn : Option not recognised",
+                                          "Option is mandatory: --count1 value"),
                       e.getMessage());
       }
    }
