@@ -3,6 +3,8 @@ package uk.co.flamingpenguin.jewel.cli;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import uk.co.flamingpenguin.jewel.JewelException;
 import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
@@ -15,6 +17,7 @@ import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationErro
 public class ArgumentValidationException extends JewelException
 {
    private static final long serialVersionUID = -4781861924515211053L;
+   private static final ResourceBundle m_messages = ResourceBundle.getBundle("uk.co.flamingpenguin.jewel.cli.Messages", Locale.getDefault());
 
    public interface ValidationError
    {
@@ -24,63 +27,63 @@ public class ArgumentValidationException extends JewelException
          {
             public String getDescription(final ValidationError error)
             {
-               return "Unexpected Option";
+               return m_messages.getString("validationError.UnexpectedOption");
             }
          },
          MissingValue
          {
             public String getDescription(final ValidationError error)
             {
-               return "Option must have a value";
+               return m_messages.getString("validationError.MissingValue");
             }
          },
          MisplacedOption
          {
             public String getDescription(final ValidationError error)
             {
-               return String.format("Option misplaced (%s)", error.getMessage());
+               return String.format(m_messages.getString("validationError.MisplacedOption"), error.getMessage());
             }
          },
          UnexpectedValue
          {
             public String getDescription(final ValidationError error)
             {
-               return "Option does not take a value";
+               return m_messages.getString("validationError.UnexpectedValue");
             }
          },
          AdditionalValue
          {
             public String getDescription(final ValidationError error)
             {
-               return "Option only takes one value";
+               return m_messages.getString("validationError.AdditionalValue");
             }
          },
          MissingOption
          {
             public String getDescription(final ValidationError error)
             {
-               return "Option is mandatory";
+               return m_messages.getString("validationError.MissingOption");
             }
          },
          InvalidValueForType
          {
             public String getDescription(final ValidationError error)
             {
-               return String.format("Invalid value (%s)", error.getMessage());
+               return String.format(m_messages.getString("validationError.InvalidValueForType"), error.getMessage());
             }
          },
          UnableToConstructType
          {
             public String getDescription(final ValidationError error)
             {
-               return String.format("Unexpected error (%s)", error.getMessage());
+               return String.format(m_messages.getString("validationError.UnableToConstructType"), error.getMessage());
             }
          },
          PatternMismatch
          {
             public String getDescription(final ValidationError error)
             {
-               return String.format("Cannot match (%s) to pattern ", error.getMessage());
+               return String.format(m_messages.getString("validationError.PatternMismatch"), error.getMessage());
             }
          },
          HelpRequested
