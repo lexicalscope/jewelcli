@@ -1,3 +1,7 @@
+                                       --------
+                                       Examples
+                                       --------
+
 Examples
 
 * Simple example
@@ -55,6 +59,14 @@ Examples
   * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/PrimitiveExample.html} Example Interface}}
 
   * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestPrimitiveExample.html} Example Test Case}}
+
+* Usage Help
+
+  Automatic generation of usage help messages
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/HelpExample.html} Example Interface}}
+
+  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestHelpExample.html} Example Test Case}}
 
 * rm example
 

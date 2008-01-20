@@ -16,6 +16,6 @@ public interface HelpExample
    @Option(description = "a pattern", shortName = "p")
    String getPattern();
 
-   @Option(helpRequest=true, description = "display help", shortName = "h")
+   @Option(helpRequest = true, description = "display help", shortName = "h")
    boolean getHelp();
 }

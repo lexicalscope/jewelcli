@@ -2,7 +2,7 @@
                                        Usage
                                        -----
 
-Introduction
+Usage Introduction
 
   As with other command line processing libraries there are three stages to command line processing;
   the definition stage, the parsing stage and the interogation stage.
@@ -73,6 +73,26 @@ public interface MyExample
 +------------------------------------------+
 
   This produces a Command Line with a single option <--alternateName>
+
+** Help Request
+
+   Many applications have an option which will print usage help. JewelCli supports this with the
+   <<helpRequest>> argument:
+
++------------------------------------------+
+public interface MyExample
+{
+  @Option
+  String getMyOption();
+
+  @Option(helpRequest = true)
+  boolean getHelp();
+}
++------------------------------------------+
+
+   If <--help> is specified, an exception will be thrown during parsing, with the usage help
+   in the exception message. This will occur even if other argument validation problems are
+   present.
 
 * Return Type
 
@@ -180,7 +200,6 @@ public interface MySubExample extends MySuperExample
 
    <MySubExample> will produce a Command Line with a two options <--mySuperOption> and <--mySubOption>
 
-
 Parsing Stage
 
   JewelCli's parsing stage is very simple. Use the
@@ -240,3 +259,7 @@ Alternatives
   * {{{http://www.martiansoftware.com/jsap/} jsap}}
 
   * {{{https://args4j.dev.java.net/} args4j}}
+
+  * {{{http://www.dpml.net/util/cli/index.html} DPML CLI (Jakarta Commons CLI2 fork}}
+
+  * {{{http://www.objectmentor.com/resources/articles/Clean_Code_Args.pdf} Object Mentor CLI article (more about refactoring and TDD)}}
