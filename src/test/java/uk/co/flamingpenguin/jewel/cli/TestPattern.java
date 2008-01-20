@@ -26,7 +26,7 @@ public class TestPattern extends TestCase
          final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
          assertEquals(1, validationErrors.size());
          assertEquals(ErrorType.PatternMismatch, validationErrors.get(0).getErrorType());
-         assertEquals("Cannot match (ABC) to pattern : --option /[a-z]+/", validationErrors.get(0).toString());
+         assertEquals("Cannot match (ABC) to pattern: --option /[a-z]+/", validationErrors.get(0).toString());
       }
    }
 
