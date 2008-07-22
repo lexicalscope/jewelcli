@@ -6,6 +6,14 @@ import java.util.Map;
 interface ArgumentCollection extends Iterable<Map.Entry<String, List<String>>>
 {
    List<String> getUnparsed();
+   
+   /**
+    * Are there any unparsed options available
+    * 
+    * @return are there any unparsed options available
+    */
+   boolean hasUnparsed();
+   
    boolean contains(String ... options);
    boolean containsAny(final List<String> options);
 }

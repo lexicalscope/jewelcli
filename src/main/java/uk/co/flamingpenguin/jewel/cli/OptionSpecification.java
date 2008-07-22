@@ -14,8 +14,6 @@ interface OptionSpecification extends ArgumentSpecification
 
    boolean hasShortName();
 
-   boolean isOptional();
-
    StringBuilder getSummary(StringBuilder result);
 
    boolean patternMatches(String value);

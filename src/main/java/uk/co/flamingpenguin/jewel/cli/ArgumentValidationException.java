@@ -216,7 +216,7 @@ public class ArgumentValidationException extends JewelException
       return new ValidationErrorImpl(ErrorType.PatternMismatch, optionSpecification, message);
    }
 
-   static ValidationError createhelpRequested(final OptionsSpecification specification)
+   static ValidationError createhelpRequested(final OptionsSpecification<?> specification)
    {
       return new HelpValidationErrorImpl(specification);
    }

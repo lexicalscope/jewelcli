@@ -7,4 +7,11 @@ interface TypedArguments
    boolean contains(ArgumentSpecification specification);
 
    Object getUnparsedValue();
+   
+   /**
+    * Is an unparsed argument specified
+    * 
+    * @return is an unparsed argument specified 
+    */
+   boolean hasUnparsedValue();
 }

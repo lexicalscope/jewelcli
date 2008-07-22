@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 class ArgumentPresenterImpl<O> implements ArgumentPresenter<O>
 {
@@ -36,6 +34,12 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O>
                   else if(method.isAnnotationPresent(Unparsed.class))
                   {
                      return arguments.getUnparsedValue();
+                  }
+                  else if(m_specification.hasUnparsedSpecification() && 
+                          m_specification.getUnparsedSpecification().isOptional() && 
+                          m_specification.getUnparsedSpecification().getOptionalityMethod().equals(method))
+                  {
+                     return arguments.hasUnparsedValue();
                   }
                   else if(!m_specification.isSpecified(method))
                   {

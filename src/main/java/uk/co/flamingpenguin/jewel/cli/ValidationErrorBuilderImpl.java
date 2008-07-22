@@ -51,7 +51,7 @@ class ValidationErrorBuilderImpl implements ValidationErrorBuilder
       m_validationException.add(ArgumentValidationException.createPatternMismatch(optionSpecification, value));
    }
 
-   public void helpRequested(final OptionsSpecification specification)
+   public void helpRequested(final OptionsSpecification<?> specification)
    {
       m_validationException.add(ArgumentValidationException.createhelpRequested(specification));
    }

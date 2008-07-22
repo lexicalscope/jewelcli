@@ -107,10 +107,26 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
             m_validationErrorBuilder.missingOption(optionSpecification);
          }
       }
+      
+      validateUnparsedOptions();
 
       m_validationErrorBuilder.validate();
 
       return new ArgumentsImpl(m_validatedArguments, m_validatedUnparsedArguments);
+   }
+
+   private void validateUnparsedOptions()
+   {
+      if(m_specification.hasUnparsedSpecification())
+      {
+         final ArgumentSpecification argumentSpecification = m_specification.getUnparsedSpecification();
+         if(!argumentSpecification.isOptional() &&
+              (m_validatedUnparsedArguments.isEmpty() || 
+                 (argumentSpecification.isMultiValued() && m_validatedArguments.size() == 1)))
+         {
+            m_validationErrorBuilder.missingValue(argumentSpecification);
+         }
+      }
    }
 
    private boolean hasExcessValues(final Entry<String, List<String>> entry, final OptionSpecification optionSpecification)

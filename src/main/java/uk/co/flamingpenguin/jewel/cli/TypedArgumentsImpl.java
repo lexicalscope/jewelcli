@@ -31,4 +31,9 @@ class TypedArgumentsImpl implements TypedArguments
    {
       return m_unparsedValue;
    }
+   
+   public boolean hasUnparsedValue()
+   {
+      return m_unparsedValue != null; 
+   }
 }
