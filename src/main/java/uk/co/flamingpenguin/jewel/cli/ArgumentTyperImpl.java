@@ -30,7 +30,8 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
 
    private void typeUnparsedArguments(final ValidatedArguments validatedArguments, final TypedArgumentsImpl typedArguments)
    {
-      if(m_specification.hasUnparsedSpecification())
+      if(m_specification.hasUnparsedSpecification()
+            && validatedArguments.hasUnparsed())
       {
          final ArgumentSpecification specification = m_specification.getUnparsedSpecification();
          typedArguments.setUnparsedValue(getValue(specification.getMethod(), validatedArguments.getUnparsed(), specification));

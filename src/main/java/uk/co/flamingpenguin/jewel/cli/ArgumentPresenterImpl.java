@@ -35,6 +35,12 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O>
                   {
                      return arguments.getUnparsedValue();
                   }
+                  else if(m_specification.hasUnparsedSpecification() && 
+                          m_specification.getUnparsedSpecification().isOptional() && 
+                          m_specification.getUnparsedSpecification().getOptionalityMethod().equals(method))
+                  {
+                     return arguments.hasUnparsedValue();
+                  }
                   else if(!m_specification.isSpecified(method))
                   {
                      throw new UnsupportedOperationException(String.format("Method (%s) is not annotated for option specification", method.toGenericString()));

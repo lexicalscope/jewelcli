@@ -33,6 +33,11 @@ class ArgumentsImpl implements ParsedArguments, ValidatedArguments
       m_unparsed = unparsed;
    }
 
+   public boolean hasUnparsed()
+   {
+      return !m_unparsed.isEmpty();
+   }
+   
    public List<String> getUnparsed()
    {
       return new ArrayList<String>(m_unparsed);

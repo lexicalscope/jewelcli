@@ -23,14 +23,14 @@ import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationErro
  */
 class HelpValidationErrorImpl implements ValidationError
 {
-   private final OptionsSpecification m_specification;
+   private final OptionsSpecification<?> m_specification;
 
    /**
     * The user requested help
     *
     * @param specification The options specification
     */
-   public HelpValidationErrorImpl(final OptionsSpecification specification)
+   public HelpValidationErrorImpl(final OptionsSpecification<?> specification)
    {
       m_specification = specification;
    }

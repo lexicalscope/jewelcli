@@ -100,4 +100,12 @@ class UnexpectedOptionSpecification implements OptionSpecification
    {
       return false;
    }
+
+   /**
+    * {@inheritdoc}
+    */
+   public Method getOptionalityMethod()
+   {
+      return null;
+   }
 }

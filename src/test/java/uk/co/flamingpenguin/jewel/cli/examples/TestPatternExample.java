@@ -15,7 +15,7 @@ public class TestPatternExample extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals("Cannot match (my.invalid..Klass) to pattern : --classes /(\\w+\\.)*\\w+/...", e.getMessage());
+         assertEquals("Cannot match (my.invalid..Klass) to pattern: --classes /(\\w+\\.)*\\w+/...", e.getMessage());
       }
    }
 }

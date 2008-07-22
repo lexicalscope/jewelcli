@@ -86,6 +86,7 @@ public class TestOptionSpecificationImpl extends TestCase
       @Option
       List<String> getStringList();
 
+      @SuppressWarnings("unchecked")
       @Option
       List getList();
    }
@@ -95,6 +96,7 @@ public class TestOptionSpecificationImpl extends TestCase
       @Option
       List<String> getStringList();
 
+      @SuppressWarnings("unchecked")
       @Option
       List getList();
    }

@@ -2,7 +2,7 @@ package uk.co.flamingpenguin.jewel.cli;
 
 import java.lang.reflect.Method;
 
-class UnparsedSpecificationImpl extends ArgumentSpecificationImpl implements ArgumentSpecification
+class UnparsedSpecificationImpl extends ArgumentSpecificationImpl
 {
    private final String m_longName;
 
