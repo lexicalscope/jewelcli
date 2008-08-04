@@ -17,10 +17,20 @@
   </organization>
   <distributionManagement>
     <downloadUrl>http://sourceforge.net/project/showfiles.php?group_id=166725</downloadUrl>
-   <site>
-      <id>jewelCli-website</id>
+    <site>
+      <id>jewelCli.sourceforge</id>
       <url>scp://shell.sourceforge.net/home/groups/j/je/jewelcli/htdocs</url>
     </site>
+    <repository>
+      <id>jewelCli.sourceforge</id>
+      <name>JewelCli Repository at sourceforge</name>
+      <url>scp://shell.sourceforge.net/home/groups/j/je/jewelcli/htdocs/m2repo</url>
+    </repository>
+    <snapshotRepository>
+      <id>jewelCli.sourceforge</id>
+      <name>JewelCli Repository at sourceforge</name>
+      <url>scp://shell.sourceforge.net/home/groups/j/je/jewelcli/htdocs/m2repo-snapshot</url>
+    </snapshotRepository>
   </distributionManagement>
   <licenses>
     <license>

@@ -1,0 +1,41 @@
+                                       -------
+                                       Related
+                                       -------
+
+Alternatives
+
+ There are many Java Cli processing libraries available. Some of the ones I am aware of are:
+
+  * {{{http://jakarta.apache.org/commons/cli/} Jakarta Commons Cli}}
+
+  * {{{http://www.javaworld.com/javaworld/jw-08-2004/jw-0816-command.html} Dr. Matthias Laux}}
+
+  * {{{http://te-code.sourceforge.net/} TE-Code Command}}
+
+  * {{{http://jargp.sourceforge.net/} jargp}}
+
+  * {{{http://jcmdline.sourceforge.net/} jcmdline}}
+
+  * {{{http://www.urbanophile.com/arenn/hacking/download.html} java-getopt}}
+
+  * {{{http://dolphin.sourceforge.net/getopt/} dolphin getopt}}
+
+  * {{{http://jargs.sourceforge.net/} jargs}}
+
+  * {{{http://jcommando.sourceforge.net/} jcommando}}
+
+  * {{{http://www.martiansoftware.com/jsap/} jsap}}
+
+  * {{{https://args4j.dev.java.net/} args4j}}
+
+  * {{{http://www.dpml.net/util/cli/index.html} DPML CLI (Jakarta Commons CLI2 fork}}
+
+  * {{{http://www.objectmentor.com/resources/articles/Clean_Code_Args.pdf} Object Mentor CLI article (more about refactoring and TDD)}}
+  
+Reviews, blog posts, etc
+
+  * {{{http://javathink.blogspot.com/2008_04_01_archive.html} Why does parsing arguments in Java SUCK so much?}}
+  
+  * {{{http://furiouspurpose.blogspot.com/2008/07/command-line-parsing-libraries-for-java.html} Command-Line Parsing Libraries for Java}}
+  
+  * {{{http://programmaticallyspeaking.blogspot.com/2008/04/boring-stuff-you-have-to-implement_21.html} Boring stuff you have to implement}}

@@ -12,6 +12,7 @@
     <menu name="JewelCli">
       <item name="Introduction" href="index.html" />
       <item name="Usage" href="usage.html" />
+      <item name="Related" href="related.html" />
       <item name="Examples" href="examples.html" />
       <item name="Download" href="download.html" />
     </menu>
