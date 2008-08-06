@@ -55,7 +55,7 @@ public class OptionNotPresentException extends JewelRuntimeException
     *
     * @param specification The option which has been requested
     */
-   public OptionNotPresentException(final ArgumentSpecification specification)
+   public OptionNotPresentException(final ArgumentMethodSpecification specification)
    {
       this(String.format("Unable to find value for option: %s", specification));
    }

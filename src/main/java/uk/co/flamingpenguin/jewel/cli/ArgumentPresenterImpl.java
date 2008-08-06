@@ -46,7 +46,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O>
                      throw new UnsupportedOperationException(String.format("Method (%s) is not annotated for option specification", method.toGenericString()));
                   }
 
-                  final OptionSpecification specification = m_specification.getSpecification(method);
+                  final OptionMethodSpecification specification = m_specification.getSpecification(method);
 
                   if(m_specification.isExistenceChecker(method) || !specification.hasValue())
                   {
@@ -55,12 +55,12 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O>
                   return getValue(arguments, method, specification);
                }
 
-               private Object optionPresent(final TypedArguments arguments, final ArgumentSpecification specification)
+               private Object optionPresent(final TypedArguments arguments, final ArgumentMethodSpecification specification)
                {
                   return arguments.contains(specification);
                }
 
-               private Object getValue(final TypedArguments arguments, final Method method, final ArgumentSpecification specification) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
+               private Object getValue(final TypedArguments arguments, final Method method, final ArgumentMethodSpecification specification) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
                {
                   final Object value = arguments.getValue(specification);
                   if(value == null)

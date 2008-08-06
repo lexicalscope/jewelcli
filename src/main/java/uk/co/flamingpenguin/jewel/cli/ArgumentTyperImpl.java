@@ -33,7 +33,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
       if(m_specification.hasUnparsedSpecification()
             && validatedArguments.hasUnparsed())
       {
-         final ArgumentSpecification specification = m_specification.getUnparsedSpecification();
+         final ArgumentMethodSpecification specification = m_specification.getUnparsedSpecification();
          typedArguments.setUnparsedValue(getValue(specification.getMethod(), validatedArguments.getUnparsed(), specification));
       }
    }
@@ -42,7 +42,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
    {
       final TypedArgumentsImpl typedArguments = new TypedArgumentsImpl();
 
-      for(final OptionSpecification optionSpecification : m_specification)
+      for(final OptionMethodSpecification optionSpecification : m_specification)
       {
          if(validatedArguments.containsAny(optionSpecification.getAllNames()) || optionSpecification.hasDefaultValue())
          {
@@ -61,14 +61,14 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
       return typedArguments;
    }
 
-   private Object getValue(final ValidatedArguments arguments, final Method method, final OptionSpecification specification)
+   private Object getValue(final ValidatedArguments arguments, final Method method, final OptionMethodSpecification specification)
    {
 	  final List<String> values = arguments.containsAny(specification.getAllNames()) ? arguments.getValues(specification.getAllNames()) : specification.getDefaultValue();
       return getValue(method, values, specification);
    }
 
    @SuppressWarnings("unchecked")
-   private Object getValue(final Method method, final List<String> values, final ArgumentSpecification specification)
+   private Object getValue(final Method method, final List<String> values, final ArgumentMethodSpecification specification)
    {
       try
       {

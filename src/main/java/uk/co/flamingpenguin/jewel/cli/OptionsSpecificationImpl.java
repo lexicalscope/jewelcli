@@ -84,7 +84,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    /**
     * @inheritdoc
     */
-   public OptionSpecification getSpecification(final String key)
+   public OptionMethodSpecification getSpecification(final String key)
    {
       if(m_optionsLongName.containsKey(key))
       {
@@ -99,7 +99,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    /**
     * @inheritdoc
     */
-   public OptionSpecification getSpecification(final Method method)
+   public OptionMethodSpecification getSpecification(final Method method)
    {
       if(m_optionsMethod.containsKey(method))
       {
@@ -111,9 +111,9 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    /**
     * @inheritdoc
     */
-   public List<OptionSpecification> getMandatoryOptions()
+   public List<OptionMethodSpecification> getMandatoryOptions()
    {
-      final ArrayList<OptionSpecification> result = new ArrayList<OptionSpecification>();
+      final ArrayList<OptionMethodSpecification> result = new ArrayList<OptionMethodSpecification>();
       for (OptionSpecificationImpl specification : m_optionsLongName.values())
       {
          if(!specification.isOptional() && !specification.hasDefaultValue())
@@ -133,7 +133,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
       result.append(m_cliSpecification).append(lineSeparator);
 
       String separator = "";
-      for (final ArgumentSpecification specification : m_optionsLongName.values())
+      for (final ArgumentMethodSpecification specification : m_optionsLongName.values())
       {
          result.append(separator).append("\t").append(specification);
          separator = lineSeparator;
@@ -147,12 +147,12 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
       return m_optionalOptionsMethod.containsKey(method);
    }
 
-   public Iterator<OptionSpecification> iterator()
+   public Iterator<OptionMethodSpecification> iterator()
    {
-      return new ArrayList<OptionSpecification>(m_optionsMethod.values()).iterator();
+      return new ArrayList<OptionMethodSpecification>(m_optionsMethod.values()).iterator();
    }
 
-   public ArgumentSpecification getUnparsedSpecification()
+   public ArgumentMethodSpecification getUnparsedSpecification()
    {
       return m_unparsed;
    }

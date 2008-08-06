@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 
-class OptionSpecificationImpl extends ArgumentSpecificationImpl implements OptionSpecification
+class OptionSpecificationImpl extends ArgumentSpecificationImpl implements OptionMethodSpecification
 {
    private static final Logger g_logger = Logger.getLogger(OptionSpecificationImpl.class.getName());
    private final List<String> m_allNames = new ArrayList<String>();

@@ -6,7 +6,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.logging.Logger;
 
-class ArgumentSpecificationImpl implements ArgumentSpecification
+class ArgumentSpecificationImpl implements ArgumentMethodSpecification
 {
    private static final Logger g_logger = Logger.getLogger(ArgumentSpecificationImpl.class.getName());
 

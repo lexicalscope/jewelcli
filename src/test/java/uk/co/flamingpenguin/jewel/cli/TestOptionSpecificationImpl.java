@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import junit.framework.TestCase;
 import uk.co.flamingpenguin.jewel.cli.Option;
-import uk.co.flamingpenguin.jewel.cli.OptionSpecification;
+import uk.co.flamingpenguin.jewel.cli.OptionMethodSpecification;
 import uk.co.flamingpenguin.jewel.cli.OptionSpecificationImpl;
 
 public class TestOptionSpecificationImpl extends TestCase
@@ -282,7 +282,7 @@ public class TestOptionSpecificationImpl extends TestCase
       assertTrue(createOption(HasOptionalOption.class, "getName2").isOptional());
    }
 
-   private OptionSpecification createOption(Class<?> klass, final String methodName) throws NoSuchMethodException
+   private OptionMethodSpecification createOption(Class<?> klass, final String methodName) throws NoSuchMethodException
    {
       return new OptionSpecificationImpl(klass.getMethod(methodName, (Class[]) null), klass);
    }

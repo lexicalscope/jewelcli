@@ -3,7 +3,7 @@ package uk.co.flamingpenguin.jewel.cli;
 import java.lang.reflect.Method;
 import java.util.List;
 
-interface OptionsSpecification<O> extends Iterable<OptionSpecification>
+interface OptionsSpecification<O> extends Iterable<OptionMethodSpecification>
 {
    boolean isSpecified(final String key);
 
@@ -11,13 +11,13 @@ interface OptionsSpecification<O> extends Iterable<OptionSpecification>
 
    boolean isExistenceChecker(Method method);
 
-   OptionSpecification getSpecification(final String key);
+   OptionMethodSpecification getSpecification(final String key);
 
-   OptionSpecification getSpecification(final Method key);
+   OptionMethodSpecification getSpecification(final Method key);
 
-   List<OptionSpecification> getMandatoryOptions();
+   List<OptionMethodSpecification> getMandatoryOptions();
 
    boolean hasUnparsedSpecification();
 
-   ArgumentSpecification getUnparsedSpecification();
+   ArgumentMethodSpecification getUnparsedSpecification();
 }

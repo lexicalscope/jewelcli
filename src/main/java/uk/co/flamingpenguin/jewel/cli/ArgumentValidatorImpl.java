@@ -58,7 +58,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
          }
          else
          {
-            final OptionSpecification optionSpecification = m_specification.getSpecification(entry.getKey());
+            final OptionMethodSpecification optionSpecification = m_specification.getSpecification(entry.getKey());
             if(optionSpecification.isHelpOption())
             {
                m_validationErrorBuilder.helpRequested(m_specification);
@@ -100,7 +100,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
          }
       }
 
-      for(final OptionSpecification optionSpecification : m_specification.getMandatoryOptions())
+      for(final OptionMethodSpecification optionSpecification : m_specification.getMandatoryOptions())
       {
          if(!(arguments.containsAny(optionSpecification.getAllNames())))
          {
@@ -119,7 +119,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
    {
       if(m_specification.hasUnparsedSpecification())
       {
-         final ArgumentSpecification argumentSpecification = m_specification.getUnparsedSpecification();
+         final ArgumentMethodSpecification argumentSpecification = m_specification.getUnparsedSpecification();
          if(!argumentSpecification.isOptional() &&
               (m_validatedUnparsedArguments.isEmpty() || 
                  (argumentSpecification.isMultiValued() && m_validatedArguments.size() == 1)))
@@ -129,13 +129,13 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
       }
    }
 
-   private boolean hasExcessValues(final Entry<String, List<String>> entry, final OptionSpecification optionSpecification)
+   private boolean hasExcessValues(final Entry<String, List<String>> entry, final OptionMethodSpecification optionSpecification)
    {
       return (!optionSpecification.isMultiValued()
                 && (entry.getValue().size() > 1 || (entry.getValue().size() > 0 && !optionSpecification.hasValue())));
    }
 
-   private void checkAndAddValues(final OptionSpecification optionSpecification, final String option, final ArrayList<String> values)
+   private void checkAndAddValues(final OptionMethodSpecification optionSpecification, final String option, final ArrayList<String> values)
    {
       for (final String value : values)
       {
