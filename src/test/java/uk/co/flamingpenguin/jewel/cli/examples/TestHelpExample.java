@@ -1,6 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli.examples;
 
-import uk.co.flamingpenguin.jewel.TestUtils;
+import uk.co.flamingpenguin.jewel.UtilitiesForTesting;
 import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException;
 import uk.co.flamingpenguin.jewel.cli.Cli;
 import uk.co.flamingpenguin.jewel.cli.CliFactory;
@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 public class TestHelpExample extends TestCase
 {
-   private static final String HELP_MESSAGE = TestUtils.joinLines("The options available are:",
+   private static final String HELP_MESSAGE = UtilitiesForTesting.joinLines("The options available are:",
                                                                   "\t--count value",
                                                                   "\t--email /^[^\\S@]+@[\\w.]+$/ : your email address",
                                                                   "\t[--help -h] : display help",

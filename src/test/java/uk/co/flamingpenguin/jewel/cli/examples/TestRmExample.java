@@ -2,7 +2,7 @@ package uk.co.flamingpenguin.jewel.cli.examples;
 
 import java.io.File;
 
-import uk.co.flamingpenguin.jewel.TestUtils;
+import uk.co.flamingpenguin.jewel.UtilitiesForTesting;
 import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException;
 import uk.co.flamingpenguin.jewel.cli.Cli;
 import uk.co.flamingpenguin.jewel.cli.CliFactory;
@@ -28,7 +28,7 @@ public class TestRmExample extends TestCase
    {
       final Cli<RmExample> result0 = CliFactory.createCli(RmExample.class);
       assertEquals(
-            TestUtils.joinLines(
+            UtilitiesForTesting.joinLines(
                   "Usage: rm [options] FILE...",
                   "\t[--directory -d] : unlink FILE, even if it is a non-empty directory (super-user only)",
                   "\t[--force -f] : ignore nonexistent files, never prompt",

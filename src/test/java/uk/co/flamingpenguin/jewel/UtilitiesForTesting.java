@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Tim Wood
  */
-public class TestUtils
+public class UtilitiesForTesting
 {
    private final static String lineSeparator = System.getProperty("line.separator");
 

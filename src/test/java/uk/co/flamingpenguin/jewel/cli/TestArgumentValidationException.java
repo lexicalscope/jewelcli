@@ -1,6 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import uk.co.flamingpenguin.jewel.TestUtils;
+import uk.co.flamingpenguin.jewel.UtilitiesForTesting;
 import junit.framework.TestCase;
 
 public class TestArgumentValidationException extends TestCase
@@ -29,7 +29,7 @@ public class TestArgumentValidationException extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals(TestUtils.joinLines("Unexpected Option: coutn : Option not recognised",
+         assertEquals(UtilitiesForTesting.joinLines("Unexpected Option: coutn : Option not recognised",
                                           "Option is mandatory: --count1 value"),
                       e.getMessage());
       }
@@ -70,7 +70,7 @@ public class TestArgumentValidationException extends TestCase
       }
       catch (final ArgumentValidationException e)
       {
-         assertEquals(TestUtils.joinLines("Option is mandatory: --count0 value",
+         assertEquals(UtilitiesForTesting.joinLines("Option is mandatory: --count0 value",
                                 "Option is mandatory: --count1 value"),
                       e.getMessage());
       }
