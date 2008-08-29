@@ -22,12 +22,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 
-class ArgumentsImpl implements ValidatedArguments
+class ArgumentsCollectionImpl implements ArgumentCollection
 {
    private final Map<String, List<String>> m_arguments;
    private final List<String> m_unparsed;
 
-   public ArgumentsImpl(final Map<String, List<String>> arguments, final List<String> unparsed)
+   public ArgumentsCollectionImpl(final Map<String, List<String>> arguments, final List<String> unparsed)
    {
       m_arguments = arguments;
       m_unparsed = unparsed;
@@ -48,7 +48,7 @@ class ArgumentsImpl implements ValidatedArguments
       return m_arguments.entrySet().iterator();
    }
 
-   public boolean contains(final String... options)
+   public boolean containsAny(final String... options)
    {
       return containsAny(Arrays.asList(options));
    }

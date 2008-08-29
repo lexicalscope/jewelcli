@@ -29,9 +29,9 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
    private final Map<String, List<String>> m_validatedArguments;
    private final OptionsSpecification<O> m_specification;
 
-   public ArgumentValidatorImpl(OptionsSpecification<O> specification)
+   public ArgumentValidatorImpl(final OptionsSpecification<O> specification)
    {
-      this.m_specification = specification;
+      m_specification = specification;
 
       m_validatedArguments = new LinkedHashMap<String, List<String>>();
       m_validatedUnparsedArguments = new ArrayList<String>();
@@ -40,9 +40,9 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
    }
 
    /**
-    * @inheritdoc
+    * @{inheritdoc}
     */
-   public ValidatedArguments validateArguments(final ArgumentCollection arguments) throws ArgumentValidationException
+   public ArgumentCollection validateArguments(final ArgumentCollection arguments) throws ArgumentValidationException
    {
       m_validatedUnparsedArguments.addAll(arguments.getUnparsed());
 
@@ -112,7 +112,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
 
       m_validationErrorBuilder.validate();
 
-      return new ArgumentsImpl(m_validatedArguments, m_validatedUnparsedArguments);
+      return new ArgumentsCollectionImpl(m_validatedArguments, m_validatedUnparsedArguments);
    }
 
    private void validateUnparsedOptions()

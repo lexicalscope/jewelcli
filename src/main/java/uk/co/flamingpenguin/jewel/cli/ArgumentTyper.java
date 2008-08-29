@@ -2,5 +2,5 @@ package uk.co.flamingpenguin.jewel.cli;
 
 interface ArgumentTyper<T>
 {
-   TypedArguments typeArguments(ValidatedArguments validatedArguments) throws ArgumentValidationException;
+   TypedArguments typeArguments(ArgumentCollection validatedArguments) throws ArgumentValidationException;
 }

@@ -104,6 +104,6 @@ class ParsedArgumentsBuilder
          finalArguments.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
       }
 
-      return new ArgumentsImpl(finalArguments, new ArrayList<String>(m_unparsed));
+      return new ArgumentsCollectionImpl(finalArguments, new ArrayList<String>(m_unparsed));
    }
 }

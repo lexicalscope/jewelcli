@@ -20,7 +20,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
    /**
     * @inheritdoc
     */
-   public TypedArguments typeArguments(final ValidatedArguments validatedArguments) throws ArgumentValidationException
+   public TypedArguments typeArguments(final ArgumentCollection validatedArguments) throws ArgumentValidationException
    {
       final TypedArgumentsImpl typedArguments = typeParsedArguments(validatedArguments);
       typeUnparsedArguments(validatedArguments, typedArguments);
@@ -28,7 +28,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
       return typedArguments;
    }
 
-   private void typeUnparsedArguments(final ValidatedArguments validatedArguments, final TypedArgumentsImpl typedArguments)
+   private void typeUnparsedArguments(final ArgumentCollection validatedArguments, final TypedArgumentsImpl typedArguments)
    {
       if(m_specification.hasUnparsedSpecification()
             && validatedArguments.hasUnparsed())
@@ -38,7 +38,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
       }
    }
 
-   private TypedArgumentsImpl typeParsedArguments(final ValidatedArguments validatedArguments)
+   private TypedArgumentsImpl typeParsedArguments(final ArgumentCollection validatedArguments)
    {
       final TypedArgumentsImpl typedArguments = new TypedArgumentsImpl();
 
@@ -61,7 +61,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
       return typedArguments;
    }
 
-   private Object getValue(final ValidatedArguments arguments, final Method method, final OptionMethodSpecification specification)
+   private Object getValue(final ArgumentCollection arguments, final Method method, final OptionMethodSpecification specification)
    {
 	  final List<String> values = arguments.containsAny(specification.getAllNames()) ? arguments.getValues(specification.getAllNames()) : specification.getDefaultValue();
       return getValue(method, values, specification);
