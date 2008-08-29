@@ -95,7 +95,7 @@ class ParsedArgumentsBuilder
       this.m_unparsed.addAll(Arrays.asList(unparsed));
    }
 
-   public ParsedArguments getParsedArguments()
+   public ArgumentCollection getParsedArguments()
    {
       final Map<String, List<String>> finalArguments = new LinkedHashMap<String, List<String>>();
 

@@ -27,7 +27,7 @@ class ArgumentParserImpl implements ArgumentParser
    /**
     * @inheritdoc
     */
-   public ParsedArguments parseArguments() throws ArgumentValidationException
+   public ArgumentCollection parseArguments() throws ArgumentValidationException
    {
       final ParsedArgumentsBuilder builder = new ParsedArgumentsBuilder();
 

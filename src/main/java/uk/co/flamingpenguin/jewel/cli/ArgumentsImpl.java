@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 
-class ArgumentsImpl implements ParsedArguments, ValidatedArguments
+class ArgumentsImpl implements ValidatedArguments
 {
    private final Map<String, List<String>> m_arguments;
    private final List<String> m_unparsed;

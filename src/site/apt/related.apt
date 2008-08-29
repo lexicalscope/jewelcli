@@ -31,6 +31,10 @@ Alternatives
   * {{{http://www.dpml.net/util/cli/index.html} DPML CLI (Jakarta Commons CLI2 fork}}
 
   * {{{http://www.objectmentor.com/resources/articles/Clean_Code_Args.pdf} Object Mentor CLI article (more about refactoring and TDD)}}
+
+  * {{{http://code.google.com/p/parse-cmd/} parse-cmd}}
+
+  * {{{http://code.google.com/p/cli-parser/} cli-parser}}
   
 Reviews, blog posts, etc
 
@@ -39,3 +43,4 @@ Reviews, blog posts, etc
   * {{{http://furiouspurpose.blogspot.com/2008/07/command-line-parsing-libraries-for-java.html} Command-Line Parsing Libraries for Java}}
   
   * {{{http://programmaticallyspeaking.blogspot.com/2008/04/boring-stuff-you-have-to-implement_21.html} Boring stuff you have to implement}}
+

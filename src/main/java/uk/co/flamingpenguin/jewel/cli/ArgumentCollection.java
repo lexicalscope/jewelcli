@@ -15,5 +15,5 @@ interface ArgumentCollection extends Iterable<Map.Entry<String, List<String>>>
    boolean hasUnparsed();
    
    boolean contains(String ... options);
-   boolean containsAny(final List<String> options);
+   boolean containsAny(List<String> options);
 }

@@ -13,7 +13,7 @@ public abstract class CliFactory
     * Construct a Cli from an annotated interface definition
     *
     * @param <O> The type of the interface that will be used to present
-    *            the argments
+    *            the arguments
     * @param klass The annotated interface definition
     *
     * @return A Cli configured to create instance of klass
