@@ -19,5 +19,5 @@ interface OptionsSpecification<O> extends Iterable<OptionMethodSpecification>
 
    boolean hasUnparsedSpecification();
 
-   ArgumentMethodSpecification getUnparsedSpecification();
+   UnparsedSpecificationImpl getUnparsedSpecification();
 }

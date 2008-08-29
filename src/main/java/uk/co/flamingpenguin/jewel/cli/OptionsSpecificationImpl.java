@@ -25,10 +25,10 @@ import java.util.TreeMap;
 
 class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
 {
-   private final Map<String, OptionSpecificationImpl> m_optionsShortName = new HashMap<String, OptionSpecificationImpl>();
-   private final Map<String, OptionSpecificationImpl> m_optionsLongName = new TreeMap<String, OptionSpecificationImpl>();
-   private final Map<Method, OptionSpecificationImpl> m_optionsMethod = new HashMap<Method, OptionSpecificationImpl>();
-   private final Map<Method, OptionSpecificationImpl> m_optionalOptionsMethod = new HashMap<Method, OptionSpecificationImpl>();
+   private final Map<String, OptionMethodSpecification> m_optionsShortName = new HashMap<String, OptionMethodSpecification>();
+   private final Map<String, OptionMethodSpecification> m_optionsLongName = new TreeMap<String, OptionMethodSpecification>();
+   private final Map<Method, OptionMethodSpecification> m_optionsMethod = new HashMap<Method, OptionMethodSpecification>();
+   private final Map<Method, OptionMethodSpecification> m_optionalOptionsMethod = new HashMap<Method, OptionMethodSpecification>();
    private UnparsedSpecificationImpl m_unparsed = null;
    private CliSpecificationImpl m_cliSpecification = null;
 
@@ -66,7 +66,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    }
 
    /**
-    * @inheritdoc
+    * @{inheritdoc}
     */
    public boolean isSpecified(final String key)
    {
@@ -74,7 +74,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    }
 
    /**
-    * @inheritdoc
+    * @{inheritdoc}
     */
    public boolean isSpecified(final Method method)
    {
@@ -82,7 +82,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    }
 
    /**
-    * @inheritdoc
+    * @{inheritdoc}
     */
    public OptionMethodSpecification getSpecification(final String key)
    {
@@ -97,7 +97,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    }
 
    /**
-    * @inheritdoc
+    * @{inheritdoc}
     */
    public OptionMethodSpecification getSpecification(final Method method)
    {
@@ -109,12 +109,12 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    }
 
    /**
-    * @inheritdoc
+    * @{inheritdoc}
     */
    public List<OptionMethodSpecification> getMandatoryOptions()
    {
       final ArrayList<OptionMethodSpecification> result = new ArrayList<OptionMethodSpecification>();
-      for (OptionSpecificationImpl specification : m_optionsLongName.values())
+      for (OptionMethodSpecification specification : m_optionsLongName.values())
       {
          if(!specification.isOptional() && !specification.hasDefaultValue())
          {
@@ -152,7 +152,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
       return new ArrayList<OptionMethodSpecification>(m_optionsMethod.values()).iterator();
    }
 
-   public ArgumentMethodSpecification getUnparsedSpecification()
+   public UnparsedSpecificationImpl getUnparsedSpecification()
    {
       return m_unparsed;
    }

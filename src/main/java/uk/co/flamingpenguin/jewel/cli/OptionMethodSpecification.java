@@ -6,7 +6,5 @@ interface OptionMethodSpecification extends OptionSpecification, ArgumentMethodS
 {
    StringBuilder getSummary(StringBuilder result);
 
-   boolean patternMatches(String value);
-
    List<String> getAllNames();
 }

@@ -58,7 +58,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
          }
          else
          {
-            final OptionMethodSpecification optionSpecification = m_specification.getSpecification(entry.getKey());
+            final OptionSpecification optionSpecification = m_specification.getSpecification(entry.getKey());
             if(optionSpecification.isHelpOption())
             {
                m_validationErrorBuilder.helpRequested(m_specification);
@@ -119,7 +119,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
    {
       if(m_specification.hasUnparsedSpecification())
       {
-         final ArgumentMethodSpecification argumentSpecification = m_specification.getUnparsedSpecification();
+         final UnparsedSpecificationImpl argumentSpecification = m_specification.getUnparsedSpecification();
          if(!argumentSpecification.isOptional() &&
               (m_validatedUnparsedArguments.isEmpty() || 
                  (argumentSpecification.isMultiValued() && m_validatedArguments.size() == 1)))
@@ -129,13 +129,13 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
       }
    }
 
-   private boolean hasExcessValues(final Entry<String, List<String>> entry, final OptionMethodSpecification optionSpecification)
+   private boolean hasExcessValues(final Entry<String, List<String>> entry, final OptionSpecification optionSpecification)
    {
       return (!optionSpecification.isMultiValued()
                 && (entry.getValue().size() > 1 || (entry.getValue().size() > 0 && !optionSpecification.hasValue())));
    }
 
-   private void checkAndAddValues(final OptionMethodSpecification optionSpecification, final String option, final ArrayList<String> values)
+   private void checkAndAddValues(final OptionSpecification optionSpecification, final String option, final ArrayList<String> values)
    {
       for (final String value : values)
       {
