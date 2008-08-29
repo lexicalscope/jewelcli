@@ -102,7 +102,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
 
       for(final OptionMethodSpecification optionSpecification : m_specification.getMandatoryOptions())
       {
-         if(!(arguments.containsAny(optionSpecification.getAllNames())))
+         if(!(arguments.containsAny(OptionUtils.getAllNames(optionSpecification))))
          {
             m_validationErrorBuilder.missingOption(optionSpecification);
          }

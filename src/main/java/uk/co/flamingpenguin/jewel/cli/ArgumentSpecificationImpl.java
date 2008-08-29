@@ -32,7 +32,7 @@ class ArgumentSpecificationImpl implements ArgumentMethodSpecification
    /**
     * @inheritdoc
     */
-   public final String getName()
+   final String getName()
    {
       return m_baseName;
    }

@@ -4,9 +4,6 @@ import java.lang.reflect.Method;
 
 interface ArgumentMethodSpecification extends OptionArgumentsSpecification
 {
-   String getName();
-   Method getMethod();
-
    /**
     * The method which is used to determine the optionality
     * of the argument.

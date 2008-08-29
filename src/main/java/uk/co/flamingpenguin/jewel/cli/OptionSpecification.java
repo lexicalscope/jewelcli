@@ -67,6 +67,5 @@ interface OptionSpecification extends OptionArgumentsSpecification
     */
    boolean isHelpOption();
    
-   
    boolean patternMatches(String value);
 }

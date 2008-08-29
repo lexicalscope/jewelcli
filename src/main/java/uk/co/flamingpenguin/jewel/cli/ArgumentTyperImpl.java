@@ -2,7 +2,6 @@ package uk.co.flamingpenguin.jewel.cli;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
             && validatedArguments.hasUnparsed())
       {
          final ArgumentMethodSpecification specification = m_specification.getUnparsedSpecification();
-         typedArguments.setUnparsedValue(getValue(specification.getMethod(), validatedArguments.getUnparsed(), specification));
+         typedArguments.setUnparsedValue(getValue(validatedArguments.getUnparsed(), specification));
       }
    }
 
@@ -44,12 +43,12 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
 
       for(final OptionMethodSpecification optionSpecification : m_specification)
       {
-         if(validatedArguments.containsAny(optionSpecification.getAllNames()) || optionSpecification.hasDefaultValue())
+         if(validatedArguments.containsAny(OptionUtils.getAllNames(optionSpecification)) || optionSpecification.hasDefaultValue())
          {
             final Object value;
             if(optionSpecification.hasValue())
             {
-               value = getValue(validatedArguments, optionSpecification.getMethod(), optionSpecification);
+               value = getValue(validatedArguments, optionSpecification);
             }
             else
             {
@@ -61,14 +60,16 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
       return typedArguments;
    }
 
-   private Object getValue(final ArgumentCollection arguments, final Method method, final OptionMethodSpecification specification)
+   private Object getValue(final ArgumentCollection arguments, final OptionMethodSpecification specification)
    {
-	  final List<String> values = arguments.containsAny(specification.getAllNames()) ? arguments.getValues(specification.getAllNames()) : specification.getDefaultValue();
-      return getValue(method, values, specification);
+	   final List<String> allNames = OptionUtils.getAllNames(specification);
+      final List<String> values = arguments.containsAny(allNames) ? arguments.getValues(allNames) : specification.getDefaultValue();
+      
+      return getValue(values, specification);
    }
 
    @SuppressWarnings("unchecked")
-   private Object getValue(final Method method, final List<String> values, final ArgumentMethodSpecification specification)
+   private Object getValue(final List<String> values, final ArgumentMethodSpecification specification)
    {
       try
       {
@@ -113,7 +114,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
                }
                else
                {
-                  throw new UnsupportedOperationException(String.format("Method (%s) return type not supported for reading argument values", method.toGenericString()));
+                  throw new UnsupportedOperationException(String.format("Method (%s) return type not supported for reading argument values", type));
                }
             }
             else if(type.equals(Character.class))

@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 class OptionSpecificationImpl extends ArgumentSpecificationImpl implements OptionMethodSpecification
 {
    private static final Logger g_logger = Logger.getLogger(OptionSpecificationImpl.class.getName());
-   private final List<String> m_allNames = new ArrayList<String>();
    private final List<String> m_shortNames;
    private final String m_longName;
    private final String m_description;
@@ -34,11 +33,9 @@ class OptionSpecificationImpl extends ArgumentSpecificationImpl implements Optio
             m_shortNames.add(shortNameSpecification[i].substring(0, 1));
          }
       }
-      m_allNames.addAll(m_shortNames);
 
       final String longNameSpecification = optionAnnotation.longName().trim();
       m_longName = nullOrBlank(longNameSpecification) ? getName() : longNameSpecification;
-      m_allNames.add(m_longName);
 
       m_description = optionAnnotation.description().trim();
 
@@ -149,11 +146,6 @@ class OptionSpecificationImpl extends ArgumentSpecificationImpl implements Optio
       }
 
       return result.toString();
-   }
-
-   public List<String> getAllNames()
-   {
-      return m_allNames;
    }
 
    public List<String> getDefaultValue()
