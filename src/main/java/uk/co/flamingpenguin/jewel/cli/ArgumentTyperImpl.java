@@ -17,7 +17,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
    }
 
    /**
-    * @inheritdoc
+    * @{inheritdoc}
     */
    public TypedArguments typeArguments(final ArgumentCollection validatedArguments) throws ArgumentValidationException
    {
@@ -41,7 +41,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
    {
       final TypedArgumentsImpl typedArguments = new TypedArgumentsImpl();
 
-      for(final OptionMethodSpecification optionSpecification : m_specification)
+      for(final OptionSpecification optionSpecification : m_specification)
       {
          if(validatedArguments.containsAny(OptionUtils.getAllNames(optionSpecification)) || optionSpecification.hasDefaultValue())
          {
@@ -60,7 +60,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
       return typedArguments;
    }
 
-   private Object getValue(final ArgumentCollection arguments, final OptionMethodSpecification specification)
+   private Object getValue(final ArgumentCollection arguments, final OptionSpecification specification)
    {
 	   final List<String> allNames = OptionUtils.getAllNames(specification);
       final List<String> values = arguments.containsAny(allNames) ? arguments.getValues(allNames) : specification.getDefaultValue();
@@ -69,7 +69,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
    }
 
    @SuppressWarnings("unchecked")
-   private Object getValue(final List<String> values, final ArgumentMethodSpecification specification)
+   private Object getValue(final List<String> values, final OptionArgumentsSpecification specification)
    {
       try
       {

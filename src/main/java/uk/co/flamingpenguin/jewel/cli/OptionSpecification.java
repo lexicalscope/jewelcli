@@ -67,5 +67,12 @@ interface OptionSpecification extends OptionArgumentsSpecification
     */
    boolean isHelpOption();
    
+   /**
+    * Does the option's pattern match the given value
+    * 
+    * @param value the value to check
+    * 
+    * @return true iff the value is matched by this option's patternSB
+    */
    boolean patternMatches(String value);
 }
