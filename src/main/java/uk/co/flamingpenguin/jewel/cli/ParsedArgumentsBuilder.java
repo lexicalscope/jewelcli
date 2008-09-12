@@ -22,60 +22,60 @@ class ParsedArgumentsBuilder
    }
 
    private final Map<String, List<String>> m_arguments = new LinkedHashMap<String, List<String>>();
-   private List<String> m_currentValues;
    private final List<String> m_unparsed = new ArrayList<String>();
 
    private ParsingState m_state = ParsingState.Initial;
+   private List<String> m_currentValues;
 
    public void add(final String argument) throws ArgumentValidationException
    {
-      switch (m_state)
+      if(startsWithDash(argument) && !m_state.equals(ParsingState.Unparsed))
       {
-         case Initial:
-         case OptionOrValue:
-         case NoOptions:
-            if(argument.length() > 1 && argument.startsWith("-"))
+         if(startsWithDoubleDash(argument))
+         {
+            if(argument.length() > 2)
             {
-               if(argument.startsWith("--"))
-               {
-                  if(argument.length() > 2)
-                  {
-                     if(argument.contains("="))
-                     {
-                        final int separatorIndex = argument.indexOf("=");
-                        addOption(argument.substring(2, separatorIndex).trim());
-
-                        if(argument.length() > (separatorIndex + 1))
-                        {
-                           addValue(argument.substring(separatorIndex + 1).trim());
-                        }
-                     }
-                     else
-                     {
-                        addOption(argument.substring(2, argument.length()).trim());
-                     }
-                  }
-                  else
-                  {
-                     m_currentValues = null;
-                     m_state = ParsingState.Unparsed;
-                  }
-               }
-               else
-               {
-                  for (int i = 1; i < argument.length(); i++)
-                  {
-                     addOption(argument.substring(i, i+1));
-                  }
-               }
+               addOptionAndValue(argument);
             }
             else
             {
-               addValue(argument);
+               changeToUnparsedState();
             }
-            break;
-         case Unparsed:
-            addValue(argument);
+         }
+         else
+         {
+            addConjoinedOptions(argument.substring(1));
+         }
+      }
+      else
+      {
+         addValue(argument);
+      }
+   }
+
+   private void addConjoinedOptions(final String options) throws ArgumentValidationException
+   {
+      for (int i = 0; i < options.length(); i++)
+      {
+         addOption(options.substring(i, i+1));
+      }
+   }
+
+   private void addOptionAndValue(final String argument) throws ArgumentValidationException
+   {
+      if(argument.contains("="))
+      {
+         final int separatorIndex = argument.indexOf("=");
+         addOption(argument.substring(2, separatorIndex).trim());
+
+         if(argument.length() > (separatorIndex + 1))
+         {
+            addValue(argument.substring(separatorIndex + 1).trim());
+         }
+      }
+      else
+      {
+         addOption(argument.substring(2, argument.length()).trim());
       }
    }
 
@@ -136,5 +136,21 @@ class ParsedArgumentsBuilder
       }
 
       return new ArgumentsCollectionImpl(finalArguments, new ArrayList<String>(m_unparsed));
+   }
+
+   private void changeToUnparsedState()
+   {
+      m_currentValues = null;
+      m_state = ParsingState.Unparsed;
+   }
+
+   private boolean startsWithDash(final String argument)
+   {
+      return argument.length() > 1 && argument.startsWith("-");
+   }
+
+   private boolean startsWithDoubleDash(final String argument)
+   {
+      return argument.startsWith("--");
    }
 }
