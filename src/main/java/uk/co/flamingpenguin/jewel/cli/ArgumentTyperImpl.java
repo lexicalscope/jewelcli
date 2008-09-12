@@ -30,7 +30,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
    private void typeUnparsedArguments(final ArgumentCollection validatedArguments, final TypedArgumentsImpl typedArguments)
    {
       if(m_specification.hasUnparsedSpecification()
-            && validatedArguments.hasUnparsed())
+            && !validatedArguments.getUnparsed().isEmpty())
       {
          final ArgumentMethodSpecification specification = m_specification.getUnparsedSpecification();
          typedArguments.setUnparsedValue(getValue(validatedArguments.getUnparsed(), specification));
@@ -62,9 +62,9 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
 
    private Object getValue(final ArgumentCollection arguments, final OptionSpecification specification)
    {
-	   final List<String> allNames = OptionUtils.getAllNames(specification);
+      final List<String> allNames = OptionUtils.getAllNames(specification);
       final List<String> values = arguments.containsAny(allNames) ? arguments.getValues(allNames) : specification.getDefaultValue();
-      
+
       return getValue(values, specification);
    }
 

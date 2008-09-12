@@ -12,13 +12,6 @@ interface ArgumentCollection extends Iterable<Argument>
    List<String> getUnparsed();
 
    /**
-    * Are there any unparsed options available
-    *
-    * @return are there any unparsed options available
-    */
-   boolean hasUnparsed();
-
-   /**
     * Does the collection contain any of the given options
     *
     * @param options the options
