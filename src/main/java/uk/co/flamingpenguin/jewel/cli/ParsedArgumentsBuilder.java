@@ -159,7 +159,7 @@ class ParsedArgumentsBuilder implements ArgumentParser
          finalArguments.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
       }
 
-      return new ArgumentsCollectionImpl(finalArguments, new ArrayList<String>(m_unparsed));
+      return new ArgumentCollectionImpl(finalArguments, new ArrayList<String>(m_unparsed));
    }
 
    private void changeToUnparsedState()

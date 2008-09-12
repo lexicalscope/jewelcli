@@ -72,14 +72,14 @@ public class TestArgumentValidatorImpl extends TestCase
 
    public void testMultipleValueEndOfArguments() throws ArgumentValidationException
    {
-      final ArgumentCollection validated = validate(new String[]{"--name", "a", "b", "--", "c", "d"}, MultipleValue.class);
+      final ArgumentCollectionImpl validated = validate(new String[]{"--name", "a", "b", "--", "c", "d"}, MultipleValue.class);
       assertEquals(2, validated.getUnparsed().size());
       assertEquals(2, validated.getValues("name").size());
    }
 
    public void testMultipleValueNotEndOfArguments() throws ArgumentValidationException
    {
-      final ArgumentCollection validated = validate(new String[]{"--name0", "a", "b", "--name1", "c", "d", "e", "--", "f", "g"}, ExtraValue.class);
+      final ArgumentCollectionImpl validated = validate(new String[]{"--name0", "a", "b", "--name1", "c", "d", "e", "--", "f", "g"}, ExtraValue.class);
       assertEquals(4, validated.getUnparsed().size());
       assertEquals(2, validated.getValues("name0").size());
       assertEquals(1, validated.getValues("name1").size());
@@ -147,9 +147,9 @@ public class TestArgumentValidatorImpl extends TestCase
       // TODO[tim]:support minimum/maximum value list lengths
    }
 
-   private <O> ArgumentCollection validate(final String[] arguments, final Class<O> klass) throws ArgumentValidationException
+   private <O> ArgumentCollectionImpl validate(final String[] arguments, final Class<O> klass) throws ArgumentValidationException
    {
       final ArgumentValidatorImpl<O> impl = new ArgumentValidatorImpl<O>(new OptionsSpecificationImpl<O>(klass));
-      return impl.validateArguments(new ParsedArgumentsBuilder().parseArguments(arguments));
+      return (ArgumentCollectionImpl) impl.validateArguments(new ParsedArgumentsBuilder().parseArguments(arguments));
    }
 }

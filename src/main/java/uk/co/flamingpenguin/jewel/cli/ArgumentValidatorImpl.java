@@ -111,7 +111,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
 
       m_validationErrorBuilder.validate();
 
-      return new ArgumentsCollectionImpl(m_validatedArguments, m_validatedUnparsedArguments);
+      return new ArgumentCollectionImpl(m_validatedArguments, m_validatedUnparsedArguments);
    }
 
    private void validateUnparsedOptions()

@@ -22,12 +22,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 
-class ArgumentsCollectionImpl implements ArgumentCollection
+class ArgumentCollectionImpl implements ArgumentCollection
 {
    private final Map<String, List<String>> m_arguments;
    private final List<String> m_unparsed;
 
-   public ArgumentsCollectionImpl(final Map<String, List<String>> arguments, final List<String> unparsed)
+   public ArgumentCollectionImpl(final Map<String, List<String>> arguments, final List<String> unparsed)
    {
       m_arguments = arguments;
       m_unparsed = unparsed;
@@ -65,11 +65,14 @@ class ArgumentsCollectionImpl implements ArgumentCollection
          }};
    }
 
-   public boolean containsAny(final String... options)
+   boolean containsAny(final String... options)
    {
       return containsAny(Arrays.asList(options));
    }
 
+   /**
+    * {@inheritDoc}
+    */
    public boolean containsAny(final List<String> options)
    {
       for (final String option : options)
@@ -82,11 +85,14 @@ class ArgumentsCollectionImpl implements ArgumentCollection
       return false;
    }
 
-   public List<String> getValues(final String... options)
+   List<String> getValues(final String... options)
    {
       return getValues(Arrays.asList(options));
    }
 
+   /**
+    * {@inheritDoc}
+    */
    public List<String> getValues(final List<String> options)
    {
       for (final String option : options)
