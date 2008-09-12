@@ -39,7 +39,14 @@ class ParsedArgumentsBuilder implements ArgumentParser
       return getParsedArguments();
    }
 
-   public void add(final String argument) throws ArgumentValidationException
+   /**
+    * Add an argument to the set
+    *
+    * @param argument the argument to parse
+    *
+    * @throws ArgumentValidationException
+    */
+   void add(final String argument) throws ArgumentValidationException
    {
       if(startsWithDash(argument) && !m_state.equals(ParsingState.Unparsed))
       {
@@ -138,7 +145,12 @@ class ParsedArgumentsBuilder implements ArgumentParser
       }
    }
 
-   public ArgumentCollection getParsedArguments()
+   /**
+    * Obtain the parsed arguments
+    *
+    * @return the arguments that have been parsed
+    */
+   ArgumentCollection getParsedArguments()
    {
       final Map<String, List<String>> finalArguments = new LinkedHashMap<String, List<String>>();
 
