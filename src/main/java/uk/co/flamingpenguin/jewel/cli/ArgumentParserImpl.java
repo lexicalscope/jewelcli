@@ -25,23 +25,15 @@ class ArgumentParserImpl implements ArgumentParser
    }
 
    /**
-    * @inheritdoc
+    * {@inheritDoc}
     */
    public ArgumentCollection parseArguments() throws ArgumentValidationException
    {
       final ParsedArgumentsBuilder builder = new ParsedArgumentsBuilder();
 
-      for (int i = 0; i < arguments.length; i++)
+      for (final String argument : arguments)
       {
-         if(arguments[i].equals("--") && arguments.length > i + 2)
-         {
-            String[] unparsed = new String[arguments.length - i - 1];
-            System.arraycopy(arguments, i + 1, unparsed, 0, arguments.length - i - 1);
-            builder.setUnparsed(unparsed);
-
-            break;
-         }
-         builder.add(arguments[i]);
+         builder.add(argument);
       }
       return builder.getParsedArguments();
    }

@@ -1,7 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,21 +17,29 @@ class ParsedArgumentsBuilder
    {
       if(argument.length() > 1 && argument.startsWith("-"))
       {
-         if(argument.length() > 2 && argument.startsWith("--"))
+         if(argument.startsWith("--"))
          {
-            if(argument.contains("="))
+            if(argument.length() > 2)
             {
-               final int separatorIndex = argument.indexOf("=");
-               addOption(argument.substring(2, separatorIndex).trim());
-
-               if(argument.length() > (separatorIndex + 1))
+               if(argument.contains("="))
                {
-                  addValue(argument.substring(separatorIndex + 1).trim());
+                  final int separatorIndex = argument.indexOf("=");
+                  addOption(argument.substring(2, separatorIndex).trim());
+
+                  if(argument.length() > (separatorIndex + 1))
+                  {
+                     addValue(argument.substring(separatorIndex + 1).trim());
+                  }
+               }
+               else
+               {
+                  addOption(argument.substring(2, argument.length()).trim());
                }
             }
             else
             {
-               addOption(argument.substring(2, argument.length()).trim());
+               m_currentValues = null;
+               m_moreOptionsExpected = false;
             }
          }
          else
@@ -88,11 +95,6 @@ class ParsedArgumentsBuilder
              return String.format("Option not expected in this position: %s", getMessage());
           }});
       }
-   }
-
-   public void setUnparsed(final String[] unparsed)
-   {
-      this.m_unparsed.addAll(Arrays.asList(unparsed));
    }
 
    public ArgumentCollection getParsedArguments()
