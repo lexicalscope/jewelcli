@@ -96,7 +96,7 @@ public class TestArgumentValidatorImpl extends TestCase
       validate(new String[]{"--name", "a"}, MultipleValue.class);
    }
 
-   public void testExtraOption() throws ArgumentValidationException
+   public void testExtraOption()
    {
       try
       {
@@ -150,6 +150,6 @@ public class TestArgumentValidatorImpl extends TestCase
    private <O> ArgumentCollection validate(final String[] arguments, final Class<O> klass) throws ArgumentValidationException
    {
       final ArgumentValidatorImpl<O> impl = new ArgumentValidatorImpl<O>(new OptionsSpecificationImpl<O>(klass));
-      return impl.validateArguments(new ArgumentParserImpl(arguments).parseArguments());
+      return impl.validateArguments(new ParsedArgumentsBuilder().parseArguments(arguments));
    }
 }

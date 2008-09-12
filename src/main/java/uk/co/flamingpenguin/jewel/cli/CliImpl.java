@@ -30,7 +30,7 @@ class CliImpl<O> implements Cli<O>
     */
    public O parseArguments(final String... arguments) throws ArgumentValidationException
    {
-      final ArgumentCollection validatedArguments = new ArgumentValidatorImpl<O>(m_specification).validateArguments(new ArgumentParserImpl(arguments).parseArguments());
+      final ArgumentCollection validatedArguments = new ArgumentValidatorImpl<O>(m_specification).validateArguments(new ParsedArgumentsBuilder().parseArguments(arguments));
       final TypedArguments typedArguments = new ArgumentTyperImpl<O>(m_specification).typeArguments(validatedArguments);
       return new ArgumentPresenterImpl<O>(m_klass, m_specification).presentArguments(typedArguments);
    }

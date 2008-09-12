@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-class ParsedArgumentsBuilder
+class ParsedArgumentsBuilder implements ArgumentParser
 {
    /**
     * The state of the parser
@@ -26,6 +26,18 @@ class ParsedArgumentsBuilder
 
    private ParsingState m_state = ParsingState.Initial;
    private List<String> m_currentValues;
+
+   /**
+    * {@inheritDoc}
+    */
+   public ArgumentCollection parseArguments(final String... arguments) throws ArgumentValidationException
+   {
+      for (final String argument : arguments)
+      {
+         add(argument);
+      }
+      return getParsedArguments();
+   }
 
    public void add(final String argument) throws ArgumentValidationException
    {

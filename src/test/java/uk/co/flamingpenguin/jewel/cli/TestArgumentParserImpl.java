@@ -1,21 +1,21 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
 import junit.framework.TestCase;
+import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
 
 public class TestArgumentParserImpl extends TestCase
 {
    public void testParseArguments() throws ArgumentValidationException
    {
-        final ArgumentParserImpl impl = new ArgumentParserImpl(new String[]{});
-        final ArgumentCollection parsed = impl.parseArguments();
+        final ArgumentParser impl = new ParsedArgumentsBuilder();
+        final ArgumentCollection parsed = impl.parseArguments(new String[]{});
         assertEquals(0, parsed.getUnparsed().size());
    }
 
    public void testParseArgumentsNotUparsed() throws ArgumentValidationException
    {
-        final ArgumentParserImpl impl = new ArgumentParserImpl(new String[]{"-a", "1", "2", "-b", "-c", "1", "2"});
-        final ArgumentCollection parsed = impl.parseArguments();
+        final ArgumentParser impl = new ParsedArgumentsBuilder();
+        final ArgumentCollection parsed = impl.parseArguments(new String[]{"-a", "1", "2", "-b", "-c", "1", "2"});
         assertTrue(parsed.containsAny("a"));
         assertTrue(parsed.containsAny("b"));
         assertTrue(parsed.containsAny("c"));
@@ -23,8 +23,8 @@ public class TestArgumentParserImpl extends TestCase
 
    public void testParseArgumentsUnparsed() throws ArgumentValidationException
    {
-      final ArgumentParserImpl impl = new ArgumentParserImpl(new String[]{"-a", "1", "2", "-b", "-c", "1", "2", "--", "3", "4"});
-      final ArgumentCollection parsed = impl.parseArguments();
+      final ArgumentParser impl = new ParsedArgumentsBuilder();
+      final ArgumentCollection parsed = impl.parseArguments(new String[]{"-a", "1", "2", "-b", "-c", "1", "2", "--", "3", "4"});
       assertEquals(2, parsed.getUnparsed().size());
       assertEquals("3", parsed.getUnparsed().get(0));
       assertEquals("4", parsed.getUnparsed().get(1));
@@ -32,24 +32,24 @@ public class TestArgumentParserImpl extends TestCase
 
    public void testParseArgumentsOnlyUnparsed() throws ArgumentValidationException
    {
-      final ArgumentParserImpl impl = new ArgumentParserImpl(new String[]{"--", "3", "4"});
-      final ArgumentCollection parsed = impl.parseArguments();
+      final ArgumentParser impl = new ParsedArgumentsBuilder();
+      final ArgumentCollection parsed = impl.parseArguments(new String[]{"--", "3", "4"});
       assertEquals(2, parsed.getUnparsed().size());
    }
 
    public void testParseArgumentsOnlyUnparsedSeperator() throws ArgumentValidationException
    {
-      final ArgumentParserImpl impl = new ArgumentParserImpl(new String[]{"--"});
-      final ArgumentCollection parsed = impl.parseArguments();
+      final ArgumentParser impl = new ParsedArgumentsBuilder();
+      final ArgumentCollection parsed = impl.parseArguments(new String[]{"--"});
       assertEquals(0, parsed.getUnparsed().size());
    }
 
    public void testParseArgumentsMisplacedValue()
    {
-      final ArgumentParserImpl impl = new ArgumentParserImpl(new String[]{"a", "-b"});
+      final ArgumentParser impl = new ParsedArgumentsBuilder();
       try
       {
-         impl.parseArguments();
+         impl.parseArguments(new String[]{"a", "-b"});
          fail();
       }
       catch (final ArgumentValidationException e)
@@ -61,8 +61,8 @@ public class TestArgumentParserImpl extends TestCase
 
    public void testParseShortArguments() throws ArgumentValidationException
    {
-        final ArgumentParserImpl impl = new ArgumentParserImpl(new String[]{"-abc"});
-        final ArgumentCollection parsed = impl.parseArguments();
+        final ArgumentParser impl = new ParsedArgumentsBuilder();
+        final ArgumentCollection parsed = impl.parseArguments(new String[]{"-abc"});
         assertEquals(0, parsed.getUnparsed().size());
         assertTrue(parsed.containsAny("a"));
         assertTrue(parsed.containsAny("b"));
@@ -72,8 +72,8 @@ public class TestArgumentParserImpl extends TestCase
 
    public void testParseAssignedValue() throws ArgumentValidationException
    {
-        final ArgumentParserImpl impl = new ArgumentParserImpl(new String[]{"--option=value"});
-        final ArgumentCollection parsed = impl.parseArguments();
+        final ArgumentParser impl = new ParsedArgumentsBuilder();
+        final ArgumentCollection parsed = impl.parseArguments(new String[]{"--option=value"});
         assertEquals(0, parsed.getUnparsed().size());
         assertTrue(parsed.containsAny("option"));
         assertEquals("value", parsed.iterator().next().getValue().get(0));
