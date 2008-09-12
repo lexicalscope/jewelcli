@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import junit.framework.TestCase;
+
+import org.junit.Assert;
+
+import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError;
 import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
 
 public class TestParsedArgumentsBuilder extends TestCase
@@ -64,6 +68,21 @@ public class TestParsedArgumentsBuilder extends TestCase
       assertEquals(2, unparsed.size());
       assertEquals("v1", unparsed.get(0));
       assertEquals("v2", unparsed.get(1));
+   }
+
+   public void testMissingInitalSpecifier() throws ArgumentValidationException
+   {
+      final ParsedArgumentsBuilder parsedArgumentsBuilder = new ParsedArgumentsBuilder();
+      parsedArgumentsBuilder.add("v0");
+      try
+      {
+         parsedArgumentsBuilder.add("-a");
+      }
+      catch (final ArgumentValidationException e)
+      {
+         Assert.assertEquals(1, e.getValidationErrors().size());
+         Assert.assertEquals(ValidationError.ErrorType.MisplacedOption, e.getValidationErrors().get(0).getErrorType());
+      }
    }
 
    public void testIterator() throws ArgumentValidationException
