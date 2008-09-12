@@ -76,7 +76,7 @@ public class TestArgumentParserImpl extends TestCase
         final ArgumentCollection parsed = impl.parseArguments(new String[]{"--option=value"});
         assertEquals(0, parsed.getUnparsed().size());
         assertTrue(parsed.containsAny("option"));
-        assertEquals("value", parsed.iterator().next().getValue().get(0));
+        assertEquals("value", parsed.iterator().next().getValues().get(0));
         assertFalse(parsed.containsAny("option=value"));
    }
 }

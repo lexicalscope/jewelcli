@@ -37,15 +37,32 @@ class ArgumentsCollectionImpl implements ArgumentCollection
    {
       return !m_unparsed.isEmpty();
    }
-   
+
    public List<String> getUnparsed()
    {
       return new ArrayList<String>(m_unparsed);
    }
 
-   public Iterator<Entry<String, List<String>>> iterator()
+   public Iterator<Argument> iterator()
    {
-      return m_arguments.entrySet().iterator();
+      return new Iterator<Argument>() {
+         final Iterator<Map.Entry<String, List<String>>> m_iterator = m_arguments.entrySet().iterator();
+
+         public boolean hasNext()
+         {
+            return m_iterator.hasNext();
+         }
+
+         public Argument next()
+         {
+            final Entry<String, List<String>> next = m_iterator.next();
+            return new ArgumentImpl(next.getKey(), next.getValue());
+         }
+
+         public void remove()
+         {
+            m_iterator.remove();
+         }};
    }
 
    public boolean containsAny(final String... options)
@@ -53,7 +70,7 @@ class ArgumentsCollectionImpl implements ArgumentCollection
       return containsAny(Arrays.asList(options));
    }
 
-   public boolean containsAny(List<String> options)
+   public boolean containsAny(final List<String> options)
    {
       for (final String option : options)
       {
@@ -70,7 +87,7 @@ class ArgumentsCollectionImpl implements ArgumentCollection
       return getValues(Arrays.asList(options));
    }
 
-   public List<String> getValues(List<String> options)
+   public List<String> getValues(final List<String> options)
    {
       for (final String option : options)
       {

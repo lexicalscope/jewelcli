@@ -2,7 +2,6 @@ package uk.co.flamingpenguin.jewel.cli;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 
 import junit.framework.TestCase;
 
@@ -92,13 +91,13 @@ public class TestParsedArgumentsBuilder extends TestCase
       parsedArgumentsBuilder.add("v1");
       parsedArgumentsBuilder.add("v2");
 
-      final Iterator<Entry<String, List<String>>> iterator = parsedArgumentsBuilder.getParsedArguments().iterator();
+      final Iterator<Argument> iterator = parsedArgumentsBuilder.getParsedArguments().iterator();
       assertTrue(iterator.hasNext());
 
-      final Entry<String, List<String>> entry = iterator.next();
-      assertEquals("a", entry.getKey());
-      assertEquals(2, entry.getValue().size());
-      assertEquals("v1", entry.getValue().get(0));
-      assertEquals("v2", entry.getValue().get(1));
+      final Argument argument = iterator.next();
+      assertEquals("a", argument.getOptionName());
+      assertEquals(2, argument.getValues().size());
+      assertEquals("v1", argument.getValues().get(0));
+      assertEquals("v2", argument.getValues().get(1));
    }
 }
