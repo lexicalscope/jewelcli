@@ -3,7 +3,7 @@
      <sourceforge.project.groupId>166725</sourceforge.project.groupId>
   </properties>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>uk.co.flamingpenguin.jewel</groupId>
+  <groupId>uk.co.flamingpenguin.jewelcli</groupId>
   <artifactId>jewelcli</artifactId>
   <packaging>jar</packaging>
   <version>0.6-SNAPSHOT</version>
