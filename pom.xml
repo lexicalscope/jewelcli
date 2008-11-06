@@ -3,10 +3,10 @@
      <sourceforge.project.groupId>166725</sourceforge.project.groupId>
   </properties>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>uk.co.flamingpenguin.jewel</groupId>
+  <groupId>uk.co.flamingpenguin.jewelcli</groupId>
   <artifactId>jewelcli</artifactId>
   <packaging>jar</packaging>
-  <version>0.6-SNAPSHOT</version>
+  <version>0.57</version>
   <name>JewelCli</name>
   <url>http://jewelcli.sourceforge.net</url>
   <description>JewelCli uses an annotated interface definition to automatically parse and present command line arguments</description>
@@ -19,17 +19,17 @@
     <downloadUrl>http://sourceforge.net/project/showfiles.php?group_id=166725</downloadUrl>
     <site>
       <id>jewelCli.sourceforge</id>
-      <url>scp://shell.sourceforge.net/home/groups/j/je/jewelcli/htdocs</url>
+      <url>scp://web.sourceforge.net/home/groups/j/je/jewelcli/htdocs</url>
     </site>
     <repository>
       <id>jewelCli.sourceforge</id>
       <name>JewelCli Repository at sourceforge</name>
-      <url>scp://shell.sourceforge.net/home/groups/j/je/jewelcli/htdocs/m2repo</url>
+      <url>scp://web.sourceforge.net/home/groups/j/je/jewelcli/htdocs/m2repo</url>
     </repository>
     <snapshotRepository>
       <id>jewelCli.sourceforge</id>
       <name>JewelCli Repository at sourceforge</name>
-      <url>scp://shell.sourceforge.net/home/groups/j/je/jewelcli/htdocs/m2repo-snapshot</url>
+      <url>scp://web.sourceforge.net/home/groups/j/je/jewelcli/htdocs/m2repo-snapshot</url>
     </snapshotRepository>
   </distributionManagement>
   <licenses>
@@ -54,9 +54,9 @@
     <url>http://sourceforge.net/tracker/?group_id=${sourceforge.project.groupId}</url>
   </issueManagement>
   <scm>
-    <connection>scm:svn:https://jewelcli.svn.sourceforge.net/svnroot/jewelcli/JewelCli/trunk</connection>
-    <developerConnection>scm:svn:https://jewelcli.svn.sourceforge.net/svnroot/jewelcli/JewelCli/trunk</developerConnection>
-    <url>http://svn.sourceforge.net/viewcvs.cgi/jewelcli</url>
+    <connection>scm:svn:https://jewelcli.svn.sourceforge.net/svnroot/jewelcli/JewelCli/tags/release-0.57</connection>
+    <developerConnection>scm:svn:https://jewelcli.svn.sourceforge.net/svnroot/jewelcli/JewelCli/tags/release-0.57</developerConnection>
+    <url>http://svn.sourceforge.net/viewcvs.cgi/jewelcli/tags/release-0.57</url>
   </scm>
   <mailingLists>
     <mailingList>
