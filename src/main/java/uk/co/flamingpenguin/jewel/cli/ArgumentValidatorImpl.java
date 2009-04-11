@@ -120,7 +120,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
       {
          final UnparsedSpecificationImpl argumentSpecification = m_specification.getUnparsedSpecification();
 
-         if(!argumentSpecification.isOptional() && m_validatedUnparsedArguments.isEmpty())
+         if(!argumentSpecification.isMultiValued() && !argumentSpecification.isOptional() && m_validatedUnparsedArguments.isEmpty())
          {
             m_validationErrorBuilder.missingValue(argumentSpecification);
          }

@@ -15,6 +15,12 @@ public class TestCliImpl extends TestCase
       String getName();
    }
 
+   public interface ListOption
+   {
+      @Option
+      List<String> getName();
+   }
+
    public interface CharacterValue
    {
       @Option
@@ -257,19 +263,14 @@ public class TestCliImpl extends TestCase
       assertEquals("value1", result.getNames().get(1));
    }
 
-   public void testUnparsedListOptionMissingValue()
+   public void testListOptionMissingValue() throws ArgumentValidationException
    {
-      try
-      {
-         new CliImpl<UnparsedListOption>(UnparsedListOption.class).parseArguments(new String[]{});
-         fail();
-      }
-      catch (final ArgumentValidationException e)
-      {
-         final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
-         assertEquals(1, validationErrors.size());
-         assertEquals(ErrorType.MissingValue, validationErrors.get(0).getErrorType());
-      }
+      new CliImpl<ListOption>(ListOption.class).parseArguments(new String[]{"--name"});
+   }
+
+   public void testUnparsedListOptionMissingValue() throws ArgumentValidationException
+   {
+      new CliImpl<UnparsedListOption>(UnparsedListOption.class).parseArguments(new String[]{});
    }
 
    public void testOptionalUnparsedOption() throws ArgumentValidationException
