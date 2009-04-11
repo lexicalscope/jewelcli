@@ -27,6 +27,23 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O>
             new InvocationHandler(){
                public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable
                {
+                  if(args == null)
+                  {
+                     if(method.getName().equals("hashCode"))
+                     {
+                        return this.hashCode();
+                     }
+                     else if(method.getName().equals("toString"))
+                     {
+                        return m_klass.getName();
+                     }
+                  }
+
+                  if(args != null && args.length == 1 && method.getName().equals("equals"))
+                  {
+                     final Object that = args[0];
+                     return Proxy.isProxyClass(that.getClass()) && Proxy.getInvocationHandler(that).equals(this);
+                  }
                   if(args != null && args.length != 0)
                   {
                      throw new UnsupportedOperationException(String.format("Method (%s) with arguments not supported for reading argument values", method.toGenericString()));
@@ -35,8 +52,8 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O>
                   {
                      return arguments.getUnparsedValue();
                   }
-                  else if(m_specification.hasUnparsedSpecification() && 
-                          m_specification.getUnparsedSpecification().isOptional() && 
+                  else if(m_specification.hasUnparsedSpecification() &&
+                          m_specification.getUnparsedSpecification().isOptional() &&
                           m_specification.getUnparsedSpecification().getOptionalityMethod().equals(method))
                   {
                      return arguments.hasUnparsedValue();
