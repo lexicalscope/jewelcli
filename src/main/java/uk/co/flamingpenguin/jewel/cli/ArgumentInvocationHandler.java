@@ -30,6 +30,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.List;
 
 final class ArgumentInvocationHandler<O> implements InvocationHandler
 {
@@ -59,7 +61,7 @@ final class ArgumentInvocationHandler<O> implements InvocationHandler
          }
          else if(method.getName().equals("toString"))
          {
-            return m_klass.getName();
+            return toString();
          }
       }
 
@@ -109,5 +111,77 @@ final class ArgumentInvocationHandler<O> implements InvocationHandler
          throw new OptionNotPresentException(specification);
       }
       return value;
+   }
+
+   /**
+    * {@inheritdoc}
+    */
+   @Override
+   public String toString()
+   {
+      final StringBuilder result = new StringBuilder();
+      result.append("Option values for ")
+            .append(m_klass.getCanonicalName())
+            .append(":");
+
+      final List<String> values = new ArrayList<String>();
+      for (final OptionMethodSpecification methodSpecification : m_specification) {
+         if (methodSpecification.isHelpOption()) {
+            continue;
+         }
+         else if(m_arguments.contains(methodSpecification))
+         {
+            final StringBuilder valueString = new StringBuilder();
+
+            valueString.append("--")
+                  .append(methodSpecification.getLongName());
+
+            if(methodSpecification.hasValue())
+            {
+                  final Object value = m_arguments.getValue(methodSpecification);
+                  valueString.append(" ");
+                  valueString.append(formatValue(value));
+            }
+            values.add(valueString.toString());
+         }
+      }
+      if(m_specification.hasUnparsedSpecification() && m_arguments.hasUnparsedValue())
+      {
+         values.add(formatValue(m_arguments.getUnparsedValue()));
+      }
+
+      if(!values.isEmpty())
+      {
+         result.append(" ").append(join(values));
+      }
+
+      return result.toString();
+   }
+
+   private String formatValue(final Object value)
+   {
+      if(value instanceof Iterable<?>)
+      {
+         final Iterable<?> valueIterable = (Iterable<?>) value;
+
+         return join(valueIterable);
+      }
+      else
+      {
+         return "" + value;
+      }
+   }
+
+   private String join(final Iterable<?> valueIterable)
+   {
+      final StringBuilder result = new StringBuilder();
+
+      String seperator = "";
+      for (final Object object : valueIterable)
+      {
+         result.append(seperator).append(object);
+         seperator = " ";
+      }
+      return result.toString();
    }
 }
