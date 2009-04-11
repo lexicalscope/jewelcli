@@ -95,6 +95,17 @@ public class TestCliImpl extends TestCase
       boolean isNames();
    }
 
+   public enum TestEnum
+   {
+      Value0, Value1, Value2;
+   }
+
+   public interface EnumDefaultListOption
+   {
+      @Option(defaultValue = {"Value0", "Value1"})
+      List<TestEnum> getName();
+   }
+
    public void testSingleOption() throws ArgumentValidationException
    {
        final SingleOption option = new CliImpl<SingleOption>(SingleOption.class).parseArguments(new String[]{"--name", "value"});
@@ -298,5 +309,15 @@ public class TestCliImpl extends TestCase
    {
       final OptionalUnparsedListOption result = new CliImpl<OptionalUnparsedListOption>(OptionalUnparsedListOption.class).parseArguments(new String[]{});
       assertFalse(result.isNames());
+   }
+
+   public void testEnumDefaultList() throws ArgumentValidationException
+   {
+      final EnumDefaultListOption result = new CliImpl<EnumDefaultListOption>(EnumDefaultListOption.class).parseArguments(new String[]{});
+
+      final List<TestEnum> enumValues = result.getName();
+      assertEquals(2, enumValues.size());
+      assertEquals(TestEnum.Value0, enumValues.get(0));
+      assertEquals(TestEnum.Value1, enumValues.get(1));
    }
 }

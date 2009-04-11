@@ -80,7 +80,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
          {
             if(type.isEnum())
             {
-               result.add(Enum.valueOf((Class<? extends Enum>) type, values.get(0)));
+               result.add(Enum.valueOf((Class<? extends Enum>) type, value));
             }
             else if(type.isPrimitive())
             {
