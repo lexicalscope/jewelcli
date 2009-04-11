@@ -50,6 +50,15 @@ public class TestArgumentValidatorImpl extends TestCase
       boolean isName1();
    }
 
+   public interface OptionAndUnparsed
+   {
+      @Option
+      String getName0();
+
+      @Unparsed
+      List<String> getRemainingArguments();
+   }
+
    public void testMissingOption()
    {
       try
@@ -145,6 +154,12 @@ public class TestArgumentValidatorImpl extends TestCase
    {
       validate(new String[]{"--name"}, MultipleValue.class);
       // TODO[tim]:support minimum/maximum value list lengths
+   }
+
+   public void testOptionAndUnparsed() throws ArgumentValidationException
+   {
+      final ArgumentCollectionImpl validated = validate(new String[] {"--name0", "value0", "remaining0"}, OptionAndUnparsed.class);
+      assertEquals(1, validated.getUnparsed().size());
    }
 
    private <O> ArgumentCollectionImpl validate(final String[] arguments, final Class<O> klass) throws ArgumentValidationException
