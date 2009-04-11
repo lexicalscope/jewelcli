@@ -56,7 +56,7 @@
   <scm>
     <connection>scm:svn:https://jewelcli.svn.sourceforge.net/svnroot/jewelcli/JewelCli/trunk</connection>
     <developerConnection>scm:svn:https://jewelcli.svn.sourceforge.net/svnroot/jewelcli/JewelCli/trunk</developerConnection>
-    <url>http://svn.sourceforge.net/viewcvs.cgi/jewelcli</url>
+    <url>http://jewelcli.svn.sourceforge.net/viewvc/jewelcli/</url>
   </scm>
   <mailingLists>
     <mailingList>
