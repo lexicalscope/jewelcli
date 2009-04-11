@@ -36,6 +36,14 @@ Alternatives
 
   * {{{http://code.google.com/p/cli-parser/} cli-parser}}
   
+  * {{{http://jopt-simple.sourceforge.net} JOpt simple}}
+  
+  * {{{http://www.cs.ubc.ca/spider/lloyd/java/argparser.html} argparser}}
+  
+  * {{{http://clajr.sourceforge.net/} clajr}}
+  
+  * {{{http://ostermiller.org/utils/CmdLn.html} CmdLn}}
+  
 Reviews, blog posts, etc
 
   * {{{http://javathink.blogspot.com/2008_04_01_archive.html} Why does parsing arguments in Java SUCK so much?}}
