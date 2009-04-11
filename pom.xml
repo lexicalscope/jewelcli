@@ -6,7 +6,7 @@
   <groupId>uk.co.flamingpenguin.jewelcli</groupId>
   <artifactId>jewelcli</artifactId>
   <packaging>jar</packaging>
-  <version>0.6-SNAPSHOT</version>
+  <version>0.58</version>
   <name>JewelCli</name>
   <url>http://jewelcli.sourceforge.net</url>
   <description>JewelCli uses an annotated interface definition to automatically parse and present command line arguments</description>
@@ -54,9 +54,9 @@
     <url>http://sourceforge.net/tracker/?group_id=${sourceforge.project.groupId}</url>
   </issueManagement>
   <scm>
-    <connection>scm:svn:https://jewelcli.svn.sourceforge.net/svnroot/jewelcli/JewelCli/trunk</connection>
-    <developerConnection>scm:svn:https://jewelcli.svn.sourceforge.net/svnroot/jewelcli/JewelCli/trunk</developerConnection>
-    <url>http://jewelcli.svn.sourceforge.net/viewvc/jewelcli/</url>
+    <connection>scm:svn:https://jewelcli.svn.sourceforge.net/svnroot/jewelcli/JewelCli/tags/release-0.58</connection>
+    <developerConnection>scm:svn:https://jewelcli.svn.sourceforge.net/svnroot/jewelcli/JewelCli/tags/release-0.58</developerConnection>
+    <url>http://jewelcli.svn.sourceforge.net/viewvc/jewelcli/tags/release-0.58</url>
   </scm>
   <mailingLists>
     <mailingList>
