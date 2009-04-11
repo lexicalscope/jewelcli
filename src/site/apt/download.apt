@@ -4,7 +4,10 @@
 
 Downloads
 
- You can download a jar from our
+ JewelCli is now available in the 
+ {{{http://repo1.maven.org/maven2/uk/co/flamingpenguin/jewelcli/jewelcli/} Maven Central Repository}}
+
+ Alternatively you can download a jar from our
  {{{http://sourceforge.net/project/showfiles.php?group_id=166725} SourceForge download page}}
 
  Or you can checkout the code from {{{source-repository.html} subversion}} and build it with
