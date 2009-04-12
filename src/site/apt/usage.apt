@@ -147,6 +147,20 @@ public interface MyExample
 }
 +------------------------------------------+
 
+  Another way to have an optional option is to define a default value for the option. If the option
+  is not specified JewelCli will use the specified default value.
+
++------------------------------------------+
+public interface MyExample
+{
+  @Option(defaultValue="3")
+  int getMyOption();
+
+  @Option(defaultValue={"3","4","5"})
+  List<Integer> getMyList();
+}
++------------------------------------------+
+
 * Unparsed arguments
 
   In some applications, the last arguments on the command line are not arguments to any option, but are
@@ -204,7 +218,7 @@ Parsing Stage
 
   JewelCli's parsing stage is very simple. Use the
   {{{apidocs/uk/co/flamingpenguin/jewel/cli/CliFactory.html} CliFactory}} to produce an instance of your
-  annotate Java interface.
+  annotated Java interface.
 
 +------------------------------------------+
 public static void main(String [] args)
@@ -233,33 +247,3 @@ Interogation Stage
   JewelCli's interogation stage is even simpler than the parsing stage. The parsing stage creates an
   instance of your annotated interface populated with the processed command line, all that is left is
   for you to use it!
-
-Alternatives
-
- There are many Java Cli processing libraries available. Some of the ones I am aware of are:
-
-  * {{{http://jakarta.apache.org/commons/cli/} Jakarta Commons Cli}}
-
-  * {{{http://www.javaworld.com/javaworld/jw-08-2004/jw-0816-command.html} Dr. Matthias Laux}}
-
-  * {{{http://te-code.sourceforge.net/} TE-Code Command}}
-
-  * {{{http://jargp.sourceforge.net/} jargp}}
-
-  * {{{http://jcmdline.sourceforge.net/} jcmdline}}
-
-  * {{{http://www.urbanophile.com/arenn/hacking/download.html} java-getopt}}
-
-  * {{{http://dolphin.sourceforge.net/getopt/} dolphin getopt}}
-
-  * {{{http://jargs.sourceforge.net/} jargs}}
-
-  * {{{http://jcommando.sourceforge.net/} jcommando}}
-
-  * {{{http://www.martiansoftware.com/jsap/} jsap}}
-
-  * {{{https://args4j.dev.java.net/} args4j}}
-
-  * {{{http://www.dpml.net/util/cli/index.html} DPML CLI (Jakarta Commons CLI2 fork}}
-
-  * {{{http://www.objectmentor.com/resources/articles/Clean_Code_Args.pdf} Object Mentor CLI article (more about refactoring and TDD)}}
