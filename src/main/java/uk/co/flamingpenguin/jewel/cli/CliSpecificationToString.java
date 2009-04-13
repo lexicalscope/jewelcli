@@ -1,10 +1,10 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-class CliSpecificationImpl
+class CliSpecificationToString
 {
    private final String m_message;
 
-   public CliSpecificationImpl(final CommandLineInterface cliSpecification, final UnparsedSpecificationImpl unparsedSpecification, final boolean mandatoryOptions)
+   public CliSpecificationToString(final CommandLineInterface cliSpecification, final UnparsedSpecificationImpl unparsedSpecification, final boolean mandatoryOptions)
    {
       if(cliSpecification == null && unparsedSpecification == null)
       {

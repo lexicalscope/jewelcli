@@ -16,7 +16,7 @@ package uk.co.flamingpenguin.jewel.cli;
 
 class CliImpl<O> implements Cli<O>
 {
-   private final OptionsSpecification<O> m_specification;
+   private final OptionsSpecificationImpl<O> m_specification;
    private final Class<O> m_klass;
 
    public CliImpl(final Class<O> klass)
@@ -41,5 +41,13 @@ class CliImpl<O> implements Cli<O>
    public String getHelpMessage()
    {
       return m_specification.toString();
+   }
+
+   /**
+    * {@inheritdoc}
+    */
+   public CliSpecification getSpecification()
+   {
+      return m_specification;
    }
 }

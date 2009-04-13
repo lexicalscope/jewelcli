@@ -32,4 +32,11 @@ public interface Cli<O>
     * @return A help message
     */
    String getHelpMessage();
+
+   /**
+    * The specification of the CLI
+    *
+    * @return the specification of the CLI
+    */
+   CliSpecification getSpecification();
 }

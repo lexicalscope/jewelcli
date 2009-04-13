@@ -23,14 +23,17 @@ import java.util.Map;
 import java.util.TreeMap;
 
 
-class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
+class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecification
 {
+   private final CommandLineInterface m_klassAnnotation;
+   private final Class<O> m_klass;
+
    private final Map<String, OptionMethodSpecification> m_optionsShortName = new HashMap<String, OptionMethodSpecification>();
    private final Map<String, OptionMethodSpecification> m_optionsLongName = new TreeMap<String, OptionMethodSpecification>();
    private final Map<Method, OptionMethodSpecification> m_optionsMethod = new HashMap<Method, OptionMethodSpecification>();
    private final Map<Method, OptionMethodSpecification> m_optionalOptionsMethod = new HashMap<Method, OptionMethodSpecification>();
    private UnparsedSpecificationImpl m_unparsed = null;
-   private CliSpecificationImpl m_cliSpecification = null;
+   private CliSpecificationToString m_cliSpecification = null;
 
    public OptionsSpecificationImpl(final Class<O> klass)
    {
@@ -62,7 +65,10 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
             }
          }
       }
-      m_cliSpecification = new CliSpecificationImpl(klass.getAnnotation(CommandLineInterface.class), m_unparsed, !getMandatoryOptions().isEmpty());
+
+      m_klass = klass;
+      m_klassAnnotation = klass.getAnnotation(CommandLineInterface.class);
+      m_cliSpecification = new CliSpecificationToString(m_klassAnnotation, m_unparsed, !getMandatoryOptions().isEmpty());
    }
 
    /**
@@ -114,7 +120,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    public List<OptionMethodSpecification> getMandatoryOptions()
    {
       final ArrayList<OptionMethodSpecification> result = new ArrayList<OptionMethodSpecification>();
-      for (OptionMethodSpecification specification : m_optionsLongName.values())
+      for (final OptionMethodSpecification specification : m_optionsLongName.values())
       {
          if(!specification.isOptional() && !specification.hasDefaultValue())
          {
@@ -160,5 +166,22 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>
    public boolean hasUnparsedSpecification()
    {
       return m_unparsed != null;
+   }
+
+   public String getApplicationName()
+   {
+      if(m_klassAnnotation != null && !nullOrBlank(m_klassAnnotation.application()))
+      {
+         return m_klassAnnotation.application();
+      }
+      else
+      {
+         return m_klass.getName();
+      }
+   }
+
+   private boolean nullOrBlank(final String string)
+   {
+      return (string == null || string.trim().equals(""));
    }
 }
