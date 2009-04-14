@@ -101,7 +101,14 @@ public interface OptionSpecification
     *
     * @param value the value to check
     *
-    * @return true iff the value is matched by this option's patternSB
+    * @return true iff the value is matched by this option's pattern
     */
    boolean patternMatches(String value);
+
+   /**
+    * The pattern that values must conform to
+    *
+    * @return the regular expression that values must conform to
+    */
+   String getPattern();
 }

@@ -18,7 +18,11 @@ package uk.co.flamingpenguin.jewel.cli;
  *
  * @author tim
  */
-public interface CliSpecification
+public interface CliSpecification extends Iterable<OptionSpecification>
 {
    String getApplicationName();
+
+   boolean hasUnparsedSpecification();
+
+   OptionSpecification getUnparsedSpecification();
 }

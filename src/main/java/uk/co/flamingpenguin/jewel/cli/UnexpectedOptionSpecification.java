@@ -1,6 +1,5 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,17 +17,7 @@ class UnexpectedOptionSpecification implements OptionSpecification
       return m_name;
    }
 
-   public String getName()
-   {
-      return m_name;
-   }
-
    public List<String> getShortNames()
-   {
-      return Collections.emptyList();
-   }
-
-   public List<String> getAllNames()
    {
       return Collections.emptyList();
    }
@@ -63,24 +52,6 @@ class UnexpectedOptionSpecification implements OptionSpecification
       return String.format("Option not recognised");
    }
 
-   public StringBuilder getSummary(final StringBuilder result)
-   {
-      return result.append(m_name);
-   }
-
-   @Override
-   public String toString()
-   {
-      final StringBuilder result = new StringBuilder();
-      getSummary(result).append(" : ").append(getDescription());
-      return result.toString();
-   }
-
-   public Method getMethod()
-   {
-      return null;
-   }
-
    public boolean patternMatches(final String value)
    {
       return false;
@@ -101,11 +72,16 @@ class UnexpectedOptionSpecification implements OptionSpecification
       return false;
    }
 
-   /**
-    * {@inheritdoc}
-    */
-   public Method getOptionalityMethod()
+   public String getPattern()
    {
-      return null;
+      return ".*";
+   }
+
+   @Override
+   public String toString()
+   {
+      final StringBuilder result = new StringBuilder();
+      result.append(m_name).append(" : ").append(getDescription());
+      return result.toString();
    }
 }

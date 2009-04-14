@@ -3,7 +3,7 @@ package uk.co.flamingpenguin.jewel.cli;
 import java.lang.reflect.Method;
 import java.util.List;
 
-interface OptionsSpecification<O> extends Iterable<OptionSpecification>
+interface OptionsSpecification<O> extends CliSpecification
 {
    boolean isSpecified(final String key);
 
@@ -19,10 +19,5 @@ interface OptionsSpecification<O> extends Iterable<OptionSpecification>
 
    List<OptionSpecification> getMandatoryOptions();
 
-   boolean hasUnparsedSpecification();
-
-   OptionSpecification getUnparsedSpecification();
-
    boolean isUnparsedMethod(Method method);
-
 }
