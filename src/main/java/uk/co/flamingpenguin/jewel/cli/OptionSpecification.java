@@ -31,7 +31,7 @@ public interface OptionSpecification
    /**
     * Are multiple arguments allowed?
     *
-    * @return True iff the the option takes at multiple arguments
+    * @return True iff the the option takes multiple arguments
     */
    boolean isMultiValued();
 
@@ -67,7 +67,7 @@ public interface OptionSpecification
 
    /**
     * Get the default values which will be used if the option is
-    * not present.
+    * not specified by the user.
     *
     * @return The default values which will be used if the option is
     *         not present
@@ -83,7 +83,9 @@ public interface OptionSpecification
    boolean hasDefaultValue();
 
    /**
-    * Get a description of the option
+    * Get a description of the option. The description can be specified in the <code>Option</code> annotation
+    *
+    * @see uk.co.flamingpenguin.jewel.cli.Option
     *
     * @return a description of the option
     */
@@ -95,15 +97,6 @@ public interface OptionSpecification
     * @return True iff this option is a request for help
     */
    boolean isHelpOption();
-
-   /**
-    * Does the option's pattern match the given value
-    *
-    * @param value the value to check
-    *
-    * @return true iff the value is matched by this option's pattern
-    */
-   boolean patternMatches(String value);
 
    /**
     * The pattern that values must conform to

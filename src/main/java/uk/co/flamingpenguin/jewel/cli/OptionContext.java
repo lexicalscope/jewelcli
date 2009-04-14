@@ -11,27 +11,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.flamingpenguin.jewel.cli.model;
+package uk.co.flamingpenguin.jewel.cli;
 
 import java.util.List;
 
-public class OptionContext
+class OptionContext
 {
    private final List<String> m_defaultValue;
    private final boolean m_helpRequest;
 
-   public OptionContext(final List<String> defaultValue, final boolean helpRequest)
+   OptionContext(final List<String> defaultValue, final boolean helpRequest)
    {
       m_defaultValue = defaultValue;
       m_helpRequest = helpRequest;
    }
 
-   public List<String> getDefaultValue()
+   List<String> getDefaultValue()
    {
       return m_defaultValue;
    }
 
-   public boolean isHelpRequest()
+   boolean isHelpRequest()
    {
       return m_helpRequest;
    }

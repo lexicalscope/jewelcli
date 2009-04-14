@@ -11,34 +11,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.flamingpenguin.jewel.cli.model;
+package uk.co.flamingpenguin.jewel.cli;
 
 import java.util.List;
 
-public class OptionName
+class OptionName
 {
    private final String m_longName;
    private final List<String> m_shortNames;
    private final String m_description;
 
-   public OptionName(final String longName, final List<String> shortNames, final String description)
+   OptionName(final String longName, final List<String> shortNames, final String description)
    {
       m_longName = longName;
       m_shortNames = shortNames;
       m_description = description;
    }
 
-   public String getLongName()
+   String getLongName()
    {
       return m_longName;
    }
 
-   public List<String> getShortNames()
+   List<String> getShortNames()
    {
       return m_shortNames;
    }
 
-   public String getDescription()
+   String getDescription()
    {
       return m_description;
    }

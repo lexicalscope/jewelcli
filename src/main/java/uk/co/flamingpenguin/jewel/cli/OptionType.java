@@ -11,34 +11,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.flamingpenguin.jewel.cli.model;
+package uk.co.flamingpenguin.jewel.cli;
 
-public class OptionType
+class OptionType
 {
    private final Class<?> m_type;
    private final String m_pattern;
    private final boolean m_multiValued;
 
-   public OptionType(final Class<?> type, final String pattern, final boolean multiValued)
+   OptionType(final Class<?> type, final String pattern, final boolean multiValued)
    {
       m_type = type;
       m_pattern = pattern;
       m_multiValued = multiValued;
    }
 
-   public Class<?> getType()
+   Class<?> getType()
    {
       return m_type;
    }
 
-   public String getPattern()
+   String getPattern()
    {
       return m_pattern;
    }
 
-   public boolean isMultiValued()
+   boolean isMultiValued()
    {
       return m_multiValued;
    }
-
 }

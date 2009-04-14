@@ -141,11 +141,16 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
    {
       for (final String value : values)
       {
-         if(!optionSpecification.patternMatches(value))
+         if(!patternMatches(optionSpecification, value))
          {
             m_validationErrorBuilder.patternMismatch(optionSpecification, value);
          }
       }
       m_validatedArguments.put(option, new ArrayList<String>(values));
+   }
+
+   private boolean patternMatches(final OptionSpecification optionSpecification, final String value)
+   {
+      return value.matches(optionSpecification.getPattern());
    }
 }

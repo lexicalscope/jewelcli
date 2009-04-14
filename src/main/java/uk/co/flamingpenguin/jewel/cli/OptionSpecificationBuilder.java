@@ -17,10 +17,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.flamingpenguin.jewel.cli.model.OptionSpecificationImpl;
-import uk.co.flamingpenguin.jewel.cli.model.OptionContext;
-import uk.co.flamingpenguin.jewel.cli.model.OptionName;
-import uk.co.flamingpenguin.jewel.cli.model.OptionType;
 
 class OptionSpecificationBuilder
 {

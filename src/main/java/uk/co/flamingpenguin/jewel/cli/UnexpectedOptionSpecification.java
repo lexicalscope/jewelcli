@@ -7,7 +7,7 @@ class UnexpectedOptionSpecification implements OptionSpecification
 {
    private final String m_name;
 
-   public UnexpectedOptionSpecification(final String name)
+   UnexpectedOptionSpecification(final String name)
    {
       m_name = name;
    }
@@ -50,11 +50,6 @@ class UnexpectedOptionSpecification implements OptionSpecification
    public String getDescription()
    {
       return String.format("Option not recognised");
-   }
-
-   public boolean patternMatches(final String value)
-   {
-      return false;
    }
 
    public List<String> getDefaultValue()

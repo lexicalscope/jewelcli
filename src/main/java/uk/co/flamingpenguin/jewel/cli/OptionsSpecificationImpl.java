@@ -22,18 +22,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import uk.co.flamingpenguin.jewel.cli.model.OptionSpecificationImpl;
 
 class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpecificationBuilder, CliSpecification
 {
-   private final Class<O>                         m_klass;
+   private final Class<O> m_klass;
 
-   private final Map<String, OptionSpecification> m_optionsShortName              = new HashMap<String, OptionSpecification>();
-   private final Map<String, OptionSpecification> m_optionsLongName               = new TreeMap<String, OptionSpecification>();
-   private final Map<Method, OptionSpecification> m_optionsMethod                 = new HashMap<Method, OptionSpecification>();
-   private final Map<Method, OptionSpecification> m_optionalOptionsMethod         = new HashMap<Method, OptionSpecification>();
+   private final Map<String, OptionSpecification> m_optionsShortName = new HashMap<String, OptionSpecification>();
+   private final Map<String, OptionSpecification> m_optionsLongName = new TreeMap<String, OptionSpecification>();
+   private final Map<Method, OptionSpecification> m_optionsMethod = new HashMap<Method, OptionSpecification>();
+   private final Map<Method, OptionSpecification> m_optionalOptionsMethod = new HashMap<Method, OptionSpecification>();
 
-   private final Map<Method, OptionSpecification> m_unparsedOptionsMethod         = new HashMap<Method, OptionSpecification>();
+   private final Map<Method, OptionSpecification> m_unparsedOptionsMethod = new HashMap<Method, OptionSpecification>();
    private final Map<Method, OptionSpecification> m_unparsedOptionalOptionsMethod = new HashMap<Method, OptionSpecification>();
 
    private String m_applicationName;
@@ -43,7 +42,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
       m_klass = klass;
    }
 
-   public static <O> OptionsSpecificationImpl<O> createOptionsSpecificationImpl(final Class<O> klass)
+   static <O> OptionsSpecificationImpl<O> createOptionsSpecificationImpl(final Class<O> klass)
    {
       final OptionsSpecificationImpl<O> optionsSpecificationImpl = new OptionsSpecificationImpl<O>(klass);
 

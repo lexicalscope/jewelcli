@@ -19,12 +19,12 @@ class OptionsSpecificationParser<O>
 {
    private final Class<O> m_klass;
 
-   public OptionsSpecificationParser(final Class<O> klass)
+   OptionsSpecificationParser(final Class<O> klass)
    {
       m_klass = klass;
    }
 
-   public void buildOptionsSpecification(final OptionsSpecificationBuilder builder)
+   void buildOptionsSpecification(final OptionsSpecificationBuilder builder)
    {
       final Method[] methods = m_klass.getMethods();
       for (final Method method : methods)

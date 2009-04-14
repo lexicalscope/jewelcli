@@ -11,15 +11,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.flamingpenguin.jewel.cli.model;
+package uk.co.flamingpenguin.jewel.cli;
 
 import java.lang.reflect.Method;
 import java.util.List;
 
-import uk.co.flamingpenguin.jewel.cli.OptionSpecification;
-import uk.co.flamingpenguin.jewel.cli.OptionSummary;
 
-public class OptionSpecificationImpl implements OptionSpecification
+class OptionSpecificationImpl implements OptionSpecification
 {
    private final OptionName m_optionName;
    private final OptionType m_optionType;
@@ -27,7 +25,7 @@ public class OptionSpecificationImpl implements OptionSpecification
    private final Method m_method;
    private final Method m_optionalityMethod;
 
-   public OptionSpecificationImpl(final OptionName optionName, final OptionType optionType, final OptionContext optionContext, final Method method, final Method optionalityMethod)
+   OptionSpecificationImpl(final OptionName optionName, final OptionType optionType, final OptionContext optionContext, final Method method, final Method optionalityMethod)
    {
       m_optionName = optionName;
       m_optionType = optionType;
@@ -71,11 +69,6 @@ public class OptionSpecificationImpl implements OptionSpecification
       return m_optionContext.isHelpRequest();
    }
 
-   public boolean patternMatches(final String value)
-   {
-      return value.matches(m_optionType.getPattern());
-   }
-
    public String getPattern()
    {
       return m_optionType.getPattern();
@@ -106,12 +99,12 @@ public class OptionSpecificationImpl implements OptionSpecification
       return (getType().isAssignableFrom(Boolean.class) || getType().isAssignableFrom(boolean.class));
    }
 
-   public Method getMethod()
+   Method getMethod()
    {
       return m_method;
    }
 
-   public Method getOptionalityMethod()
+   Method getOptionalityMethod()
    {
       return m_optionalityMethod;
    }

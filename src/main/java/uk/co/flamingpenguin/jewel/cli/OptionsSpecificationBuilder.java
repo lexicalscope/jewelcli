@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Tim Wood
+ * Copyright 2009 Tim Wood
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,7 @@
  */
 package uk.co.flamingpenguin.jewel.cli;
 
-import uk.co.flamingpenguin.jewel.cli.model.OptionSpecificationImpl;
-
-
-public interface OptionsSpecificationBuilder
+interface OptionsSpecificationBuilder
 {
    void setApplicationName(String application);
 

@@ -8,7 +8,7 @@ class TypedArgumentsImpl implements TypedArguments
    private final Map<OptionSpecification, Object> m_values = new HashMap<OptionSpecification, Object>();
    private Object m_unparsedValue;
 
-   public void add(final OptionSpecification optionSpecification, final Object value)
+   void add(final OptionSpecification optionSpecification, final Object value)
    {
       m_values.put(optionSpecification, value);
    }
@@ -23,7 +23,7 @@ class TypedArgumentsImpl implements TypedArguments
       return m_values.get(optionSpecification);
    }
 
-   public void setUnparsedValue(final Object unparsedValue)
+   void setUnparsedValue(final Object unparsedValue)
    {
       m_unparsedValue = unparsedValue;
    }

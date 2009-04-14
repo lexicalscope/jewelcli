@@ -20,9 +20,26 @@ package uk.co.flamingpenguin.jewel.cli;
  */
 public interface CliSpecification extends Iterable<OptionSpecification>
 {
+   /**
+    * The name of the application as specified in the <code>CommandLineInterface</code> annotation
+    *
+    * @see uk.co.flamingpenguin.jewel.cliCommandLineInterface
+    *
+    * @return The name of the application
+    */
    String getApplicationName();
 
+   /**
+    * Has anything been specified to accept additional unparsed arguments?
+    *
+    * @return Has anything been specified to accept additional unparsed arguments?
+    */
    boolean hasUnparsedSpecification();
 
+   /**
+    * The specification for any additional unparsed arguments, if any have been specified
+    *
+    * @return The specification for any additional unparsed arguments
+    */
    OptionSpecification getUnparsedSpecification();
 }

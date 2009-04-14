@@ -16,7 +16,7 @@ class ValueFormatException extends JewelException
     *
     * @param message A message describing the problem
     */
-   public ValueFormatException(final String message)
+   ValueFormatException(final String message)
    {
       super(message);
    }

@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import junit.framework.TestCase;
-import uk.co.flamingpenguin.jewel.cli.model.OptionSpecificationImpl;
 
 public class TestOptionSpecificationImpl extends TestCase
 {

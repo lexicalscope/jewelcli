@@ -13,9 +13,8 @@
  */
 package uk.co.flamingpenguin.jewel.cli;
 
-import uk.co.flamingpenguin.jewel.cli.model.OptionSpecificationImpl;
 
-public class OptionSummary
+class OptionSummary
 {
    private final OptionSpecificationImpl m_option;
 
