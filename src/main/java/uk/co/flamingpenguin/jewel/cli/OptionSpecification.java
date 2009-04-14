@@ -11,8 +11,37 @@ import java.util.List;
  *
  * @author t.wood
  */
-public interface OptionSpecification extends OptionArgumentsSpecification
+public interface OptionSpecification
 {
+   /**
+    * Each argument to this option must conform to the
+    * type returned by this method
+    *
+    * @return the type that each argument must conform to
+    */
+   Class<?> getType();
+
+   /**
+    * Does the option take any arguments?
+    *
+    * @return True iff the the option takes at least one argument
+    */
+   boolean hasValue();
+
+   /**
+    * Are multiple arguments allowed?
+    *
+    * @return True iff the the option takes at multiple arguments
+    */
+   boolean isMultiValued();
+
+   /**
+    * Is the argument optional
+    *
+    * @return is the argument optional
+    */
+   boolean isOptional();
+
    /**
     * Get all of the short names of this option. Short names are
     * single characters that will by prefixed by the user with "-".

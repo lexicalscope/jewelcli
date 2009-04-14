@@ -69,7 +69,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
    }
 
    @SuppressWarnings("unchecked")
-   private Object getValue(final List<String> values, final OptionArgumentsSpecification specification)
+   private Object getValue(final List<String> values, final OptionSpecification specification)
    {
       try
       {

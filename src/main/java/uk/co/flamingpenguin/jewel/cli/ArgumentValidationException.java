@@ -105,15 +105,15 @@ public class ArgumentValidationException extends JewelException
    private static class ValidationErrorImpl implements ValidationError
    {
       private final ErrorType m_errorType;
-      private final OptionArgumentsSpecification m_specification;
+      private final OptionSpecification m_specification;
       private final String m_message;
 
-      public ValidationErrorImpl(final ErrorType errorType, final OptionArgumentsSpecification specification)
+      public ValidationErrorImpl(final ErrorType errorType, final OptionSpecification specification)
       {
          this(errorType, specification, "");
       }
 
-      public ValidationErrorImpl(final ErrorType errorType, final OptionArgumentsSpecification specification, final String message)
+      public ValidationErrorImpl(final ErrorType errorType, final OptionSpecification specification, final String message)
       {
          m_errorType = errorType;
          m_specification = specification;
@@ -125,7 +125,7 @@ public class ArgumentValidationException extends JewelException
          return m_errorType;
       }
 
-      private OptionArgumentsSpecification getSpecification()
+      private OptionSpecification getSpecification()
       {
          return m_specification;
       }
@@ -181,37 +181,37 @@ public class ArgumentValidationException extends JewelException
       return new ValidationErrorImpl(ErrorType.UnexpectedOption, new UnexpectedOptionSpecification(name));
    }
 
-   static ValidationError createAdditionalValuesError(final OptionArgumentsSpecification optionSpecification)
+   static ValidationError createAdditionalValuesError(final OptionSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.AdditionalValue, optionSpecification);
    }
 
-   static ValidationError createMissingValueError(final OptionArgumentsSpecification optionSpecification)
+   static ValidationError createMissingValueError(final OptionSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.MissingValue, optionSpecification);
    }
 
-   static ValidationError createUnexpectedValueError(final OptionArgumentsSpecification optionSpecification)
+   static ValidationError createUnexpectedValueError(final OptionSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.UnexpectedValue, optionSpecification);
    }
 
-   static ValidationError createMissingOptionError(final OptionArgumentsSpecification optionSpecification)
+   static ValidationError createMissingOptionError(final OptionSpecification optionSpecification)
    {
       return new ValidationErrorImpl(ErrorType.MissingOption, optionSpecification);
    }
 
-   static ValidationError createInvalidValueForType(final OptionArgumentsSpecification optionSpecification, final String message)
+   static ValidationError createInvalidValueForType(final OptionSpecification optionSpecification, final String message)
    {
       return new ValidationErrorImpl(ErrorType.InvalidValueForType, optionSpecification, message);
    }
 
-   static ValidationError createUnableToConstructType(final OptionArgumentsSpecification optionSpecification, final String message)
+   static ValidationError createUnableToConstructType(final OptionSpecification optionSpecification, final String message)
    {
       return new ValidationErrorImpl(ErrorType.UnableToConstructType, optionSpecification, message);
    }
 
-   static ValidationError createPatternMismatch(final OptionArgumentsSpecification optionSpecification, final String message)
+   static ValidationError createPatternMismatch(final OptionSpecification optionSpecification, final String message)
    {
       return new ValidationErrorImpl(ErrorType.PatternMismatch, optionSpecification, message);
    }

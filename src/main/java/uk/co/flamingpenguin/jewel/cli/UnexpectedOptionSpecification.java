@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 
-class UnexpectedOptionSpecification implements OptionMethodSpecification
+class UnexpectedOptionSpecification implements OptionSpecification
 {
    private final String m_name;
 
