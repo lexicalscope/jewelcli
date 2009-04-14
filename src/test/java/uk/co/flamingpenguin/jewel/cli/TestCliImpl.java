@@ -248,7 +248,7 @@ public class TestCliImpl extends TestCase
    public void testUnparsedOption() throws ArgumentValidationException
    {
       final UnparsedOption result = new CliImpl<UnparsedOption>(UnparsedOption.class).parseArguments(new String[]{"value"});
-      assertEquals(result.getName(), "value");
+      assertEquals("value", result.getName());
    }
 
    public void testUnparsedOptionMissingValue()

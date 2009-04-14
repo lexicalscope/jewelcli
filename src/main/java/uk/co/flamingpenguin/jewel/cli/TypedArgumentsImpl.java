@@ -13,12 +13,12 @@ class TypedArgumentsImpl implements TypedArguments
       m_values.put(optionSpecification, value);
    }
 
-   public boolean contains(final OptionArgumentsSpecification optionSpecification)
+   public boolean contains(final OptionSpecification optionSpecification)
    {
       return m_values.containsKey(optionSpecification);
    }
 
-   public Object getValue(final OptionArgumentsSpecification optionSpecification)
+   public Object getValue(final OptionSpecification optionSpecification)
    {
       return m_values.get(optionSpecification);
    }
@@ -32,9 +32,9 @@ class TypedArgumentsImpl implements TypedArguments
    {
       return m_unparsedValue;
    }
-   
+
    public boolean hasUnparsedValue()
    {
-      return m_unparsedValue != null; 
+      return m_unparsedValue != null;
    }
 }

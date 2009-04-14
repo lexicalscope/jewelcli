@@ -1,10 +1,12 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import junit.framework.TestCase;
+import uk.co.flamingpenguin.jewel.cli.model.OptionSpecificationImpl;
 
 public class TestOptionSpecificationImpl extends TestCase
 {
@@ -170,7 +172,7 @@ public class TestOptionSpecificationImpl extends TestCase
    {
       checkSummary("getShortName", "--shortName -s value");
       checkSummary("getLongName", "--aLongName value");
-      checkSummary("getWithDescription", "--withDescription value");
+      checkSummary("getWithDescription", "--withDescription value : this is a description");
       checkSummary("getLongNameShortName", "--aLongName -s value");
       checkSummary("getOptional", "[--optional value]");
       checkSummary("getList", "--list value...");
@@ -182,9 +184,10 @@ public class TestOptionSpecificationImpl extends TestCase
       // TODO[tim]: test option specifications (plural) summary.
    }
 
-   private void checkSummary(String method, String expectedSummary) throws NoSuchMethodException
+   private void checkSummary(final String method, final String expectedSummary) throws NoSuchMethodException
    {
-      assertEquals(expectedSummary, createOption(Summary.class, method).getSummary(new StringBuilder()).toString());
+      final OptionSpecificationImpl option = createOption(Summary.class, method);
+      assertEquals(expectedSummary, new OptionSummary(option).toString());
    }
 
    /*
@@ -226,10 +229,10 @@ public class TestOptionSpecificationImpl extends TestCase
     */
    public void testGetName() throws SecurityException, NoSuchMethodException
    {
-      assertEquals("name", createOption(Name.class, "getName").getName());
-      assertEquals("name", createOption(Name.class, "name").getName());
-      assertEquals("debug", createOption(Name.class, "isDebug").getName());
-      assertEquals("debug", createOption(Name.class, "debug").getName());
+      assertEquals("name", createOption(Name.class, "getName").getLongName());
+      assertEquals("name", createOption(Name.class, "name").getLongName());
+      assertEquals("debug", createOption(Name.class, "isDebug").getLongName());
+      assertEquals("debug", createOption(Name.class, "debug").getLongName());
    }
 
    /*
@@ -279,8 +282,26 @@ public class TestOptionSpecificationImpl extends TestCase
       assertTrue(createOption(HasOptionalOption.class, "getName2").isOptional());
    }
 
-   private OptionSpecificationImpl createOption(Class<?> klass, final String methodName) throws NoSuchMethodException
+   private OptionSpecificationImpl createOption(final Class<?> klass, final String methodName) throws NoSuchMethodException
    {
-      return new OptionSpecificationImpl(klass.getMethod(methodName, (Class[]) null), klass);
+      final Method method = klass.getMethod(methodName, (Class[]) null);
+
+      return new OptionSpecificationParser(klass, method).buildOptionSpecification(new OptionsSpecificationBuilder(){
+
+         public void addOption(final OptionSpecificationImpl createOptionSpecification)
+         {
+            // ignore
+         }
+
+         public void addUnparsedOption(final OptionSpecificationImpl createOptionSpecification)
+         {
+            // ignore
+         }
+
+         public void setApplicationName(final String application)
+         {
+            // TODO Auto-generated method stub
+
+         }});
    }
 }

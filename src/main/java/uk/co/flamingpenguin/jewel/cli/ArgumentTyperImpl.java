@@ -32,7 +32,7 @@ class ArgumentTyperImpl<O> implements ArgumentTyper<O>
       if(m_specification.hasUnparsedSpecification()
             && !validatedArguments.getUnparsed().isEmpty())
       {
-         final ArgumentMethodSpecification specification = m_specification.getUnparsedSpecification();
+         final OptionSpecification specification = m_specification.getUnparsedSpecification();
          typedArguments.setUnparsedValue(getValue(validatedArguments.getUnparsed(), specification));
       }
    }

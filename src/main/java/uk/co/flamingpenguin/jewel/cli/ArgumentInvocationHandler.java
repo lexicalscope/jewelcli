@@ -70,17 +70,17 @@ final class ArgumentInvocationHandler<O> implements InvocationHandler
          final Object that = args[0];
          return Proxy.isProxyClass(that.getClass()) && Proxy.getInvocationHandler(that).equals(this);
       }
+
       if(args != null && args.length != 0)
       {
          throw new UnsupportedOperationException(String.format("Method (%s) with arguments not supported for reading argument values", method.toGenericString()));
       }
-      else if(method.isAnnotationPresent(Unparsed.class))
+
+      if(m_specification.isUnparsedMethod(method))
       {
          return m_arguments.getUnparsedValue();
       }
-      else if(m_specification.hasUnparsedSpecification() &&
-              m_specification.getUnparsedSpecification().isOptional() &&
-              m_specification.getUnparsedSpecification().getOptionalityMethod().equals(method))
+      else if(m_specification.isUnparsedExistenceChecker(method))
       {
          return m_arguments.hasUnparsedValue();
       }
@@ -89,7 +89,7 @@ final class ArgumentInvocationHandler<O> implements InvocationHandler
          throw new UnsupportedOperationException(String.format("Method (%s) is not annotated for option specification", method.toGenericString()));
       }
 
-      final OptionMethodSpecification specification = m_specification.getSpecification(method);
+      final OptionSpecification specification = m_specification.getSpecification(method);
 
       if(m_specification.isExistenceChecker(method) || !specification.hasValue())
       {
@@ -98,12 +98,12 @@ final class ArgumentInvocationHandler<O> implements InvocationHandler
       return getValue(m_arguments, method, specification);
    }
 
-   private Object optionPresent(final TypedArguments arguments, final ArgumentMethodSpecification specification)
+   private Object optionPresent(final TypedArguments arguments, final OptionSpecification specification)
    {
       return arguments.contains(specification);
    }
 
-   private Object getValue(final TypedArguments arguments, final Method method, final ArgumentMethodSpecification specification) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
+   private Object getValue(final TypedArguments arguments, final Method method, final OptionSpecification specification) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException
    {
       final Object value = arguments.getValue(specification);
       if(value == null)
@@ -125,7 +125,7 @@ final class ArgumentInvocationHandler<O> implements InvocationHandler
             .append(":");
 
       final List<String> values = new ArrayList<String>();
-      for (final OptionMethodSpecification methodSpecification : m_specification) {
+      for (final OptionSpecification methodSpecification : m_specification) {
          if (methodSpecification.isHelpOption()) {
             continue;
          }

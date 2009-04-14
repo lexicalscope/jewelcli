@@ -164,7 +164,7 @@ public class TestArgumentValidatorImpl extends TestCase
 
    private <O> ArgumentCollectionImpl validate(final String[] arguments, final Class<O> klass) throws ArgumentValidationException
    {
-      final ArgumentValidatorImpl<O> impl = new ArgumentValidatorImpl<O>(new OptionsSpecificationImpl<O>(klass));
+      final ArgumentValidatorImpl<O> impl = new ArgumentValidatorImpl<O>(OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(klass));
       return (ArgumentCollectionImpl) impl.validateArguments(new ParsedArgumentsBuilder().parseArguments(arguments));
    }
 }

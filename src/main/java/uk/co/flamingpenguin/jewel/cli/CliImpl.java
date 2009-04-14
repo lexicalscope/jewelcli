@@ -21,7 +21,12 @@ class CliImpl<O> implements Cli<O>
 
    public CliImpl(final Class<O> klass)
    {
-      m_specification = new OptionsSpecificationImpl<O>(klass);
+      final OptionsSpecificationImpl<O> specification = OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(klass);
+
+      final OptionsSpecificationParser<O> optionsSpecificationParser = new OptionsSpecificationParser<O>(klass);
+      optionsSpecificationParser.buildOptionsSpecification(specification);
+
+      m_specification = specification;
       m_klass = klass;
    }
 

@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author t.wood
  */
-interface OptionSpecification extends OptionArgumentsSpecification
+public interface OptionSpecification extends OptionArgumentsSpecification
 {
    /**
     * Get all of the short names of this option. Short names are
@@ -66,12 +66,12 @@ interface OptionSpecification extends OptionArgumentsSpecification
     * @return True iff this option is a request for help
     */
    boolean isHelpOption();
-   
+
    /**
     * Does the option's pattern match the given value
-    * 
+    *
     * @param value the value to check
-    * 
+    *
     * @return true iff the value is matched by this option's patternSB
     */
    boolean patternMatches(String value);

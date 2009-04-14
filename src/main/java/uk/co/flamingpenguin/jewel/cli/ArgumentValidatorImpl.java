@@ -99,7 +99,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
          }
       }
 
-      for(final OptionMethodSpecification optionSpecification : m_specification.getMandatoryOptions())
+      for(final OptionSpecification optionSpecification : m_specification.getMandatoryOptions())
       {
          if(!(arguments.containsAny(OptionUtils.getAllNames(optionSpecification))))
          {
@@ -118,7 +118,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
    {
       if(m_specification.hasUnparsedSpecification())
       {
-         final UnparsedSpecificationImpl argumentSpecification = m_specification.getUnparsedSpecification();
+         final OptionSpecification argumentSpecification = m_specification.getUnparsedSpecification();
 
          if(!argumentSpecification.isMultiValued() && !argumentSpecification.isOptional() && m_validatedUnparsedArguments.isEmpty())
          {
