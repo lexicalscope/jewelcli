@@ -14,7 +14,8 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 /**
- * The specification of the CLI
+ * The specification of the CLI. This interface is still in development, and may be
+ * subject to incompatible changes.
  *
  * @author tim
  */
