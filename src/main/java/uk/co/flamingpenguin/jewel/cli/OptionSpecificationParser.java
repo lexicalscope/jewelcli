@@ -13,6 +13,8 @@
  */
 package uk.co.flamingpenguin.jewel.cli;
 
+import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -29,10 +31,10 @@ class OptionSpecificationParser {
     private static final Logger logger = Logger.getLogger(OptionSpecificationParser.class.getName());
 
     private final Method method;
-    private final Class<?> klass;
+    private final ReflectedClass<?> klass;
 
     public OptionSpecificationParser(final ReflectedClass<?> klass, final ReflectedMethod method) {
-        this.klass = klass.classUnderReflection();
+        this.klass = klass;
         this.method = method.methodUnderReflection();
     }
 
@@ -47,9 +49,9 @@ class OptionSpecificationParser {
         optionSpecificationBuilder.setMultiValued(multiValued);
 
         final String baseName = extractBaseMethodName(method);
-        final Method optionalityMethod = findCorrespondingOptionalityMethod(baseName, klass);
+        final ReflectedMethod optionalityMethod = findCorrespondingOptionalityMethod(baseName, klass);
         if (optionalityMethod != null) {
-            optionSpecificationBuilder.setOptionalityMethod(optionalityMethod);
+            optionSpecificationBuilder.setOptionalityMethod(optionalityMethod.methodUnderReflection());
         }
 
         if (method.isAnnotationPresent(Option.class)) {
@@ -114,16 +116,14 @@ class OptionSpecificationParser {
         }
     }
 
-    private final Method findCorrespondingOptionalityMethod(final String name, final Class<?> klass) {
-        try {
-            final Method method = klass.getMethod(addPrefix("is", name), new Class[] {});
-            if (isBoolean(method.getReturnType())) {
-                return method;
-            }
-            return null;
-        } catch (final NoSuchMethodException e) {
-            return null;
+    private final ReflectedMethod findCorrespondingOptionalityMethod(final String name, final ReflectedClass<?> klass) {
+        final List<ReflectedMethod> methods =
+                klass.methods(
+                        callableHasName(addPrefix("is", name)).and(isExistence()));
+        if (!methods.isEmpty()) {
+            return methods.get(0);
         }
+        return null;
     }
 
     private String addPrefix(final String prefix, final String name) {
