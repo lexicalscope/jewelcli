@@ -13,19 +13,17 @@
  */
 package uk.co.flamingpenguin.jewel.cli;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
-public class TestCliSpecification extends TestCase
-{
-   @CommandLineInterface(application = "MyApplication")
-   public interface ApplicationName
-   {
+import org.junit.Test;
 
-   }
+public class TestCliSpecification {
+    @CommandLineInterface(application = "MyApplication") public interface ApplicationName {
 
-   public void testApplicationName()
-   {
-      final CliSpecification specification = CliFactory.createCli(ApplicationName.class).getSpecification();
-      assertEquals("MyApplication", specification.getApplicationName());
-   }
+    }
+
+    @Test public void testApplicationName() {
+        final CliSpecification specification = CliFactory.createCli(ApplicationName.class).getSpecification();
+        assertEquals("MyApplication", specification.getApplicationName());
+    }
 }
