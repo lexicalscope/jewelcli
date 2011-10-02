@@ -13,35 +13,29 @@
  */
 package uk.co.flamingpenguin.jewel.cli;
 
-import java.lang.reflect.Method;
+import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 
-class OptionsSpecificationParser<O>
-{
-   private final Class<O> m_klass;
+import com.lexicalscope.fluentreflection.FluentReflection;
+import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-   OptionsSpecificationParser(final Class<O> klass)
-   {
-      m_klass = klass;
-   }
+class OptionsSpecificationParser<O> {
+    private final ReflectedClass<O> m_klass;
 
-   void buildOptionsSpecification(final OptionsSpecificationBuilder builder)
-   {
-      final Method[] methods = m_klass.getMethods();
-      for (final Method method : methods)
-      {
-         if(!Void.class.equals(method.getReturnType()))
-         {
-            if(method.isAnnotationPresent(Option.class) || method.isAnnotationPresent(Unparsed.class))
-            {
-               new OptionSpecificationParser(m_klass, method).buildOptionSpecification(builder);
-            }
-         }
-      }
+    OptionsSpecificationParser(final Class<O> klass) {
+        m_klass = FluentReflection.type(klass);
+    }
 
-      if(m_klass.isAnnotationPresent(CommandLineInterface.class))
-      {
-         final CommandLineInterface klassAnnotation = m_klass.getAnnotation(CommandLineInterface.class);
-         builder.setApplicationName(klassAnnotation.application());
-      }
-   }
+    void buildOptionsSpecification(final OptionsSpecificationBuilder builder) {
+        for (final ReflectedMethod method : m_klass.methods(isQuery().and(annotatedWith(Option.class).or(
+                annotatedWith(Unparsed.class))))) {
+            new OptionSpecificationParser(m_klass, method).buildOptionSpecification(builder);
+        }
+
+        if (m_klass.classUnderReflection().isAnnotationPresent(CommandLineInterface.class)) {
+            final CommandLineInterface klassAnnotation =
+                    m_klass.classUnderReflection().getAnnotation(CommandLineInterface.class);
+            builder.setApplicationName(klassAnnotation.application());
+        }
+    }
 }

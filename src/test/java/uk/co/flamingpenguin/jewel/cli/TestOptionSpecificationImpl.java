@@ -1,5 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import static com.lexicalscope.fluentreflection.FluentReflection.*;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Method;
@@ -199,23 +200,13 @@ public class TestOptionSpecificationImpl {
             throws NoSuchMethodException {
         final Method method = klass.getMethod(methodName, (Class[]) null);
 
-        return new OptionSpecificationParser(klass, method).buildOptionSpecification(new OptionsSpecificationBuilder() {
+        return new OptionSpecificationParser(type(klass), method(method))
+                .buildOptionSpecification(new OptionsSpecificationBuilder() {
+                    public void addOption(final OptionSpecificationImpl createOptionSpecification) {}
 
-            public void addOption(final OptionSpecificationImpl createOptionSpecification)
-         {
-            // ignore
-            }
+                    public void addUnparsedOption(final OptionSpecificationImpl createOptionSpecification) {}
 
-            public void addUnparsedOption(final OptionSpecificationImpl createOptionSpecification)
-         {
-            // ignore
-            }
-
-            public void setApplicationName(final String application)
-         {
-            // TODO Auto-generated method stub
-
-            }
-        });
+                    public void setApplicationName(final String application) {}
+                });
     }
 }

@@ -185,12 +185,11 @@ public class TestCliImpl {
                     new CliImpl<SingleOptionWithArgument>(SingleOptionWithArgument.class).parseArguments(new String[] {
                             "--name",
                             "value" });
-            result.getName("fred");
             fail();
-        } catch (final UnsupportedOperationException e) {
+        } catch (final ArgumentValidationException e) {
             assertEquals(
-                    "Method (public abstract java.lang.String uk.co.flamingpenguin.jewel.cli.TestCliImpl$SingleOptionWithArgument.getName(java.lang.String)) with arguments not supported for reading argument values",
-                    e.getMessage());
+                    ErrorType.UnexpectedOption,
+                    e.getValidationErrors().get(0).getErrorType());
         }
     }
 

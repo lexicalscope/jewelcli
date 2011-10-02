@@ -22,157 +22,133 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-class OptionSpecificationParser
-{
-   private static final Logger g_logger = Logger.getLogger(OptionSpecificationParser.class.getName());
+class OptionSpecificationParser {
+    private static final Logger logger = Logger.getLogger(OptionSpecificationParser.class.getName());
 
-   private final Method m_method;
-   private final Class<?> m_klass;
+    private final Method method;
+    private final Class<?> klass;
 
-   public OptionSpecificationParser(final Class<?> klass, final Method method)
-   {
-      m_klass = klass;
-      m_method = method;
-   }
+    public OptionSpecificationParser(final ReflectedClass<?> klass, final ReflectedMethod method) {
+        this.klass = klass.classUnderReflection();
+        this.method = method.methodUnderReflection();
+    }
 
-   OptionSpecificationImpl buildOptionSpecification(final OptionsSpecificationBuilder builder)
-   {
-      final OptionSpecificationBuilder optionSpecificationBuilder = new OptionSpecificationBuilder(m_method);
+    OptionSpecificationImpl buildOptionSpecification(final OptionsSpecificationBuilder builder) {
+        final OptionSpecificationBuilder optionSpecificationBuilder = new OptionSpecificationBuilder(method);
 
-      final Type returnType = m_method.getGenericReturnType();
-      final Class<?> type = (Class<?>) (isList(m_method.getReturnType()) ? getListType(returnType) : returnType);
-      optionSpecificationBuilder.setType(type);
+        final Type returnType = method.getGenericReturnType();
+        final Class<?> type = (Class<?>) (isList(method.getReturnType()) ? getListType(returnType) : returnType);
+        optionSpecificationBuilder.setType(type);
 
-      final boolean multiValued = isList(m_method.getReturnType());
-      optionSpecificationBuilder.setMultiValued(multiValued);
+        final boolean multiValued = isList(method.getReturnType());
+        optionSpecificationBuilder.setMultiValued(multiValued);
 
-      final String baseName = extractBaseMethodName(m_method);
-      final Method optionalityMethod = findCorrespondingOptionalityMethod(baseName, m_klass);
-      if(optionalityMethod != null)
-      {
-         optionSpecificationBuilder.setOptionalityMethod(optionalityMethod);
-      }
+        final String baseName = extractBaseMethodName(method);
+        final Method optionalityMethod = findCorrespondingOptionalityMethod(baseName, klass);
+        if (optionalityMethod != null) {
+            optionSpecificationBuilder.setOptionalityMethod(optionalityMethod);
+        }
 
-      if(m_method.isAnnotationPresent(Option.class))
-      {
-         final Option optionAnnotation = m_method.getAnnotation(Option.class);
+        if (method.isAnnotationPresent(Option.class)) {
+            final Option optionAnnotation = method.getAnnotation(Option.class);
 
-         final String[] shortNameSpecification = optionAnnotation.shortName();
-         final List<String> shortNames = new ArrayList<String>();
-         for (final String element : shortNameSpecification)
-         {
-            final String shortName = element.trim();
-            if(shortName.length() > 0)
-            {
-               shortNames.add(element.substring(0, 1));
+            final String[] shortNameSpecification = optionAnnotation.shortName();
+            final List<String> shortNames = new ArrayList<String>();
+            for (final String element : shortNameSpecification) {
+                final String shortName = element.trim();
+                if (shortName.length() > 0) {
+                    shortNames.add(element.substring(0, 1));
+                }
             }
-         }
-         optionSpecificationBuilder.setShortNames(shortNames);
+            optionSpecificationBuilder.setShortNames(shortNames);
 
-         final String longNameSpecification = optionAnnotation.longName().trim();
-         final String longName = nullOrBlank(longNameSpecification) ? baseName : longNameSpecification;
-         optionSpecificationBuilder.setLongName(longName);
+            final String longNameSpecification = optionAnnotation.longName().trim();
+            final String longName = nullOrBlank(longNameSpecification) ? baseName : longNameSpecification;
+            optionSpecificationBuilder.setLongName(longName);
 
-         final String description = optionAnnotation.description().trim();
-         optionSpecificationBuilder.setDescription(description);
+            final String description = optionAnnotation.description().trim();
+            optionSpecificationBuilder.setDescription(description);
 
-         final String pattern = optionAnnotation.pattern();
-         optionSpecificationBuilder.setPattern(pattern);
+            final String pattern = optionAnnotation.pattern();
+            optionSpecificationBuilder.setPattern(pattern);
 
-         final List<String> defaultValue = Arrays.asList(optionAnnotation.defaultValue());
-         optionSpecificationBuilder.setDefaultValue(defaultValue);
+            final List<String> defaultValue = Arrays.asList(optionAnnotation.defaultValue());
+            optionSpecificationBuilder.setDefaultValue(defaultValue);
 
-         final boolean helpRequest = optionAnnotation.helpRequest();
-         optionSpecificationBuilder.setHelpRequest(helpRequest);
+            final boolean helpRequest = optionAnnotation.helpRequest();
+            optionSpecificationBuilder.setHelpRequest(helpRequest);
 
-         builder.addOption(optionSpecificationBuilder.createOptionSpecification());
-      }
-      else if (m_method.isAnnotationPresent(Unparsed.class))
-      {
-         final Unparsed annotation = m_method.getAnnotation(Unparsed.class);
+            builder.addOption(optionSpecificationBuilder.createOptionSpecification());
+        } else if (method.isAnnotationPresent(Unparsed.class)) {
+            final Unparsed annotation = method.getAnnotation(Unparsed.class);
 
-         optionSpecificationBuilder.setLongName(annotation.name());
-         optionSpecificationBuilder.setDescription("");
-         optionSpecificationBuilder.setPattern(".*");
-         optionSpecificationBuilder.setDefaultValue(Collections.<String>emptyList());
-         optionSpecificationBuilder.setHelpRequest(false);
+            optionSpecificationBuilder.setLongName(annotation.name());
+            optionSpecificationBuilder.setDescription("");
+            optionSpecificationBuilder.setPattern(".*");
+            optionSpecificationBuilder.setDefaultValue(Collections.<String>emptyList());
+            optionSpecificationBuilder.setHelpRequest(false);
 
-         builder.addUnparsedOption(optionSpecificationBuilder.createOptionSpecification());
-      }
+            builder.addUnparsedOption(optionSpecificationBuilder.createOptionSpecification());
+        }
 
-      return optionSpecificationBuilder.createOptionSpecification();
-   }
+        return optionSpecificationBuilder.createOptionSpecification();
+    }
 
-   private boolean nullOrBlank(final String string)
-   {
-      return string == null || string.equals("");
-   }
+    private boolean nullOrBlank(final String string) {
+        return string == null || string.equals("");
+    }
 
-   private final boolean isList(final Class<?> klass)
-   {
-      return klass.isAssignableFrom(List.class);
-   }
+    private final boolean isList(final Class<?> klass) {
+        return klass.isAssignableFrom(List.class);
+    }
 
-   private final Class<?> getListType(final Type genericReturnType)
-   {
-      if(genericReturnType instanceof ParameterizedType)
-      {
-         return (Class<?>) ((ParameterizedType) genericReturnType).getActualTypeArguments()[0];
-      }
-      else
-      {
-         g_logger.finer("Found raw List type; assuming List<String>.");
-         return String.class;
-      }
-   }
+    private final Class<?> getListType(final Type genericReturnType) {
+        if (genericReturnType instanceof ParameterizedType) {
+            return (Class<?>) ((ParameterizedType) genericReturnType).getActualTypeArguments()[0];
+        } else {
+            logger.finer("Found raw List type; assuming List<String>.");
+            return String.class;
+        }
+    }
 
-   private final Method findCorrespondingOptionalityMethod(final String name, final Class<?> klass)
-   {
-      try
-      {
-         final Method method = klass.getMethod(addPrefix("is", name), new Class[]{});
-         if(isBoolean(method.getReturnType()))
-         {
-            return method;
-         }
-         return null;
-      }
-      catch (final NoSuchMethodException e)
-      {
-         return null;
-      }
-   }
+    private final Method findCorrespondingOptionalityMethod(final String name, final Class<?> klass) {
+        try {
+            final Method method = klass.getMethod(addPrefix("is", name), new Class[] {});
+            if (isBoolean(method.getReturnType())) {
+                return method;
+            }
+            return null;
+        } catch (final NoSuchMethodException e) {
+            return null;
+        }
+    }
 
-   private String addPrefix(final String prefix, final String name)
-   {
-      return prefix + name.substring(0, 1).toUpperCase() + name.substring(1);
-   }
+    private String addPrefix(final String prefix, final String name) {
+        return prefix + name.substring(0, 1).toUpperCase() + name.substring(1);
+    }
 
-   private String extractBaseMethodName(final Method method)
-   {
-      final String methodName = method.getName();
+    private String extractBaseMethodName(final Method method) {
+        final String methodName = method.getName();
 
-      final String isPrefix = "is";
-      if(isBoolean(method.getReturnType()) && methodName.startsWith(isPrefix))
-      {
-         return stripPrefix(methodName, isPrefix);
-      }
-      return stripPrefix(methodName, "get");
-   }
+        final String isPrefix = "is";
+        if (isBoolean(method.getReturnType()) && methodName.startsWith(isPrefix)) {
+            return stripPrefix(methodName, isPrefix);
+        }
+        return stripPrefix(methodName, "get");
+    }
 
-   private final boolean isBoolean(final Class<?> type)
-   {
-      return (type.isAssignableFrom(Boolean.class) || type.isAssignableFrom(boolean.class));
-   }
+    private final boolean isBoolean(final Class<?> type) {
+        return type.isAssignableFrom(Boolean.class) || type.isAssignableFrom(boolean.class);
+    }
 
-   private final String stripPrefix(final String methodName, final String prefix)
-   {
-      if(methodName.length() > prefix.length() && methodName.startsWith(prefix))
-      {
-         return methodName.substring(prefix.length(), prefix.length() + 1).toLowerCase()
-                + ((methodName.length() > prefix.length()+1) ? methodName.substring(prefix.length() + 1) : "");
-      }
-      return methodName;
-   }
+    private final String stripPrefix(final String methodName, final String prefix) {
+        if (methodName.length() > prefix.length() && methodName.startsWith(prefix)) {
+            return methodName.substring(prefix.length(), prefix.length() + 1).toLowerCase()
+                    + (methodName.length() > prefix.length() + 1 ? methodName.substring(prefix.length() + 1) : "");
+        }
+        return methodName;
+    }
 }

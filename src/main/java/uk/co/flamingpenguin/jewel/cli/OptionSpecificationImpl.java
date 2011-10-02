@@ -16,102 +16,87 @@ package uk.co.flamingpenguin.jewel.cli;
 import java.lang.reflect.Method;
 import java.util.List;
 
+class OptionSpecificationImpl implements OptionSpecification {
+    private final OptionName m_optionName;
+    private final OptionType m_optionType;
+    private final OptionContext m_optionContext;
+    private final Method m_method;
+    private final Method m_optionalityMethod;
 
-class OptionSpecificationImpl implements OptionSpecification
-{
-   private final OptionName m_optionName;
-   private final OptionType m_optionType;
-   private final OptionContext m_optionContext;
-   private final Method m_method;
-   private final Method m_optionalityMethod;
+    OptionSpecificationImpl(
+            final OptionName optionName,
+            final OptionType optionType,
+            final OptionContext optionContext,
+            final Method method,
+            final Method optionalityMethod) {
+        m_optionName = optionName;
+        m_optionType = optionType;
+        m_optionContext = optionContext;
+        m_method = method;
+        m_optionalityMethod = optionalityMethod;
+    }
 
-   OptionSpecificationImpl(final OptionName optionName, final OptionType optionType, final OptionContext optionContext, final Method method, final Method optionalityMethod)
-   {
-      m_optionName = optionName;
-      m_optionType = optionType;
-      m_optionContext = optionContext;
-      m_method = method;
-      m_optionalityMethod = optionalityMethod;
-   }
+    public List<String> getDefaultValue() {
+        return m_optionContext.getDefaultValue();
+    }
 
-   public List<String> getDefaultValue()
-   {
-      return m_optionContext.getDefaultValue();
-   }
+    public String getDescription() {
+        return m_optionName.getDescription();
+    }
 
-   public String getDescription()
-   {
-      return m_optionName.getDescription();
-   }
+    public String getLongName() {
+        return m_optionName.getLongName();
+    }
 
-   public String getLongName()
-   {
-      return m_optionName.getLongName();
-   }
+    public List<String> getShortNames() {
+        return m_optionName.getShortNames();
+    }
 
-   public List<String> getShortNames()
-   {
-      return m_optionName.getShortNames();
-   }
+    public boolean hasDefaultValue() {
+        return !getDefaultValue().isEmpty();
+    }
 
-   public boolean hasDefaultValue()
-   {
-      return !getDefaultValue().isEmpty();
-   }
+    public boolean hasShortName() {
+        return !getShortNames().isEmpty();
+    }
 
-   public boolean hasShortName()
-   {
-      return !getShortNames().isEmpty();
-   }
+    public boolean isHelpOption() {
+        return m_optionContext.isHelpRequest();
+    }
 
-   public boolean isHelpOption()
-   {
-      return m_optionContext.isHelpRequest();
-   }
+    public String getPattern() {
+        return m_optionType.getPattern();
+    }
 
-   public String getPattern()
-   {
-      return m_optionType.getPattern();
-   }
+    public Class<?> getType() {
+        return m_optionType.getType();
+    }
 
-   public Class<?> getType()
-   {
-      return m_optionType.getType();
-   }
+    public boolean hasValue() {
+        return !isBoolean();
+    }
 
-   public boolean hasValue()
-   {
-      return !isBoolean();
-   }
+    public boolean isMultiValued() {
+        return m_optionType.isMultiValued();
+    }
 
-   public boolean isMultiValued()
-   {
-      return m_optionType.isMultiValued();
-   }
+    public boolean isOptional() {
+        return m_optionalityMethod != null || isBoolean();
+    }
 
-   public boolean isOptional()
-   {
-      return m_optionalityMethod != null || isBoolean();
-   }
+    private final boolean isBoolean() {
+        return getType().isAssignableFrom(Boolean.class) || getType().isAssignableFrom(boolean.class);
+    }
 
-   private final boolean isBoolean()
-   {
-      return (getType().isAssignableFrom(Boolean.class) || getType().isAssignableFrom(boolean.class));
-   }
+    Method getMethod() {
+        return m_method;
+    }
 
-   Method getMethod()
-   {
-      return m_method;
-   }
+    Method getOptionalityMethod() {
+        return m_optionalityMethod;
+    }
 
-   Method getOptionalityMethod()
-   {
-      return m_optionalityMethod;
-   }
-
-   @Override
-   public String toString()
-   {
-      return new OptionSummary(this).toString();
-   }
+    @Override public String toString() {
+        return new OptionSummary(this).toString();
+    }
 }
