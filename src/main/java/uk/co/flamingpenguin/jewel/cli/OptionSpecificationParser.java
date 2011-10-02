@@ -20,6 +20,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
@@ -30,32 +31,39 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
 class OptionSpecificationParser {
     private static final Logger logger = Logger.getLogger(OptionSpecificationParser.class.getName());
 
-    private final Method method;
+    private final ReflectedMethod method;
     private final ReflectedClass<?> klass;
 
     public OptionSpecificationParser(final ReflectedClass<?> klass, final ReflectedMethod method) {
         this.klass = klass;
-        this.method = method.methodUnderReflection();
+        this.method = method;
     }
 
     OptionSpecificationImpl buildOptionSpecification(final OptionsSpecificationBuilder builder) {
-        final OptionSpecificationBuilder optionSpecificationBuilder = new OptionSpecificationBuilder(method);
+        final OptionSpecificationBuilder optionSpecificationBuilder =
+                new OptionSpecificationBuilder(method.methodUnderReflection());
 
-        final Type returnType = method.getGenericReturnType();
-        final Class<?> type = (Class<?>) (isList(method.getReturnType()) ? getListType(returnType) : returnType);
-        optionSpecificationBuilder.setType(type);
+        final ReflectedClass<?> returnType = method.returnType();
+        final boolean multiValued = returnType.isType(reflectedTypeReflectingOn(Collection.class));
 
-        final boolean multiValued = isList(method.getReturnType());
+        final ReflectedClass<? extends Object> type =
+                multiValued
+                        ? returnType.asType(reflectedTypeReflectingOn(Collection.class)).typeArgument(0)
+                        : returnType;
+
+        optionSpecificationBuilder.setType(type.classUnderReflection().equals(Object.class) ? String.class : type
+                .classUnderReflection());
+
         optionSpecificationBuilder.setMultiValued(multiValued);
 
-        final String baseName = extractBaseMethodName(method);
+        final String baseName = method.propertyName();
         final ReflectedMethod optionalityMethod = findCorrespondingOptionalityMethod(baseName, klass);
         if (optionalityMethod != null) {
             optionSpecificationBuilder.setOptionalityMethod(optionalityMethod.methodUnderReflection());
         }
 
-        if (method.isAnnotationPresent(Option.class)) {
-            final Option optionAnnotation = method.getAnnotation(Option.class);
+        if (method.annotatedWith(Option.class)) {
+            final Option optionAnnotation = method.annotation(Option.class);
 
             final String[] shortNameSpecification = optionAnnotation.shortName();
             final List<String> shortNames = new ArrayList<String>();
@@ -84,8 +92,8 @@ class OptionSpecificationParser {
             optionSpecificationBuilder.setHelpRequest(helpRequest);
 
             builder.addOption(optionSpecificationBuilder.createOptionSpecification());
-        } else if (method.isAnnotationPresent(Unparsed.class)) {
-            final Unparsed annotation = method.getAnnotation(Unparsed.class);
+        } else if (method.annotatedWith(Unparsed.class)) {
+            final Unparsed annotation = method.annotation(Unparsed.class);
 
             optionSpecificationBuilder.setLongName(annotation.name());
             optionSpecificationBuilder.setDescription("");
