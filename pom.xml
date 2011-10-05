@@ -160,7 +160,15 @@
             <classifier>no_aop</classifier>
             <scope>compile</scope>
             <optional>true</optional>
-        </dependency> 
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0.1</version>
+            <type>jar</type>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>com.googlecode.lambdaj</groupId>
             <artifactId>lambdaj</artifactId>
@@ -174,6 +182,14 @@
                     <artifactId>hamcrest-all</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>10.0</version>
+            <type>jar</type>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
         <!-- ^^^^ remove these and sortout eclipse  workspace resolution -->       
         <dependency>

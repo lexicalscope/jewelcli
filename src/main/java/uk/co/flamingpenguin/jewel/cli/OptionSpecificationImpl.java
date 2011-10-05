@@ -16,24 +16,26 @@ package uk.co.flamingpenguin.jewel.cli;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import com.lexicalscope.fluentreflection.ReflectedMethod;
+
 class OptionSpecificationImpl implements OptionSpecification {
     private final OptionName m_optionName;
     private final OptionType m_optionType;
     private final OptionContext m_optionContext;
     private final Method m_method;
-    private final Method m_optionalityMethod;
+    private final ReflectedMethod optionalityMethod;
 
     OptionSpecificationImpl(
             final OptionName optionName,
             final OptionType optionType,
             final OptionContext optionContext,
             final Method method,
-            final Method optionalityMethod) {
+            final ReflectedMethod optionalityMethod) {
         m_optionName = optionName;
         m_optionType = optionType;
         m_optionContext = optionContext;
         m_method = method;
-        m_optionalityMethod = optionalityMethod;
+        this.optionalityMethod = optionalityMethod;
     }
 
     public List<String> getDefaultValue() {
@@ -81,7 +83,7 @@ class OptionSpecificationImpl implements OptionSpecification {
     }
 
     public boolean isOptional() {
-        return m_optionalityMethod != null || isBoolean();
+        return optionalityMethod != null || isBoolean();
     }
 
     private final boolean isBoolean() {
@@ -92,8 +94,8 @@ class OptionSpecificationImpl implements OptionSpecification {
         return m_method;
     }
 
-    Method getOptionalityMethod() {
-        return m_optionalityMethod;
+    ReflectedMethod getOptionalityMethod() {
+        return optionalityMethod;
     }
 
     @Override public String toString() {

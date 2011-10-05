@@ -59,7 +59,7 @@ class OptionSpecificationParser {
         final String baseName = method.propertyName();
         final ReflectedMethod optionalityMethod = findCorrespondingOptionalityMethod(baseName, klass);
         if (optionalityMethod != null) {
-            optionSpecificationBuilder.setOptionalityMethod(optionalityMethod.methodUnderReflection());
+            optionSpecificationBuilder.setOptionalityMethod(optionalityMethod);
         }
 
         if (method.annotatedWith(Option.class)) {

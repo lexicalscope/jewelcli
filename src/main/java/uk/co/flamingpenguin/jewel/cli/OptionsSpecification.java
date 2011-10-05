@@ -3,21 +3,22 @@ package uk.co.flamingpenguin.jewel.cli;
 import java.lang.reflect.Method;
 import java.util.List;
 
-interface OptionsSpecification<O> extends CliSpecification
-{
-   boolean isSpecified(final String key);
+import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-   boolean isSpecified(Method method);
+interface OptionsSpecification<O> extends CliSpecification {
+    boolean isSpecified(final String key);
 
-   boolean isExistenceChecker(Method method);
+    boolean isSpecified(Method method);
 
-   boolean isUnparsedExistenceChecker(Method method);
+    boolean isExistenceChecker(ReflectedMethod method);
 
-   OptionSpecification getSpecification(final String key);
+    boolean isUnparsedExistenceChecker(ReflectedMethod method);
 
-   OptionSpecification getSpecification(final Method key);
+    OptionSpecification getSpecification(final String key);
 
-   List<OptionSpecification> getMandatoryOptions();
+    OptionSpecification getSpecification(final Method key);
 
-   boolean isUnparsedMethod(Method method);
+    List<OptionSpecification> getMandatoryOptions();
+
+    boolean isUnparsedMethod(Method method);
 }
