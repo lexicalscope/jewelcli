@@ -14,6 +14,7 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lexicalscope.fluentreflection.ReflectedMethod;
@@ -52,6 +53,12 @@ class OptionSpecificationImpl implements OptionSpecification {
 
     public List<String> getShortNames() {
         return m_optionName.getShortNames();
+    }
+
+    @Override public List<String> getNames() {
+        final List<String> result = new ArrayList<String>(getShortNames());
+        result.add(getLongName());
+        return result;
     }
 
     public boolean hasDefaultValue() {

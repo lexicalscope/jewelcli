@@ -132,7 +132,7 @@ public class TestObjectMethods {
                         "value4",
                         "value5");
         assertEquals(
-                "uk.co.flamingpenguin.jewel.cli.TestObjectMethods$SeveralOptions {name1=[value1, value2], name0=value0, name2=null, name3=value3, name=[value4, value5]}",
+                "uk.co.flamingpenguin.jewel.cli.TestObjectMethods$SeveralOptions {name3=value3, name2=null, name1=[value1, value2], name0=value0, name=[value4, value5]}",
                 parsedArguments.toString());
     }
 }

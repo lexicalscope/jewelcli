@@ -38,9 +38,7 @@ class CliImpl<O> implements Cli<O> {
                         .parseArguments(arguments));
         final TypedArguments typedArguments =
                 new ArgumentTyperImpl<O>(m_specification).typeArguments(validatedArguments);
-        return new ArgumentPresenterImpl<O>(m_klass, m_specification).presentArguments(
-                typedArguments,
-                validatedArguments);
+        return new ArgumentPresenterImpl<O>(m_klass, m_specification).presentArguments(validatedArguments);
     }
 
     /**

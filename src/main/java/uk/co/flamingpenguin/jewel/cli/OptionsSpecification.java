@@ -21,4 +21,6 @@ interface OptionsSpecification<O> extends CliSpecification {
     List<OptionSpecification> getMandatoryOptions();
 
     boolean isUnparsedMethod(Method method);
+
+    OptionSpecification getSpecification(ReflectedMethod reflectedMethod);
 }

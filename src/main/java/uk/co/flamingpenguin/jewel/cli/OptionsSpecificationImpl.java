@@ -79,6 +79,10 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         }
     }
 
+    @Override public OptionSpecification getSpecification(final ReflectedMethod reflectedMethod) {
+        return getSpecification(reflectedMethod.methodUnderReflection());
+    }
+
     /**
      * @{inheritdoc
      */

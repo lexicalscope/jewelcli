@@ -24,9 +24,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
     /**
      * @inheritdoc
      */
-    public O presentArguments(
-            final TypedArguments arguments,
-            final ArgumentCollection validatedArguments) {
+    public O presentArguments(final ArgumentCollection validatedArguments) {
         final ReflectedClass<O> reflectedKlass = type(klass);
         final Map<String, Object> argumentMap = new LinkedHashMap<String, Object>();
 
@@ -41,16 +39,22 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
             {
                 argumentMap.put(reflectedMethod.propertyName(), optionAnnotation.defaultValue()[0]);
             }
-        }
 
-        for (final Argument argument : validatedArguments) {
-            final OptionSpecification optionSpecification = specification.getSpecification(argument.getOptionName());
-            if (optionSpecification.isMultiValued()) {
-                argumentMap.put(optionSpecification.getLongName(), argument.getValues());
-            } else if (!argument.getValues().isEmpty()) {
-                argumentMap.put(optionSpecification.getLongName(), argument.getValues().get(0));
-            } else if (argument.getValues().isEmpty()) {
-                argumentMap.put(optionSpecification.getLongName(), null);
+            final OptionSpecification optionSpecification =
+                    specification.getSpecification(reflectedMethod);
+            final Argument argument = validatedArguments.getArgument(optionSpecification.getNames());
+            if (argument != null) {
+                if (optionSpecification.isMultiValued()) {
+                    argumentMap.put(
+                            optionSpecification.getLongName(),
+                            reflectedMethod.returnType().convertType(argument.getValues()));
+                } else if (!argument.getValues().isEmpty()) {
+                    argumentMap.put(
+                            optionSpecification.getLongName(),
+                            reflectedMethod.returnType().convertType(argument.getValues().get(0)));
+                } else if (argument.getValues().isEmpty()) {
+                    argumentMap.put(optionSpecification.getLongName(), null);
+                }
             }
         }
 

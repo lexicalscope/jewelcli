@@ -21,87 +21,96 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-
 class ArgumentCollectionImpl implements ArgumentCollection
 {
-   private final Map<String, List<String>> m_arguments;
-   private final List<String> m_unparsed;
+    private final Map<String, List<String>> m_arguments;
+    private final List<String> m_unparsed;
 
-   public ArgumentCollectionImpl(final Map<String, List<String>> arguments, final List<String> unparsed)
-   {
-      m_arguments = arguments;
-      m_unparsed = unparsed;
-   }
+    public ArgumentCollectionImpl(final Map<String, List<String>> arguments, final List<String> unparsed)
+    {
+        m_arguments = arguments;
+        m_unparsed = unparsed;
+    }
 
-   public boolean hasUnparsed()
-   {
-      return !m_unparsed.isEmpty();
-   }
+    public boolean hasUnparsed()
+    {
+        return !m_unparsed.isEmpty();
+    }
 
-   public List<String> getUnparsed()
-   {
-      return new ArrayList<String>(m_unparsed);
-   }
+    public List<String> getUnparsed()
+    {
+        return new ArrayList<String>(m_unparsed);
+    }
 
-   public Iterator<Argument> iterator()
-   {
-      return new Iterator<Argument>() {
-         final Iterator<Map.Entry<String, List<String>>> m_iterator = m_arguments.entrySet().iterator();
+    public Iterator<Argument> iterator()
+    {
+        return new Iterator<Argument>() {
+            final Iterator<Map.Entry<String, List<String>>> m_iterator = m_arguments.entrySet().iterator();
 
-         public boolean hasNext()
-         {
-            return m_iterator.hasNext();
-         }
+            public boolean hasNext()
+            {
+                return m_iterator.hasNext();
+            }
 
-         public Argument next()
-         {
-            final Entry<String, List<String>> next = m_iterator.next();
-            return new ArgumentImpl(next.getKey(), next.getValue());
-         }
+            public Argument next()
+            {
+                final Entry<String, List<String>> next = m_iterator.next();
+                return new ArgumentImpl(next.getKey(), next.getValue());
+            }
 
-         public void remove()
-         {
-            m_iterator.remove();
-         }};
-   }
+            public void remove()
+            {
+                m_iterator.remove();
+            }
+        };
+    }
 
-   boolean containsAny(final String... options)
-   {
-      return containsAny(Arrays.asList(options));
-   }
+    boolean containsAny(final String... options)
+    {
+        return containsAny(Arrays.asList(options));
+    }
 
-   /**
-    * {@inheritDoc}
-    */
-   public boolean containsAny(final List<String> options)
-   {
-      for (final String option : options)
-      {
-         if(m_arguments.containsKey(option))
-         {
-            return true;
-         }
-      }
-      return false;
-   }
+    /**
+     * {@inheritDoc}
+     */
+    public boolean containsAny(final List<String> options)
+    {
+        for (final String option : options)
+        {
+            if (m_arguments.containsKey(option))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-   List<String> getValues(final String... options)
-   {
-      return getValues(Arrays.asList(options));
-   }
+    @Override public Argument getArgument(final List<String> options) {
+        for (final String option : options) {
+            if (m_arguments.containsKey(option)) {
+                return new ArgumentImpl(option, m_arguments.get(option));
+            }
+        }
+        return null;
+    }
 
-   /**
-    * {@inheritDoc}
-    */
-   public List<String> getValues(final List<String> options)
-   {
-      for (final String option : options)
-      {
-         if(m_arguments.containsKey(option))
-         {
-            return m_arguments.get(option);
-         }
-      }
-      return null;
-   }
+    List<String> getValues(final String... options)
+    {
+        return getValues(Arrays.asList(options));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<String> getValues(final List<String> options)
+    {
+        for (final String option : options)
+        {
+            if (m_arguments.containsKey(option))
+            {
+                return m_arguments.get(option);
+            }
+        }
+        return null;
+    }
 }
