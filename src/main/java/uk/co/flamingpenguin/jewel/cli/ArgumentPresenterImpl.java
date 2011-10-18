@@ -1,71 +1,76 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
+import static com.lexicalscope.fluentreflection.FluentReflection.type;
+import static com.lexicalscope.fluentreflection.ReflectionMatchers.annotatedWith;
+import static com.lexicalscope.fluentreflection.bean.MapBean.bean;
+import static java.util.Arrays.asList;
 
-import java.lang.reflect.Proxy;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.hamcrest.Matchers;
-
-import com.lexicalscope.fluentreflection.dynamicproxy.FluentProxy;
-import com.lexicalscope.fluentreflection.dynamicproxy.Implementing;
-import com.lexicalscope.fluentreflection.dynamicproxy.MethodBody;
+import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
-    private final OptionsSpecification<O> m_specification;
-    private final Class<O> m_klass;
+    private final OptionsSpecification<O> specification;
+    private final Class<O> klass;
 
     public ArgumentPresenterImpl(final Class<O> klass, final OptionsSpecification<O> specification) {
-        m_specification = specification;
-        m_klass = klass;
+        this.specification = specification;
+        this.klass = klass;
     }
 
     /**
      * @inheritdoc
      */
-    @SuppressWarnings("unchecked") public O presentArguments(final TypedArguments arguments) {
-        final ArgumentInvocationHandler invokationHandler =
-                new ArgumentInvocationHandler(m_klass, m_specification, arguments);
-        final O result = (O) Proxy.newProxyInstance(m_klass.getClassLoader(),
-                new Class[] { m_klass },
-                invokationHandler);
+    public O presentArguments(
+            final TypedArguments arguments,
+            final ArgumentCollection validatedArguments) {
+        final ReflectedClass<O> reflectedKlass = type(klass);
+        final Map<String, Object> argumentMap = new LinkedHashMap<String, Object>();
 
-        return FluentProxy.dynamicProxy(new Implementing<O>(m_klass) {
-            private final Object identity = new Object();
+        final List<ReflectedMethod> optionMethods = reflectedKlass.methods(annotatedWith(Option.class));
+        for (final ReflectedMethod reflectedMethod : optionMethods) {
+            final Option optionAnnotation = reflectedMethod.annotation(Option.class);
+            if (reflectedMethod.returnType().assignableTo(Iterable.class))
             {
-                matching(
-                        callableHasName("hashCode").and(callableHasNoArguments()).and(callableHasReturnType(int.class)))
-                        .execute(new MethodBody() {
-                            @Override public void body() throws Throwable {
-                                returnValue(identity.hashCode());
-                            }
-                        });
-
-                matching(
-                        callableHasName("equals")
-                                .and(callableHasArguments(Object.class))
-                                .and(callableHasReturnType(boolean.class)))
-                        .execute(new MethodBody() {
-                            @Override public void body() throws Throwable {
-                                final Object that = args()[0];
-                                returnValue(Proxy.isProxyClass(that.getClass())
-                                        && that == proxy());
-                            }
-                        });
-
-                matching(
-                        callableHasName("toString").and(callableHasNoArguments()).and(
-                                callableHasReturnType(String.class))).execute(new MethodBody() {
-                    @Override public void body() throws Throwable {
-                        returnValue(invokationHandler.toString());
-                    }
-                });
-
-                matching(Matchers.anything()).execute(new MethodBody() {
-                    public void body() throws Throwable {
-                        returnValue(invokationHandler.invoke(null, method().methodUnderReflection(), args()));
-                    }
-                });
+                argumentMap.put(reflectedMethod.propertyName(), asList(optionAnnotation.defaultValue()));
             }
-        });
+            else if (optionAnnotation.defaultValue() != null && optionAnnotation.defaultValue().length > 0)
+            {
+                argumentMap.put(reflectedMethod.propertyName(), optionAnnotation.defaultValue()[0]);
+            }
+        }
+
+        for (final Argument argument : validatedArguments) {
+            final OptionSpecification optionSpecification = specification.getSpecification(argument.getOptionName());
+            if (optionSpecification.isMultiValued()) {
+                argumentMap.put(optionSpecification.getLongName(), argument.getValues());
+            } else if (!argument.getValues().isEmpty()) {
+                argumentMap.put(optionSpecification.getLongName(), argument.getValues().get(0));
+            } else if (argument.getValues().isEmpty()) {
+                argumentMap.put(optionSpecification.getLongName(), null);
+            }
+        }
+
+        if (specification.hasUnparsedSpecification()) {
+            final List<ReflectedMethod> unparsedMethods = reflectedKlass.methods(annotatedWith(Unparsed.class));
+            for (final ReflectedMethod reflectedMethod : unparsedMethods) {
+                if (!validatedArguments.getUnparsed().isEmpty())
+                {
+                    if (reflectedMethod.returnType().assignableTo(Iterable.class))
+                    {
+                        argumentMap.put(reflectedMethod.propertyName(), validatedArguments.getUnparsed());
+                    }
+                    else if (!validatedArguments.getUnparsed().isEmpty())
+                    {
+                        argumentMap.put(reflectedMethod.propertyName(), validatedArguments.getUnparsed().get(0));
+                    }
+                }
+            }
+        }
+
+        return bean(klass, argumentMap);
     }
 }

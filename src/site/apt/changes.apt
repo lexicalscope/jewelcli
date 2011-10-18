@@ -1,0 +1,8 @@
+                                       -------
+                                       Changes
+                                       -------
+
+Changes
+
+  Non annotated methods now return null rather than throwing an exception.
+  toString of returned implementation has changed   

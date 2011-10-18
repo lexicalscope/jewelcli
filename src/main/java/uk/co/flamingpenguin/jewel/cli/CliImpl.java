@@ -14,45 +14,46 @@
 
 package uk.co.flamingpenguin.jewel.cli;
 
-class CliImpl<O> implements Cli<O>
-{
-   private final OptionsSpecificationImpl<O> m_specification;
-   private final Class<O> m_klass;
+class CliImpl<O> implements Cli<O> {
+    private final OptionsSpecificationImpl<O> m_specification;
+    private final Class<O> m_klass;
 
-   public CliImpl(final Class<O> klass)
-   {
-      final OptionsSpecificationImpl<O> specification = OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(klass);
+    public CliImpl(final Class<O> klass) {
+        final OptionsSpecificationImpl<O> specification =
+                OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(klass);
 
-      final OptionsSpecificationParser<O> optionsSpecificationParser = new OptionsSpecificationParser<O>(klass);
-      optionsSpecificationParser.buildOptionsSpecification(specification);
+        final OptionsSpecificationParser<O> optionsSpecificationParser = new OptionsSpecificationParser<O>(klass);
+        optionsSpecificationParser.buildOptionsSpecification(specification);
 
-      m_specification = specification;
-      m_klass = klass;
-   }
+        m_specification = specification;
+        m_klass = klass;
+    }
 
-   /**
-    * @inheritdoc
-    */
-   public O parseArguments(final String... arguments) throws ArgumentValidationException
-   {
-      final ArgumentCollection validatedArguments = new ArgumentValidatorImpl<O>(m_specification).validateArguments(new ParsedArgumentsBuilder().parseArguments(arguments));
-      final TypedArguments typedArguments = new ArgumentTyperImpl<O>(m_specification).typeArguments(validatedArguments);
-      return new ArgumentPresenterImpl<O>(m_klass, m_specification).presentArguments(typedArguments);
-   }
+    /**
+     * @inheritdoc
+     */
+    public O parseArguments(final String... arguments) throws ArgumentValidationException {
+        final ArgumentCollection validatedArguments =
+                new ArgumentValidatorImpl<O>(m_specification).validateArguments(new ParsedArgumentsBuilder()
+                        .parseArguments(arguments));
+        final TypedArguments typedArguments =
+                new ArgumentTyperImpl<O>(m_specification).typeArguments(validatedArguments);
+        return new ArgumentPresenterImpl<O>(m_klass, m_specification).presentArguments(
+                typedArguments,
+                validatedArguments);
+    }
 
-   /**
-    * @inheritdoc
-    */
-   public String getHelpMessage()
-   {
-      return m_specification.toString();
-   }
+    /**
+     * @inheritdoc
+     */
+    public String getHelpMessage() {
+        return m_specification.toString();
+    }
 
-   /**
-    * {@inheritdoc}
-    */
-   public CliSpecification getSpecification()
-   {
-      return m_specification;
-   }
+    /**
+     * {@inheritdoc}
+     */
+    public CliSpecification getSpecification() {
+        return m_specification;
+    }
 }

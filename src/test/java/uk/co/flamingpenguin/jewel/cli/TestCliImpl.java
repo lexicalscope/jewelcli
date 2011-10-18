@@ -1,5 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -194,17 +195,11 @@ public class TestCliImpl {
     }
 
     @Test public void testMethodWithMissingAnnotation() throws ArgumentValidationException {
-        try {
-            final SingleOptionMissingAnnotation result =
-                    new CliImpl<SingleOptionMissingAnnotation>(SingleOptionMissingAnnotation.class)
-                            .parseArguments(new String[] {});
-            result.getName();
-            fail();
-        } catch (final UnsupportedOperationException e) {
-            assertEquals(
-                    "Method (public abstract java.lang.String uk.co.flamingpenguin.jewel.cli.TestCliImpl$SingleOptionMissingAnnotation.getName()) is not annotated for option specification",
-                    e.getMessage());
-        }
+        final SingleOptionMissingAnnotation result =
+                new CliImpl<SingleOptionMissingAnnotation>(SingleOptionMissingAnnotation.class)
+                        .parseArguments(new String[] {});
+
+        assertThat(result.getName(), equalTo(null));
     }
 
     @Test public void testUnparsedOption() throws ArgumentValidationException {

@@ -75,7 +75,7 @@ public class TestObjectMethods {
     @Test public void testToString() throws ArgumentValidationException {
         final SingleOption parsedArguments = CliFactory.parseArguments(SingleOption.class, "--name", "value");
         assertEquals(
-                "Option values for uk.co.flamingpenguin.jewel.cli.TestObjectMethods.SingleOption: --name value",
+                "uk.co.flamingpenguin.jewel.cli.TestObjectMethods$SingleOption {name=value}",
                 parsedArguments.toString());
     }
 
@@ -83,7 +83,7 @@ public class TestObjectMethods {
         final ListOption parsedArguments =
                 CliFactory.parseArguments(ListOption.class, "--name", "value0", "value1", "value2");
         assertEquals(
-                "Option values for uk.co.flamingpenguin.jewel.cli.TestObjectMethods.ListOption: --name value0 value1 value2",
+                "uk.co.flamingpenguin.jewel.cli.TestObjectMethods$ListOption {name=[value0, value1, value2]}",
                 parsedArguments.toString());
     }
 
@@ -91,21 +91,21 @@ public class TestObjectMethods {
         final BooleanOption parsedArguments =
                 CliFactory.parseArguments(BooleanOption.class, "--name", "value0", "value1", "value2");
         assertEquals(
-                "Option values for uk.co.flamingpenguin.jewel.cli.TestObjectMethods.BooleanOption: --name",
+                "uk.co.flamingpenguin.jewel.cli.TestObjectMethods$BooleanOption {name=null}",
                 parsedArguments.toString());
     }
 
     @Test public void testToStringOptionalMissing() throws ArgumentValidationException {
         final OptionalOption parsedArguments = CliFactory.parseArguments(OptionalOption.class);
         assertEquals(
-                "Option values for uk.co.flamingpenguin.jewel.cli.TestObjectMethods.OptionalOption:",
+                "uk.co.flamingpenguin.jewel.cli.TestObjectMethods$OptionalOption {}",
                 parsedArguments.toString());
     }
 
     @Test public void testToStringOptionalPresent() throws ArgumentValidationException {
         final OptionalOption parsedArguments = CliFactory.parseArguments(OptionalOption.class, "--name", "value");
         assertEquals(
-                "Option values for uk.co.flamingpenguin.jewel.cli.TestObjectMethods.OptionalOption: --name value",
+                "uk.co.flamingpenguin.jewel.cli.TestObjectMethods$OptionalOption {name=value}",
                 parsedArguments.toString());
     }
 
@@ -113,7 +113,7 @@ public class TestObjectMethods {
         final UnparsedOption parsedArguments =
                 CliFactory.parseArguments(UnparsedOption.class, "value0", "value1", "value2", "value3");
         assertEquals(
-                "Option values for uk.co.flamingpenguin.jewel.cli.TestObjectMethods.UnparsedOption: value0 value1 value2 value3",
+                "uk.co.flamingpenguin.jewel.cli.TestObjectMethods$UnparsedOption {name=[value0, value1, value2, value3]}",
                 parsedArguments.toString());
     }
 
@@ -132,7 +132,7 @@ public class TestObjectMethods {
                         "value4",
                         "value5");
         assertEquals(
-                "Option values for uk.co.flamingpenguin.jewel.cli.TestObjectMethods.SeveralOptions: --name0 value0 --name1 value1 value2 --name2 --name3 value3 value4 value5",
+                "uk.co.flamingpenguin.jewel.cli.TestObjectMethods$SeveralOptions {name1=[value1, value2], name0=value0, name2=null, name3=value3, name=[value4, value5]}",
                 parsedArguments.toString());
     }
 }
