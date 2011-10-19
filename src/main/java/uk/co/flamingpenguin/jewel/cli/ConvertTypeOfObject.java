@@ -3,6 +3,7 @@ package uk.co.flamingpenguin.jewel.cli;
 import static com.lexicalscope.fluentreflection.FluentReflection.type;
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -102,11 +103,18 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
                 return (S) valueOfMethods.get(0).call(value);
             }
 
-            final List<ReflectedConstructor<S>> constructors =
+            final List<ReflectedConstructor<S>> singleArgumentConstructors =
                     klassToCreate.constructors(callableHasArguments(value.getClass()));
 
-            if (!constructors.isEmpty()) {
-                return constructors.get(0).call(value);
+            if (!singleArgumentConstructors.isEmpty()) {
+                return singleArgumentConstructors.get(0).call(value);
+            }
+
+            final List<ReflectedConstructor<S>> typeTokenConstructors =
+                    klassToCreate.constructors(callableHasArguments(value.getClass(), Type.class));
+
+            if (!typeTokenConstructors.isEmpty()) {
+                return typeTokenConstructors.get(0).call(value, klassToCreate.type());
             }
 
             if (klassToCreate.classUnderReflection().equals(Character.class) && value.getClass().equals(String.class)) {
@@ -169,19 +177,22 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
 
     public static <T> ConvertTypeOfObject<T> converterTo(
             final ValidationErrorBuilder validationErrorBuilder,
-            final OptionSpecification specification, final ReflectedClass<T> type) {
+            final OptionSpecification specification,
+            final ReflectedClass<T> type) {
         return new ConvertTypeOfObject<T>(validationErrorBuilder, specification, type);
     }
 
     public static <T> ConvertTypeOfObject<T> converterTo(
             final ValidationErrorBuilder validationErrorBuilder,
-            final OptionSpecification specification, final Class<T> klass) {
+            final OptionSpecification specification,
+            final Class<T> klass) {
         return converterTo(validationErrorBuilder, specification, type(klass));
     }
 
     public static <T> ConvertTypeOfObject<T> converterTo(
             final ValidationErrorBuilder validationErrorBuilder,
-            final OptionSpecification specification, final TypeToken<T> token) {
+            final OptionSpecification specification,
+            final TypeToken<T> token) {
         return converterTo(validationErrorBuilder, specification, type(token));
     }
 
