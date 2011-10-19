@@ -22,29 +22,30 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpecificationBuilder, CliSpecification {
-    private final ReflectedClass<O> m_klass;
+class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecification {
+    private final ReflectedClass<O> klass;
 
-    private final Map<String, OptionSpecification> m_optionsShortName = new HashMap<String, OptionSpecification>();
-    private final Map<String, OptionSpecification> m_optionsLongName = new TreeMap<String, OptionSpecification>();
-    private final Map<Method, OptionSpecification> m_optionsMethod = new HashMap<Method, OptionSpecification>();
-    private final Map<ReflectedMethod, OptionSpecification> m_optionalOptionsMethod =
+    private final SortedSet<OptionSpecification> options = new TreeSet<OptionSpecification>();
+    private final Map<String, OptionSpecification> optionsByName = new HashMap<String, OptionSpecification>();
+    private final Map<Method, OptionSpecification> optionsMethod = new HashMap<Method, OptionSpecification>();
+    private final Map<ReflectedMethod, OptionSpecification> optionalOptionsMethod =
             new HashMap<ReflectedMethod, OptionSpecification>();
 
-    private final Map<Method, OptionSpecification> m_unparsedOptionsMethod = new HashMap<Method, OptionSpecification>();
-    private final Map<ReflectedMethod, OptionSpecification> m_unparsedOptionalOptionsMethod =
+    private final Map<Method, OptionSpecification> unparsedOptionsMethod = new HashMap<Method, OptionSpecification>();
+    private final Map<ReflectedMethod, OptionSpecification> unparsedOptionalOptionsMethod =
             new HashMap<ReflectedMethod, OptionSpecification>();
 
     OptionsSpecificationImpl(
             final ReflectedClass<O> klass,
             final List<OptionSpecification> optionSpecifications,
             final List<OptionSpecification> unparsedSpecifications) {
-        m_klass = klass;
+        this.klass = klass;
 
         for (final OptionSpecification optionSpecification : optionSpecifications) {
             addOption(optionSpecification);
@@ -60,15 +61,11 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
     }
 
     @Override public boolean isSpecified(final String key) {
-        return m_optionsShortName.containsKey(key) || m_optionsLongName.containsKey(key);
+        return optionsByName.containsKey(key);
     }
 
     @Override public OptionSpecification getSpecification(final String key) {
-        if (m_optionsLongName.containsKey(key)) {
-            return m_optionsLongName.get(key);
-        } else {
-            return m_optionsShortName.get(key);
-        }
+        return optionsByName.get(key);
     }
 
     @Override public OptionSpecification getSpecification(final ReflectedMethod reflectedMethod) {
@@ -76,18 +73,15 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
     }
 
     private OptionSpecification getSpecification(final Method method) {
-        if (m_optionsMethod.containsKey(method)) {
-            return m_optionsMethod.get(method);
+        if (optionsMethod.containsKey(method)) {
+            return optionsMethod.get(method);
         }
-        return m_optionalOptionsMethod.get(method(method));
+        return optionalOptionsMethod.get(method(method));
     }
 
-    /**
-     * @{inheritdoc
-     */
-    public List<OptionSpecification> getMandatoryOptions() {
+    @Override public List<OptionSpecification> getMandatoryOptions() {
         final List<OptionSpecification> result = new ArrayList<OptionSpecification>();
-        for (final OptionSpecification specification : m_optionsLongName.values()) {
+        for (final OptionSpecification specification : options) {
             if (!specification.isOptional() && !specification.hasDefaultValue()) {
                 result.add(specification);
             }
@@ -96,31 +90,31 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         return result;
     }
 
-    public Iterator<OptionSpecification> iterator() {
-        return new ArrayList<OptionSpecification>(m_optionsMethod.values()).iterator();
+    @Override public Iterator<OptionSpecification> iterator() {
+        return new ArrayList<OptionSpecification>(optionsMethod.values()).iterator();
     }
 
-    public OptionSpecification getUnparsedSpecification() {
-        return m_unparsedOptionsMethod.values().iterator().next();
+    @Override public OptionSpecification getUnparsedSpecification() {
+        return unparsedOptionsMethod.values().iterator().next();
     }
 
-    public boolean hasUnparsedSpecification() {
-        return !m_unparsedOptionsMethod.values().isEmpty();
+    @Override public boolean hasUnparsedSpecification() {
+        return !unparsedOptionsMethod.values().isEmpty();
     }
 
-    public String getApplicationName() {
+    @Override public String getApplicationName() {
         final String applicationName = applicationName();
         if (applicationName != null)
         {
             return applicationName;
         }
-        return m_klass.name();
+        return klass.name();
     }
 
     private String applicationName() {
-        if (m_klass.annotatedWith(CommandLineInterface.class))
+        if (klass.annotatedWith(CommandLineInterface.class))
         {
-            final String applicationName = m_klass.annotation(CommandLineInterface.class).application();
+            final String applicationName = klass.annotation(CommandLineInterface.class).application();
             if (applicationName != null && !applicationName.trim().equals("")) {
                 return applicationName.trim();
             }
@@ -128,24 +122,25 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         return null;
     }
 
-    public void addOption(final OptionSpecification optionSpecification) {
+    private void addOption(final OptionSpecification optionSpecification) {
         for (final String shortName : optionSpecification.getShortNames()) {
-            m_optionsShortName.put(shortName, optionSpecification);
+            optionsByName.put(shortName, optionSpecification);
         }
+        optionsByName.put(optionSpecification.getLongName(), optionSpecification);
+        options.add(optionSpecification);
 
-        m_optionsLongName.put(optionSpecification.getLongName(), optionSpecification);
-        m_optionsMethod.put(optionSpecification.getMethod(), optionSpecification);
+        optionsMethod.put(optionSpecification.getMethod(), optionSpecification);
 
         if (optionSpecification.isOptional()) {
-            m_optionalOptionsMethod.put(optionSpecification.getOptionalityMethod(), optionSpecification);
+            optionalOptionsMethod.put(optionSpecification.getOptionalityMethod(), optionSpecification);
         }
     }
 
-    public void addUnparsedOption(final OptionSpecification optionSpecification) {
-        m_unparsedOptionsMethod.put(optionSpecification.getMethod(), optionSpecification);
+    private void addUnparsedOption(final OptionSpecification optionSpecification) {
+        unparsedOptionsMethod.put(optionSpecification.getMethod(), optionSpecification);
 
         if (optionSpecification.isOptional()) {
-            m_unparsedOptionalOptionsMethod.put(optionSpecification.getOptionalityMethod(), optionSpecification);
+            unparsedOptionalOptionsMethod.put(optionSpecification.getOptionalityMethod(), optionSpecification);
         }
     }
 
@@ -185,7 +180,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         message.append(lineSeparator);
 
         String separator = "";
-        for (final OptionSpecification specification : m_optionsLongName.values()) {
+        for (final OptionSpecification specification : options) {
             message.append(separator).append("\t").append(specification);
             separator = lineSeparator;
         }

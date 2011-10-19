@@ -19,7 +19,7 @@ import java.util.List;
 
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-class OptionSpecificationImpl implements OptionSpecification {
+class OptionSpecificationImpl implements Comparable<OptionSpecification>, OptionSpecification {
     private final OptionName optionName;
     private final OptionType m_optionType;
     private final OptionContext m_optionContext;
@@ -103,6 +103,10 @@ class OptionSpecificationImpl implements OptionSpecification {
 
     @Override public ReflectedMethod getOptionalityMethod() {
         return optionalityMethod;
+    }
+
+    @Override public int compareTo(final OptionSpecification other) {
+        return getLongName().compareTo(other.getLongName());
     }
 
     @Override public String toString() {
