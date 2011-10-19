@@ -22,16 +22,19 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
         this.klass = klass;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public O presentArguments(final ArgumentCollection validatedArguments) {
+    @Option public O presentArguments(final ArgumentCollection validatedArguments) throws ArgumentValidationException {
         final ReflectedClass<O> reflectedKlass = type(klass);
         final Map<String, Object> argumentMap = new LinkedHashMap<String, Object>();
 
+        final ValidationErrorBuilder validationErrorBuilder = new ValidationErrorBuilderImpl();
+
         final List<ReflectedMethod> optionMethods = reflectedKlass.methods(annotatedWith(Option.class));
         for (final ReflectedMethod reflectedMethod : optionMethods) {
-            final ConvertTypeOfObject<?> convertTypeOfObject = converterTo(reflectedMethod.returnType());
+            final OptionSpecification optionSpecification =
+                    specification.getSpecification(reflectedMethod);
+
+            final ConvertTypeOfObject<?> convertTypeOfObject =
+                    converterTo(validationErrorBuilder, optionSpecification, reflectedMethod.returnType());
             final Option optionAnnotation = reflectedMethod.annotation(Option.class);
             if (reflectedMethod.returnType().assignableTo(Iterable.class))
             {
@@ -46,8 +49,6 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
                         convertTypeOfObject.convert(optionAnnotation.defaultValue()[0]));
             }
 
-            final OptionSpecification optionSpecification =
-                    specification.getSpecification(reflectedMethod);
             final Argument argument = validatedArguments.getArgument(optionSpecification.getNames());
             if (argument != null) {
                 if (optionSpecification.isMultiValued()) {
@@ -67,7 +68,11 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
         if (specification.hasUnparsedSpecification()) {
             final List<ReflectedMethod> unparsedMethods = reflectedKlass.methods(annotatedWith(Unparsed.class));
             for (final ReflectedMethod reflectedMethod : unparsedMethods) {
-                final ConvertTypeOfObject<?> convertTypeOfObject = converterTo(reflectedMethod.returnType());
+                final ConvertTypeOfObject<?> convertTypeOfObject =
+                        converterTo(
+                                validationErrorBuilder,
+                                specification.getUnparsedSpecification(),
+                                reflectedMethod.returnType());
                 if (!validatedArguments.getUnparsed().isEmpty())
                 {
                     if (reflectedMethod.returnType().assignableTo(Iterable.class))
@@ -85,7 +90,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
                 }
             }
         }
-
+        validationErrorBuilder.validate();
         return bean(klass, argumentMap);
     }
 }

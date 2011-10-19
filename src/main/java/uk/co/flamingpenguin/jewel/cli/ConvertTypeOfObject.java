@@ -11,9 +11,11 @@ import java.util.Set;
 import ch.lambdaj.Lambda;
 import ch.lambdaj.function.convert.Converter;
 
+import com.lexicalscope.fluentreflection.InvocationTargetRuntimeException;
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedConstructor;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.fluentreflection.ReflectionRuntimeException;
 import com.lexicalscope.fluentreflection.TypeToken;
 
 /*
@@ -35,9 +37,15 @@ import com.lexicalscope.fluentreflection.TypeToken;
 class ConvertTypeOfObject<T> implements Converter<Object, T> {
     private final ReflectedClass<T> reflectedKlass;
     private final Class<?> klass;
+    private final OptionSpecification specification;
+    private final ValidationErrorBuilder validationErrorBuilder;
 
     public ConvertTypeOfObject(
+            final ValidationErrorBuilder validationErrorBuilder,
+            final OptionSpecification specification,
             final ReflectedClass<T> reflectedKlass) {
+        this.validationErrorBuilder = validationErrorBuilder;
+        this.specification = specification;
         this.reflectedKlass = reflectedKlass;
         klass = reflectedKlass.classUnderReflection();
     }
@@ -84,38 +92,66 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
     }
 
     private <S> S convertValueTo(final Object value, final ReflectedClass<S> klassToCreate) {
-        final List<ReflectedMethod> valueOfMethods =
-                klassToCreate.methods(callableHasName("valueOf").and(callableHasArguments(value.getClass())).and(
-                        callableHasReturnType(klass)));
+        try
+        {
+            final List<ReflectedMethod> valueOfMethods =
+                    klassToCreate.methods(callableHasName("valueOf").and(callableHasArguments(value.getClass())).and(
+                            callableHasReturnType(klass)));
 
-        if (!valueOfMethods.isEmpty()) {
-            return (S) valueOfMethods.get(0).call(value);
-        }
-
-        final List<ReflectedConstructor<S>> constructors =
-                klassToCreate.constructors(callableHasArguments(value.getClass()));
-
-        if (!constructors.isEmpty()) {
-            return constructors.get(0).call(value);
-        }
-
-        if (klassToCreate.classUnderReflection().equals(Character.class) && value.getClass().equals(String.class)) {
-            // special case for characters from string
-            final String stringValue = (String) value;
-            if (stringValue.length() == 1) {
-                return (S) Character.valueOf(stringValue.charAt(0));
+            if (!valueOfMethods.isEmpty()) {
+                return (S) valueOfMethods.get(0).call(value);
             }
+
+            final List<ReflectedConstructor<S>> constructors =
+                    klassToCreate.constructors(callableHasArguments(value.getClass()));
+
+            if (!constructors.isEmpty()) {
+                return constructors.get(0).call(value);
+            }
+
+            if (klassToCreate.classUnderReflection().equals(Character.class) && value.getClass().equals(String.class)) {
+                // special case for characters from string
+                final String stringValue = (String) value;
+                if (stringValue.length() == 1) {
+                    return (S) Character.valueOf(stringValue.charAt(0));
+                }
+                else
+                {
+                    validationErrorBuilder.invalidValueForType(
+                            specification,
+                            String.format("value is not a character (%s)", value));
+                    return null;
+                }
+            }
+        } catch (final InvocationTargetRuntimeException e) {
+            final Throwable cause = e.getExceptionThrownByInvocationTarget();
+            if (cause instanceof NumberFormatException)
+            {
+                validationErrorBuilder.invalidValueForType(
+                        specification,
+                        unsupportedNumberFormatMessage((NumberFormatException) cause));
+            }
+            else
+            {
+                validationErrorBuilder.invalidValueForType(specification, cause.getMessage());
+            }
+            return null;
+        } catch (final ReflectionRuntimeException e)
+        {
+            validationErrorBuilder.unableToConstructType(specification, e.getMessage());
+            return null;
         }
 
         throw new ClassCastException(String.format("cannot convert %s to %s", value.getClass(), klass));
     }
-
     private T convertIterable(final Object value) {
         final ReflectedClass<?> desiredCollectionReflectedType =
                 reflectedKlass.asType(reflectedTypeReflectingOn(Iterable.class)).typeArgument(0);
 
         final List<Object> convertedTypes = Lambda.convert(value,
                 new ConvertTypeOfObject<Object>(
+                        validationErrorBuilder,
+                        specification,
                         (ReflectedClass<Object>) desiredCollectionReflectedType));
 
         if (List.class.isAssignableFrom(klass) && Collection.class.isAssignableFrom(klass)) {
@@ -131,15 +167,26 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
         return Iterable.class.isAssignableFrom(klass);
     }
 
-    public static <T> ConvertTypeOfObject<T> converterTo(final ReflectedClass<T> type) {
-        return new ConvertTypeOfObject<T>(type);
+    public static <T> ConvertTypeOfObject<T> converterTo(
+            final ValidationErrorBuilder validationErrorBuilder,
+            final OptionSpecification specification, final ReflectedClass<T> type) {
+        return new ConvertTypeOfObject<T>(validationErrorBuilder, specification, type);
     }
 
-    public static <T> ConvertTypeOfObject<T> converterTo(final Class<T> klass) {
-        return converterTo(type(klass));
+    public static <T> ConvertTypeOfObject<T> converterTo(
+            final ValidationErrorBuilder validationErrorBuilder,
+            final OptionSpecification specification, final Class<T> klass) {
+        return converterTo(validationErrorBuilder, specification, type(klass));
     }
 
-    public static <T> ConvertTypeOfObject<T> converterTo(final TypeToken<T> token) {
-        return converterTo(type(token));
+    public static <T> ConvertTypeOfObject<T> converterTo(
+            final ValidationErrorBuilder validationErrorBuilder,
+            final OptionSpecification specification, final TypeToken<T> token) {
+        return converterTo(validationErrorBuilder, specification, type(token));
+    }
+
+    private String unsupportedNumberFormatMessage(final NumberFormatException e1)
+    {
+        return "Unsupported number format: " + e1.getMessage();
     }
 }

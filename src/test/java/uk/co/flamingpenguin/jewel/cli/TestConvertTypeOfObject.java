@@ -31,39 +31,53 @@ import com.lexicalscope.fluentreflection.TypeToken;
  */
 
 public class TestConvertTypeOfObject {
+    private final ValidationErrorBuilder validationErrorBuilder = new ValidationErrorBuilderImpl();
+    private OptionSpecification specification;
+
     @Test public void argumentConversionTakesPlaceOnGet() throws Exception {
-        assertThat(converterTo(Integer.class).convert("14"), equalTo(14));
+        assertThat(converterTo(validationErrorBuilder, specification, Integer.class).convert("14"), equalTo(14));
     }
 
     @Test public void argumentConversionCanConvertFromStringToPrimitive() throws Exception {
-        assertThat(converterTo(int.class).convert("14"), equalTo(14));
+        assertThat(converterTo(validationErrorBuilder, specification, int.class).convert("14"), equalTo(14));
     }
 
     @Test public void argumentConversionCanConvertFromStringToChar() throws Exception {
-        assertThat(converterTo(char.class).convert("c"), equalTo('c'));
+        assertThat(converterTo(validationErrorBuilder, specification, char.class).convert("c"), equalTo('c'));
+    }
+
+    @Test(expected = ArgumentValidationException.class) public void argumentConversionCannotConvertFromStringToChar()
+            throws Exception {
+        assertThat(converterTo(validationErrorBuilder, specification, char.class).convert("cc"), equalTo(null));
+
+        validationErrorBuilder.validate();
     }
 
     @Test public void argumentConversionTakesPlaceOnGetOfIterable() throws Exception {
         assertThat(
-                converterTo(new TypeToken<Iterable<Integer>>() {}).convert(asList("14", "15", "16")),
+                converterTo(validationErrorBuilder, specification, new TypeToken<Iterable<Integer>>() {}).convert(
+                        asList("14", "15", "16")),
                 contains(14, 15, 16));
     }
 
     @Test public void argumentConversionTakesPlaceOnGetOfCollection() throws Exception {
         assertThat(
-                converterTo(new TypeToken<Collection<Integer>>() {}).convert(asList("14", "15", "16")),
+                converterTo(validationErrorBuilder, specification, new TypeToken<Collection<Integer>>() {}).convert(
+                        asList("14", "15", "16")),
                 contains(14, 15, 16));
     }
 
     @Test public void argumentConversionTakesPlaceOnGetOfList() throws Exception {
         assertThat(
-                converterTo(new TypeToken<List<Integer>>() {}).convert(asList("14", "15", "16")),
+                converterTo(validationErrorBuilder, specification, new TypeToken<List<Integer>>() {}).convert(
+                        asList("14", "15", "16")),
                 contains(14, 15, 16));
     }
 
     @Test public void argumentConversionTakesPlaceOnGetOfSet() throws Exception {
         assertThat(
-                converterTo(new TypeToken<Set<Integer>>() {}).convert(newHashSet("14", "15", "16")),
+                converterTo(validationErrorBuilder, specification, new TypeToken<Set<Integer>>() {}).convert(
+                        newHashSet("14", "15", "16")),
                 contains(14, 15, 16));
     }
 }
