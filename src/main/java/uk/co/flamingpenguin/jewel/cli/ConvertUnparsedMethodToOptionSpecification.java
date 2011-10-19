@@ -18,7 +18,6 @@ import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 
 import ch.lambdaj.function.convert.Converter;
 
@@ -26,8 +25,6 @@ import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class ConvertUnparsedMethodToOptionSpecification implements Converter<ReflectedMethod, OptionSpecification> {
-    private static final Logger logger = Logger.getLogger(ConvertUnparsedMethodToOptionSpecification.class.getName());
-
     private final ReflectedClass<?> klass;
 
     public ConvertUnparsedMethodToOptionSpecification(final ReflectedClass<?> klass) {

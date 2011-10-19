@@ -14,33 +14,36 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 /**
- * The specification of the CLI. This interface is still in development, and may be
- * subject to incompatible changes.
- *
+ * The specification of the CLI. This interface is still in development, and may
+ * be subject to incompatible changes.
+ * 
  * @author tim
  */
-public interface CliSpecification extends Iterable<OptionSpecification>
+interface CliSpecification extends Iterable<OptionSpecification>
 {
-   /**
-    * The name of the application as specified in the <code>CommandLineInterface</code> annotation
-    *
-    * @see uk.co.flamingpenguin.jewel.cliCommandLineInterface
-    *
-    * @return The name of the application
-    */
-   String getApplicationName();
+    /**
+     * The name of the application as specified in the
+     * <code>CommandLineInterface</code> annotation
+     * 
+     * @see uk.co.flamingpenguin.jewel.cliCommandLineInterface
+     * 
+     * @return The name of the application
+     */
+    String getApplicationName();
 
-   /**
-    * Has anything been specified to accept additional unparsed arguments?
-    *
-    * @return Has anything been specified to accept additional unparsed arguments?
-    */
-   boolean hasUnparsedSpecification();
+    /**
+     * Has anything been specified to accept additional unparsed arguments?
+     * 
+     * @return Has anything been specified to accept additional unparsed
+     *         arguments?
+     */
+    boolean hasUnparsedSpecification();
 
-   /**
-    * The specification for any additional unparsed arguments, if any have been specified
-    *
-    * @return The specification for any additional unparsed arguments
-    */
-   OptionSpecification getUnparsedSpecification();
+    /**
+     * The specification for any additional unparsed arguments, if any have been
+     * specified
+     * 
+     * @return The specification for any additional unparsed arguments
+     */
+    OptionSpecification getUnparsedSpecification();
 }

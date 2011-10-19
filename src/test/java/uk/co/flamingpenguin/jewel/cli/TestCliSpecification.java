@@ -23,7 +23,7 @@ public class TestCliSpecification {
     }
 
     @Test public void testApplicationName() {
-        final CliSpecification specification = CliFactory.createCli(ApplicationName.class).getSpecification();
+        final CliSpecification specification = new CliImpl<ApplicationName>(ApplicationName.class).getSpecification();
         assertEquals("MyApplication", specification.getApplicationName());
     }
 }

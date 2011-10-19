@@ -17,29 +17,29 @@ import java.util.List;
 
 class OptionName
 {
-   private final String m_longName;
-   private final List<String> m_shortNames;
-   private final String m_description;
+    private final String longName;
+    private final List<String> shortNames;
+    private final String description;
 
-   OptionName(final String longName, final List<String> shortNames, final String description)
-   {
-      m_longName = longName;
-      m_shortNames = shortNames;
-      m_description = description;
-   }
+    OptionName(final String longName, final List<String> shortNames, final String description)
+    {
+        this.longName = longName;
+        this.shortNames = shortNames;
+        this.description = description;
+    }
 
-   String getLongName()
-   {
-      return m_longName;
-   }
+    String getLongName()
+    {
+        return longName;
+    }
 
-   List<String> getShortNames()
-   {
-      return m_shortNames;
-   }
+    List<String> getShortNames()
+    {
+        return shortNames;
+    }
 
-   String getDescription()
-   {
-      return m_description;
-   }
+    String getDescription()
+    {
+        return description;
+    }
 }

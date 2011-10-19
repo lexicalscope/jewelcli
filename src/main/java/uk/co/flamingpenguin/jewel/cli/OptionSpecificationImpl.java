@@ -20,7 +20,7 @@ import java.util.List;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class OptionSpecificationImpl implements OptionSpecification {
-    private final OptionName m_optionName;
+    private final OptionName optionName;
     private final OptionType m_optionType;
     private final OptionContext m_optionContext;
     private final Method method;
@@ -32,7 +32,7 @@ class OptionSpecificationImpl implements OptionSpecification {
             final OptionContext optionContext,
             final Method method,
             final ReflectedMethod optionalityMethod) {
-        m_optionName = optionName;
+        this.optionName = optionName;
         m_optionType = optionType;
         m_optionContext = optionContext;
         this.method = method;
@@ -44,15 +44,15 @@ class OptionSpecificationImpl implements OptionSpecification {
     }
 
     public String getDescription() {
-        return m_optionName.getDescription();
+        return optionName.getDescription();
     }
 
     public String getLongName() {
-        return m_optionName.getLongName();
+        return optionName.getLongName();
     }
 
     public List<String> getShortNames() {
-        return m_optionName.getShortNames();
+        return optionName.getShortNames();
     }
 
     @Override public List<String> getNames() {

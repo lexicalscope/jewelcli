@@ -14,7 +14,7 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
  * 
  * @author t.wood
  */
-public interface OptionSpecification
+interface OptionSpecification
 {
     /**
      * Each argument to this option must conform to the type returned by this

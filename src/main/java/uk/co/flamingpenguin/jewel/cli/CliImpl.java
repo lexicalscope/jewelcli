@@ -48,7 +48,7 @@ class CliImpl<O> implements Cli<O> {
         return specification.toString();
     }
 
-    @Override public CliSpecification getSpecification() {
+    CliSpecification getSpecification() {
         return specification;
     }
 }
