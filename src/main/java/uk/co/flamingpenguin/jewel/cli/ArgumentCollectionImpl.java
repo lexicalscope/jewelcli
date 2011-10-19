@@ -99,10 +99,7 @@ class ArgumentCollectionImpl implements ArgumentCollection
         return getValues(Arrays.asList(options));
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public List<String> getValues(final List<String> options)
+    private List<String> getValues(final List<String> options)
     {
         for (final String option : options)
         {

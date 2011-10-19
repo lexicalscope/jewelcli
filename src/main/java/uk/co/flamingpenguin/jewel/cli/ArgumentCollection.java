@@ -21,15 +21,5 @@ interface ArgumentCollection extends Iterable<Argument>
      */
     boolean containsAny(List<String> options);
 
-    /**
-     * Get the values associated with the given options
-     * 
-     * @param options
-     *            the options to obtain values for
-     * 
-     * @return the values associated with the given options
-     */
-    List<String> getValues(List<String> options);
-
     Argument getArgument(List<String> options);
 }
