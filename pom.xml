@@ -149,6 +149,7 @@
             <classifier>no_deps</classifier>
             <type>jar</type>
             <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
