@@ -20,20 +20,11 @@ import com.lexicalscope.fluentreflection.ReflectedClass;
 
 class CliImpl<O> implements Cli<O> {
     private final OptionsSpecification<O> specification;
-    private final Class<O> m_klass;
+    private final ReflectedClass<O> klass;
 
     public CliImpl(final Class<O> klass) {
-        final ReflectedClass<O> reflectedType = type(klass);
-
-        final OptionsSpecification<O> specification =
-                OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(reflectedType);
-
-        final OptionsSpecificationParser<O> optionsSpecificationParser =
-                new OptionsSpecificationParser<O>(reflectedType);
-        optionsSpecificationParser.buildOptionsSpecification();
-
-        this.specification = specification;
-        m_klass = klass;
+        this.klass = type(klass);
+        this.specification = OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(this.klass);
     }
 
     @Override public O parseArguments(final String... arguments) throws ArgumentValidationException {
@@ -41,7 +32,7 @@ class CliImpl<O> implements Cli<O> {
                 new ArgumentValidatorImpl<O>(specification).validateArguments(new ParsedArgumentsBuilder()
                         .parseArguments(arguments));
 
-        return new ArgumentPresenterImpl<O>(m_klass, specification).presentArguments(validatedArguments);
+        return new ArgumentPresenterImpl<O>(klass, specification).presentArguments(validatedArguments);
     }
 
     @Override public String getHelpMessage() {

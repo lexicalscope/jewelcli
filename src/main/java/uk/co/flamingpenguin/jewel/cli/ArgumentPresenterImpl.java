@@ -1,6 +1,5 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import static com.lexicalscope.fluentreflection.FluentReflection.type;
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.annotatedWith;
 import static com.lexicalscope.fluentreflection.bean.MapBean.bean;
 import static java.util.Arrays.asList;
@@ -15,20 +14,19 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
     private final OptionsSpecification<O> specification;
-    private final Class<O> klass;
+    private final ReflectedClass<O> klass;
 
-    public ArgumentPresenterImpl(final Class<O> klass, final OptionsSpecification<O> specification) {
+    public ArgumentPresenterImpl(final ReflectedClass<O> klass, final OptionsSpecification<O> specification) {
         this.specification = specification;
         this.klass = klass;
     }
 
     @Option public O presentArguments(final ArgumentCollection validatedArguments) throws ArgumentValidationException {
-        final ReflectedClass<O> reflectedKlass = type(klass);
         final Map<String, Object> argumentMap = new LinkedHashMap<String, Object>();
 
         final ValidationErrorBuilder validationErrorBuilder = new ValidationErrorBuilderImpl();
 
-        final List<ReflectedMethod> optionMethods = reflectedKlass.methods(annotatedWith(Option.class));
+        final List<ReflectedMethod> optionMethods = klass.methods(annotatedWith(Option.class));
         for (final ReflectedMethod reflectedMethod : optionMethods) {
             final OptionSpecification optionSpecification =
                     specification.getSpecification(reflectedMethod);
@@ -66,7 +64,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
         }
 
         if (specification.hasUnparsedSpecification()) {
-            final List<ReflectedMethod> unparsedMethods = reflectedKlass.methods(annotatedWith(Unparsed.class));
+            final List<ReflectedMethod> unparsedMethods = klass.methods(annotatedWith(Unparsed.class));
             for (final ReflectedMethod reflectedMethod : unparsedMethods) {
                 final ConvertTypeOfObject<?> convertTypeOfObject =
                         converterTo(
@@ -91,6 +89,6 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
             }
         }
         validationErrorBuilder.validate();
-        return bean(klass, argumentMap);
+        return bean(klass.classUnderReflection(), argumentMap);
     }
 }
