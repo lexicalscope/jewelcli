@@ -214,6 +214,23 @@
         </dependencies>
     </dependencyManagement>
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.scm</groupId>
+                <artifactId>maven-scm-provider-gitexe</artifactId>
+                <version>1.5</version>
+            </extension>
+            <extension>
+                <groupId>org.apache.maven.scm</groupId>
+                <artifactId>maven-scm-manager-plexus</artifactId>
+                <version>1.5</version>
+            </extension>
+            <extension>
+                <groupId>org.kathrynhuxtable.maven.wagon</groupId>
+                <artifactId>wagon-gitsite</artifactId>
+                <version>0.3.1</version>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -233,6 +250,16 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.5.1</version>
+                <configuration>
+                    <instrumentation>
+                        <ignores>
+                            <ignore>com.lexicalscope.jewelcli.internal.**</ignore>
+                        </ignores>
+                        <excludes>
+                            <exclude>com/lexicalscope/jewelcli/internal/**/*.class</exclude>
+                        </excludes>
+                    </instrumentation>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
