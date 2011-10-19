@@ -59,24 +59,11 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         return new OptionsSpecificationParser<O>(klass).buildOptionsSpecification();
     }
 
-    /**
-     * @{inheritdoc
-     */
-    public boolean isSpecified(final String key) {
+    @Override public boolean isSpecified(final String key) {
         return m_optionsShortName.containsKey(key) || m_optionsLongName.containsKey(key);
     }
 
-    /**
-     * @{inheritdoc
-     */
-    public boolean isSpecified(final Method method) {
-        return m_optionsMethod.containsKey(method) || m_optionalOptionsMethod.containsKey(method(method));
-    }
-
-    /**
-     * @{inheritdoc
-     */
-    public OptionSpecification getSpecification(final String key) {
+    @Override public OptionSpecification getSpecification(final String key) {
         if (m_optionsLongName.containsKey(key)) {
             return m_optionsLongName.get(key);
         } else {
@@ -88,10 +75,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         return getSpecification(reflectedMethod.methodUnderReflection());
     }
 
-    /**
-     * @{inheritdoc
-     */
-    public OptionSpecification getSpecification(final Method method) {
+    private OptionSpecification getSpecification(final Method method) {
         if (m_optionsMethod.containsKey(method)) {
             return m_optionsMethod.get(method);
         }
@@ -110,10 +94,6 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         }
 
         return result;
-    }
-
-    public boolean isExistenceChecker(final ReflectedMethod method) {
-        return m_optionalOptionsMethod.containsKey(method);
     }
 
     public Iterator<OptionSpecification> iterator() {
@@ -167,14 +147,6 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         if (optionSpecification.isOptional()) {
             m_unparsedOptionalOptionsMethod.put(optionSpecification.getOptionalityMethod(), optionSpecification);
         }
-    }
-
-    public boolean isUnparsedExistenceChecker(final ReflectedMethod method) {
-        return m_unparsedOptionalOptionsMethod.containsKey(method);
-    }
-
-    public boolean isUnparsedMethod(final Method method) {
-        return m_unparsedOptionsMethod.containsKey(method);
     }
 
     @Override public String toString() {
