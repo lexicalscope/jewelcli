@@ -135,7 +135,7 @@ public class TestOptionSpecificationImpl {
     }
 
     private void checkSummary(final String method, final String expectedSummary) throws NoSuchMethodException {
-        final OptionSpecificationImpl option = createOption(Summary.class, method);
+        final OptionSpecification option = createOption(Summary.class, method);
         assertEquals(expectedSummary, new OptionSummary(option).toString());
     }
 
@@ -196,17 +196,10 @@ public class TestOptionSpecificationImpl {
         assertTrue(createOption(HasOptionalOption.class, "getName2").isOptional());
     }
 
-    private OptionSpecificationImpl createOption(final Class<?> klass, final String methodName)
+    private OptionSpecification createOption(final Class<?> klass, final String methodName)
             throws NoSuchMethodException {
         final Method method = klass.getMethod(methodName, (Class[]) null);
 
-        return new OptionSpecificationParser(type(klass), method(method))
-                .buildOptionSpecification(new OptionsSpecificationBuilder() {
-                    public void addOption(final OptionSpecification createOptionSpecification) {}
-
-                    public void addUnparsedOption(final OptionSpecification createOptionSpecification) {}
-
-                    public void setApplicationName(final String application) {}
-                });
+        return new ConvertOptionMethodToOptionSpecification(type(klass)).convert(method(method));
     }
 }

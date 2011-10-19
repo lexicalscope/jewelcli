@@ -1,5 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import static com.lexicalscope.fluentreflection.FluentReflection.type;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -133,7 +134,7 @@ public class TestArgumentValidatorImpl {
     private <O> ArgumentCollectionImpl validate(final String[] arguments, final Class<O> klass)
             throws ArgumentValidationException {
         final ArgumentValidatorImpl<O> impl =
-                new ArgumentValidatorImpl<O>(OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(klass));
+                new ArgumentValidatorImpl<O>(OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(type(klass)));
         return (ArgumentCollectionImpl) impl.validateArguments(new ParsedArgumentsBuilder().parseArguments(arguments));
     }
 }

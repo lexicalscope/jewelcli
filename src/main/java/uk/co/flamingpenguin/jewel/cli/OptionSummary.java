@@ -13,76 +13,74 @@
  */
 package uk.co.flamingpenguin.jewel.cli;
 
-
 class OptionSummary
 {
-   private final OptionSpecificationImpl m_option;
+    private final OptionSpecification m_option;
 
-   public OptionSummary(final OptionSpecificationImpl option)
-   {
-      m_option = option;
-   }
+    public OptionSummary(final OptionSpecification option)
+    {
+        m_option = option;
+    }
 
-   private boolean hasCustomPattern()
-   {
-      return !m_option.getPattern().equals(".*");
-   }
+    private boolean hasCustomPattern()
+    {
+        return !m_option.getPattern().equals(".*");
+    }
 
-   private StringBuilder getSummary(final StringBuilder result)
-   {
-      if(m_option.isOptional())
-      {
-         result.append("[");
-      }
+    private StringBuilder getSummary(final StringBuilder result)
+    {
+        if (m_option.isOptional())
+        {
+            result.append("[");
+        }
 
-      result.append("--").append(m_option.getLongName());
+        result.append("--").append(m_option.getLongName());
 
-      for (final String shortName : m_option.getShortNames())
-      {
-         result.append(" -").append(shortName);
-      }
+        for (final String shortName : m_option.getShortNames())
+        {
+            result.append(" -").append(shortName);
+        }
 
-      if(m_option.hasValue())
-      {
-         if(hasCustomPattern())
-         {
-            result.append(" /").append(m_option.getPattern()).append("/");
-         }
-         else
-         {
-            result.append(" value");
-         }
-         if(m_option.isMultiValued())
-         {
-            result.append("...");
-         }
-      }
+        if (m_option.hasValue())
+        {
+            if (hasCustomPattern())
+            {
+                result.append(" /").append(m_option.getPattern()).append("/");
+            }
+            else
+            {
+                result.append(" value");
+            }
+            if (m_option.isMultiValued())
+            {
+                result.append("...");
+            }
+        }
 
-      if(m_option.isOptional())
-      {
-         result.append("]");
-      }
+        if (m_option.isOptional())
+        {
+            result.append("]");
+        }
 
-      return result;
-   }
+        return result;
+    }
 
-   private boolean nullOrBlank(final String description)
-   {
-      return description == null || description.trim().equals("");
-   }
+    private boolean nullOrBlank(final String description)
+    {
+        return description == null || description.trim().equals("");
+    }
 
-   @Override
-   public String toString()
-   {
-      final StringBuilder result = new StringBuilder();
+    @Override public String toString()
+    {
+        final StringBuilder result = new StringBuilder();
 
-      getSummary(result);
+        getSummary(result);
 
-      if(!nullOrBlank(m_option.getDescription()))
-      {
-         result.append(" : ").append(m_option.getDescription());
-      }
+        if (!nullOrBlank(m_option.getDescription()))
+        {
+            result.append(" : ").append(m_option.getDescription());
+        }
 
-      return result.toString();
-   }
+        return result.toString();
+    }
 }

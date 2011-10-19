@@ -18,14 +18,13 @@ import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 
 import java.util.List;
 
-import com.lexicalscope.fluentreflection.FluentReflection;
 import com.lexicalscope.fluentreflection.ReflectedClass;
 
 class OptionsSpecificationParser<O> {
     private final ReflectedClass<O> klass;
 
-    OptionsSpecificationParser(final Class<O> klass) {
-        this.klass = FluentReflection.type(klass);
+    OptionsSpecificationParser(final ReflectedClass<O> klass) {
+        this.klass = klass;
     }
 
     void buildOptionsSpecification(final OptionsSpecificationBuilder builder) {

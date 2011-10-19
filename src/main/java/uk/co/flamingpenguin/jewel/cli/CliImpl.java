@@ -14,15 +14,22 @@
 
 package uk.co.flamingpenguin.jewel.cli;
 
+import static com.lexicalscope.fluentreflection.FluentReflection.type;
+
+import com.lexicalscope.fluentreflection.ReflectedClass;
+
 class CliImpl<O> implements Cli<O> {
     private final OptionsSpecificationImpl<O> m_specification;
     private final Class<O> m_klass;
 
     public CliImpl(final Class<O> klass) {
-        final OptionsSpecificationImpl<O> specification =
-                OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(klass);
+        final ReflectedClass<O> reflectedType = type(klass);
 
-        final OptionsSpecificationParser<O> optionsSpecificationParser = new OptionsSpecificationParser<O>(klass);
+        final OptionsSpecificationImpl<O> specification =
+                OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(reflectedType);
+
+        final OptionsSpecificationParser<O> optionsSpecificationParser =
+                new OptionsSpecificationParser<O>(reflectedType);
         optionsSpecificationParser.buildOptionsSpecification(specification);
 
         m_specification = specification;

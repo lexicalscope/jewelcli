@@ -24,10 +24,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpecificationBuilder, CliSpecification {
-    private final Class<O> m_klass;
+    private final ReflectedClass<O> m_klass;
 
     private final Map<String, OptionSpecification> m_optionsShortName = new HashMap<String, OptionSpecification>();
     private final Map<String, OptionSpecification> m_optionsLongName = new TreeMap<String, OptionSpecification>();
@@ -41,11 +42,11 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
 
     private String m_applicationName;
 
-    private OptionsSpecificationImpl(final Class<O> klass) {
+    private OptionsSpecificationImpl(final ReflectedClass<O> klass) {
         m_klass = klass;
     }
 
-    static <O> OptionsSpecificationImpl<O> createOptionsSpecificationImpl(final Class<O> klass) {
+    static <O> OptionsSpecificationImpl<O> createOptionsSpecificationImpl(final ReflectedClass<O> klass) {
         final OptionsSpecificationImpl<O> optionsSpecificationImpl = new OptionsSpecificationImpl<O>(klass);
 
         final OptionsSpecificationParser<O> optionsSpecificationParser = new OptionsSpecificationParser<O>(klass);
@@ -125,7 +126,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
 
     public String getApplicationName() {
         if (m_applicationName == null || m_applicationName.trim().equals("")) {
-            return m_klass.getName();
+            return m_klass.name();
         } else {
             return m_applicationName;
         }
