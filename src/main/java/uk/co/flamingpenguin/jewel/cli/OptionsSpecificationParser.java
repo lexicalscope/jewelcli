@@ -16,8 +16,6 @@ package uk.co.flamingpenguin.jewel.cli;
 import static ch.lambdaj.Lambda.convert;
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 
-import java.util.List;
-
 import com.lexicalscope.fluentreflection.ReflectedClass;
 
 class OptionsSpecificationParser<O> {
@@ -27,23 +25,13 @@ class OptionsSpecificationParser<O> {
         this.klass = klass;
     }
 
-    void buildOptionsSpecification(final OptionsSpecificationBuilder builder) {
-        final List<OptionSpecification> optionSpecifications =
+    OptionsSpecification<O> buildOptionsSpecification() {
+        return new OptionsSpecificationImpl<O>(klass,
                 convert(
                         klass.methods(isQuery().and(annotatedWith(Option.class))),
-                        new ConvertOptionMethodToOptionSpecification(klass));
-
-        for (final OptionSpecification optionSpecification : optionSpecifications) {
-            builder.addOption(optionSpecification);
-        }
-
-        final List<OptionSpecification> unparsedSpecifications =
+                        new ConvertOptionMethodToOptionSpecification(klass)),
                 convert(
                         klass.methods(isQuery().and(annotatedWith(Unparsed.class))),
-                        new ConvertUnparsedMethodToOptionSpecification(klass));
-
-        for (final OptionSpecification optionSpecification : unparsedSpecifications) {
-            builder.addUnparsedOption(optionSpecification);
-        }
+                        new ConvertUnparsedMethodToOptionSpecification(klass)));
     }
 }

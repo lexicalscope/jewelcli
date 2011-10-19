@@ -19,45 +19,36 @@ import static com.lexicalscope.fluentreflection.FluentReflection.type;
 import com.lexicalscope.fluentreflection.ReflectedClass;
 
 class CliImpl<O> implements Cli<O> {
-    private final OptionsSpecificationImpl<O> m_specification;
+    private final OptionsSpecification<O> specification;
     private final Class<O> m_klass;
 
     public CliImpl(final Class<O> klass) {
         final ReflectedClass<O> reflectedType = type(klass);
 
-        final OptionsSpecificationImpl<O> specification =
+        final OptionsSpecification<O> specification =
                 OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(reflectedType);
 
         final OptionsSpecificationParser<O> optionsSpecificationParser =
                 new OptionsSpecificationParser<O>(reflectedType);
-        optionsSpecificationParser.buildOptionsSpecification(specification);
+        optionsSpecificationParser.buildOptionsSpecification();
 
-        m_specification = specification;
+        this.specification = specification;
         m_klass = klass;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public O parseArguments(final String... arguments) throws ArgumentValidationException {
+    @Override public O parseArguments(final String... arguments) throws ArgumentValidationException {
         final ArgumentCollection validatedArguments =
-                new ArgumentValidatorImpl<O>(m_specification).validateArguments(new ParsedArgumentsBuilder()
+                new ArgumentValidatorImpl<O>(specification).validateArguments(new ParsedArgumentsBuilder()
                         .parseArguments(arguments));
 
-        return new ArgumentPresenterImpl<O>(m_klass, m_specification).presentArguments(validatedArguments);
+        return new ArgumentPresenterImpl<O>(m_klass, specification).presentArguments(validatedArguments);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public String getHelpMessage() {
-        return m_specification.toString();
+    @Override public String getHelpMessage() {
+        return specification.toString();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public CliSpecification getSpecification() {
-        return m_specification;
+    @Override public CliSpecification getSpecification() {
+        return specification;
     }
 }

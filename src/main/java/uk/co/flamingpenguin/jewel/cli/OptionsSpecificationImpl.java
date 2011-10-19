@@ -40,17 +40,23 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
     private final Map<ReflectedMethod, OptionSpecification> m_unparsedOptionalOptionsMethod =
             new HashMap<ReflectedMethod, OptionSpecification>();
 
-    private OptionsSpecificationImpl(final ReflectedClass<O> klass) {
+    OptionsSpecificationImpl(
+            final ReflectedClass<O> klass,
+            final List<OptionSpecification> optionSpecifications,
+            final List<OptionSpecification> unparsedSpecifications) {
         m_klass = klass;
+
+        for (final OptionSpecification optionSpecification : optionSpecifications) {
+            addOption(optionSpecification);
+        }
+
+        for (final OptionSpecification optionSpecification : unparsedSpecifications) {
+            addUnparsedOption(optionSpecification);
+        }
     }
 
-    static <O> OptionsSpecificationImpl<O> createOptionsSpecificationImpl(final ReflectedClass<O> klass) {
-        final OptionsSpecificationImpl<O> optionsSpecificationImpl = new OptionsSpecificationImpl<O>(klass);
-
-        final OptionsSpecificationParser<O> optionsSpecificationParser = new OptionsSpecificationParser<O>(klass);
-        optionsSpecificationParser.buildOptionsSpecification(optionsSpecificationImpl);
-
-        return optionsSpecificationImpl;
+    static <O> OptionsSpecification<O> createOptionsSpecificationImpl(final ReflectedClass<O> klass) {
+        return new OptionsSpecificationParser<O>(klass).buildOptionsSpecification();
     }
 
     /**
