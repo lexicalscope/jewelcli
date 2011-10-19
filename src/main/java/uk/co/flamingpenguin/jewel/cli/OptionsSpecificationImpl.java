@@ -131,7 +131,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         }
     }
 
-    public void addOption(final OptionSpecificationImpl optionSpecification) {
+    public void addOption(final OptionSpecification optionSpecification) {
         for (final String shortName : optionSpecification.getShortNames()) {
             m_optionsShortName.put(shortName, optionSpecification);
         }
@@ -144,7 +144,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         }
     }
 
-    public void addUnparsedOption(final OptionSpecificationImpl optionSpecification) {
+    public void addUnparsedOption(final OptionSpecification optionSpecification) {
         m_unparsedOptionsMethod.put(optionSpecification.getMethod(), optionSpecification);
 
         if (optionSpecification.isOptional()) {

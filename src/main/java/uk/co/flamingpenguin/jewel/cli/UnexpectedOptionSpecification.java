@@ -1,7 +1,10 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
+
+import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class UnexpectedOptionSpecification implements OptionSpecification
 {
@@ -74,6 +77,14 @@ class UnexpectedOptionSpecification implements OptionSpecification
     public String getPattern()
     {
         return ".*";
+    }
+
+    @Override public Method getMethod() {
+        return null;
+    }
+
+    @Override public ReflectedMethod getOptionalityMethod() {
+        return null;
     }
 
     @Override public String toString()

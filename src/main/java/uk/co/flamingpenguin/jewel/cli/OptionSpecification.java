@@ -4,7 +4,10 @@
 //
 package uk.co.flamingpenguin.jewel.cli;
 
+import java.lang.reflect.Method;
 import java.util.List;
+
+import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 /**
  * Specifies an Option
@@ -107,4 +110,8 @@ public interface OptionSpecification
      * @return the regular expression that values must conform to
      */
     String getPattern();
+
+    Method getMethod();
+
+    ReflectedMethod getOptionalityMethod();
 }

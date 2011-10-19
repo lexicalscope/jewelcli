@@ -23,7 +23,7 @@ class OptionSpecificationImpl implements OptionSpecification {
     private final OptionName m_optionName;
     private final OptionType m_optionType;
     private final OptionContext m_optionContext;
-    private final Method m_method;
+    private final Method method;
     private final ReflectedMethod optionalityMethod;
 
     OptionSpecificationImpl(
@@ -35,7 +35,7 @@ class OptionSpecificationImpl implements OptionSpecification {
         m_optionName = optionName;
         m_optionType = optionType;
         m_optionContext = optionContext;
-        m_method = method;
+        this.method = method;
         this.optionalityMethod = optionalityMethod;
     }
 
@@ -97,11 +97,11 @@ class OptionSpecificationImpl implements OptionSpecification {
         return getType().isAssignableFrom(Boolean.class) || getType().isAssignableFrom(boolean.class);
     }
 
-    Method getMethod() {
-        return m_method;
+    @Override public Method getMethod() {
+        return method;
     }
 
-    ReflectedMethod getOptionalityMethod() {
+    @Override public ReflectedMethod getOptionalityMethod() {
         return optionalityMethod;
     }
 

@@ -15,9 +15,9 @@ package uk.co.flamingpenguin.jewel.cli;
 
 interface OptionsSpecificationBuilder
 {
-   void setApplicationName(String application);
+    void setApplicationName(String application);
 
-   void addOption(OptionSpecificationImpl createOptionSpecification);
+    void addOption(OptionSpecification createOptionSpecification);
 
-   void addUnparsedOption(OptionSpecificationImpl createOptionSpecification);
+    void addUnparsedOption(OptionSpecification createOptionSpecification);
 }

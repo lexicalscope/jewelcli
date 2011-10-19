@@ -202,9 +202,9 @@ public class TestOptionSpecificationImpl {
 
         return new OptionSpecificationParser(type(klass), method(method))
                 .buildOptionSpecification(new OptionsSpecificationBuilder() {
-                    public void addOption(final OptionSpecificationImpl createOptionSpecification) {}
+                    public void addOption(final OptionSpecification createOptionSpecification) {}
 
-                    public void addUnparsedOption(final OptionSpecificationImpl createOptionSpecification) {}
+                    public void addUnparsedOption(final OptionSpecification createOptionSpecification) {}
 
                     public void setApplicationName(final String application) {}
                 });
