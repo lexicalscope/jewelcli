@@ -89,6 +89,6 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
             }
         }
         validationErrorBuilder.validate();
-        return bean(klass.classUnderReflection(), argumentMap);
+        return bean(klass, argumentMap);
     }
 }
