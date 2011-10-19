@@ -40,8 +40,6 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
     private final Map<ReflectedMethod, OptionSpecification> m_unparsedOptionalOptionsMethod =
             new HashMap<ReflectedMethod, OptionSpecification>();
 
-    private String m_applicationName;
-
     private OptionsSpecificationImpl(final ReflectedClass<O> klass) {
         m_klass = klass;
     }
@@ -125,11 +123,23 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
     }
 
     public String getApplicationName() {
-        if (m_applicationName == null || m_applicationName.trim().equals("")) {
-            return m_klass.name();
-        } else {
-            return m_applicationName;
+        final String applicationName = applicationName();
+        if (applicationName != null)
+        {
+            return applicationName;
         }
+        return m_klass.name();
+    }
+
+    private String applicationName() {
+        if (m_klass.annotatedWith(CommandLineInterface.class))
+        {
+            final String applicationName = m_klass.annotation(CommandLineInterface.class).application();
+            if (applicationName != null && !applicationName.trim().equals("")) {
+                return applicationName.trim();
+            }
+        }
+        return null;
     }
 
     public void addOption(final OptionSpecification optionSpecification) {
@@ -153,10 +163,6 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         }
     }
 
-    public void setApplicationName(final String application) {
-        m_applicationName = application;
-    }
-
     public boolean isUnparsedExistenceChecker(final ReflectedMethod method) {
         return m_unparsedOptionalOptionsMethod.containsKey(method);
     }
@@ -167,13 +173,13 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
 
     @Override public String toString() {
         final StringBuilder message = new StringBuilder();
-        if (nullOrBlank(m_applicationName) && !hasUnparsedSpecification()) {
+        if (!hasCustomApplicationName() && !hasUnparsedSpecification()) {
             message.append("The options available are:");
         } else {
             message.append("Usage: ");
 
-            if (!nullOrBlank(m_applicationName)) {
-                message.append(String.format("%s ", m_applicationName.trim()));
+            if (hasCustomApplicationName()) {
+                message.append(String.format("%s ", applicationName()));
             }
 
             if (getMandatoryOptions().isEmpty()) {
@@ -207,6 +213,10 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, OptionsSpe
         }
 
         return message.toString();
+    }
+
+    private boolean hasCustomApplicationName() {
+        return !nullOrBlank(applicationName());
     }
 
     private boolean nullOrBlank(final String string) {

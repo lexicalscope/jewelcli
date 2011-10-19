@@ -45,11 +45,5 @@ class OptionsSpecificationParser<O> {
         for (final OptionSpecification optionSpecification : unparsedSpecifications) {
             builder.addUnparsedOption(optionSpecification);
         }
-
-        if (klass.classUnderReflection().isAnnotationPresent(CommandLineInterface.class)) {
-            final CommandLineInterface klassAnnotation =
-                    klass.classUnderReflection().getAnnotation(CommandLineInterface.class);
-            builder.setApplicationName(klassAnnotation.application());
-        }
     }
 }
