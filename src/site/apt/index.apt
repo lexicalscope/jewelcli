@@ -7,6 +7,10 @@ Welcome to JewelCli
  JewelCli uses an annotated interface definition to automatically parse and
 present command line arguments.
 
+ Please note that I have recently moved the sourcecode for jewelcli on to 
+ {{{https://github.com/lexicalscope/jewelcli} github}}. I have also changed its location in the 
+ {{{http://repo1.maven.org/maven2/com/lexicalscope/jewelcli/jewelcli/} Maven Central Repository}}
+
 * Features
 
   * Declarative option definition
