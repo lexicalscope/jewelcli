@@ -4,6 +4,7 @@ import static com.lexicalscope.fluentreflection.FluentReflection.type;
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.annotatedWith;
 import static com.lexicalscope.fluentreflection.bean.MapBean.bean;
 import static java.util.Arrays.asList;
+import static uk.co.flamingpenguin.jewel.cli.ConvertTypeOfObject.converterTo;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,14 +31,19 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
 
         final List<ReflectedMethod> optionMethods = reflectedKlass.methods(annotatedWith(Option.class));
         for (final ReflectedMethod reflectedMethod : optionMethods) {
+            final ConvertTypeOfObject<?> convertTypeOfObject = converterTo(reflectedMethod.returnType());
             final Option optionAnnotation = reflectedMethod.annotation(Option.class);
             if (reflectedMethod.returnType().assignableTo(Iterable.class))
             {
-                argumentMap.put(reflectedMethod.propertyName(), asList(optionAnnotation.defaultValue()));
+                argumentMap.put(
+                        reflectedMethod.propertyName(),
+                        convertTypeOfObject.convert(asList(optionAnnotation.defaultValue())));
             }
             else if (optionAnnotation.defaultValue() != null && optionAnnotation.defaultValue().length > 0)
             {
-                argumentMap.put(reflectedMethod.propertyName(), optionAnnotation.defaultValue()[0]);
+                argumentMap.put(
+                        reflectedMethod.propertyName(),
+                        convertTypeOfObject.convert(optionAnnotation.defaultValue()[0]));
             }
 
             final OptionSpecification optionSpecification =
@@ -47,11 +53,11 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
                 if (optionSpecification.isMultiValued()) {
                     argumentMap.put(
                             optionSpecification.getLongName(),
-                            reflectedMethod.returnType().convertType(argument.getValues()));
+                            convertTypeOfObject.convert(argument.getValues()));
                 } else if (!argument.getValues().isEmpty()) {
                     argumentMap.put(
                             optionSpecification.getLongName(),
-                            reflectedMethod.returnType().convertType(argument.getValues().get(0)));
+                            convertTypeOfObject.convert(argument.getValues().get(0)));
                 } else if (argument.getValues().isEmpty()) {
                     argumentMap.put(optionSpecification.getLongName(), null);
                 }
@@ -61,15 +67,20 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
         if (specification.hasUnparsedSpecification()) {
             final List<ReflectedMethod> unparsedMethods = reflectedKlass.methods(annotatedWith(Unparsed.class));
             for (final ReflectedMethod reflectedMethod : unparsedMethods) {
+                final ConvertTypeOfObject<?> convertTypeOfObject = converterTo(reflectedMethod.returnType());
                 if (!validatedArguments.getUnparsed().isEmpty())
                 {
                     if (reflectedMethod.returnType().assignableTo(Iterable.class))
                     {
-                        argumentMap.put(reflectedMethod.propertyName(), validatedArguments.getUnparsed());
+                        argumentMap.put(
+                                reflectedMethod.propertyName(),
+                                convertTypeOfObject.convert(validatedArguments.getUnparsed()));
                     }
                     else if (!validatedArguments.getUnparsed().isEmpty())
                     {
-                        argumentMap.put(reflectedMethod.propertyName(), validatedArguments.getUnparsed().get(0));
+                        argumentMap.put(
+                                reflectedMethod.propertyName(),
+                                convertTypeOfObject.convert(validatedArguments.getUnparsed().get(0)));
                     }
                 }
             }
