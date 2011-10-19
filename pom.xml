@@ -142,6 +142,7 @@
             <groupId>com.lexicalscope.fluent-reflection</groupId>
             <artifactId>fluent-reflection</artifactId>
             <version>0.0.4-SNAPSHOT</version>
+            <classifier>no_deps</classifier>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
@@ -151,8 +152,8 @@
             <version>1.3.RC2</version>
             <type>jar</type>
             <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
-        <!-- VVVV remove these and sortout eclipse  workspace resolution -->
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
@@ -191,8 +192,7 @@
             <type>jar</type>
             <scope>compile</scope>
             <optional>true</optional>
-        </dependency>
-        <!-- ^^^^ remove these and sortout eclipse  workspace resolution -->       
+        </dependency>      
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit-dep</artifactId>
@@ -242,6 +242,109 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.5</version>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>jarjar-maven-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>jarjar-classes</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>jarjar</goal>
+                        </goals>
+                        <configuration>
+                            <overwrite>true</overwrite>
+                            <input>{classes}</input>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>jarjar-testclasses</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>jarjar</goal>
+                        </goals>
+                        <configuration>
+                            <overwrite>true</overwrite>
+                            <input>{test-classes}</input>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <overwrite>true</overwrite>
+                    <includes>
+                        <include>com.google.inject:guice</include>
+                        <include>com.googlecode.lambdaj:lambdaj</include>
+                        <include>org.apache.commons:commons-lang3</include>
+                        <include>com.google.guava:guava</include>
+                        <include>com.lexicalscope.fluent-reflection:fluent-reflection</include>
+                    </includes>
+                    <rules>
+                        <rule>
+                            <pattern>com.google.common.**.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.guava.@1.$@2</result>
+                        </rule>
+                        <rule>
+                            <pattern>com.google.common.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.guava.$@1</result>
+                        </rule>
+                        <rule>
+                            <pattern>com.google.inject.**.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.guice.@1.$@2</result>
+                        </rule>
+                        <rule>
+                            <pattern>com.google.inject.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.guice.$@1</result>
+                        </rule>
+                        <rule>
+                            <pattern>ch.lambdaj.**.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.lamdaj.@1.$@2</result>
+                        </rule>
+                        <rule>
+                            <pattern>ch.lambdaj.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.lamdaj.$@1</result>
+                        </rule>
+                        <rule>
+                            <pattern>org.apache.commons.lang3.**.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.lang3.@1.$@2</result>
+                        </rule>
+                        <rule>
+                            <pattern>org.apache.commons.lang3.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.lang3.$@1</result>
+                        </rule>
+                        <rule>
+                            <pattern>com.lexicalscope.fluentreflection.**.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.fluentreflection.@1.$@2</result>
+                        </rule>
+                        <rule>
+                            <pattern>com.lexicalscope.fluentreflection.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.fluentreflection.$@1</result>
+                        </rule>
+                    </rules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.pyx4me</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>2.0.4</version>
+                <executions>
+                   <execution>
+                       <phase>package</phase>
+                       <goals><goal>proguard</goal></goals>
+                   </execution>
+                </executions>
+                <configuration>
+                    <options>
+                        <option>-allowaccessmodification</option>
+                        <option>-dontobfuscate</option>
+                        <option>-keep public class uk.co.flamingpenguin.jewel.cli.* { *; }</option>
+                        <option>-keep public interface uk.co.flamingpenguin.jewel.cli.* { *; }</option>
+                    </options>
+                    <libs>
+                        <lib>${java.home}/lib/rt.jar</lib>
+                    </libs>
+                </configuration>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -256,6 +359,31 @@
                     <configuration>
                         <source>1.6</source>
                         <target>1.6</target>
+                    </configuration>
+                </plugin>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.sonatype.plugins</groupId>
+                                        <artifactId>jarjar-maven-plugin</artifactId>
+                                        <versionRange>[1.5,)</versionRange>
+                                        <goals>
+                                            <goal>jarjar</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
                     </configuration>
                 </plugin>
             </plugins>
