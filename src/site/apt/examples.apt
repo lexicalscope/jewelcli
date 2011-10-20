@@ -8,70 +8,70 @@ Examples
 
   A simple example with one option:
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/SimpleExample.html} Example Interface}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/SimpleExample.html} Example Interface}}
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestSimpleExample.html} Example Test Case}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestSimpleExample.html} Example Test Case}}
 
 * Optional option
 
   An example with an optional option
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/OptionalOption.html} Example Interface}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/OptionalOption.html} Example Interface}}
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestOptionalOption.html} Example Test Case}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestOptionalOption.html} Example Test Case}}
 
 * List example
 
   Options can also have lists of values
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/ListExample.html} Example Interface}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/ListExample.html} Example Interface}}
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestListExample.html} Example Test Case}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestListExample.html} Example Test Case}}
 
 * Custom Types
 
   Any class with a constructor that takes a single String can be used as an option type
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/FileExample.html} Example Interface}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/FileExample.html} Example Interface}}
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestFileExample.html} Example Test Case}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestFileExample.html} Example Test Case}}
 
 * Regular Expressions
 
   Values can be automatically validated against a regular expression
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/PatternExample.html} Example Interface}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/PatternExample.html} Example Interface}}
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestPatternExample.html} Example Test Case}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestPatternExample.html} Example Test Case}}
 
 * Default Values
 
   Options can have default values
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/DefaultExample.html} Example Interface}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/DefaultExample.html} Example Interface}}
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestDefaultExample.html} Example Test Case}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestDefaultExample.html} Example Test Case}}
 
 * Primitive Types
 
   All primitive types, and there Object equivilents are supported
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/PrimitiveExample.html} Example Interface}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/PrimitiveExample.html} Example Interface}}
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestPrimitiveExample.html} Example Test Case}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestPrimitiveExample.html} Example Test Case}}
 
 * Usage Help
 
   Automatic generation of usage help messages
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/HelpExample.html} Example Interface}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/HelpExample.html} Example Interface}}
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestHelpExample.html} Example Test Case}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestHelpExample.html} Example Test Case}}
 
 * rm example
 
   An example definition of the unix "rm" tool's interface
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/RmExample.html} Example Interface}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/RmExample.html} Example Interface}}
 
-  * {{{xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestRmExample.html} Example Test Case}}
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestRmExample.html} Example Test Case}}

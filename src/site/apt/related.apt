@@ -44,6 +44,14 @@ Alternatives
   
   * {{{http://ostermiller.org/utils/CmdLn.html} CmdLn}}
   
+  * {{{http://naturalcli.sourceforge.net/} naturalcli}}
+  
+  * {{{http://www.snaq.net/java/JCLAP/} JCLAP}}
+  
+  * {{{http://jcommander.org/} jcommander}}
+  
+  * {{{http://ritopt.sourceforge.net/} ritopt}}
+  
 Reviews, blog posts, etc
 
   * {{{http://javathink.blogspot.com/2008_04_01_archive.html} Why does parsing arguments in Java SUCK so much?}}
@@ -53,3 +61,5 @@ Reviews, blog posts, etc
   * {{{http://programmaticallyspeaking.blogspot.com/2008/04/boring-stuff-you-have-to-implement_21.html} Boring stuff you have to implement}}
 
   * {{{http://stackoverflow.com/questions/207831/what-is-the-best-way-of-parsing-many-complex-command-line-arguments-in-java} stackoverflow question}}
+  
+  * {{{http://stackoverflow.com/questions/367706/is-there-a-good-command-line-argument-parser-for-java} another stackoverflow question}}
