@@ -26,7 +26,7 @@ class ArgumentParserImpl implements ArgumentParser
      */
     void add(final String argument) throws ArgumentValidationException
     {
-        if (startsWithDash(argument) && !builder.expectingUnparsedOptions())
+        if (startsWithDash(argument) && !builder.isExpectingUnparsedOptions())
         {
             if (startsWithDoubleDash(argument))
             {

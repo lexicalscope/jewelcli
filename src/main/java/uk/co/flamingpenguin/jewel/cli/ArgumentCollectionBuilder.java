@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /*
  * Copyright 2011 Tim Wood
@@ -31,83 +30,56 @@ class ArgumentCollectionBuilder {
 
     private class Initial implements IParsingState {
         @Override public IParsingState addValue(final String value) {
-            unparsed.add(value);
-            return new NoOptions();
+            return new NoOptions(value);
         }
 
         @Override public IParsingState addOption(final String option) {
-            currentValues = new ArrayList<String>();
-            arguments.put(option, currentValues);
-            return new OptionOrValue();
+            return new OptionOrValue(option);
         }
     }
 
     private class NoOptions implements IParsingState {
+        public NoOptions(final String value) {
+            addUnparsedValue(value);
+        }
+
         @Override public IParsingState addValue(final String value) {
-            unparsed.add(value);
+            addUnparsedValue(value);
             return this;
         }
 
         @Override public IParsingState addOption(final String option) throws ArgumentValidationException {
-            throw new ArgumentValidationException(new ArgumentValidationException.ValidationError() {
-                public ErrorType getErrorType()
-                {
-                    return ArgumentValidationException.ValidationError.ErrorType.MisplacedOption;
-                }
-
-                public String getMessage()
-                {
-                    return option;
-                }
-
-                @Override public String toString()
-                {
-                    return String.format("Option not expected in this position: %s", getMessage());
-                }
-            });
+            throw misplacedOption(option);
         }
     }
 
     private class UnparsedState implements IParsingState {
         public UnparsedState() {
-            currentValues = null;
+            valuesForCurrentArgument = null;
         }
 
         @Override public IParsingState addValue(final String value) {
-            unparsed.add(value);
+            addUnparsedValue(value);
             return this;
         }
 
         @Override public IParsingState addOption(final String option) throws ArgumentValidationException {
-            throw new ArgumentValidationException(new ArgumentValidationException.ValidationError() {
-                public ErrorType getErrorType()
-                {
-                    return ArgumentValidationException.ValidationError.ErrorType.MisplacedOption;
-                }
-
-                public String getMessage()
-                {
-                    return option;
-                }
-
-                @Override public String toString()
-                {
-                    return String.format("Option not expected in this position: %s", getMessage());
-                }
-            });
+            throw misplacedOption(option);
         }
     }
 
     private class OptionOrValue implements IParsingState {
+        public OptionOrValue(final String option) {
+            addFirstValueForOption(option);
+        }
+
         @Override public IParsingState addValue(final String value) {
-            currentValues.add(value);
+            valuesForCurrentArgument.add(value);
             return this;
         }
 
         @Override public IParsingState addOption(final String option) {
-            currentValues = new ArrayList<String>();
-            arguments.put(option, currentValues);
-            return new OptionOrValue();
+            return new OptionOrValue(option);
         }
     }
 
@@ -115,13 +87,13 @@ class ArgumentCollectionBuilder {
     private final List<String> unparsed = new ArrayList<String>();
 
     private IParsingState state = new Initial();
-    private List<String> currentValues;
+    private List<String> valuesForCurrentArgument;
 
     void unparsedOptionsFollow() {
         state = new UnparsedState();
     }
 
-    boolean expectingUnparsedOptions() {
+    boolean isExpectingUnparsedOptions() {
         return state.getClass().equals(UnparsedState.class);
     }
 
@@ -137,13 +109,36 @@ class ArgumentCollectionBuilder {
 
     ArgumentCollection getParsedArguments()
     {
-        final Map<String, List<String>> finalArguments = new LinkedHashMap<String, List<String>>();
+        return new ArgumentCollectionImpl(
+                new LinkedHashMap<String, List<String>>(arguments),
+                new ArrayList<String>(unparsed));
+    }
 
-        for (final Entry<String, List<String>> entry : arguments.entrySet())
-        {
-            finalArguments.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
-        }
+    private ArgumentValidationException misplacedOption(final String option) {
+        return new ArgumentValidationException(new ArgumentValidationException.ValidationError() {
+            public ErrorType getErrorType()
+            {
+                return ArgumentValidationException.ValidationError.ErrorType.MisplacedOption;
+            }
 
-        return new ArgumentCollectionImpl(finalArguments, new ArrayList<String>(unparsed));
+            public String getMessage()
+            {
+                return option;
+            }
+
+            @Override public String toString()
+            {
+                return String.format("Option not expected in this position: %s", getMessage());
+            }
+        });
+    }
+
+    private void addUnparsedValue(final String value) {
+        unparsed.add(value);
+    }
+
+    private void addFirstValueForOption(final String option) {
+        valuesForCurrentArgument = new ArrayList<String>();
+        arguments.put(option, valuesForCurrentArgument);
     }
 }
