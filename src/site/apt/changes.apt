@@ -1,9 +1,14 @@
                                        -------
                                        Changes
                                        -------
+                                       
+API Changes
 
 * Changes in version 0.7
+
   * Non annotated methods now return null rather than throwing an exception.
-  * toString of returned implementation has changed slightly
+  
+  * toString of returned implementation has changed slightly.
+  
   * [beta] when using custom types for options, a constructor (java.lang.String, java.lang.reflect.Type) 
-    will give you access to the full generic type information of the option  
+    will give you access to the full generic type information of the option. 
