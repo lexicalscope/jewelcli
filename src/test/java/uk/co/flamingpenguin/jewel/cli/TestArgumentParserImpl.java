@@ -65,7 +65,7 @@ public class TestArgumentParserImpl {
     }
 
     private ArgumentCollectionImpl parseArguments(final String[] arguments) throws ArgumentValidationException {
-        final ArgumentParser impl = new ParsedArgumentsBuilder();
+        final ArgumentParser impl = new ArgumentParserImpl();
         return (ArgumentCollectionImpl) impl.parseArguments(arguments);
     }
 }

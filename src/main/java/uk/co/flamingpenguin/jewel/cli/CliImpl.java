@@ -29,7 +29,7 @@ class CliImpl<O> implements Cli<O> {
 
     @Override public O parseArguments(final String... arguments) throws ArgumentValidationException {
         final ArgumentCollection validatedArguments =
-                new ArgumentValidatorImpl<O>(specification).validateArguments(new ParsedArgumentsBuilder()
+                new ArgumentValidatorImpl<O>(specification).validateArguments(new ArgumentParserImpl()
                         .parseArguments(arguments));
 
         return new ArgumentPresenterImpl<O>(klass, specification).presentArguments(validatedArguments);

@@ -14,7 +14,7 @@ import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationErro
 public class TestParsedArgumentsBuilder {
     @Test public void testAdd() throws ArgumentValidationException {
         try {
-            final ParsedArgumentsBuilder parsedArgumentsBuilder = new ParsedArgumentsBuilder();
+            final ArgumentParserImpl parsedArgumentsBuilder = new ArgumentParserImpl();
             parsedArgumentsBuilder.add("a");
             parsedArgumentsBuilder.add("-b");
             fail("rouge option should have been detected");
@@ -23,9 +23,9 @@ public class TestParsedArgumentsBuilder {
             assertEquals(ErrorType.MisplacedOption, e.getValidationErrors().get(0).getErrorType());
         }
 
-        new ParsedArgumentsBuilder().add("-a");
+        new ArgumentParserImpl().add("-a");
 
-        final ParsedArgumentsBuilder parsedArgumentsBuilder = new ParsedArgumentsBuilder();
+        final ArgumentParserImpl parsedArgumentsBuilder = new ArgumentParserImpl();
         parsedArgumentsBuilder.add("-a");
         parsedArgumentsBuilder.add("v1");
         parsedArgumentsBuilder.add("v2");
@@ -36,12 +36,12 @@ public class TestParsedArgumentsBuilder {
     }
 
     @Test public void testGetUnparsed() {
-        final ParsedArgumentsBuilder parsedArguments = new ParsedArgumentsBuilder();
+        final ArgumentParserImpl parsedArguments = new ArgumentParserImpl();
         assertEquals(0, parsedArguments.getParsedArguments().getUnparsed().size());
     }
 
     @Test public void testNoOptions() throws ArgumentValidationException {
-        final ParsedArgumentsBuilder parsedArgumentsBuilder = new ParsedArgumentsBuilder();
+        final ArgumentParserImpl parsedArgumentsBuilder = new ArgumentParserImpl();
         parsedArgumentsBuilder.add("v0");
         parsedArgumentsBuilder.add("v1");
         parsedArgumentsBuilder.add("v2");
@@ -49,7 +49,7 @@ public class TestParsedArgumentsBuilder {
     }
 
     @Test public void testEndOfOptions() throws ArgumentValidationException {
-        final ParsedArgumentsBuilder parsedArgumentsBuilder = new ParsedArgumentsBuilder();
+        final ArgumentParserImpl parsedArgumentsBuilder = new ArgumentParserImpl();
         parsedArgumentsBuilder.add("-a");
         parsedArgumentsBuilder.add("v0");
         parsedArgumentsBuilder.add("--");
@@ -63,7 +63,7 @@ public class TestParsedArgumentsBuilder {
     }
 
     @Test public void testMissingInitalSpecifier() throws ArgumentValidationException {
-        final ParsedArgumentsBuilder parsedArgumentsBuilder = new ParsedArgumentsBuilder();
+        final ArgumentParserImpl parsedArgumentsBuilder = new ArgumentParserImpl();
         parsedArgumentsBuilder.add("v0");
         try {
             parsedArgumentsBuilder.add("-a");
@@ -77,7 +77,7 @@ public class TestParsedArgumentsBuilder {
     }
 
     @Test public void testIterator() throws ArgumentValidationException {
-        final ParsedArgumentsBuilder parsedArgumentsBuilder = new ParsedArgumentsBuilder();
+        final ArgumentParserImpl parsedArgumentsBuilder = new ArgumentParserImpl();
         parsedArgumentsBuilder.add("-a");
         parsedArgumentsBuilder.add("v1");
         parsedArgumentsBuilder.add("v2");

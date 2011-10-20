@@ -10,7 +10,7 @@
         <version>7</version>
     </parent>
     <name>JewelCli</name>
-    <url>http://fluent-reflection.lexicalscope.com/</url>
+    <url>http://jewelcli.lexicalscope.com/</url>
     <description>JewelCli uses an annotated interface definition to automatically parse and present command line arguments</description>
     <inceptionYear>2006</inceptionYear>
     <organization>
@@ -145,7 +145,7 @@
         <dependency>
             <groupId>com.lexicalscope.fluent-reflection</groupId>
             <artifactId>fluent-reflection</artifactId>
-            <version>0.0.5</version>
+            <version>0.0.6-SNAPSHOT</version>
             <classifier>no_deps</classifier>
             <type>jar</type>
             <scope>compile</scope>
@@ -353,6 +353,19 @@
                             <result>com.lexicalscope.jewelcli.internal.fluentreflection.$@1</result>
                         </rule>
                     </rules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <excludes>
+                        <exclude>META-INF/LICENSE</exclude>
+                        <exclude>META-INF/NOTICE</exclude>
+                        <exclude>META-INF/LICENSE.txt</exclude>
+                        <exclude>META-INF/NOTICE.txt</exclude>
+                        <exclude>com/google/common/**</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>

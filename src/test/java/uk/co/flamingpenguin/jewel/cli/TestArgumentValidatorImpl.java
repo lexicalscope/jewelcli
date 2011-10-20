@@ -135,6 +135,6 @@ public class TestArgumentValidatorImpl {
             throws ArgumentValidationException {
         final ArgumentValidatorImpl<O> impl =
                 new ArgumentValidatorImpl<O>(OptionsSpecificationImpl.<O>createOptionsSpecificationImpl(type(klass)));
-        return (ArgumentCollectionImpl) impl.validateArguments(new ParsedArgumentsBuilder().parseArguments(arguments));
+        return (ArgumentCollectionImpl) impl.validateArguments(new ArgumentParserImpl().parseArguments(arguments));
     }
 }
