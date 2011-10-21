@@ -4,13 +4,15 @@
                                        
 API Changes
 
-* Changes in version 0.8
+* Changes in version 0.7.3
   
   * null default values (for a different style of optional option)
   
   * multiple long names for an option
+  
+  * can now also define options by annotation class setters
 
-* Changes in version 0.7
+* Changes in version 0.7.2
 
   * Non annotated methods now return null rather than throwing an exception.
   

@@ -3,8 +3,9 @@
                                 -------------------------
 
 Usage Introduction
+
   An alternative mode of operation for JewelCli is to give it an instance of a class which has annotated
-  setter methods. 
+  setter methods.
 
 Definition Stage
 
@@ -21,7 +22,7 @@ Definition Stage
 public class MyExample
 {
   @Option
-  void setMyOption(String value);
+  void setMyOption(String value) {}
 }
 +------------------------------------------+
 
@@ -73,7 +74,7 @@ public class MyExample
 public class MyExample
 {
   @Unparsed
-  void setFiles(List<Files> files);
+  void setFiles(List<Files> files) {}
 }
 +------------------------------------------+
 
@@ -85,7 +86,7 @@ public class MyExample
 public class MyExample
 {
   @Unparsed(defaultToNull = true)
-  void setFiles(List<Files> files);
+  void setFiles(List<Files> files) {}
 }
 +------------------------------------------+
 
