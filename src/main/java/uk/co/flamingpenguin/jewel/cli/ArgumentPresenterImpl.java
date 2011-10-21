@@ -51,14 +51,14 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
             if (argument != null) {
                 if (optionSpecification.isMultiValued()) {
                     argumentMap.put(
-                            optionSpecification.getLongName(),
+                            optionSpecification.getCanonicalIdentifier(),
                             convertTypeOfObject.convert(argument.getValues()));
                 } else if (!argument.getValues().isEmpty()) {
                     argumentMap.put(
-                            optionSpecification.getLongName(),
+                            optionSpecification.getCanonicalIdentifier(),
                             convertTypeOfObject.convert(argument.getValues().get(0)));
                 } else if (argument.getValues().isEmpty()) {
-                    argumentMap.put(optionSpecification.getLongName(), null);
+                    argumentMap.put(optionSpecification.getCanonicalIdentifier(), null);
                 }
             }
         }

@@ -34,7 +34,10 @@ class OptionSummary
             result.append("[");
         }
 
-        result.append("--").append(m_option.getLongName());
+        if (!m_option.getLongName().isEmpty())
+        {
+            result.append("--").append(m_option.getLongName().get(0));
+        }
 
         for (final String shortName : m_option.getShortNames())
         {

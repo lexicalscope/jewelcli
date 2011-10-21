@@ -1,19 +1,18 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import static com.lexicalscope.fluentreflection.FluentReflection.*;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.*;
 
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class TestOptionSpecificationImpl {
-    {
-        Logger.getLogger(OptionSpecificationImpl.class.getName()).setLevel(Level.FINEST);
-    }
+    @Rule public ExpectedException exception = ExpectedException.none();
 
     public interface HasShortName {
         @Option(shortName = "n") String getName1();
@@ -30,11 +29,15 @@ public class TestOptionSpecificationImpl {
     }
 
     public interface LongName {
-        @Option(longName = "") String getName0();
+        @Option() String getName0();
 
         @Option(longName = "totallyDifferent") String getName1();
 
         @Option(longName = "name2") String getName2();
+    }
+
+    public interface InvalidLongName {
+        @Option(longName = "") String getName0();
     }
 
     public interface Value {
@@ -62,13 +65,13 @@ public class TestOptionSpecificationImpl {
 
         @Option List<String> getStringList();
 
-        @SuppressWarnings("unchecked") @Option List getList();
+        @SuppressWarnings("rawtypes") @Option List getList();
     }
 
     public interface MultiValued {
         @Option List<String> getStringList();
 
-        @SuppressWarnings("unchecked") @Option List getList();
+        @SuppressWarnings("rawtypes") @Option List getList();
     }
 
     public interface HasOptionalOption {
@@ -163,10 +166,10 @@ public class TestOptionSpecificationImpl {
     }
 
     @Test public void testGetName() throws SecurityException, NoSuchMethodException {
-        assertEquals("name", createOption(Name.class, "getName").getLongName());
-        assertEquals("name", createOption(Name.class, "name").getLongName());
-        assertEquals("debug", createOption(Name.class, "isDebug").getLongName());
-        assertEquals("debug", createOption(Name.class, "debug").getLongName());
+        assertThat(createOption(Name.class, "getName").getLongName(), contains("name"));
+        assertThat(createOption(Name.class, "name").getLongName(), contains("name"));
+        assertThat(createOption(Name.class, "isDebug").getLongName(), contains("debug"));
+        assertThat(createOption(Name.class, "debug").getLongName(), contains("debug"));
     }
 
     @Test public void testGetShortName() throws SecurityException, NoSuchMethodException {
@@ -176,9 +179,16 @@ public class TestOptionSpecificationImpl {
     }
 
     @Test public void testGetLongName() throws SecurityException, NoSuchMethodException {
-        assertEquals("name0", createOption(LongName.class, "getName0").getLongName());
-        assertEquals("totallyDifferent", createOption(LongName.class, "getName1").getLongName());
-        assertEquals("name2", createOption(LongName.class, "getName2").getLongName());
+        assertThat(createOption(LongName.class, "getName0").getLongName(), contains("name0"));
+        assertThat(createOption(LongName.class, "getName1").getLongName(), contains("totallyDifferent"));
+        assertThat(createOption(LongName.class, "getName2").getLongName(), contains("name2"));
+    }
+
+    @Test public void testEmptyLongNameIsNotAllowed() throws SecurityException, NoSuchMethodException {
+        exception.expect(OptionSpecificationException.class);
+        exception.expectMessage("option public java.lang.String getName0() long name cannot be blank");
+
+        createOption(InvalidLongName.class, "getName0");
     }
 
     @Test public void testHasValue() throws SecurityException, NoSuchMethodException {

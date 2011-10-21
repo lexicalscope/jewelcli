@@ -13,25 +13,24 @@
  */
 package uk.co.flamingpenguin.jewel.cli;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class OptionSpecificationBuilder {
-    private final Method m_method;
+    private final ReflectedMethod m_method;
     private Class<?> m_type;
     private boolean m_multiValued;
     private ReflectedMethod optionalityMethod;
     private final List<String> m_shortNames = new ArrayList<String>();
-    private String m_longName;
+    private List<String> m_longName;
     private String m_description;
     private String m_pattern;
     private List<String> m_defaultValue;
     private boolean m_helpRequest;
 
-    public OptionSpecificationBuilder(final Method method) {
+    public OptionSpecificationBuilder(final ReflectedMethod method) {
         m_method = method;
     }
 
@@ -51,7 +50,7 @@ class OptionSpecificationBuilder {
         m_shortNames.addAll(shortNames);
     }
 
-    public void setLongName(final String longName) {
+    public void setLongName(final List<String> longName) {
         m_longName = longName;
     }
 
@@ -72,14 +71,15 @@ class OptionSpecificationBuilder {
     }
 
     public OptionSpecificationImpl createOptionSpecification() {
-        final OptionName optionName = new OptionName(m_longName, m_shortNames, m_description);
+        final OptionName optionName =
+                new OptionName(m_method, m_method.propertyName(), m_longName, m_shortNames, m_description);
         final OptionType optionType = new OptionType(m_type, m_pattern, m_multiValued);
         final OptionContext optionContext = new OptionContext(m_defaultValue, m_helpRequest);
 
         return new OptionSpecificationImpl(optionName,
-                                            optionType,
-                                            optionContext,
-                                            m_method,
-                                            optionalityMethod);
+                optionType,
+                optionContext,
+                m_method,
+                optionalityMethod);
     }
 }

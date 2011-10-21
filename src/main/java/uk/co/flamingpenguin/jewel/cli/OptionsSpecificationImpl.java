@@ -14,9 +14,6 @@
 
 package uk.co.flamingpenguin.jewel.cli;
 
-import static com.lexicalscope.fluentreflection.FluentReflection.method;
-
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,11 +30,13 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
 
     private final SortedSet<OptionSpecification> options = new TreeSet<OptionSpecification>();
     private final Map<String, OptionSpecification> optionsByName = new HashMap<String, OptionSpecification>();
-    private final Map<Method, OptionSpecification> optionsMethod = new HashMap<Method, OptionSpecification>();
+    private final Map<ReflectedMethod, OptionSpecification> optionsMethod =
+            new HashMap<ReflectedMethod, OptionSpecification>();
     private final Map<ReflectedMethod, OptionSpecification> optionalOptionsMethod =
             new HashMap<ReflectedMethod, OptionSpecification>();
 
-    private final Map<Method, OptionSpecification> unparsedOptionsMethod = new HashMap<Method, OptionSpecification>();
+    private final Map<ReflectedMethod, OptionSpecification> unparsedOptionsMethod =
+            new HashMap<ReflectedMethod, OptionSpecification>();
     private final Map<ReflectedMethod, OptionSpecification> unparsedOptionalOptionsMethod =
             new HashMap<ReflectedMethod, OptionSpecification>();
 
@@ -68,15 +67,11 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         return optionsByName.get(key);
     }
 
-    @Override public OptionSpecification getSpecification(final ReflectedMethod reflectedMethod) {
-        return getSpecification(reflectedMethod.methodUnderReflection());
-    }
-
-    private OptionSpecification getSpecification(final Method method) {
+    @Override public OptionSpecification getSpecification(final ReflectedMethod method) {
         if (optionsMethod.containsKey(method)) {
             return optionsMethod.get(method);
         }
-        return optionalOptionsMethod.get(method(method));
+        return optionalOptionsMethod.get(method);
     }
 
     @Override public List<OptionSpecification> getMandatoryOptions() {
@@ -123,10 +118,9 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
     }
 
     private void addOption(final OptionSpecification optionSpecification) {
-        for (final String shortName : optionSpecification.getShortNames()) {
-            optionsByName.put(shortName, optionSpecification);
+        for (final String name : optionSpecification.getNames()) {
+            optionsByName.put(name, optionSpecification);
         }
-        optionsByName.put(optionSpecification.getLongName(), optionSpecification);
         options.add(optionSpecification);
 
         optionsMethod.put(optionSpecification.getMethod(), optionSpecification);
@@ -165,9 +159,10 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
 
             if (hasUnparsedSpecification()) {
                 message.append(" ");
+                // TODO[sort this out, unparsed and parsed are not the same, do not reuse use long name 
                 final String unparsedName =
-                        !nullOrBlank(getUnparsedSpecification().getLongName()) ? getUnparsedSpecification()
-                                .getLongName() : "ARGUMENTS";
+                        !getUnparsedSpecification().getLongName().isEmpty() ? getUnparsedSpecification()
+                                .getLongName().get(0) : "ARGUMENTS";
                 message.append(unparsedName);
 
                 if (getUnparsedSpecification().isMultiValued()) {

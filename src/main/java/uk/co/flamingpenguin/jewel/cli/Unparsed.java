@@ -7,17 +7,17 @@ import java.lang.annotation.Target;
 
 /**
  * Tags a method as returning any unparsed arguments
- *
+ * 
  * @author Tim Wood
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Unparsed
+@Retention(RetentionPolicy.RUNTIME) @Target(ElementType.METHOD) public @interface Unparsed
 {
-   /**
-    * The name to use when describe the unparsed arguments in help text and error messages
-    *
-    * @return The name to use when describe the unparsed arguments in help text and error messages
-    */
-   String name() default "";
+    /**
+     * The name to use when describe the unparsed arguments in help text and
+     * error messages
+     * 
+     * @return The name to use when describe the unparsed arguments in help text
+     *         and error messages
+     */
+    String name() default "";
 }

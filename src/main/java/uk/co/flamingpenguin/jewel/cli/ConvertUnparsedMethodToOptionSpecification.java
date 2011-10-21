@@ -14,6 +14,7 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
+import static java.util.Arrays.asList;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +34,7 @@ class ConvertUnparsedMethodToOptionSpecification implements Converter<ReflectedM
 
     @Override public OptionSpecification convert(final ReflectedMethod method) {
         final OptionSpecificationBuilder optionSpecificationBuilder =
-                new OptionSpecificationBuilder(method.methodUnderReflection());
+                new OptionSpecificationBuilder(method);
 
         final ReflectedClass<?> returnType = method.returnType();
         final boolean multiValued = returnType.isType(reflectedTypeReflectingOn(Collection.class));
@@ -56,7 +57,9 @@ class ConvertUnparsedMethodToOptionSpecification implements Converter<ReflectedM
 
         final Unparsed annotation = method.annotation(Unparsed.class);
 
-        optionSpecificationBuilder.setLongName(annotation.name());
+        optionSpecificationBuilder.setLongName(annotation.name().length() == 0
+                ? Collections.<String>emptyList()
+                : asList(annotation.name()));
         optionSpecificationBuilder.setDescription("");
         optionSpecificationBuilder.setPattern(".*");
         optionSpecificationBuilder.setDefaultValue(Collections.<String>emptyList());

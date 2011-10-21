@@ -13,7 +13,6 @@
  */
 package uk.co.flamingpenguin.jewel.cli;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +22,14 @@ class OptionSpecificationImpl implements Comparable<OptionSpecification>, Option
     private final OptionName optionName;
     private final OptionType m_optionType;
     private final OptionContext m_optionContext;
-    private final Method method;
+    private final ReflectedMethod method;
     private final ReflectedMethod optionalityMethod;
 
     OptionSpecificationImpl(
             final OptionName optionName,
             final OptionType optionType,
             final OptionContext optionContext,
-            final Method method,
+            final ReflectedMethod method,
             final ReflectedMethod optionalityMethod) {
         this.optionName = optionName;
         m_optionType = optionType;
@@ -47,8 +46,8 @@ class OptionSpecificationImpl implements Comparable<OptionSpecification>, Option
         return optionName.getDescription();
     }
 
-    public String getLongName() {
-        return optionName.getLongName();
+    public List<String> getLongName() {
+        return optionName.getLongNames();
     }
 
     public List<String> getShortNames() {
@@ -57,7 +56,7 @@ class OptionSpecificationImpl implements Comparable<OptionSpecification>, Option
 
     @Override public List<String> getNames() {
         final List<String> result = new ArrayList<String>(getShortNames());
-        result.add(getLongName());
+        result.addAll(getLongName());
         return result;
     }
 
@@ -97,7 +96,11 @@ class OptionSpecificationImpl implements Comparable<OptionSpecification>, Option
         return getType().isAssignableFrom(Boolean.class) || getType().isAssignableFrom(boolean.class);
     }
 
-    @Override public Method getMethod() {
+    @Override public String getCanonicalIdentifier() {
+        return method.propertyName();
+    }
+
+    @Override public ReflectedMethod getMethod() {
         return method;
     }
 
@@ -106,7 +109,7 @@ class OptionSpecificationImpl implements Comparable<OptionSpecification>, Option
     }
 
     @Override public int compareTo(final OptionSpecification other) {
-        return getLongName().compareTo(other.getLongName());
+        return getCanonicalIdentifier().compareTo(other.getCanonicalIdentifier());
     }
 
     @Override public String toString() {

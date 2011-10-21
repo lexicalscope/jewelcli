@@ -1,6 +1,5 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,8 +14,12 @@ class UnexpectedOptionSpecification implements OptionSpecification
         m_name = name;
     }
 
-    public String getLongName()
+    public List<String> getLongName()
     {
+        return Collections.emptyList();
+    }
+
+    @Override public String getCanonicalIdentifier() {
         return m_name;
     }
 
@@ -79,7 +82,7 @@ class UnexpectedOptionSpecification implements OptionSpecification
         return ".*";
     }
 
-    @Override public Method getMethod() {
+    @Override public ReflectedMethod getMethod() {
         return null;
     }
 

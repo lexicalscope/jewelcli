@@ -15,22 +15,43 @@ package uk.co.flamingpenguin.jewel.cli;
 
 import java.util.List;
 
+import com.lexicalscope.fluentreflection.ReflectedMethod;
+
 class OptionName
 {
-    private final String longName;
+    private final String canonicalIdentifier;
+    private final List<String> longNames;
     private final List<String> shortNames;
     private final String description;
 
-    OptionName(final String longName, final List<String> shortNames, final String description)
+    OptionName(
+            final ReflectedMethod method,
+            final String canonicalIdentifier,
+            final List<String> longNames,
+            final List<String> shortNames,
+            final String description)
     {
-        this.longName = longName;
+        this.canonicalIdentifier = canonicalIdentifier;
+        this.longNames = longNames;
+        for (final String longName : longNames) {
+            if (longName.trim().isEmpty())
+            {
+                throw new OptionSpecificationException(String.format(
+                        "option %s long name cannot be blank",
+                        method));
+            }
+        }
         this.shortNames = shortNames;
         this.description = description;
     }
 
-    String getLongName()
+    String getCanonicalIdentifier() {
+        return canonicalIdentifier;
+    }
+
+    List<String> getLongNames()
     {
-        return longName;
+        return longNames;
     }
 
     List<String> getShortNames()

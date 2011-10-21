@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
      * 
      * @return The long name of this option
      */
-    String longName() default "";
+    String[] longName() default {};
 
     /**
      * The short name of this option

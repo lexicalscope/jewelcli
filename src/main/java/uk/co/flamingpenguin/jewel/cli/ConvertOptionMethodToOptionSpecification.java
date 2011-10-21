@@ -34,7 +34,7 @@ class ConvertOptionMethodToOptionSpecification implements Converter<ReflectedMet
 
     @Override public OptionSpecification convert(final ReflectedMethod method) {
         final OptionSpecificationBuilder optionSpecificationBuilder =
-                new OptionSpecificationBuilder(method.methodUnderReflection());
+                new OptionSpecificationBuilder(method);
 
         final ReflectedClass<?> returnType = method.returnType();
         final boolean multiValued = returnType.isType(reflectedTypeReflectingOn(Collection.class));
@@ -49,8 +49,7 @@ class ConvertOptionMethodToOptionSpecification implements Converter<ReflectedMet
 
         optionSpecificationBuilder.setMultiValued(multiValued);
 
-        final String baseName = method.propertyName();
-        final ReflectedMethod optionalityMethod = findCorrespondingOptionalityMethod(baseName, klass);
+        final ReflectedMethod optionalityMethod = findCorrespondingOptionalityMethod(method.propertyName(), klass);
         if (optionalityMethod != null) {
             optionSpecificationBuilder.setOptionalityMethod(optionalityMethod);
         }
@@ -67,9 +66,9 @@ class ConvertOptionMethodToOptionSpecification implements Converter<ReflectedMet
         }
         optionSpecificationBuilder.setShortNames(shortNames);
 
-        final String longNameSpecification = optionAnnotation.longName().trim();
-        final String longName = nullOrBlank(longNameSpecification) ? baseName : longNameSpecification;
-        optionSpecificationBuilder.setLongName(longName);
+        optionSpecificationBuilder.setLongName(optionAnnotation.longName().length == 0
+                ? asList(method.propertyName())
+                : asList(optionAnnotation.longName()));
 
         final String description = optionAnnotation.description().trim();
         optionSpecificationBuilder.setDescription(description);
@@ -95,9 +94,6 @@ class ConvertOptionMethodToOptionSpecification implements Converter<ReflectedMet
         optionSpecificationBuilder.setHelpRequest(helpRequest);
 
         return optionSpecificationBuilder.createOptionSpecification();
-    }
-    private boolean nullOrBlank(final String string) {
-        return string == null || string.equals("");
     }
 
     private final ReflectedMethod findCorrespondingOptionalityMethod(final String name, final ReflectedClass<?> klass) {

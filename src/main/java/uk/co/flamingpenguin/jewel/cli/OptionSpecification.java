@@ -4,7 +4,6 @@
 //
 package uk.co.flamingpenguin.jewel.cli;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 import com.lexicalscope.fluentreflection.ReflectedMethod;
@@ -23,6 +22,13 @@ interface OptionSpecification
      * @return the type that each argument must conform to
      */
     Class<?> getType();
+
+    /**
+     * Canonical identifier for the option
+     * 
+     * @return the canonical identifier for the option
+     */
+    String getCanonicalIdentifier();
 
     /**
      * Does the option take any arguments?
@@ -53,6 +59,11 @@ interface OptionSpecification
      */
     List<String> getShortNames();
 
+    /**
+     * All the names of the option
+     * 
+     * @return all the names of the option
+     */
     List<String> getNames();
 
     /**
@@ -68,7 +79,7 @@ interface OptionSpecification
      * 
      * @return the long name of this option
      */
-    String getLongName();
+    List<String> getLongName();
 
     /**
      * Get the default values which will be used if the option is not specified
@@ -111,7 +122,7 @@ interface OptionSpecification
      */
     String getPattern();
 
-    Method getMethod();
+    ReflectedMethod getMethod();
 
     ReflectedMethod getOptionalityMethod();
 }

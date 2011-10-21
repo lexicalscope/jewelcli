@@ -18,14 +18,14 @@ import java.util.List;
 
 class OptionUtils
 {
-   static List<String> getAllNames(final OptionSpecification specification)
-   {
-      final List<String> result = new ArrayList<String>();
-      if(specification.hasShortName())
-      {
-         result.addAll(specification.getShortNames());
-      }
-      result.add(specification.getLongName());
-      return result;
-   }
+    static List<String> getAllNames(final OptionSpecification specification)
+    {
+        final List<String> result = new ArrayList<String>();
+        if (specification.hasShortName())
+        {
+            result.addAll(specification.getShortNames());
+        }
+        result.addAll(specification.getLongName());
+        return result;
+    }
 }
