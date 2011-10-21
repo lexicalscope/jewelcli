@@ -4,18 +4,15 @@ import uk.co.flamingpenguin.jewel.cli.Option;
 
 public interface HelpExample
 {
-   @Option
-   int getCount();
+    @Option int getCount();
 
-   @Option(description = "your email address", pattern = "^[^\\S@]+@[\\w.]+$")
-   String getEmail();
+    @Option(description = "your email address", pattern = "^[^\\S@]+@[\\w.]+$") String getEmail();
 
-   @Option(description = "the location of something")
-   String getLocation();
+    @Option(description = "the location of something") String getLocation();
 
-   @Option(description = "a pattern", shortName = "p")
-   String getPattern();
+    @Option(description = "a pattern", shortName = "p") String getPattern();
 
-   @Option(helpRequest = true, description = "display help", shortName = "h")
-   boolean getHelp();
+    @Option(description = "many aliases", shortName = { "m", "n" }, longName = { "firstLongName", "secondLongName" }) String getManyNames();
+
+    @Option(helpRequest = true, description = "display help", shortName = "h") boolean getHelp();
 }

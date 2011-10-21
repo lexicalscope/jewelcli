@@ -14,11 +14,12 @@ public class TestHelpExample {
             UtilitiesForTesting
                     .joinLines(
                             "The options available are:",
-                                                                  "\t--count value",
-                                                                  "\t--email /^[^\\S@]+@[\\w.]+$/ : your email address",
-                                                                  "\t[--help -h] : display help",
-                                                                  "\t--location value : the location of something",
-                                                                  "\t--pattern -p value : a pattern");
+                            "\t--count value",
+                            "\t--email /^[^\\S@]+@[\\w.]+$/ : your email address",
+                            "\t[--help -h] : display help",
+                            "\t--location value : the location of something",
+                            "\t--firstLongName --secondLongName -m -n value : many aliases",
+                            "\t--pattern -p value : a pattern");
 
     @Test public void testHelpExample() {
         final Cli<HelpExample> cli = CliFactory.createCli(HelpExample.class);
