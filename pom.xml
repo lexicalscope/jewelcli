@@ -197,6 +197,15 @@
             <type>jar</type>
             <scope>compile</scope>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <!-- workaround for m2e not handling workspace resolution of classifiers -->
+            <groupId>com.lexicalscope.fluent-reflection</groupId>
+            <artifactId>fluent-reflection</artifactId>
+            <version>0.0.6-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>test</scope>
+            <optional>true</optional>
         </dependency>      
         <dependency>
             <groupId>junit</groupId>

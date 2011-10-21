@@ -14,9 +14,9 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
+import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -77,15 +77,25 @@ class ConvertOptionMethodToOptionSpecification implements Converter<ReflectedMet
         final String pattern = optionAnnotation.pattern();
         optionSpecificationBuilder.setPattern(pattern);
 
-        final List<String> defaultValue = Arrays.asList(optionAnnotation.defaultValue());
-        optionSpecificationBuilder.setDefaultValue(defaultValue);
+        if (optionAnnotation.defaultToNull() && optionAnnotation.defaultValue().length != 0)
+        {
+            throw new OptionSpecificationException("option cannot have null default and non-null default value: "
+                    + method);
+        }
+        else if (optionAnnotation.defaultToNull())
+        {
+            optionSpecificationBuilder.setDefaultValue(asList((String) null));
+        }
+        else
+        {
+            optionSpecificationBuilder.setDefaultValue(asList(optionAnnotation.defaultValue()));
+        }
 
         final boolean helpRequest = optionAnnotation.helpRequest();
         optionSpecificationBuilder.setHelpRequest(helpRequest);
 
         return optionSpecificationBuilder.createOptionSpecification();
     }
-
     private boolean nullOrBlank(final String string) {
         return string == null || string.equals("");
     }

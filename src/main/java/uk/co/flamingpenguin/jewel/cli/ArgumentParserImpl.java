@@ -16,15 +16,7 @@ class ArgumentParserImpl implements ArgumentParser
         return getParsedArguments();
     }
 
-    /**
-     * Add an argument to the set
-     * 
-     * @param argument
-     *            the argument to parse
-     * 
-     * @throws ArgumentValidationException
-     */
-    void add(final String argument) throws ArgumentValidationException
+    private void add(final String argument) throws ArgumentValidationException
     {
         if (startsWithDash(argument) && !builder.isExpectingUnparsedOptions())
         {

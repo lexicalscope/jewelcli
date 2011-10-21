@@ -21,53 +21,59 @@ import java.lang.annotation.Target;
 
 /**
  * Tags a method as an option
- *
+ * 
  * @author Tim Wood
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Option
+@Retention(RetentionPolicy.RUNTIME) @Target(ElementType.METHOD) public @interface Option
 {
-   /**
-    * The long name of this option
-    *
-    * @return The long name of this option
-    */
-   String longName() default "";
+    /**
+     * The long name of this option
+     * 
+     * @return The long name of this option
+     */
+    String longName() default "";
 
-   /**
-    * The short name of this option
-    *
-    * @return The short name of this option
-    */
-   String[] shortName() default "";
+    /**
+     * The short name of this option
+     * 
+     * @return The short name of this option
+     */
+    String[] shortName() default "";
 
-   /**
-    * The regexp that the values of this option must match
-    *
-    * @return The regexp that the values of this option must match
-    */
-   String pattern() default ".*";
+    /**
+     * The regexp that the values of this option must match
+     * 
+     * @return The regexp that the values of this option must match
+     */
+    String pattern() default ".*";
 
-   /**
-    * A description of this option
-    *
-    * @return A description of this option
-    */
-   String description() default "";
+    /**
+     * A description of this option
+     * 
+     * @return A description of this option
+     */
+    String description() default "";
 
-   /**
-    * The default value if none is specified
-    *
-    * @return The value to present if none is specified
-    */
-   String[] defaultValue() default {};
+    /**
+     * The default value if none is specified
+     * 
+     * @return The value to present if none is specified
+     */
+    String[] defaultValue() default {};
 
-   /**
-    * Should help be displayed if this option is
-    * present.
-    *
-    * @return True if this option is a help option
-    */
-   boolean helpRequest() default false;
+    /**
+     * The default value is null. Java does not allow null values in
+     * annotations. Setting this attribute to true will default the value of the
+     * option to null.
+     * 
+     * @return true iff the default value of the option should be null
+     */
+    boolean defaultToNull() default false;
+
+    /**
+     * Should help be displayed if this option is present.
+     * 
+     * @return True if this option is a help option
+     */
+    boolean helpRequest() default false;
 }

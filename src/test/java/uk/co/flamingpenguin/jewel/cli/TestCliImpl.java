@@ -1,5 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
 
@@ -156,11 +157,8 @@ public class TestCliImpl {
     @Test public void testSingleOptionalOptionRequestMissing() throws ArgumentValidationException {
         final SingleOptionalOption option =
                 new CliImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[] {});
-        try {
-            option.getName();
-        } catch (final OptionNotPresentException e) {
-            assertEquals("Unable to find value for option: [--name value]", e.getMessage());
-        }
+
+        assertThat(option.getName(), equalTo(null));
     }
 
     @Test public void testCharacterValue() throws ArgumentValidationException {
