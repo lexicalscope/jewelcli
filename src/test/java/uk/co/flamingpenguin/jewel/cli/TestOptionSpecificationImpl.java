@@ -221,6 +221,6 @@ public class TestOptionSpecificationImpl {
             throws NoSuchMethodException {
         final Method method = klass.getMethod(methodName, (Class[]) null);
 
-        return new ConvertOptionMethodToParsedOptionSpecification(type(klass)).convert(method(method));
+        return new ConvertGetterMethodToParsedOptionSpecification(type(klass)).convert(method(method));
     }
 }

@@ -18,7 +18,7 @@ import java.util.List;
 
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-class ParsedOptionSpecificationBuilder {
+class ParsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
     private final ReflectedMethod m_method;
     private Class<?> m_type;
     private boolean m_multiValued;
@@ -42,7 +42,7 @@ class ParsedOptionSpecificationBuilder {
         m_multiValued = multiValued;
     }
 
-    public void setOptionalityMethod(final ReflectedMethod optionalityMethod) {
+    @Override public void setOptionalityMethod(final ReflectedMethod optionalityMethod) {
         this.optionalityMethod = optionalityMethod;
     }
 

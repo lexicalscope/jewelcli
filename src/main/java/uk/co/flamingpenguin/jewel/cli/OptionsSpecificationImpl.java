@@ -56,10 +56,6 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         }
     }
 
-    static <O> OptionsSpecification<O> createOptionsSpecificationImpl(final ReflectedClass<O> klass) {
-        return new OptionsSpecificationParser<O>(klass).buildOptionsSpecification();
-    }
-
     @Override public boolean isSpecified(final String key) {
         return optionsByName.containsKey(key);
     }

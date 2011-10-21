@@ -18,10 +18,10 @@ import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
 
-class OptionsSpecificationParser<O> {
+class InterfaceOptionsSpecificationParser<O> {
     private final ReflectedClass<O> klass;
 
-    OptionsSpecificationParser(final ReflectedClass<O> klass) {
+    InterfaceOptionsSpecificationParser(final ReflectedClass<O> klass) {
         this.klass = klass;
     }
 
@@ -29,9 +29,13 @@ class OptionsSpecificationParser<O> {
         return new OptionsSpecificationImpl<O>(klass,
                 convert(
                         klass.methods(isQuery().and(annotatedWith(Option.class))),
-                        new ConvertOptionMethodToParsedOptionSpecification(klass)),
+                        new ConvertGetterMethodToParsedOptionSpecification(klass)),
                 convert(
                         klass.methods(isQuery().and(annotatedWith(Unparsed.class))),
                         new ConvertUnparsedMethodToUnparsedOptionSpecification(klass)));
+    }
+
+    static <O> OptionsSpecification<O> createOptionsSpecificationImpl(final ReflectedClass<O> klass) {
+        return new InterfaceOptionsSpecificationParser<O>(klass).buildOptionsSpecification();
     }
 }

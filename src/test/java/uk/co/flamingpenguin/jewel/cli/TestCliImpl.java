@@ -83,26 +83,26 @@ public class TestCliImpl {
 
     @Test public void testSingleOption() throws ArgumentValidationException {
         final SingleOption option =
-                new CliImpl<SingleOption>(SingleOption.class).parseArguments(new String[] { "--name", "value" });
+                new CliInterfaceImpl<SingleOption>(SingleOption.class).parseArguments(new String[] { "--name", "value" });
         assertEquals(option.getName(), "value");
     }
 
     @Test public void testSingleBooleanOption() throws ArgumentValidationException {
         final SingleBooleanOption option =
-                new CliImpl<SingleBooleanOption>(SingleBooleanOption.class).parseArguments(new String[] { "--name1" });
+                new CliInterfaceImpl<SingleBooleanOption>(SingleBooleanOption.class).parseArguments(new String[] { "--name1" });
         assertEquals(option.getName0(), false);
         assertEquals(option.isName1(), true);
     }
 
     @Test public void testIntegerOption() throws ArgumentValidationException {
         final IntegerOption option =
-                new CliImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[] { "--name", "10" });
+                new CliInterfaceImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[] { "--name", "10" });
         assertEquals(Integer.valueOf(10), option.getName());
     }
 
     @Test public void testInvalidIntegerOption() {
         try {
-            new CliImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[] { "--name", "abc" });
+            new CliInterfaceImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[] { "--name", "abc" });
             fail();
         } catch (final ArgumentValidationException e) {
             assertEquals(1, e.getValidationErrors().size());
@@ -116,7 +116,7 @@ public class TestCliImpl {
 
     @Test public void testInvalidIntOption() {
         try {
-            new CliImpl<IntOption>(IntOption.class).parseArguments(new String[] { "--name", "abc" });
+            new CliInterfaceImpl<IntOption>(IntOption.class).parseArguments(new String[] { "--name", "abc" });
             fail();
         } catch (final ArgumentValidationException e) {
             assertEquals(1, e.getValidationErrors().size());
@@ -130,7 +130,7 @@ public class TestCliImpl {
 
     @Test public void testInvalidOption() {
         try {
-            new CliImpl<SingleOption>(SingleOption.class).parseArguments(new String[] { "--invalid", "value" });
+            new CliInterfaceImpl<SingleOption>(SingleOption.class).parseArguments(new String[] { "--invalid", "value" });
             fail();
         } catch (final ArgumentValidationException e) {
             final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
@@ -144,32 +144,32 @@ public class TestCliImpl {
 
     @Test public void testSingleOptionalOption() throws ArgumentValidationException {
         SingleOptionalOption option =
-                new CliImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[] {
+                new CliInterfaceImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[] {
                         "--name",
                         "value" });
         assertEquals(option.getName(), "value");
         assertTrue(option.isName());
 
-        option = new CliImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[] {});
+        option = new CliInterfaceImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[] {});
         assertFalse(option.isName());
     }
 
     @Test public void testSingleOptionalOptionRequestMissing() throws ArgumentValidationException {
         final SingleOptionalOption option =
-                new CliImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[] {});
+                new CliInterfaceImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[] {});
 
         assertThat(option.getName(), equalTo(null));
     }
 
     @Test public void testCharacterValue() throws ArgumentValidationException {
         final CharacterValue option =
-                new CliImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[] { "--name", "a" });
+                new CliInterfaceImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[] { "--name", "a" });
         assertEquals((Character) 'a', option.getName());
     }
 
     @Test public void testInvalidCharacterValue() {
         try {
-            new CliImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[] { "--name", "aa" });
+            new CliInterfaceImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[] { "--name", "aa" });
             fail();
         } catch (final ArgumentValidationException e) {
             final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
@@ -180,7 +180,7 @@ public class TestCliImpl {
 
     @Test public void testMethodWithArguments() throws ArgumentValidationException {
         try {
-            new CliImpl<SingleOptionWithArgument>(SingleOptionWithArgument.class).parseArguments(new String[] {
+            new CliInterfaceImpl<SingleOptionWithArgument>(SingleOptionWithArgument.class).parseArguments(new String[] {
                     "--name",
                     "value" });
             fail();
@@ -193,7 +193,7 @@ public class TestCliImpl {
 
     @Test public void testMethodWithMissingAnnotation() throws ArgumentValidationException {
         final SingleOptionMissingAnnotation result =
-                new CliImpl<SingleOptionMissingAnnotation>(SingleOptionMissingAnnotation.class)
+                new CliInterfaceImpl<SingleOptionMissingAnnotation>(SingleOptionMissingAnnotation.class)
                         .parseArguments(new String[] {});
 
         assertThat(result.getName(), equalTo(null));
@@ -201,13 +201,13 @@ public class TestCliImpl {
 
     @Test public void testUnparsedOption() throws ArgumentValidationException {
         final UnparsedOption result =
-                new CliImpl<UnparsedOption>(UnparsedOption.class).parseArguments(new String[] { "value" });
+                new CliInterfaceImpl<UnparsedOption>(UnparsedOption.class).parseArguments(new String[] { "value" });
         assertEquals("value", result.getName());
     }
 
     @Test public void testUnparsedOptionMissingValue() {
         try {
-            new CliImpl<UnparsedOption>(UnparsedOption.class).parseArguments(new String[] {});
+            new CliInterfaceImpl<UnparsedOption>(UnparsedOption.class).parseArguments(new String[] {});
             fail();
         } catch (final ArgumentValidationException e) {
             final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
@@ -218,7 +218,7 @@ public class TestCliImpl {
 
     @Test public void testUnparsedListOption() throws ArgumentValidationException {
         final UnparsedListOption result =
-                new CliImpl<UnparsedListOption>(UnparsedListOption.class).parseArguments(new String[] {
+                new CliInterfaceImpl<UnparsedListOption>(UnparsedListOption.class).parseArguments(new String[] {
                         "value0",
                         "value1" });
         assertEquals(2, result.getNames().size());
@@ -227,28 +227,28 @@ public class TestCliImpl {
     }
 
     @Test public void testListOptionMissingValue() throws ArgumentValidationException {
-        new CliImpl<ListOption>(ListOption.class).parseArguments(new String[] { "--name" });
+        new CliInterfaceImpl<ListOption>(ListOption.class).parseArguments(new String[] { "--name" });
     }
 
     @Test public void testUnparsedListOptionMissingValue() throws ArgumentValidationException {
-        new CliImpl<UnparsedListOption>(UnparsedListOption.class).parseArguments(new String[] {});
+        new CliInterfaceImpl<UnparsedListOption>(UnparsedListOption.class).parseArguments(new String[] {});
     }
 
     @Test public void testOptionalUnparsedOption() throws ArgumentValidationException {
         final UnparsedOption result =
-                new CliImpl<UnparsedOption>(UnparsedOption.class).parseArguments(new String[] { "value" });
+                new CliInterfaceImpl<UnparsedOption>(UnparsedOption.class).parseArguments(new String[] { "value" });
         assertEquals(result.getName(), "value");
     }
 
     @Test public void testOptionalUnparsedOptionMissingValue() throws ArgumentValidationException {
         final OptionalUnparsedOption result =
-                new CliImpl<OptionalUnparsedOption>(OptionalUnparsedOption.class).parseArguments(new String[] {});
+                new CliInterfaceImpl<OptionalUnparsedOption>(OptionalUnparsedOption.class).parseArguments(new String[] {});
         assertFalse(result.isName());
     }
 
     @Test public void testOptionalUnparsedListOption() throws ArgumentValidationException {
         final OptionalUnparsedListOption result =
-                new CliImpl<OptionalUnparsedListOption>(OptionalUnparsedListOption.class).parseArguments(new String[] {
+                new CliInterfaceImpl<OptionalUnparsedListOption>(OptionalUnparsedListOption.class).parseArguments(new String[] {
                         "value0",
                         "value1" });
         assertEquals(2, result.getNames().size());
@@ -259,14 +259,14 @@ public class TestCliImpl {
 
     @Test public void testOptionalUnparsedListOptionMissingValue() throws ArgumentValidationException {
         final OptionalUnparsedListOption result =
-                new CliImpl<OptionalUnparsedListOption>(OptionalUnparsedListOption.class)
+                new CliInterfaceImpl<OptionalUnparsedListOption>(OptionalUnparsedListOption.class)
                         .parseArguments(new String[] {});
         assertFalse(result.isNames());
     }
 
     @Test public void testEnumDefaultList() throws ArgumentValidationException {
         final EnumDefaultListOption result =
-                new CliImpl<EnumDefaultListOption>(EnumDefaultListOption.class).parseArguments(new String[] {});
+                new CliInterfaceImpl<EnumDefaultListOption>(EnumDefaultListOption.class).parseArguments(new String[] {});
 
         final List<TestEnum> enumValues = result.getName();
         assertEquals(2, enumValues.size());

@@ -15,7 +15,7 @@ package uk.co.flamingpenguin.jewel.cli;
 
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-class UnparsedOptionSpecificationBuilder {
+class UnparsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
     private final ReflectedMethod m_method;
     private Class<?> m_type;
     private boolean m_multiValued;
