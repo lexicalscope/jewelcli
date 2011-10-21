@@ -5,9 +5,9 @@
 Usage Introduction
 
   As with other command line processing libraries there are three stages to command line processing;
-  the definition stage, the parsing stage and the interogation stage.
+  the definition stage, the parsing stage and the interrogation stage.
 
-  The other importaint facility provided by command line processing libraries is error reporting
+  The other important facility provided by command line processing libraries is error reporting
   and usage help.
 
 Definition Stage
@@ -33,7 +33,7 @@ public interface MyExample
 
 ** Short Name
 
-  It is often convinent to allow your users to specify options using a short hand notation. JewelCli
+  It is often convenient to allow your users to specify options using a short hand notation. JewelCli
   supports this through an argument to the Option annotation:
 
 +------------------------------------------+
@@ -106,12 +106,12 @@ public interface MyExample
 
 ** other primitive
 
-  All of the java primitive types, and there Object equivilents, are supported, numbers will
+  All of the java primitive types, and there Object equivalents, are supported, numbers will
   automatically be parsed.
 
 ** Class
 
-  Any class which has a construtor that takes a single <java.lang.String> argument can be used as a
+  Any class which has a constructor that takes a single <java.lang.String> argument can be used as a
   return type.
 
 ** List
@@ -132,10 +132,12 @@ public interface MyExample
 
 * Optional Options
 
-  So far, the only way to produce an optional option with JewelCli has been to define it as a flag
-  by using a boolean return type. Some optional options need to take, arguments so another facility
-  is provided. To make an option optional, define a bean style "is" method with the same suffix as
-  the getter for the option:
+  There are two main ways to produce an optional option using jewelCli, one is using a boolean query method, 
+  the other is by specifying a (possibly null) default value. 
+
+  One way to produce an optional option with JewelCli has been to define it as a flag by using a boolean
+  return type. Some optional options need to take, arguments so another two facilities are provided. To make
+  an option optional, define a bean style "is" method with the same suffix as the getter for the option:
 
 +------------------------------------------+
 public interface MyExample
@@ -158,6 +160,16 @@ public interface MyExample
 
   @Option(defaultValue={"3","4","5"})
   List<Integer> getMyList();
+}
++------------------------------------------+
+
+  If you need the default value to be null you can do it like this:
+
++------------------------------------------+
+public interface MyExample
+{
+  @Option(defaultToNull=true)
+  Integer getMyOption();
 }
 +------------------------------------------+
 

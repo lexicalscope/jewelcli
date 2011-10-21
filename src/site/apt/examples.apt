@@ -20,6 +20,14 @@ Examples
 
   * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestOptionalOption.html} Example Test Case}}
 
+* Alternative strategy for optional option
+
+  An example with an optional option
+
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/OptionalOptionAlternative.html} Example Interface}}
+
+  * {{{./xref-test/uk/co/flamingpenguin/jewel/cli/examples/TestOptionalOptionAlternative.html} Example Test Case}}
+  
 * List example
 
   Options can also have lists of values
