@@ -1,8 +1,5 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class UnexpectedOptionSpecification implements OptionSpecification
@@ -23,37 +20,12 @@ class UnexpectedOptionSpecification implements OptionSpecification
         return Void.class;
     }
 
-    @Override public boolean hasValue()
-    {
-        return false;
-    }
-
     @Override public boolean isMultiValued()
     {
         return false;
     }
 
     @Override public boolean isOptional()
-    {
-        return false;
-    }
-
-    @Override public String getDescription()
-    {
-        return String.format("Option not recognised");
-    }
-
-    @Override public List<String> getDefaultValue()
-    {
-        return Collections.emptyList();
-    }
-
-    @Override public boolean hasDefaultValue()
-    {
-        return false;
-    }
-
-    @Override public boolean isHelpOption()
     {
         return false;
     }
@@ -69,7 +41,7 @@ class UnexpectedOptionSpecification implements OptionSpecification
     @Override public String toString()
     {
         final StringBuilder result = new StringBuilder();
-        result.append(m_name).append(" : ").append(getDescription());
+        result.append(m_name).append(" : ").append("Option not recognised");
         return result.toString();
     }
 }

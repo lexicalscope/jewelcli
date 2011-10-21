@@ -1,6 +1,5 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-
 /*
  * Copyright 2011 Tim Wood
  *
@@ -17,6 +16,6 @@ package uk.co.flamingpenguin.jewel.cli;
  * limitations under the License. 
  */
 
-public interface UnparsedOptionSpecification extends OptionSpecification {
+interface UnparsedOptionSpecification extends OptionSpecification {
     String getValueName();
 }

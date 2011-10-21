@@ -18,7 +18,7 @@ import java.util.List;
  * limitations under the License. 
  */
 
-public interface ParsedOptionSpecification extends OptionSpecification {
+interface ParsedOptionSpecification extends OptionSpecification {
     /**
      * Get all of the short names of this option. Short names are single
      * characters that will by prefixed by the user with "-".
@@ -55,4 +55,45 @@ public interface ParsedOptionSpecification extends OptionSpecification {
      * @return the regular expression that values must conform to
      */
     String getPattern();
+
+    /**
+     * Does the option take any arguments?
+     * 
+     * @return True iff the the option takes at least one argument
+     */
+    boolean hasValue();
+
+    /**
+     * Is this option a request for help
+     * 
+     * @return True iff this option is a request for help
+     */
+    boolean isHelpOption();
+
+    /**
+     * Get the default values which will be used if the option is not specified
+     * by the user.
+     * 
+     * @return The default values which will be used if the option is not
+     *         present
+     */
+    List<String> getDefaultValue();
+
+    /**
+     * Is there a default value to use if this option is not present? Options
+     * with a default value are assumed to be optional.
+     * 
+     * @return True iff this option has a default value
+     */
+    boolean hasDefaultValue();
+
+    /**
+     * Get a description of the option. The description can be specified in the
+     * <code>Option</code> annotation
+     * 
+     * @see uk.co.flamingpenguin.jewel.cli.Option
+     * 
+     * @return a description of the option
+     */
+    String getDescription();
 }

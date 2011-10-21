@@ -16,7 +16,6 @@ package uk.co.flamingpenguin.jewel.cli;
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import ch.lambdaj.function.convert.Converter;
@@ -59,10 +58,6 @@ class ConvertUnparsedMethodToUnparsedOptionSpecification
         final Unparsed annotation = method.annotation(Unparsed.class);
 
         optionSpecificationBuilder.setValueName(annotation.name());
-        optionSpecificationBuilder.setDescription("");
-        optionSpecificationBuilder.setPattern(".*");
-        optionSpecificationBuilder.setDefaultValue(Collections.<String>emptyList());
-        optionSpecificationBuilder.setHelpRequest(false);
 
         return optionSpecificationBuilder.createOptionSpecification();
     }

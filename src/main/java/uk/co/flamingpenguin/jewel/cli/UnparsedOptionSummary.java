@@ -29,13 +29,10 @@ class UnparsedOptionSummary
             result.append("[");
         }
 
-        if (m_option.hasValue())
+        result.append(m_option.getValueName());
+        if (m_option.isMultiValued())
         {
-            result.append(m_option.getValueName());
-            if (m_option.isMultiValued())
-            {
-                result.append("...");
-            }
+            result.append("...");
         }
 
         if (m_option.isOptional())
@@ -46,21 +43,11 @@ class UnparsedOptionSummary
         return result;
     }
 
-    private boolean nullOrBlank(final String description)
-    {
-        return description == null || description.trim().equals("");
-    }
-
     @Override public String toString()
     {
         final StringBuilder result = new StringBuilder();
 
         getSummary(result);
-
-        if (!nullOrBlank(m_option.getDescription()))
-        {
-            result.append(" : ").append(m_option.getDescription());
-        }
 
         return result.toString();
     }

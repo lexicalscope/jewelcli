@@ -15,67 +15,38 @@ package uk.co.flamingpenguin.jewel.cli;
 
 import static uk.co.flamingpenguin.jewel.cli.OptionsSpecificationImpl.nullOrBlank;
 
-import java.util.List;
-
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-class UnparsedOptionSpecificationImpl implements Comparable<OptionSpecification>, UnparsedOptionSpecification {
-    private final OptionType m_optionType;
-    private final OptionContext m_optionContext;
+class UnparsedOptionSpecificationImpl implements UnparsedOptionSpecification {
     private final ReflectedMethod method;
     private final ReflectedMethod optionalityMethod;
     private final String valueName;
-    private final String description;
+    private final Class<?> type;
+    private final boolean multiValued;
 
-    UnparsedOptionSpecificationImpl(
+    public UnparsedOptionSpecificationImpl(
             final String valueName,
-            final String description,
-            final OptionType optionType,
-            final OptionContext optionContext,
+            final Class<?> type,
+            final boolean multiValued,
             final ReflectedMethod method,
             final ReflectedMethod optionalityMethod) {
         this.valueName = valueName;
-        this.description = description;
-        m_optionType = optionType;
-        m_optionContext = optionContext;
+        this.type = type;
+        this.multiValued = multiValued;
         this.method = method;
         this.optionalityMethod = optionalityMethod;
     }
 
-    @Override public List<String> getDefaultValue() {
-        return m_optionContext.getDefaultValue();
-    }
-
-    @Override public String getDescription() {
-        return description;
-    }
-
-    @Override public boolean hasDefaultValue() {
-        return !getDefaultValue().isEmpty();
-    }
-
-    @Override public boolean isHelpOption() {
-        return m_optionContext.isHelpRequest();
-    }
-
     @Override public Class<?> getType() {
-        return m_optionType.getType();
-    }
-
-    @Override public boolean hasValue() {
-        return !isBoolean();
+        return type;
     }
 
     @Override public boolean isMultiValued() {
-        return m_optionType.isMultiValued();
+        return multiValued;
     }
 
     @Override public boolean isOptional() {
-        return optionalityMethod != null || isBoolean();
-    }
-
-    private final boolean isBoolean() {
-        return getType().isAssignableFrom(Boolean.class) || getType().isAssignableFrom(boolean.class);
+        return optionalityMethod != null;
     }
 
     @Override public String getCanonicalIdentifier() {
@@ -92,10 +63,6 @@ class UnparsedOptionSpecificationImpl implements Comparable<OptionSpecification>
 
     @Override public String getValueName() {
         return nullOrBlank(valueName) ? "ARGUMENTS" : valueName;
-    }
-
-    @Override public int compareTo(final OptionSpecification other) {
-        return getCanonicalIdentifier().compareTo(other.getCanonicalIdentifier());
     }
 
     @Override public String toString() {

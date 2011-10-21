@@ -138,7 +138,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
         }
     }
 
-    private boolean hasExcessValues(final Argument entry, final OptionSpecification optionSpecification)
+    private boolean hasExcessValues(final Argument entry, final ParsedOptionSpecification optionSpecification)
     {
         return !optionSpecification.isMultiValued()
                 && (entry.getValues().size() > 1 || entry.getValues().size() > 0 && !optionSpecification.hasValue());
