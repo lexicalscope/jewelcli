@@ -4,6 +4,10 @@
                                        
 API Changes
 
+* Changes in version 0.7.4
+
+  * remove accidental dependency on cglib
+
 * Changes in version 0.7.3
   
   * null default values (for a different style of optional option)

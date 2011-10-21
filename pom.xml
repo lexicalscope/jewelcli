@@ -319,8 +319,17 @@
                         <include>org.apache.commons:commons-lang3</include>
                         <include>com.google.guava:guava</include>
                         <include>com.lexicalscope.fluent-reflection:fluent-reflection</include>
+                        <include>cglib:cglib-nodep</include>
                     </includes>
                     <rules>
+                        <rule>
+                            <pattern>net.sf.cglib.**.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.cglib.@1.$@2</result>
+                        </rule>
+                        <rule>
+                            <pattern>net.sf.cglib.*</pattern>
+                            <result>com.lexicalscope.jewelcli.internal.cglib.$@1</result>
+                        </rule>
                         <rule>
                             <pattern>com.google.common.**.*</pattern>
                             <result>com.lexicalscope.jewelcli.internal.guava.@1.$@2</result>
@@ -391,6 +400,8 @@
                     <options>
                         <option>-allowaccessmodification</option>
                         <option>-dontobfuscate</option>
+                        <option>-dontnote</option>
+                        <option>-dontwarn</option>
                         <option>-keep public class uk.co.flamingpenguin.jewel.cli.* { *; }</option>
                         <option>-keep public interface uk.co.flamingpenguin.jewel.cli.* { *; }</option>
                     </options>
