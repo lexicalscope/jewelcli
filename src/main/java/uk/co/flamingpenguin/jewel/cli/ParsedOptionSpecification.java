@@ -96,4 +96,9 @@ interface ParsedOptionSpecification extends OptionSpecification {
      * @return a description of the option
      */
     String getDescription();
+
+    /**
+     * @return option is a boolean option
+     */
+    boolean isBoolean();
 }

@@ -1,7 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.annotatedWith;
-import static com.lexicalscope.fluentreflection.bean.MapBean.bean;
 import static java.util.Arrays.asList;
 import static uk.co.flamingpenguin.jewel.cli.ConvertTypeOfObject.converterTo;
 
@@ -15,10 +14,15 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
 class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
     private final OptionsSpecification<O> specification;
     private final ReflectedClass<O> klass;
+    private final ArgumentPresentingStrategy<O> argumentPresentingStrategy;
 
-    public ArgumentPresenterImpl(final ReflectedClass<O> klass, final OptionsSpecification<O> specification) {
+    public ArgumentPresenterImpl(
+            final ReflectedClass<O> klass,
+            final OptionsSpecification<O> specification,
+            final ArgumentPresentingStrategy<O> argumentPresentingStrategy) {
         this.specification = specification;
         this.klass = klass;
+        this.argumentPresentingStrategy = argumentPresentingStrategy;
     }
 
     @Option public O presentArguments(final ArgumentCollection validatedArguments) throws ArgumentValidationException {
@@ -34,7 +38,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
             final ConvertTypeOfObject<?> convertTypeOfObject =
                     converterTo(validationErrorBuilder, optionSpecification, reflectedMethod);
             final Option optionAnnotation = reflectedMethod.annotation(Option.class);
-            if (reflectedMethod.returnType().assignableTo(Iterable.class))
+            if (optionSpecification.isMultiValued())
             {
                 argumentMap.put(
                         reflectedMethod.propertyName(),
@@ -73,7 +77,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
                                 reflectedMethod);
                 if (!validatedArguments.getUnparsed().isEmpty())
                 {
-                    if (reflectedMethod.returnType().assignableTo(Iterable.class))
+                    if (specification.getUnparsedSpecification().isMultiValued())
                     {
                         argumentMap.put(
                                 reflectedMethod.propertyName(),
@@ -89,6 +93,6 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
             }
         }
         validationErrorBuilder.validate();
-        return bean(klass, argumentMap);
+        return argumentPresentingStrategy.presentArguments(argumentMap);
     }
 }

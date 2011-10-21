@@ -152,6 +152,7 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
 
         throw new ClassCastException(String.format("cannot convert %s to %s", value.getClass(), klass));
     }
+
     private T convertIterable(final Object value) {
         final ReflectedClass<?> desiredCollectionReflectedType =
                 reflectedKlass.asType(reflectedTypeReflectingOn(Iterable.class)).typeArgument(0);
@@ -175,37 +176,37 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
         return Iterable.class.isAssignableFrom(klass);
     }
 
-    public static <T> ConvertTypeOfObject<T> converterTo(
+    static <T> ConvertTypeOfObject<T> converterTo(
             final ValidationErrorBuilder validationErrorBuilder,
             final OptionSpecification specification,
             final ReflectedMethod method) {
+        ReflectedClass<T> methodType;
         if (isSetter().matches(method))
         {
-            return converterTo(
-                    validationErrorBuilder,
-                    specification,
-                    (ReflectedClass<T>) AbstractConvertMethodToOptionSpecification.getValueTypeFromMethodType(method
-                            .argumentTypes()
-                            .get(0)));
+            methodType = (ReflectedClass<T>) method.argumentTypes().get(0);
         }
-        return converterTo(validationErrorBuilder, specification, (ReflectedClass<T>) method.returnType());
+        else
+        {
+            methodType = (ReflectedClass<T>) method.returnType();
+        }
+        return converterTo(validationErrorBuilder, specification, methodType);
     }
 
-    public static <T> ConvertTypeOfObject<T> converterTo(
+    private static <T> ConvertTypeOfObject<T> converterTo(
             final ValidationErrorBuilder validationErrorBuilder,
             final OptionSpecification specification,
             final ReflectedClass<T> type) {
         return new ConvertTypeOfObject<T>(validationErrorBuilder, specification, type);
     }
 
-    public static <T> ConvertTypeOfObject<T> converterTo(
+    static <T> ConvertTypeOfObject<T> converterTo(
             final ValidationErrorBuilder validationErrorBuilder,
             final OptionSpecification specification,
             final Class<T> klass) {
         return converterTo(validationErrorBuilder, specification, type(klass));
     }
 
-    public static <T> ConvertTypeOfObject<T> converterTo(
+    static <T> ConvertTypeOfObject<T> converterTo(
             final ValidationErrorBuilder validationErrorBuilder,
             final OptionSpecification specification,
             final TypeToken<T> token) {

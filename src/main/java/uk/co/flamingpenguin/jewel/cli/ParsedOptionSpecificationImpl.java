@@ -20,8 +20,8 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class ParsedOptionSpecificationImpl implements Comparable<OptionSpecification>, ParsedOptionSpecification {
     private final OptionName optionName;
-    private final OptionType m_optionType;
-    private final OptionContext m_optionContext;
+    private final OptionType optionType;
+    private final OptionContext optionContext;
     private final ReflectedMethod method;
     private final ReflectedMethod optionalityMethod;
 
@@ -32,25 +32,25 @@ class ParsedOptionSpecificationImpl implements Comparable<OptionSpecification>, 
             final ReflectedMethod method,
             final ReflectedMethod optionalityMethod) {
         this.optionName = optionName;
-        m_optionType = optionType;
-        m_optionContext = optionContext;
+        this.optionType = optionType;
+        this.optionContext = optionContext;
         this.method = method;
         this.optionalityMethod = optionalityMethod;
     }
 
-    public List<String> getDefaultValue() {
-        return m_optionContext.getDefaultValue();
+    @Override public List<String> getDefaultValue() {
+        return optionContext.getDefaultValue();
     }
 
-    public String getDescription() {
+    @Override public String getDescription() {
         return optionName.getDescription();
     }
 
-    public List<String> getLongName() {
+    @Override public List<String> getLongName() {
         return optionName.getLongNames();
     }
 
-    public List<String> getShortNames() {
+    @Override public List<String> getShortNames() {
         return optionName.getShortNames();
     }
 
@@ -60,39 +60,39 @@ class ParsedOptionSpecificationImpl implements Comparable<OptionSpecification>, 
         return result;
     }
 
-    public boolean hasDefaultValue() {
+    @Override public boolean hasDefaultValue() {
         return !getDefaultValue().isEmpty();
     }
 
-    public boolean hasShortName() {
+    @Override public boolean hasShortName() {
         return !getShortNames().isEmpty();
     }
 
-    public boolean isHelpOption() {
-        return m_optionContext.isHelpRequest();
+    @Override public boolean isHelpOption() {
+        return optionContext.isHelpRequest();
     }
 
-    public String getPattern() {
-        return m_optionType.getPattern();
+    @Override public String getPattern() {
+        return optionType.getPattern();
     }
 
-    public Class<?> getType() {
-        return m_optionType.getType();
+    @Override public Class<?> getType() {
+        return optionType.getType();
     }
 
-    public boolean hasValue() {
+    @Override public boolean hasValue() {
         return !isBoolean();
     }
 
-    public boolean isMultiValued() {
-        return m_optionType.isMultiValued();
+    @Override public boolean isMultiValued() {
+        return optionType.isMultiValued();
     }
 
-    public boolean isOptional() {
+    @Override public boolean isOptional() {
         return optionalityMethod != null || isBoolean();
     }
 
-    private final boolean isBoolean() {
+    @Override public final boolean isBoolean() {
         return getType().isAssignableFrom(Boolean.class) || getType().isAssignableFrom(boolean.class);
     }
 

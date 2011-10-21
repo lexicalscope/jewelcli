@@ -19,12 +19,15 @@ import static com.lexicalscope.fluentreflection.FluentReflection.type;
 import com.lexicalscope.fluentreflection.ReflectedClass;
 
 class CliInstanceImpl<O> extends AbstractCliImpl<O> {
-    public CliInstanceImpl(final Object options) {
+    private final O options;
+
+    public CliInstanceImpl(final O options) {
         this(options, (ReflectedClass<O>) type(options.getClass()));
     }
 
-    public CliInstanceImpl(final Object options, final ReflectedClass<O> type) {
+    public CliInstanceImpl(final O options, final ReflectedClass<O> type) {
         super(type, createOptionSpecification(type));
+        this.options = options;
     }
 
     private static <O> OptionsSpecification<O> createOptionSpecification(final ReflectedClass<O> klass) {
@@ -34,6 +37,9 @@ class CliInstanceImpl<O> extends AbstractCliImpl<O> {
     @Override protected ArgumentPresenterImpl<O> argumentPresenter(
             final ReflectedClass<O> klass,
             final OptionsSpecification<O> specification) {
-        return new ArgumentPresenterImpl<O>(klass, specification);
+        return new ArgumentPresenterImpl<O>(klass, specification, new InstanceArgumentPresentingStrategy<O>(
+                specification,
+                klass,
+                options));
     }
 }

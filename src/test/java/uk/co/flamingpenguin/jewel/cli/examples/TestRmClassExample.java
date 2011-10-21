@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import uk.co.flamingpenguin.jewel.UtilitiesForTesting;
@@ -13,7 +12,7 @@ import uk.co.flamingpenguin.jewel.cli.Cli;
 import uk.co.flamingpenguin.jewel.cli.CliFactory;
 
 public class TestRmClassExample {
-    @Test @Ignore public void testRmExample() throws ArgumentValidationException {
+    @Test public void testRmExample() throws ArgumentValidationException {
         final RmClassExample result0 =
                 CliFactory.parseArgumentsUsingInstance(new RmClassExample(), new String[] { "-vrf", "./" });
         assertTrue(result0.isRecursive());
@@ -22,13 +21,14 @@ public class TestRmClassExample {
         assertFalse(result0.isHelp());
         assertFalse(result0.isVersion());
         assertFalse(result0.isInteractive());
+        assertFalse(result0.isRemoveNonEmptyDirectory());
 
         assertEquals(1, result0.getFiles().size());
         assertEquals(new File("./"), result0.getFiles().get(0));
     }
 
-    @Test @Ignore public void testRmExampleHelp() throws ArgumentValidationException {
-        final Cli<RmClassExample> result0 = CliFactory.createCli(RmClassExample.class);
+    @Test public void testRmExampleHelp() throws ArgumentValidationException {
+        final Cli<RmClassExample> result0 = CliFactory.createCliUsingInstance(new RmClassExample());
         assertEquals(
                 UtilitiesForTesting.joinLines(
                         "Usage: rm [options] FILE...",
