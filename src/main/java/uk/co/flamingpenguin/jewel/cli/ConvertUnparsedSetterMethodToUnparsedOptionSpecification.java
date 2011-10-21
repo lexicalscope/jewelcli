@@ -18,11 +18,11 @@ import ch.lambdaj.function.convert.Converter;
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-class ConvertUnparsedMethodToUnparsedOptionSpecification extends AbstractConvertMethodToOptionSpecification
+class ConvertUnparsedSetterMethodToUnparsedOptionSpecification extends AbstractConvertMethodToOptionSpecification
         implements
         Converter<ReflectedMethod, UnparsedOptionSpecification> {
 
-    public ConvertUnparsedMethodToUnparsedOptionSpecification(final ReflectedClass<?> klass) {
+    public ConvertUnparsedSetterMethodToUnparsedOptionSpecification(final ReflectedClass<?> klass) {
         super(klass);
     }
 
@@ -30,14 +30,10 @@ class ConvertUnparsedMethodToUnparsedOptionSpecification extends AbstractConvert
         final UnparsedOptionSpecificationBuilder optionSpecificationBuilder =
                 new UnparsedOptionSpecificationBuilder(method);
 
-        final ReflectedClass<?> methodType = method.returnType();
+        final ReflectedClass<?> methodType = method.argumentTypes().get(0);
 
-        final boolean multiValued = isMultiValued(methodType);
-
-        optionSpecificationBuilder.setType(getValueTypeFromMethodType(methodType, multiValued));
-        optionSpecificationBuilder.setMultiValued(multiValued);
-
-        configureOptionalityMethod(method, optionSpecificationBuilder);
+        optionSpecificationBuilder.setType(getValueTypeFromMethodType(methodType));
+        optionSpecificationBuilder.setMultiValued(isMultiValued(methodType));
 
         final Unparsed annotation = method.annotation(Unparsed.class);
 

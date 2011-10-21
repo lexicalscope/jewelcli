@@ -1,5 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 /*
@@ -20,4 +21,5 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 interface OptionSpecificationBuilder {
     void setOptionalityMethod(ReflectedMethod optionalityMethod);
+    void setType(ReflectedClass<?> type);
 }

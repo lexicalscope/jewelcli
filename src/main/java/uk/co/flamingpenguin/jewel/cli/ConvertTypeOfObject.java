@@ -178,6 +178,22 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
     public static <T> ConvertTypeOfObject<T> converterTo(
             final ValidationErrorBuilder validationErrorBuilder,
             final OptionSpecification specification,
+            final ReflectedMethod method) {
+        if (isSetter().matches(method))
+        {
+            return converterTo(
+                    validationErrorBuilder,
+                    specification,
+                    (ReflectedClass<T>) AbstractConvertMethodToOptionSpecification.getValueTypeFromMethodType(method
+                            .argumentTypes()
+                            .get(0)));
+        }
+        return converterTo(validationErrorBuilder, specification, (ReflectedClass<T>) method.returnType());
+    }
+
+    public static <T> ConvertTypeOfObject<T> converterTo(
+            final ValidationErrorBuilder validationErrorBuilder,
+            final OptionSpecification specification,
             final ReflectedClass<T> type) {
         return new ConvertTypeOfObject<T>(validationErrorBuilder, specification, type);
     }

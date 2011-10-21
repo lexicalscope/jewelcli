@@ -32,7 +32,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
                     specification.getSpecification(reflectedMethod);
 
             final ConvertTypeOfObject<?> convertTypeOfObject =
-                    converterTo(validationErrorBuilder, optionSpecification, reflectedMethod.returnType());
+                    converterTo(validationErrorBuilder, optionSpecification, reflectedMethod);
             final Option optionAnnotation = reflectedMethod.annotation(Option.class);
             if (reflectedMethod.returnType().assignableTo(Iterable.class))
             {
@@ -70,7 +70,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
                         converterTo(
                                 validationErrorBuilder,
                                 specification.getUnparsedSpecification(),
-                                reflectedMethod.returnType());
+                                reflectedMethod);
                 if (!validatedArguments.getUnparsed().isEmpty())
                 {
                     if (reflectedMethod.returnType().assignableTo(Iterable.class))

@@ -16,11 +16,12 @@ package uk.co.flamingpenguin.jewel.cli;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class ParsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
     private final ReflectedMethod m_method;
-    private Class<?> m_type;
+    private ReflectedClass<?> m_type;
     private boolean m_multiValued;
     private ReflectedMethod optionalityMethod;
     private final List<String> m_shortNames = new ArrayList<String>();
@@ -34,7 +35,7 @@ class ParsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
         m_method = method;
     }
 
-    public void setType(final Class<?> type) {
+    public void setType(final ReflectedClass<?> type) {
         m_type = type;
     }
 
@@ -73,7 +74,7 @@ class ParsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
     public ParsedOptionSpecification createOptionSpecification() {
         final OptionName optionName =
                 new OptionName(m_method, m_method.propertyName(), m_longName, m_shortNames, m_description);
-        final OptionType optionType = new OptionType(m_type, m_pattern, m_multiValued);
+        final OptionType optionType = new OptionType(m_type.classUnderReflection(), m_pattern, m_multiValued);
         final OptionContext optionContext = new OptionContext(m_defaultValue, m_helpRequest);
 
         return new ParsedOptionSpecificationImpl(optionName,

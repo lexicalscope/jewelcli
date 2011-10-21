@@ -31,10 +31,8 @@ class ConvertGetterMethodToParsedOptionSpecification extends AbstractConvertMeth
                 new ParsedOptionSpecificationBuilder(method);
 
         final ReflectedClass<?> methodType = method.returnType();
-        final boolean multiValued = isMultiValued(methodType);
-
-        optionSpecificationBuilder.setType(getValueTypeFromMethodType(methodType, multiValued));
-        optionSpecificationBuilder.setMultiValued(multiValued);
+        optionSpecificationBuilder.setType(getValueTypeFromMethodType(methodType));
+        optionSpecificationBuilder.setMultiValued(isMultiValued(methodType));
 
         configureOptionalityMethod(method, optionSpecificationBuilder);
 

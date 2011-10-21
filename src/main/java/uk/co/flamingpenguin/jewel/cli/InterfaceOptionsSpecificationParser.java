@@ -32,7 +32,7 @@ class InterfaceOptionsSpecificationParser<O> {
                         new ConvertGetterMethodToParsedOptionSpecification(klass)),
                 convert(
                         klass.methods(isQuery().and(annotatedWith(Unparsed.class))),
-                        new ConvertUnparsedMethodToUnparsedOptionSpecification(klass)));
+                        new ConvertUnparsedGetterMethodToUnparsedOptionSpecification(klass)));
     }
 
     static <O> OptionsSpecification<O> createOptionsSpecificationImpl(final ReflectedClass<O> klass) {

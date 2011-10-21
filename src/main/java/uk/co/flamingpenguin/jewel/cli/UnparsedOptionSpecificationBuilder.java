@@ -13,11 +13,12 @@
  */
 package uk.co.flamingpenguin.jewel.cli;
 
+import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class UnparsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
     private final ReflectedMethod m_method;
-    private Class<?> m_type;
+    private ReflectedClass<?> m_type;
     private boolean m_multiValued;
     private ReflectedMethod optionalityMethod;
     private String valueName;
@@ -26,7 +27,7 @@ class UnparsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
         m_method = method;
     }
 
-    public void setType(final Class<?> type) {
+    @Override public void setType(final ReflectedClass<?> type) {
         m_type = type;
     }
 
@@ -45,7 +46,7 @@ class UnparsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
     public UnparsedOptionSpecification createOptionSpecification() {
         return new UnparsedOptionSpecificationImpl(
                 valueName,
-                m_type,
+                m_type.classUnderReflection(),
                 m_multiValued,
                 m_method,
                 optionalityMethod);

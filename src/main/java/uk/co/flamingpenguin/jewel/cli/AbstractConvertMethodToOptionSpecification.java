@@ -1,5 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import static com.lexicalscope.fluentreflection.FluentReflection.type;
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 import static java.util.Arrays.asList;
 
@@ -47,24 +48,23 @@ public class AbstractConvertMethodToOptionSpecification {
         return prefix + name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 
-    protected final boolean isMultiValued(final ReflectedClass<?> methodType) {
+    static final boolean isMultiValued(final ReflectedClass<?> methodType) {
         return methodType.isType(reflectedTypeReflectingOn(Collection.class));
     }
 
-    protected final Class<? extends Object> getValueTypeFromMethodType(
-            final ReflectedClass<?> methodType,
-            final boolean multiValued) {
+    static final ReflectedClass<? extends Object> getValueTypeFromMethodType(
+            final ReflectedClass<?> methodType) {
+        final boolean multiValued = isMultiValued(methodType);
+
         final ReflectedClass<? extends Object> valueType =
                 multiValued
                         ? methodType.asType(reflectedTypeReflectingOn(Collection.class)).typeArgument(0)
                         : methodType;
 
-        return valueType.classUnderReflection().equals(Object.class)
-                ? String.class
-                : valueType
-                        .classUnderReflection();
+        return reflectedTypeReflectingOn(Object.class).matches(valueType)
+                ? type(String.class)
+                : valueType;
     }
-
     protected final void configureOptionalityMethod(
             final ReflectedMethod method,
             final OptionSpecificationBuilder optionSpecificationBuilder) {
