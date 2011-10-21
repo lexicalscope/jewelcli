@@ -33,7 +33,7 @@
 <a name="23" href="#23">23</a>      }
 <a name="24" href="#24">24</a>  
 <a name="25" href="#25">25</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testApplicationName() {
-<a name="26" href="#26">26</a>          <strong class="jxr_keyword">final</strong> CliSpecification specification = <strong class="jxr_keyword">new</strong> CliImpl&lt;ApplicationName&gt;(ApplicationName.<strong class="jxr_keyword">class</strong>).getSpecification();
+<a name="26" href="#26">26</a>          <strong class="jxr_keyword">final</strong> CliSpecification specification = <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;ApplicationName&gt;(ApplicationName.<strong class="jxr_keyword">class</strong>).getSpecification();
 <a name="27" href="#27">27</a>          assertEquals(<span class="jxr_string">"MyApplication"</span>, specification.getApplicationName());
 <a name="28" href="#28">28</a>      }
 <a name="29" href="#29">29</a>  }
