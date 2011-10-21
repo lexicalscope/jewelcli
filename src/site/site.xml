@@ -12,7 +12,8 @@
 
     <menu name="JewelCli">
       <item name="Introduction" href="index.html" />
-      <item name="Usage" href="usage.html" />
+      <item name="Usage (Interface Strategy)" href="usage.html" />
+      <item name="Usage (Instance Strategy)" href="usage-instance.html" />
       <item name="Changes" href="changes.html" />
       <item name="Related" href="related.html" />
       <item name="Examples" href="examples.html" />

@@ -63,6 +63,8 @@ public interface MyExample
 
   Sometimes the option name does not make a very good method name, or vice-versa, in this situation
   the <<longName>> argument can be used:
+  
+  Multiple long names may be defined for each option
 
 +------------------------------------------+
 public interface MyExample

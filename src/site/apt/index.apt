@@ -4,7 +4,7 @@
 
 Welcome to JewelCli
 
- JewelCli uses an annotated interface definition to automatically parse and
+ JewelCli uses an annotated interface or class definition to automatically parse and
 present command line arguments.
 
  Please note that I have recently moved the sourcecode for jewelcli on to 
@@ -32,4 +32,4 @@ present command line arguments.
 
   * Regular Expression argument validation
 
-    A regular expression can be specifed for each option, which the option's values must match.
+    A regular expression can be specified for each option, which the option's values must match.

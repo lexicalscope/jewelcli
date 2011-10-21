@@ -1,0 +1,120 @@
+                                -------------------------
+                                Usage (Instance Strategy)
+                                -------------------------
+
+Usage Introduction
+  An alternative mode of operation for JewelCli is to give it an instance of a class which has annotated
+  setter methods. 
+
+Definition Stage
+
+  JewelCli uses an annotated Java class definition to describe the Command Line Interface in a
+  declarative style. The main annotation is the
+  {{{apidocs/uk/co/flamingpenguin/jewel/cli/Option.html} Option Annotation}}
+
+* Option Annotation
+
+  The option annotation is used to mark a method as an option method, and to give additional information
+  to JewelCli. In JewelCli, defining an option is as simple as:
+
++------------------------------------------+
+public class MyExample
+{
+  @Option
+  void setMyOption(String value);
+}
++------------------------------------------+
+
+  This produces a Command Line with a single option <--myOption> which takes a single string value
+
+  The OptionAnnotation can be configured in exactly the same way as when using an {{{./usage.html} interface}}.
+
+* Parameter Type
+
+  The parameter type of the option method describes what arguments the option takes. There are four general
+  classes of return type; boolean, other primitive, Class, generic List.
+  
+  The parameter types work in exactly the same way as the return type when using an {{{./usage.html} interface}}
+
+* Optional Options
+
+  When using an annotated class you can create an optional argument by specifying a (possibly null) default value. 
+
+  In this example if the option is not specified JewelCli will use the specified default value.
+
++------------------------------------------+
+public class MyExample
+{
+  @Option(defaultValue="3")
+  void setMyOption(int myOption) {}
+
+  @Option(defaultValue={"3","4","5"})
+  void setMyList(List<Integer> myList) {}
+}
++------------------------------------------+
+
+  If you don't want the set method to be called when the option is not present then set the default value to be null:
+
++------------------------------------------+
+public class MyExample
+{
+  @Option(defaultToNull=true)
+  void setMyOption(Integer myOption) {}
+}
++------------------------------------------+
+
+* Unparsed arguments
+
+  Unparsed arguments work the same way as for {{{./usage.html} interface}}. The
+  {{{apidocs/uk/co/flamingpenguin/jewel/cli/Unparsed.html} Unparsed Annotation}} annotation is used to mark
+  a method as the mutator for these unparsed options.
+
++------------------------------------------+
+public class MyExample
+{
+  @Unparsed
+  void setFiles(List<Files> files);
+}
++------------------------------------------+
+
+** Optional unparsed arguments
+
+  Optional <Unparsed> arguments are supported by the same method as normal <Option> options:
+
++------------------------------------------+
+public class MyExample
+{
+  @Unparsed(defaultToNull = true)
+  void setFiles(List<Files> files);
+}
++------------------------------------------+
+
+Parsing Stage
+
+  JewelCli's parsing stage is very simple. Use the
+  {{{apidocs/uk/co/flamingpenguin/jewel/cli/CliFactory.html} CliFactory}} to produce an instance of your
+  annotated Java interface.
+
++------------------------------------------+
+public static void main(String [] args)
+{
+  try
+  {
+    MyExample result = CliFactory.createCliUsingInstance(new MyExample(), args);
+    [...]
+  }
+  catch(ArgumentValidationException e)
+  {
+    [...]
+  }
+}
++------------------------------------------+
+
+ * Error Handling
+
+   Error handling works in exactly the same way as when using an {{{./usage.html} interface}}
+
+Interrogation Stage
+
+  When using the instance based argument presentation you will have to handle the argument yourself when 
+  jewelCli calls the setter methods of your class. 
