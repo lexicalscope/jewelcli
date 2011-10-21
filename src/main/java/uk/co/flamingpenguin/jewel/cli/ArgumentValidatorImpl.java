@@ -20,137 +20,147 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
 class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
 {
-   private final ValidationErrorBuilder m_validationErrorBuilder;
-   private final List<String> m_validatedUnparsedArguments;
-   private final Map<String, List<String>> m_validatedArguments;
-   private final OptionsSpecification<O> m_specification;
+    private final ValidationErrorBuilder m_validationErrorBuilder;
+    private final List<String> m_validatedUnparsedArguments;
+    private final Map<String, List<String>> m_validatedArguments;
+    private final OptionsSpecification<O> m_specification;
 
-   public ArgumentValidatorImpl(final OptionsSpecification<O> specification)
-   {
-      m_specification = specification;
+    public ArgumentValidatorImpl(final OptionsSpecification<O> specification)
+    {
+        m_specification = specification;
 
-      m_validatedArguments = new LinkedHashMap<String, List<String>>();
-      m_validatedUnparsedArguments = new ArrayList<String>();
+        m_validatedArguments = new LinkedHashMap<String, List<String>>();
+        m_validatedUnparsedArguments = new ArrayList<String>();
 
-      m_validationErrorBuilder = new ValidationErrorBuilderImpl();
-   }
+        m_validationErrorBuilder = new ValidationErrorBuilderImpl();
+    }
 
-   /**
-    * {@inheritDoc}
-    */
-   public ArgumentCollection validateArguments(final ArgumentCollection arguments) throws ArgumentValidationException
-   {
-      m_validatedUnparsedArguments.addAll(arguments.getUnparsed());
+    /**
+     * {@inheritDoc}
+     */
+    public ArgumentCollection validateArguments(final ArgumentCollection arguments) throws ArgumentValidationException
+    {
+        m_validatedUnparsedArguments.addAll(arguments.getUnparsed());
 
-      final Iterator<Argument> argumentsIterator = arguments.iterator();
-      while (argumentsIterator.hasNext())
-      {
-         final Argument argument = argumentsIterator.next();
-         final boolean isLast = !argumentsIterator.hasNext();
+        final Iterator<Argument> argumentsIterator = arguments.iterator();
+        while (argumentsIterator.hasNext())
+        {
+            final Argument argument = argumentsIterator.next();
+            final boolean isLast = !argumentsIterator.hasNext();
 
-         if(!m_specification.isSpecified(argument.getOptionName()))
-         {
-            m_validationErrorBuilder.unexpectedOption(argument.getOptionName());
-         }
-         else
-         {
-            final OptionSpecification optionSpecification = m_specification.getSpecification(argument.getOptionName());
-            if(optionSpecification.isHelpOption())
+            if (!m_specification.isSpecified(argument.getOptionName()))
             {
-               m_validationErrorBuilder.helpRequested(m_specification);
-            }
-            else if(argument.getValues().size() == 0 && optionSpecification.hasValue() && !optionSpecification.isMultiValued())
-            {
-               m_validationErrorBuilder.missingValue(optionSpecification);
-            }
-            else if(!isLast && argument.getValues().size() > 0 && !optionSpecification.hasValue())
-            {
-               m_validationErrorBuilder.unexpectedValue(optionSpecification);
-            }
-            else if(!isLast && argument.getValues().size() > 1 && !optionSpecification.isMultiValued())
-            {
-               m_validationErrorBuilder.unexpectedAdditionalValues(optionSpecification);
-            }
-
-            if(isLast && hasExcessValues(argument, optionSpecification))
-            {
-               final List<String> values = new ArrayList<String>();
-               final List<String> unparsed;
-               if(optionSpecification.hasValue())
-               {
-                  values.add(argument.getValues().get(0));
-                  unparsed = new ArrayList<String>(argument.getValues().subList(1, argument.getValues().size()));
-               }
-               else
-               {
-                  unparsed = argument.getValues();
-               }
-
-               m_validatedArguments.put(argument.getOptionName(), values);
-               m_validatedUnparsedArguments.addAll(0, unparsed);
+                m_validationErrorBuilder.unexpectedOption(argument.getOptionName());
             }
             else
             {
-               checkAndAddValues(optionSpecification, argument.getOptionName(), new ArrayList<String>(argument.getValues()));
+                final ParsedOptionSpecification optionSpecification =
+                        m_specification.getSpecification(argument.getOptionName());
+                if (optionSpecification.isHelpOption())
+                {
+                    m_validationErrorBuilder.helpRequested(m_specification);
+                }
+                else if (argument.getValues().size() == 0
+                        && optionSpecification.hasValue()
+                        && !optionSpecification.isMultiValued())
+                {
+                    m_validationErrorBuilder.missingValue(optionSpecification);
+                }
+                else if (!isLast && argument.getValues().size() > 0 && !optionSpecification.hasValue())
+                {
+                    m_validationErrorBuilder.unexpectedValue(optionSpecification);
+                }
+                else if (!isLast && argument.getValues().size() > 1 && !optionSpecification.isMultiValued())
+                {
+                    m_validationErrorBuilder.unexpectedAdditionalValues(optionSpecification);
+                }
+
+                if (isLast && hasExcessValues(argument, optionSpecification))
+                {
+                    final List<String> values = new ArrayList<String>();
+                    final List<String> unparsed;
+                    if (optionSpecification.hasValue())
+                    {
+                        values.add(argument.getValues().get(0));
+                        unparsed = new ArrayList<String>(argument.getValues().subList(1, argument.getValues().size()));
+                    }
+                    else
+                    {
+                        unparsed = argument.getValues();
+                    }
+
+                    m_validatedArguments.put(argument.getOptionName(), values);
+                    m_validatedUnparsedArguments.addAll(0, unparsed);
+                }
+                else
+                {
+                    checkAndAddValues(
+                            optionSpecification,
+                            argument.getOptionName(),
+                            new ArrayList<String>(argument.getValues()));
+                }
             }
-         }
-      }
+        }
 
-      for(final OptionSpecification optionSpecification : m_specification.getMandatoryOptions())
-      {
-         if(!(arguments.containsAny(OptionUtils.getAllNames(optionSpecification))))
-         {
-            m_validationErrorBuilder.missingOption(optionSpecification);
-         }
-      }
+        for (final ParsedOptionSpecification optionSpecification : m_specification.getMandatoryOptions())
+        {
+            if (!arguments.containsAny(optionSpecification.getNames()))
+            {
+                m_validationErrorBuilder.missingOption(optionSpecification);
+            }
+        }
 
-      validateUnparsedOptions();
+        validateUnparsedOptions();
 
-      m_validationErrorBuilder.validate();
+        m_validationErrorBuilder.validate();
 
-      return new ArgumentCollectionImpl(m_validatedArguments, m_validatedUnparsedArguments);
-   }
+        return new ArgumentCollectionImpl(m_validatedArguments, m_validatedUnparsedArguments);
+    }
 
-   private void validateUnparsedOptions()
-   {
-      if(m_specification.hasUnparsedSpecification())
-      {
-         final OptionSpecification argumentSpecification = m_specification.getUnparsedSpecification();
+    private void validateUnparsedOptions()
+    {
+        if (m_specification.hasUnparsedSpecification())
+        {
+            final OptionSpecification argumentSpecification = m_specification.getUnparsedSpecification();
 
-         if(!argumentSpecification.isMultiValued() && !argumentSpecification.isOptional() && m_validatedUnparsedArguments.isEmpty())
-         {
-            m_validationErrorBuilder.missingValue(argumentSpecification);
-         }
-         else if (!argumentSpecification.isMultiValued() && m_validatedArguments.size() > 1)
-         {
-            m_validationErrorBuilder.unexpectedValue(argumentSpecification);
-         }
-      }
-   }
+            if (!argumentSpecification.isMultiValued()
+                    && !argumentSpecification.isOptional()
+                    && m_validatedUnparsedArguments.isEmpty())
+            {
+                m_validationErrorBuilder.missingValue(argumentSpecification);
+            }
+            else if (!argumentSpecification.isMultiValued() && m_validatedArguments.size() > 1)
+            {
+                m_validationErrorBuilder.unexpectedValue(argumentSpecification);
+            }
+        }
+    }
 
-   private boolean hasExcessValues(final Argument entry, final OptionSpecification optionSpecification)
-   {
-      return (!optionSpecification.isMultiValued()
-                && (entry.getValues().size() > 1 || (entry.getValues().size() > 0 && !optionSpecification.hasValue())));
-   }
+    private boolean hasExcessValues(final Argument entry, final OptionSpecification optionSpecification)
+    {
+        return !optionSpecification.isMultiValued()
+                && (entry.getValues().size() > 1 || entry.getValues().size() > 0 && !optionSpecification.hasValue());
+    }
 
-   private void checkAndAddValues(final OptionSpecification optionSpecification, final String option, final ArrayList<String> values)
-   {
-      for (final String value : values)
-      {
-         if(!patternMatches(optionSpecification, value))
-         {
-            m_validationErrorBuilder.patternMismatch(optionSpecification, value);
-         }
-      }
-      m_validatedArguments.put(option, new ArrayList<String>(values));
-   }
+    private void checkAndAddValues(
+            final ParsedOptionSpecification optionSpecification,
+            final String option,
+            final ArrayList<String> values)
+    {
+        for (final String value : values)
+        {
+            if (!patternMatches(optionSpecification, value))
+            {
+                m_validationErrorBuilder.patternMismatch(optionSpecification, value);
+            }
+        }
+        m_validatedArguments.put(option, new ArrayList<String>(values));
+    }
 
-   private boolean patternMatches(final OptionSpecification optionSpecification, final String value)
-   {
-      return value.matches(optionSpecification.getPattern());
-   }
+    private boolean patternMatches(final ParsedOptionSpecification optionSpecification, final String value)
+    {
+        return value.matches(optionSpecification.getPattern());
+    }
 }

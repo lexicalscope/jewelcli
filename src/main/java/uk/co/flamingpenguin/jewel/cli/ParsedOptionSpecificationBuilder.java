@@ -18,7 +18,7 @@ import java.util.List;
 
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-class OptionSpecificationBuilder {
+class ParsedOptionSpecificationBuilder {
     private final ReflectedMethod m_method;
     private Class<?> m_type;
     private boolean m_multiValued;
@@ -30,7 +30,7 @@ class OptionSpecificationBuilder {
     private List<String> m_defaultValue;
     private boolean m_helpRequest;
 
-    public OptionSpecificationBuilder(final ReflectedMethod method) {
+    public ParsedOptionSpecificationBuilder(final ReflectedMethod method) {
         m_method = method;
     }
 
@@ -70,13 +70,13 @@ class OptionSpecificationBuilder {
         m_helpRequest = helpRequest;
     }
 
-    public OptionSpecificationImpl createOptionSpecification() {
+    public ParsedOptionSpecification createOptionSpecification() {
         final OptionName optionName =
                 new OptionName(m_method, m_method.propertyName(), m_longName, m_shortNames, m_description);
         final OptionType optionType = new OptionType(m_type, m_pattern, m_multiValued);
         final OptionContext optionContext = new OptionContext(m_defaultValue, m_helpRequest);
 
-        return new OptionSpecificationImpl(optionName,
+        return new ParsedOptionSpecificationImpl(optionName,
                 optionType,
                 optionContext,
                 m_method,

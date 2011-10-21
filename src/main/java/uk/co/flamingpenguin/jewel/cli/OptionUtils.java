@@ -18,7 +18,7 @@ import java.util.List;
 
 class OptionUtils
 {
-    static List<String> getAllNames(final OptionSpecification specification)
+    static List<String> getAllNames(final ParsedOptionSpecification specification)
     {
         final List<String> result = new ArrayList<String>();
         if (specification.hasShortName())

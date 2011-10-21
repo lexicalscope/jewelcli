@@ -14,72 +14,48 @@ class UnexpectedOptionSpecification implements OptionSpecification
         m_name = name;
     }
 
-    public List<String> getLongName()
-    {
-        return Collections.emptyList();
-    }
-
     @Override public String getCanonicalIdentifier() {
         return m_name;
     }
 
-    public List<String> getShortNames()
-    {
-        return Collections.emptyList();
-    }
-
-    @Override public List<String> getNames() {
-        return Collections.emptyList();
-    }
-
-    public Class<?> getType()
+    @Override public Class<?> getType()
     {
         return Void.class;
     }
 
-    public boolean hasShortName()
+    @Override public boolean hasValue()
     {
         return false;
     }
 
-    public boolean hasValue()
+    @Override public boolean isMultiValued()
     {
         return false;
     }
 
-    public boolean isMultiValued()
+    @Override public boolean isOptional()
     {
         return false;
     }
 
-    public boolean isOptional()
-    {
-        return false;
-    }
-
-    public String getDescription()
+    @Override public String getDescription()
     {
         return String.format("Option not recognised");
     }
 
-    public List<String> getDefaultValue()
+    @Override public List<String> getDefaultValue()
     {
         return Collections.emptyList();
     }
 
-    public boolean hasDefaultValue()
+    @Override public boolean hasDefaultValue()
     {
         return false;
     }
 
-    public boolean isHelpOption()
+    @Override public boolean isHelpOption()
     {
         return false;
-    }
-
-    public String getPattern()
-    {
-        return ".*";
     }
 
     @Override public ReflectedMethod getMethod() {

@@ -18,14 +18,14 @@ import java.util.List;
 
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-class OptionSpecificationImpl implements Comparable<OptionSpecification>, OptionSpecification {
+class ParsedOptionSpecificationImpl implements Comparable<OptionSpecification>, ParsedOptionSpecification {
     private final OptionName optionName;
     private final OptionType m_optionType;
     private final OptionContext m_optionContext;
     private final ReflectedMethod method;
     private final ReflectedMethod optionalityMethod;
 
-    OptionSpecificationImpl(
+    ParsedOptionSpecificationImpl(
             final OptionName optionName,
             final OptionType optionType,
             final OptionContext optionContext,
@@ -113,6 +113,6 @@ class OptionSpecificationImpl implements Comparable<OptionSpecification>, Option
     }
 
     @Override public String toString() {
-        return new OptionSummary(this).toString();
+        return new ParsedOptionSummary(this).toString();
     }
 }

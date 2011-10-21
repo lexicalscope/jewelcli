@@ -45,5 +45,5 @@ interface CliSpecification extends Iterable<OptionSpecification>
      * 
      * @return The specification for any additional unparsed arguments
      */
-    OptionSpecification getUnparsedSpecification();
+    UnparsedOptionSpecification getUnparsedSpecification();
 }

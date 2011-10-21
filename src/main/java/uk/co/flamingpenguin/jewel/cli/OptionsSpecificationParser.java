@@ -29,9 +29,9 @@ class OptionsSpecificationParser<O> {
         return new OptionsSpecificationImpl<O>(klass,
                 convert(
                         klass.methods(isQuery().and(annotatedWith(Option.class))),
-                        new ConvertOptionMethodToOptionSpecification(klass)),
+                        new ConvertOptionMethodToParsedOptionSpecification(klass)),
                 convert(
                         klass.methods(isQuery().and(annotatedWith(Unparsed.class))),
-                        new ConvertUnparsedMethodToOptionSpecification(klass)));
+                        new ConvertUnparsedMethodToUnparsedOptionSpecification(klass)));
     }
 }

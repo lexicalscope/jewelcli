@@ -14,10 +14,9 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
-import static java.util.Arrays.asList;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import ch.lambdaj.function.convert.Converter;
@@ -25,16 +24,18 @@ import ch.lambdaj.function.convert.Converter;
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-class ConvertOptionMethodToOptionSpecification implements Converter<ReflectedMethod, OptionSpecification> {
+class ConvertUnparsedMethodToUnparsedOptionSpecification
+        implements
+        Converter<ReflectedMethod, UnparsedOptionSpecification> {
     private final ReflectedClass<?> klass;
 
-    public ConvertOptionMethodToOptionSpecification(final ReflectedClass<?> klass) {
+    public ConvertUnparsedMethodToUnparsedOptionSpecification(final ReflectedClass<?> klass) {
         this.klass = klass;
     }
 
-    @Override public OptionSpecification convert(final ReflectedMethod method) {
-        final OptionSpecificationBuilder optionSpecificationBuilder =
-                new OptionSpecificationBuilder(method);
+    @Override public UnparsedOptionSpecification convert(final ReflectedMethod method) {
+        final UnparsedOptionSpecificationBuilder optionSpecificationBuilder =
+                new UnparsedOptionSpecificationBuilder(method);
 
         final ReflectedClass<?> returnType = method.returnType();
         final boolean multiValued = returnType.isType(reflectedTypeReflectingOn(Collection.class));
@@ -49,49 +50,19 @@ class ConvertOptionMethodToOptionSpecification implements Converter<ReflectedMet
 
         optionSpecificationBuilder.setMultiValued(multiValued);
 
-        final ReflectedMethod optionalityMethod = findCorrespondingOptionalityMethod(method.propertyName(), klass);
+        final String baseName = method.propertyName();
+        final ReflectedMethod optionalityMethod = findCorrespondingOptionalityMethod(baseName, klass);
         if (optionalityMethod != null) {
             optionSpecificationBuilder.setOptionalityMethod(optionalityMethod);
         }
 
-        final Option optionAnnotation = method.annotation(Option.class);
+        final Unparsed annotation = method.annotation(Unparsed.class);
 
-        final String[] shortNameSpecification = optionAnnotation.shortName();
-        final List<String> shortNames = new ArrayList<String>();
-        for (final String element : shortNameSpecification) {
-            final String shortName = element.trim();
-            if (shortName.length() > 0) {
-                shortNames.add(element.substring(0, 1));
-            }
-        }
-        optionSpecificationBuilder.setShortNames(shortNames);
-
-        optionSpecificationBuilder.setLongName(optionAnnotation.longName().length == 0
-                ? asList(method.propertyName())
-                : asList(optionAnnotation.longName()));
-
-        final String description = optionAnnotation.description().trim();
-        optionSpecificationBuilder.setDescription(description);
-
-        final String pattern = optionAnnotation.pattern();
-        optionSpecificationBuilder.setPattern(pattern);
-
-        if (optionAnnotation.defaultToNull() && optionAnnotation.defaultValue().length != 0)
-        {
-            throw new OptionSpecificationException("option cannot have null default and non-null default value: "
-                    + method);
-        }
-        else if (optionAnnotation.defaultToNull())
-        {
-            optionSpecificationBuilder.setDefaultValue(asList((String) null));
-        }
-        else
-        {
-            optionSpecificationBuilder.setDefaultValue(asList(optionAnnotation.defaultValue()));
-        }
-
-        final boolean helpRequest = optionAnnotation.helpRequest();
-        optionSpecificationBuilder.setHelpRequest(helpRequest);
+        optionSpecificationBuilder.setValueName(annotation.name());
+        optionSpecificationBuilder.setDescription("");
+        optionSpecificationBuilder.setPattern(".*");
+        optionSpecificationBuilder.setDefaultValue(Collections.<String>emptyList());
+        optionSpecificationBuilder.setHelpRequest(false);
 
         return optionSpecificationBuilder.createOptionSpecification();
     }

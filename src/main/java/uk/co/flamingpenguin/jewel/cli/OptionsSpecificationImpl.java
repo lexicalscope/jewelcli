@@ -28,29 +28,30 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
 class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecification {
     private final ReflectedClass<O> klass;
 
-    private final SortedSet<OptionSpecification> options = new TreeSet<OptionSpecification>();
-    private final Map<String, OptionSpecification> optionsByName = new HashMap<String, OptionSpecification>();
-    private final Map<ReflectedMethod, OptionSpecification> optionsMethod =
-            new HashMap<ReflectedMethod, OptionSpecification>();
-    private final Map<ReflectedMethod, OptionSpecification> optionalOptionsMethod =
-            new HashMap<ReflectedMethod, OptionSpecification>();
+    private final SortedSet<ParsedOptionSpecification> options = new TreeSet<ParsedOptionSpecification>();
+    private final Map<String, ParsedOptionSpecification> optionsByName =
+            new HashMap<String, ParsedOptionSpecification>();
+    private final Map<ReflectedMethod, ParsedOptionSpecification> optionsMethod =
+            new HashMap<ReflectedMethod, ParsedOptionSpecification>();
+    private final Map<ReflectedMethod, ParsedOptionSpecification> optionalOptionsMethod =
+            new HashMap<ReflectedMethod, ParsedOptionSpecification>();
 
-    private final Map<ReflectedMethod, OptionSpecification> unparsedOptionsMethod =
-            new HashMap<ReflectedMethod, OptionSpecification>();
-    private final Map<ReflectedMethod, OptionSpecification> unparsedOptionalOptionsMethod =
-            new HashMap<ReflectedMethod, OptionSpecification>();
+    private final Map<ReflectedMethod, UnparsedOptionSpecification> unparsedOptionsMethod =
+            new HashMap<ReflectedMethod, UnparsedOptionSpecification>();
+    private final Map<ReflectedMethod, UnparsedOptionSpecification> unparsedOptionalOptionsMethod =
+            new HashMap<ReflectedMethod, UnparsedOptionSpecification>();
 
     OptionsSpecificationImpl(
             final ReflectedClass<O> klass,
-            final List<OptionSpecification> optionSpecifications,
-            final List<OptionSpecification> unparsedSpecifications) {
+            final List<ParsedOptionSpecification> optionSpecifications,
+            final List<UnparsedOptionSpecification> unparsedSpecifications) {
         this.klass = klass;
 
-        for (final OptionSpecification optionSpecification : optionSpecifications) {
+        for (final ParsedOptionSpecification optionSpecification : optionSpecifications) {
             addOption(optionSpecification);
         }
 
-        for (final OptionSpecification optionSpecification : unparsedSpecifications) {
+        for (final UnparsedOptionSpecification optionSpecification : unparsedSpecifications) {
             addUnparsedOption(optionSpecification);
         }
     }
@@ -63,20 +64,20 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         return optionsByName.containsKey(key);
     }
 
-    @Override public OptionSpecification getSpecification(final String key) {
+    @Override public ParsedOptionSpecification getSpecification(final String key) {
         return optionsByName.get(key);
     }
 
-    @Override public OptionSpecification getSpecification(final ReflectedMethod method) {
+    @Override public ParsedOptionSpecification getSpecification(final ReflectedMethod method) {
         if (optionsMethod.containsKey(method)) {
             return optionsMethod.get(method);
         }
         return optionalOptionsMethod.get(method);
     }
 
-    @Override public List<OptionSpecification> getMandatoryOptions() {
-        final List<OptionSpecification> result = new ArrayList<OptionSpecification>();
-        for (final OptionSpecification specification : options) {
+    @Override public List<ParsedOptionSpecification> getMandatoryOptions() {
+        final List<ParsedOptionSpecification> result = new ArrayList<ParsedOptionSpecification>();
+        for (final ParsedOptionSpecification specification : options) {
             if (!specification.isOptional() && !specification.hasDefaultValue()) {
                 result.add(specification);
             }
@@ -89,7 +90,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         return new ArrayList<OptionSpecification>(optionsMethod.values()).iterator();
     }
 
-    @Override public OptionSpecification getUnparsedSpecification() {
+    @Override public UnparsedOptionSpecification getUnparsedSpecification() {
         return unparsedOptionsMethod.values().iterator().next();
     }
 
@@ -117,7 +118,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         return null;
     }
 
-    private void addOption(final OptionSpecification optionSpecification) {
+    private void addOption(final ParsedOptionSpecification optionSpecification) {
         for (final String name : optionSpecification.getNames()) {
             optionsByName.put(name, optionSpecification);
         }
@@ -130,7 +131,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         }
     }
 
-    private void addUnparsedOption(final OptionSpecification optionSpecification) {
+    private void addUnparsedOption(final UnparsedOptionSpecification optionSpecification) {
         unparsedOptionsMethod.put(optionSpecification.getMethod(), optionSpecification);
 
         if (optionSpecification.isOptional()) {
@@ -159,11 +160,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
 
             if (hasUnparsedSpecification()) {
                 message.append(" ");
-                // TODO[sort this out, unparsed and parsed are not the same, do not reuse use long name 
-                final String unparsedName =
-                        !getUnparsedSpecification().getLongName().isEmpty() ? getUnparsedSpecification()
-                                .getLongName().get(0) : "ARGUMENTS";
-                message.append(unparsedName);
+                message.append(getUnparsedSpecification().getValueName());
 
                 if (getUnparsedSpecification().isMultiValued()) {
                     message.append("...");
@@ -187,7 +184,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         return !nullOrBlank(applicationName());
     }
 
-    private boolean nullOrBlank(final String string) {
+    static boolean nullOrBlank(final String string) {
         return string == null || string.trim().equals("");
     }
 }

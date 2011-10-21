@@ -180,10 +180,9 @@ public class TestCliImpl {
 
     @Test public void testMethodWithArguments() throws ArgumentValidationException {
         try {
-            final SingleOptionWithArgument result =
-                    new CliImpl<SingleOptionWithArgument>(SingleOptionWithArgument.class).parseArguments(new String[] {
-                            "--name",
-                            "value" });
+            new CliImpl<SingleOptionWithArgument>(SingleOptionWithArgument.class).parseArguments(new String[] {
+                    "--name",
+                    "value" });
             fail();
         } catch (final ArgumentValidationException e) {
             assertEquals(

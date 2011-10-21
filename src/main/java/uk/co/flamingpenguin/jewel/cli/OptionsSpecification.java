@@ -7,9 +7,9 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
 interface OptionsSpecification<O> extends CliSpecification {
     boolean isSpecified(String key);
 
-    OptionSpecification getSpecification(String key);
+    ParsedOptionSpecification getSpecification(String key);
 
-    List<OptionSpecification> getMandatoryOptions();
+    List<ParsedOptionSpecification> getMandatoryOptions();
 
-    OptionSpecification getSpecification(ReflectedMethod reflectedMethod);
+    ParsedOptionSpecification getSpecification(ReflectedMethod reflectedMethod);
 }

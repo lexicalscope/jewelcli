@@ -28,7 +28,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
 
         final List<ReflectedMethod> optionMethods = klass.methods(annotatedWith(Option.class));
         for (final ReflectedMethod reflectedMethod : optionMethods) {
-            final OptionSpecification optionSpecification =
+            final ParsedOptionSpecification optionSpecification =
                     specification.getSpecification(reflectedMethod);
 
             final ConvertTypeOfObject<?> convertTypeOfObject =

@@ -13,18 +13,13 @@
  */
 package uk.co.flamingpenguin.jewel.cli;
 
-class OptionSummary
+class UnparsedOptionSummary
 {
-    private final OptionSpecification m_option;
+    private final UnparsedOptionSpecification m_option;
 
-    public OptionSummary(final OptionSpecification option)
+    public UnparsedOptionSummary(final UnparsedOptionSpecification option)
     {
         m_option = option;
-    }
-
-    private boolean hasCustomPattern()
-    {
-        return !m_option.getPattern().equals(".*");
     }
 
     private StringBuilder getSummary(final StringBuilder result)
@@ -34,26 +29,9 @@ class OptionSummary
             result.append("[");
         }
 
-        if (!m_option.getLongName().isEmpty())
-        {
-            result.append("--").append(m_option.getLongName().get(0));
-        }
-
-        for (final String shortName : m_option.getShortNames())
-        {
-            result.append(" -").append(shortName);
-        }
-
         if (m_option.hasValue())
         {
-            if (hasCustomPattern())
-            {
-                result.append(" /").append(m_option.getPattern()).append("/");
-            }
-            else
-            {
-                result.append(" value");
-            }
+            result.append(m_option.getValueName());
             if (m_option.isMultiValued())
             {
                 result.append("...");

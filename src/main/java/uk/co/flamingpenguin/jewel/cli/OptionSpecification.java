@@ -52,36 +52,6 @@ interface OptionSpecification
     boolean isOptional();
 
     /**
-     * Get all of the short names of this option. Short names are single
-     * characters that will by prefixed by the user with "-".
-     * 
-     * @return the short names of this option
-     */
-    List<String> getShortNames();
-
-    /**
-     * All the names of the option
-     * 
-     * @return all the names of the option
-     */
-    List<String> getNames();
-
-    /**
-     * Does this option have a Short Name
-     * 
-     * @return true iff the options has a short name
-     */
-    boolean hasShortName();
-
-    /**
-     * Get the long name of this option. Long names are multiple characters that
-     * will be prefixed by the user with "--".
-     * 
-     * @return the long name of this option
-     */
-    List<String> getLongName();
-
-    /**
      * Get the default values which will be used if the option is not specified
      * by the user.
      * 
@@ -114,13 +84,6 @@ interface OptionSpecification
      * @return True iff this option is a request for help
      */
     boolean isHelpOption();
-
-    /**
-     * The pattern that values must conform to
-     * 
-     * @return the regular expression that values must conform to
-     */
-    String getPattern();
 
     ReflectedMethod getMethod();
 
