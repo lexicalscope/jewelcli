@@ -34,9 +34,10 @@ class ParsedOptionSummary
             result.append("[");
         }
 
-        if (!m_option.getLongName().isEmpty())
-        {
-            result.append("--").append(m_option.getLongName().get(0));
+        String sepatator = "";
+        for (final String longName : m_option.getLongName()) {
+            result.append(sepatator).append("--").append(longName);
+            sepatator = " ";
         }
 
         for (final String shortName : m_option.getShortNames())

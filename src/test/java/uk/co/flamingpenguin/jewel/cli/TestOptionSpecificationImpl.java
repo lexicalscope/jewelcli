@@ -36,6 +36,10 @@ public class TestOptionSpecificationImpl {
         @Option(longName = "name2") String getName2();
     }
 
+    public interface MultipleLongNames {
+        @Option(longName = { "name", "alternativename" }) String getName();
+    }
+
     public interface InvalidLongName {
         @Option(longName = "") String getName0();
     }
@@ -84,6 +88,8 @@ public class TestOptionSpecificationImpl {
 
     public interface ToString {
         @Option(longName = "aLongName") String getLongName();
+
+        @Option(longName = { "aLongName", "alternativeLongName" }) String getMultipleLongNames();
 
         @Option(shortName = "s") String getShortName();
 
@@ -143,6 +149,8 @@ public class TestOptionSpecificationImpl {
 
     @Test public void testToString() throws NoSuchMethodException {
         assertEquals("--aLongName value", createOption(ToString.class, "getLongName").toString());
+        assertEquals("--aLongName --alternativeLongName value", createOption(ToString.class, "getMultipleLongNames")
+                .toString());
         assertEquals("--shortName -s value", createOption(ToString.class, "getShortName").toString());
         assertEquals("[--optional value]", createOption(ToString.class, "getOptional").toString());
         assertEquals("[--optionalMulti value...]", createOption(ToString.class, "getOptionalMulti").toString());
@@ -181,6 +189,10 @@ public class TestOptionSpecificationImpl {
         assertThat(createOption(LongName.class, "getName0").getLongName(), contains("name0"));
         assertThat(createOption(LongName.class, "getName1").getLongName(), contains("totallyDifferent"));
         assertThat(createOption(LongName.class, "getName2").getLongName(), contains("name2"));
+    }
+
+    @Test public void testMultipleLongNames() throws SecurityException, NoSuchMethodException {
+        assertThat(createOption(MultipleLongNames.class, "getName").getLongName(), contains("name", "alternativename"));
     }
 
     @Test public void testEmptyLongNameIsNotAllowed() throws SecurityException, NoSuchMethodException {
