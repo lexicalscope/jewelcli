@@ -4,6 +4,12 @@
                                        
 API Changes
 
+* Changes in version 0.8
+  
+  * null default values (for a different style of optional option)
+  
+  * multiple long names for an option
+
 * Changes in version 0.7
 
   * Non annotated methods now return null rather than throwing an exception.
