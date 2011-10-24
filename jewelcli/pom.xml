@@ -32,6 +32,14 @@
             <archive />
         </mailingList>
     </mailingLists>
+    <!-- gitsite has a problem with maven 3 site plugin -->
+    <url>http://jewelcli.lexicalscope.com/</url>
+    <distributionManagement>
+        <site>
+            <id>github-project-site</id>
+            <url>gitsite:git@github.com/lexicalscope/jewelcli.git</url>
+        </site>
+    </distributionManagement>    
     <reporting>
         <plugins>
             <plugin>
@@ -392,6 +400,13 @@
                     </libs>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <skipDeploy>false</skipDeploy>
+                </configuration>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
@@ -436,33 +451,4 @@
             </plugins>
         </pluginManagement>
     </build>
-    <profiles>
-        <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.4</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
