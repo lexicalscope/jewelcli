@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>About</title>
+    <title>Introduction</title>
     <style type="text/css" media="all">
       @import url("./css/maven-base.css");
       @import url("./css/maven-theme.css");
@@ -17,7 +17,7 @@
   <body class="composite">
     <div id="banner">
                     <div id="bannerLeft">
-                JewelCli Packaging Test
+                JewelCli
                 </div>
                               <a href="http://sourceforge.net" id="bannerRight">
                                         <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=166725&type=1" alt="$alt" />
@@ -45,7 +45,31 @@
       <div id="navcolumn">
              
                 
-                                <h5>Project Documentation</h5>
+                                <h5>JewelCli</h5>
+                  <ul>
+                  <li class="none">
+            <strong>Introduction</strong>
+          </li>
+                  <li class="none">
+                          <a href="usage.html" title="Usage (Interface Strategy)">Usage (Interface Strategy)</a>
+            </li>
+                  <li class="none">
+                          <a href="usage-instance.html" title="Usage (Instance Strategy)">Usage (Instance Strategy)</a>
+            </li>
+                  <li class="none">
+                          <a href="changes.html" title="Changes">Changes</a>
+            </li>
+                  <li class="none">
+                          <a href="related.html" title="Related">Related</a>
+            </li>
+                  <li class="none">
+                          <a href="examples.html" title="Examples">Examples</a>
+            </li>
+                  <li class="none">
+                          <a href="download.html" title="Download">Download</a>
+            </li>
+          </ul>
+                       <h5>Project Documentation</h5>
                   <ul>
                                                                                                                                                                                                             <li class="expanded">
                           <a href="project-info.html" title="Project Information">Project Information</a>
@@ -76,7 +100,7 @@
             </li>
               </ul>
         </li>
-                                                                                                                          <li class="collapsed">
+                                                                                                                                                                                                                    <li class="collapsed">
                           <a href="project-reports.html" title="Project Reports">Project Reports</a>
                   </li>
           </ul>
@@ -89,7 +113,17 @@
     </div>
     <div id="bodyColumn">
       <div id="contentBox">
-        <div class="section"><h2>About JewelCli Packaging Test<a name="About_JewelCli_Packaging_Test"></a></h2><a name="About_JewelCli_Packaging_Test"></a><p>Parent Project for JewelCli</p></div>
+        <div class="section"><h2>Welcome to JewelCli<a name="Welcome_to_JewelCli"></a></h2><p>JewelCli uses an annotated <a href="./usage.html"> interface</a> or <a href="./usage-instance.html"> class</a> definition to automatically parse and present command line arguments.</p><p>Please note that I have recently moved the sourcecode for jewelcli on to <a class="externalLink" href="https://github.com/lexicalscope/jewelcli"> github</a>. I have also changed its location in the <a class="externalLink" href="http://repo1.maven.org/maven2/com/lexicalscope/jewelcli/jewelcli/"> Maven Central Repository</a></p><div class="section"><h3>Features<a name="Features"></a></h3><ul><li>Declarative option definition<p>Options are described in a declarative manner, by annotating a standard Java interface.</p></li><li>Type enforcement<p>Options are automatically constrained to the Java type in the interface.</p></li><li>Generic list support<p>Lists are automatically created for options defined to return any type assignable from java.util.List. All values are checked against the defined generic type of the list.</p></li><li>Enum support<p>Options defined as an enum type are automatically converted.</p></li><li>Regular Expression argument validation<p>A regular expression can be specified for each option, which the option's values must match.</p></li></ul></div><div class="section"><h3>Example<a name="Example"></a></h3><div class="source"><pre>public interface MyExample
+{
+  @Option
+  String getMyOption();
+  
+  @Option(defaultToNull = true)
+  String getMyOptionalOption();
+  
+  @Option
+  List&lt;String&gt; getMyListOption();
+}</pre></div></div></div>
       </div>
     </div>
     <div class="clear">
