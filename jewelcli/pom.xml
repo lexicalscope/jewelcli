@@ -10,37 +10,11 @@
     <name>JewelCli</name>
     <description>JewelCli uses an annotated interface definition to automatically parse and present command line arguments</description>
     <inceptionYear>2006</inceptionYear>
-    <organization>
-        <name>lexicalscope</name>
-        <url>http://www.lexicalscope.com</url>
-    </organization>    
-    <developers>
-        <developer>
-            <id>tim</id>
-            <name>Tim Wood</name>
-            <email>lexicalscope@gmail.com</email>
-            <url>http://www.lexicalscope.com</url>
-            <organization>lexicalscope</organization>
-            <organizationUrl>http://www.lexicalscope.com</organizationUrl>
-            <roles>
-                <role>architect</role>
-                <role>developer</role>
-            </roles>
-            <timezone>0</timezone>
-        </developer>
-    </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
     </properties>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
     <issueManagement>
         <url>http://sourceforge.net/tracker/?group_id=${sourceforge.project.groupId}</url>
     </issueManagement>
@@ -236,7 +210,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -245,7 +218,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.9</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -272,7 +244,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
             </plugin>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
@@ -281,92 +252,92 @@
                 <executions>
                     <execution>
                         <id>jarjar-classes</id>
-                        <phase>process-test-classes</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>jarjar</goal>
                         </goals>
                         <configuration>
-                            <overwrite>true</overwrite>
                             <input>{classes}</input>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>jarjar-testclasses</id>
-                        <phase>process-test-classes</phase>
-                        <goals>
-                            <goal>jarjar</goal>
-                        </goals>
-                        <configuration>
                             <overwrite>true</overwrite>
-                            <input>{test-classes}</input>
+                            <includes>
+                                <include>com.google.inject:guice</include>
+                                <include>com.googlecode.lambdaj:lambdaj</include>
+                                <include>org.apache.commons:commons-lang3</include>
+                                <include>com.google.guava:guava</include>
+                                <include>com.lexicalscope.fluent-reflection:fluent-reflection</include>
+                                <include>cglib:cglib-nodep</include>
+                                <include>org.hamcrest:hamcrest-core</include>
+                                <include>org.hamcrest:hamcrest-library</include>
+                                <include>org.hamcrest:hamcrest-integration</include>
+                            </includes>
+                            <rules>
+                                <rule>
+                                    <pattern>org.hamcrest.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.hamcrest.$@1</result>
+                                </rule>
+                                <rule>
+                                    <pattern>org.hamcrest.**.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.hamcrest.@1.$@2</result>
+                                </rule>
+                                <rule>
+                                    <pattern>net.sf.cglib.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.cglib.$@1</result>
+                                </rule>
+                                <rule>
+                                    <pattern>net.sf.cglib.**.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.cglib.@1.$@2</result>
+                                </rule>
+                                <rule>
+                                    <pattern>net.sf.cglib.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.cglib.$@1</result>
+                                </rule>
+                                <rule>
+                                    <pattern>com.google.common.**.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.guava.@1.$@2</result>
+                                </rule>
+                                <rule>
+                                    <pattern>com.google.common.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.guava.$@1</result>
+                                </rule>
+                                <rule>
+                                    <pattern>com.google.inject.**.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.guice.@1.$@2</result>
+                                </rule>
+                                <rule>
+                                    <pattern>com.google.inject.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.guice.$@1</result>
+                                </rule>
+                                <rule>
+                                    <pattern>ch.lambdaj.**.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.lamdaj.@1.$@2</result>
+                                </rule>
+                                <rule>
+                                    <pattern>ch.lambdaj.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.lamdaj.$@1</result>
+                                </rule>
+                                <rule>
+                                    <pattern>org.apache.commons.lang3.**.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.lang3.@1.$@2</result>
+                                </rule>
+                                <rule>
+                                    <pattern>org.apache.commons.lang3.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.lang3.$@1</result>
+                                </rule>
+                                <rule>
+                                    <pattern>com.lexicalscope.fluentreflection.**.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.fluentreflection.@1.$@2</result>
+                                </rule>
+                                <rule>
+                                    <pattern>com.lexicalscope.fluentreflection.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.fluentreflection.$@1</result>
+                                </rule>
+                            </rules>
                         </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <overwrite>true</overwrite>
-                    <includes>
-                        <include>com.google.inject:guice</include>
-                        <include>com.googlecode.lambdaj:lambdaj</include>
-                        <include>org.apache.commons:commons-lang3</include>
-                        <include>com.google.guava:guava</include>
-                        <include>com.lexicalscope.fluent-reflection:fluent-reflection</include>
-                        <include>cglib:cglib-nodep</include>
-                    </includes>
-                    <rules>
-                        <rule>
-                            <pattern>net.sf.cglib.**.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.cglib.@1.$@2</result>
-                        </rule>
-                        <rule>
-                            <pattern>net.sf.cglib.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.cglib.$@1</result>
-                        </rule>
-                        <rule>
-                            <pattern>com.google.common.**.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.guava.@1.$@2</result>
-                        </rule>
-                        <rule>
-                            <pattern>com.google.common.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.guava.$@1</result>
-                        </rule>
-                        <rule>
-                            <pattern>com.google.inject.**.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.guice.@1.$@2</result>
-                        </rule>
-                        <rule>
-                            <pattern>com.google.inject.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.guice.$@1</result>
-                        </rule>
-                        <rule>
-                            <pattern>ch.lambdaj.**.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.lamdaj.@1.$@2</result>
-                        </rule>
-                        <rule>
-                            <pattern>ch.lambdaj.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.lamdaj.$@1</result>
-                        </rule>
-                        <rule>
-                            <pattern>org.apache.commons.lang3.**.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.lang3.@1.$@2</result>
-                        </rule>
-                        <rule>
-                            <pattern>org.apache.commons.lang3.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.lang3.$@1</result>
-                        </rule>
-                        <rule>
-                            <pattern>com.lexicalscope.fluentreflection.**.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.fluentreflection.@1.$@2</result>
-                        </rule>
-                        <rule>
-                            <pattern>com.lexicalscope.fluentreflection.*</pattern>
-                            <result>com.lexicalscope.jewelcli.internal.fluentreflection.$@1</result>
-                        </rule>
-                    </rules>
-                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
                 <configuration>
                     <excludes>
                         <exclude>META-INF/LICENSE</exclude>
