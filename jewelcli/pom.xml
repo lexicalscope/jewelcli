@@ -3,14 +3,12 @@
     <groupId>com.lexicalscope.jewelcli</groupId>
     <artifactId>jewelcli</artifactId>
     <packaging>jar</packaging>
-    <version>0.7.5-SNAPSHOT</version>
     <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
+        <groupId>com.lexicalscope.jewelcli</groupId>
+        <artifactId>jewelcli-parent</artifactId>
+        <version>0.7.5-SNAPSHOT</version>
     </parent>
     <name>JewelCli</name>
-    <url>http://jewelcli.lexicalscope.com/</url>
     <description>JewelCli uses an annotated interface definition to automatically parse and present command line arguments</description>
     <inceptionYear>2006</inceptionYear>
     <organization>
@@ -32,12 +30,6 @@
             <timezone>0</timezone>
         </developer>
     </developers>
-    <distributionManagement>
-        <site>
-            <id>github-project-site</id>
-            <url>gitsite:git@github.com/lexicalscope/jewelcli.git</url>
-        </site>
-    </distributionManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
