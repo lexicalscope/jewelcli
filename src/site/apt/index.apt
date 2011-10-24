@@ -1,0 +1,10 @@
+                                       ------------
+                                       Introduction
+                                       ------------
+
+Welcome to JewelCli
+
+ JewelCli uses an annotated {{{./jewelcli/usage.html} interface}} or {{{./jewelcli/usage-instance.html} class}} definition to automatically parse and
+present command line arguments.
+
+ The main documentation is available under the {{{./jewelcli/index.html} JewelCli}} module
