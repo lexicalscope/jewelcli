@@ -4,6 +4,10 @@
                                        
 API Changes
 
+* Changes in version 0.7.5
+
+  * remove accidental dependency on hamcrest, also added packaging integration tests to prevent future packaging problems
+
 * Changes in version 0.7.4
 
   * remove accidental dependency on cglib
