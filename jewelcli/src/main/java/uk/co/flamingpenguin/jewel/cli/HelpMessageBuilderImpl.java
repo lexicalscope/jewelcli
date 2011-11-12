@@ -16,43 +16,39 @@ package uk.co.flamingpenguin.jewel.cli;
  * limitations under the License. 
  */
 
-class HelpMessageBuilderImpl {
+class HelpMessageBuilderImpl implements HelpMessage {
     private final StringBuilder message = new StringBuilder();
 
-    public void noUsageInformation() {
+    @Override public void noUsageInformation() {
         message.append("The options available are:");
     }
 
-    @Override public String toString() {
-        return message.toString();
-    }
-
-    public void hasUsageInformation(final String applicationName) {
+    @Override public void hasUsageInformation(final String applicationName) {
         hasUsageInformation();
         message.append(String.format("%s ", applicationName));
     }
 
-    public void hasUsageInformation() {
+    @Override public void hasUsageInformation() {
         message.append("Usage: ");
     }
 
-    public void hasOnlyOptionalOptions() {
+    @Override public void hasOnlyOptionalOptions() {
         message.append("[");
         message.append("options");
         message.append("]");
     }
 
-    public void hasSomeMandatoryOptions() {
+    @Override public void hasSomeMandatoryOptions() {
         message.append("options");
     }
 
-    public void hasUnparsedMultiValuedOption(final String valueName) {
+    @Override public void hasUnparsedMultiValuedOption(final String valueName) {
         message.append(" ");
         message.append(valueName);
         message.append("...");
     }
 
-    public void hasUnparsedOption(final String valueName) {
+    @Override public void hasUnparsedOption(final String valueName) {
         message.append(" ");
         message.append(valueName);
     }
@@ -60,16 +56,21 @@ class HelpMessageBuilderImpl {
     private final String lineSeparator = System.getProperty("line.separator");
     private String separator = "";
 
-    public void startOfOptions() {
+    @Override public void startOfOptions() {
         message.append(lineSeparator);
     }
 
-    public void option(final String specification) {
-        message.append(separator).append("\t").append(specification);
+    @Override public OptionHelpMessage option() {
+        message.append(separator).append("\t");
         separator = lineSeparator;
+        return new HelpMessageOptionSummaryBuilderImpl(message);
     }
 
-    public void endOfOptions() {
+    @Override public void endOfOptions() {
         // OK
+    }
+
+    @Override public String toString() {
+        return message.toString();
     }
 }

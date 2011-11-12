@@ -50,4 +50,8 @@ abstract class AbstractCliImpl<O> implements Cli<O> {
     CliSpecification getSpecification() {
         return optionsSpecification;
     }
+
+    @Override public void describeTo(final HelpMessage helpMessage) {
+        optionsSpecification.describeTo(helpMessage);
+    }
 }

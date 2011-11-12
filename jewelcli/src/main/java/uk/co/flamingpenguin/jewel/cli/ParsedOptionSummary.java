@@ -27,64 +27,79 @@ class ParsedOptionSummary
         return !m_option.getPattern().equals(".*");
     }
 
-    private StringBuilder getSummary(final StringBuilder result)
-    {
-        if (m_option.isOptional())
-        {
-            result.append("[");
-        }
-
-        String sepatator = "";
-        for (final String longName : m_option.getLongName()) {
-            result.append(sepatator).append("--").append(longName);
-            sepatator = " ";
-        }
-
-        for (final String shortName : m_option.getShortNames())
-        {
-            result.append(" -").append(shortName);
-        }
-
-        if (m_option.hasValue())
-        {
-            if (hasCustomPattern())
-            {
-                result.append(" /").append(m_option.getPattern()).append("/");
-            }
-            else
-            {
-                result.append(" value");
-            }
-            if (m_option.isMultiValued())
-            {
-                result.append("...");
-            }
-        }
-
-        if (m_option.isOptional())
-        {
-            result.append("]");
-        }
-
-        return result;
-    }
-
     private boolean nullOrBlank(final String description)
     {
         return description == null || description.trim().equals("");
     }
 
-    @Override public String toString()
-    {
-        final StringBuilder result = new StringBuilder();
-
-        getSummary(result);
-
-        if (!nullOrBlank(m_option.getDescription()))
+    public void describeOptionTo(final OptionHelpMessage helpMessage) {
+        if (m_option.isOptional())
         {
-            result.append(" : ").append(m_option.getDescription());
+            helpMessage.startOptionalOption();
+        }
+        else
+        {
+            helpMessage.startMandatoryOption();
         }
 
-        return result.toString();
+        for (final String longName : m_option.getLongName()) {
+            helpMessage.longName(longName);
+        }
+
+        for (final String shortName : m_option.getShortNames())
+        {
+            helpMessage.shortName(shortName);
+        }
+
+        if (m_option.hasValue())
+        {
+            if (m_option.isMultiValued()) {
+                if (hasCustomPattern())
+                {
+                    helpMessage.multiValuedWithCustomPattern(m_option.getPattern());
+                }
+                else
+                {
+                    helpMessage.multiValuedWithCustomPattern();
+                }
+            } else if (hasCustomPattern())
+            {
+                helpMessage.singleValuedWithCustomPattern(m_option.getPattern());
+            }
+            else
+            {
+                helpMessage.singleValued();
+            }
+        }
+
+        if (m_option.isOptional())
+        {
+            if (hasDescription())
+            {
+                helpMessage.endOptionalOption(m_option.getDescription());
+            } else {
+                helpMessage.endOptionalOption();
+            }
+        }
+        else
+        {
+            if (hasDescription())
+            {
+                helpMessage.endMandatoryOption(m_option.getDescription());
+            } else {
+                helpMessage.endMandatoryOption();
+            }
+        }
+    }
+
+    private boolean hasDescription() {
+        return !nullOrBlank(m_option.getDescription());
+    }
+
+    @Override public String toString() {
+        final OptionHelpMessage helpMessageOptionSummaryBuilderImpl =
+                new HelpMessageOptionSummaryBuilderImpl();
+        this.describeOptionTo(helpMessageOptionSummaryBuilderImpl);
+        return helpMessageOptionSummaryBuilderImpl.toString();
     }
 }

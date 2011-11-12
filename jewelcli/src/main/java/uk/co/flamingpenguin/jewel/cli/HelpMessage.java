@@ -16,7 +16,12 @@ package uk.co.flamingpenguin.jewel.cli;
  * limitations under the License. 
  */
 
-interface HelpMessage {
+/**
+ * BETA - may be altered or removed in future versions
+ * 
+ * @author Tim Wood
+ */
+public interface HelpMessage {
     void noUsageInformation();
 
     void hasUsageInformation(String applicationName);
@@ -33,7 +38,7 @@ interface HelpMessage {
 
     void startOfOptions();
 
-    void option(String specification);
+    OptionHelpMessage option();
 
     void endOfOptions();
 }

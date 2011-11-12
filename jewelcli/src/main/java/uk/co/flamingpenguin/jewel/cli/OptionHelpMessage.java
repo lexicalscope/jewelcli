@@ -16,26 +16,33 @@ package uk.co.flamingpenguin.jewel.cli;
  * limitations under the License. 
  */
 
-interface OptionHelpMessage {
+/**
+ * BETA - may be altered or removed in future versions
+ * 
+ * @author Tim Wood
+ */
+public interface OptionHelpMessage {
     void startOptionalOption();
 
     void startMandatoryOption();
 
-    void longName(final String longName);
+    void longName(String longName);
 
-    void shortName(final String shortName);
+    void shortName(String shortName);
 
-    void multiValuedWithCustomPattern(final String pattern);
+    void multiValuedWithCustomPattern(String pattern);
 
     void multiValuedWithCustomPattern();
 
-    void singleValuedWithCustomPattern(final String pattern);
+    void singleValuedWithCustomPattern(String pattern);
 
     void singleValued();
 
     void endOptionalOption();
 
+    void endOptionalOption(String description);
+
     void endMandatoryOption();
 
-    void optionDescription(final String description);
+    void endMandatoryOption(String description);
 }

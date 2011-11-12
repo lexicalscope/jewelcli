@@ -135,45 +135,44 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         }
     }
 
-    @Override public String toString() {
-        final StringBuilder message = new StringBuilder();
+    @Override public void describeTo(final HelpMessage helpMessage) {
         if (!hasCustomApplicationName() && !hasUnparsedSpecification()) {
-            message.append("The options available are:");
+            helpMessage.noUsageInformation();
         } else {
-            message.append("Usage: ");
-
             if (hasCustomApplicationName()) {
-                message.append(String.format("%s ", applicationName()));
+                helpMessage.hasUsageInformation(applicationName());
+            }
+            else
+            {
+                helpMessage.hasUsageInformation();
             }
 
             if (getMandatoryOptions().isEmpty()) {
-                message.append("[");
+                helpMessage.hasOnlyOptionalOptions();
             }
-            message.append("options");
-            if (getMandatoryOptions().isEmpty()) {
-                message.append("]");
+            else
+            {
+                helpMessage.hasSomeMandatoryOptions();
             }
 
             if (hasUnparsedSpecification()) {
-                message.append(" ");
-                message.append(getUnparsedSpecification().getValueName());
-
                 if (getUnparsedSpecification().isMultiValued()) {
-                    message.append("...");
+                    helpMessage.hasUnparsedMultiValuedOption(getUnparsedSpecification().getValueName());
+                }
+                else
+                {
+                    helpMessage.hasUnparsedOption(getUnparsedSpecification().getValueName());
                 }
             }
         }
 
-        final String lineSeparator = System.getProperty("line.separator");
-        message.append(lineSeparator);
+        helpMessage.startOfOptions();
 
-        String separator = "";
-        for (final OptionSpecification specification : options) {
-            message.append(separator).append("\t").append(specification);
-            separator = lineSeparator;
+        for (final ParsedOptionSpecification specification : options) {
+            new ParsedOptionSummary(specification).describeOptionTo(helpMessage.option());
         }
 
-        return message.toString();
+        helpMessage.endOfOptions();
     }
 
     private boolean hasCustomApplicationName() {
@@ -182,5 +181,11 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
 
     static boolean nullOrBlank(final String string) {
         return string == null || string.trim().equals("");
+    }
+
+    @Override public String toString() {
+        final HelpMessageBuilderImpl helpMessage = new HelpMessageBuilderImpl();
+        describeTo(helpMessage);
+        return helpMessage.toString();
     }
 }

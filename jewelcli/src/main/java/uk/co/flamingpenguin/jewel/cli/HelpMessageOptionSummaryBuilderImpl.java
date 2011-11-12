@@ -16,30 +16,33 @@ package uk.co.flamingpenguin.jewel.cli;
  * limitations under the License. 
  */
 
-class HelpMessageOptionSummaryBuilderImpl {
-    final StringBuilder result = new StringBuilder();
+class HelpMessageOptionSummaryBuilderImpl implements OptionHelpMessage {
+    final StringBuilder result;
 
-    public void startOptionalOption() {
+    public HelpMessageOptionSummaryBuilderImpl(final StringBuilder message) {
+        result = message;
+    }
+
+    public HelpMessageOptionSummaryBuilderImpl() {
+        this(new StringBuilder());
+    }
+
+    @Override public void startOptionalOption() {
         result.append("[");
     }
 
-    @Override public String toString()
-    {
-        return result.toString();
-    }
-
-    public void startMandatoryOption() {
+    @Override public void startMandatoryOption() {
 
     }
 
     private String sepatator = "";
 
-    public void longName(final String longName) {
+    @Override public void longName(final String longName) {
         result.append(sepatator).append("--").append(longName);
         sepatator = " ";
     }
 
-    public void shortName(final String shortName) {
+    @Override public void shortName(final String shortName) {
         result.append(" -").append(shortName);
     }
 
@@ -47,21 +50,47 @@ class HelpMessageOptionSummaryBuilderImpl {
         result.append("...");
     }
 
-    public void multiValuedWithCustomPattern(final String pattern) {
+    @Override public void multiValuedWithCustomPattern(final String pattern) {
         singleValuedWithCustomPattern(pattern);
         multiValued();
     }
 
-    public void multiValuedWithCustomPattern() {
+    @Override public void multiValuedWithCustomPattern() {
         singleValued();
         multiValued();
     }
 
-    public void singleValuedWithCustomPattern(final String pattern) {
+    @Override public void singleValuedWithCustomPattern(final String pattern) {
         result.append(" /").append(pattern).append("/");
     }
 
-    public void singleValued() {
+    @Override public void singleValued() {
         result.append(" value");
+    }
+
+    @Override public void endOptionalOption() {
+        result.append("]");
+    }
+
+    @Override public void endOptionalOption(final String description) {
+        endOptionalOption();
+        optionDescription(description);
+    }
+
+    @Override public void endMandatoryOption() {
+
+    }
+
+    @Override public void endMandatoryOption(final String description) {
+        optionDescription(description);
+    }
+
+    private void optionDescription(final String description) {
+        result.append(" : ").append(description);
+    }
+
+    @Override public String toString()
+    {
+        return result.toString();
     }
 }

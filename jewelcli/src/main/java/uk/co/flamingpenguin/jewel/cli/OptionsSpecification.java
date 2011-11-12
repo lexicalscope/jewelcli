@@ -12,4 +12,6 @@ interface OptionsSpecification<O> extends CliSpecification {
     List<ParsedOptionSpecification> getMandatoryOptions();
 
     ParsedOptionSpecification getSpecification(ReflectedMethod reflectedMethod);
+
+    void describeTo(HelpMessage helpMessage);
 }
