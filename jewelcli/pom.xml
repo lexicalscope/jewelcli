@@ -393,6 +393,7 @@
                         }</option>
                         <option>-keep class com.lexicalscope.jewelcli.internal.fluentreflection.$ReflectedClass</option>
                         <option>-keep class com.lexicalscope.jewelcli.internal.fluentreflection.$ReflectedMethod</option>
+                        <option>-keep class com.lexicalscope.jewelcli.internal.fluentreflection.FluentReflection</option>
                         <option>-keep interface uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError</option>
                     </options>
                     <libs>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.lexicalscope.jewelcli</groupId>
@@ -16,7 +17,9 @@
     <modules>
        <module>jewelcli</module>
        <module>jewelcli-packagingtest</module>
-    </modules>
+    <module>jewelcli-maven-report-plugin</module>
+    <module>jewelcli-maven-report-example</module>
+  </modules>
     <organization>
         <name>lexicalscope</name>
         <url>http://www.lexicalscope.com</url>
@@ -62,7 +65,7 @@
             <subscribe>https://lists.sourceforge.net/lists/listinfo/jewelcli-users</subscribe>
             <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jewelcli-users</unsubscribe>
             <post>jewelcli-users@lists.sourceforge.net</post>
-            <archive />
+            <archive/>
         </mailingList>
     </mailingLists>
     <reporting>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+  <version position="left"/>
+  <bannerRight>
+    <href>http://sourceforge.net</href>
+    <src>http://sflogo.sourceforge.net/sflogo.php?group_id=166725&amp;type=1</src>
+  </bannerRight>
+  <body>
+    <links>
+      <item name="SourceForge Page" href="http://sourceforge.net/projects/jewelcli" />
+    </links>
+    <menu ref="reports"/>
+  </body>
+</project>
