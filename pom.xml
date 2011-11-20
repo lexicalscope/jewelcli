@@ -4,7 +4,7 @@
     <groupId>com.lexicalscope.jewelcli</groupId>
     <artifactId>jewelcli-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.7.6-SNAPSHOT</version>
+    <version>0.7.6</version>
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
@@ -65,7 +65,7 @@
             <subscribe>https://lists.sourceforge.net/lists/listinfo/jewelcli-users</subscribe>
             <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jewelcli-users</unsubscribe>
             <post>jewelcli-users@lists.sourceforge.net</post>
-            <archive/>
+            <archive />
         </mailingList>
     </mailingLists>
     <reporting>
