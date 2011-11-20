@@ -145,55 +145,60 @@
 <a name="135" href="#135">135</a>         }
 <a name="136" href="#136">136</a>     }
 <a name="137" href="#137">137</a> 
-<a name="138" href="#138">138</a>     @Override <strong class="jxr_keyword">public</strong> String toString() {
-<a name="139" href="#139">139</a>         <strong class="jxr_keyword">final</strong> StringBuilder message = <strong class="jxr_keyword">new</strong> StringBuilder();
-<a name="140" href="#140">140</a>         <strong class="jxr_keyword">if</strong> (!hasCustomApplicationName() &amp;&amp; !hasUnparsedSpecification()) {
-<a name="141" href="#141">141</a>             message.append(<span class="jxr_string">"The options available are:"</span>);
-<a name="142" href="#142">142</a>         } <strong class="jxr_keyword">else</strong> {
-<a name="143" href="#143">143</a>             message.append(<span class="jxr_string">"Usage: "</span>);
-<a name="144" href="#144">144</a> 
-<a name="145" href="#145">145</a>             <strong class="jxr_keyword">if</strong> (hasCustomApplicationName()) {
-<a name="146" href="#146">146</a>                 message.append(String.format(<span class="jxr_string">"%s "</span>, applicationName()));
-<a name="147" href="#147">147</a>             }
-<a name="148" href="#148">148</a> 
-<a name="149" href="#149">149</a>             <strong class="jxr_keyword">if</strong> (getMandatoryOptions().isEmpty()) {
-<a name="150" href="#150">150</a>                 message.append(<span class="jxr_string">"["</span>);
-<a name="151" href="#151">151</a>             }
-<a name="152" href="#152">152</a>             message.append(<span class="jxr_string">"options"</span>);
-<a name="153" href="#153">153</a>             <strong class="jxr_keyword">if</strong> (getMandatoryOptions().isEmpty()) {
-<a name="154" href="#154">154</a>                 message.append(<span class="jxr_string">"]"</span>);
-<a name="155" href="#155">155</a>             }
-<a name="156" href="#156">156</a> 
-<a name="157" href="#157">157</a>             <strong class="jxr_keyword">if</strong> (hasUnparsedSpecification()) {
-<a name="158" href="#158">158</a>                 message.append(<span class="jxr_string">" "</span>);
-<a name="159" href="#159">159</a>                 message.append(getUnparsedSpecification().getValueName());
-<a name="160" href="#160">160</a> 
-<a name="161" href="#161">161</a>                 <strong class="jxr_keyword">if</strong> (getUnparsedSpecification().isMultiValued()) {
-<a name="162" href="#162">162</a>                     message.append(<span class="jxr_string">"..."</span>);
-<a name="163" href="#163">163</a>                 }
-<a name="164" href="#164">164</a>             }
-<a name="165" href="#165">165</a>         }
-<a name="166" href="#166">166</a> 
-<a name="167" href="#167">167</a>         <strong class="jxr_keyword">final</strong> String lineSeparator = System.getProperty(<span class="jxr_string">"line.separator"</span>);
-<a name="168" href="#168">168</a>         message.append(lineSeparator);
-<a name="169" href="#169">169</a> 
-<a name="170" href="#170">170</a>         String separator = <span class="jxr_string">""</span>;
-<a name="171" href="#171">171</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> OptionSpecification specification : options) {
-<a name="172" href="#172">172</a>             message.append(separator).append(<span class="jxr_string">"\t"</span>).append(specification);
-<a name="173" href="#173">173</a>             separator = lineSeparator;
-<a name="174" href="#174">174</a>         }
-<a name="175" href="#175">175</a> 
-<a name="176" href="#176">176</a>         <strong class="jxr_keyword">return</strong> message.toString();
-<a name="177" href="#177">177</a>     }
-<a name="178" href="#178">178</a> 
-<a name="179" href="#179">179</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> hasCustomApplicationName() {
-<a name="180" href="#180">180</a>         <strong class="jxr_keyword">return</strong> !nullOrBlank(applicationName());
-<a name="181" href="#181">181</a>     }
-<a name="182" href="#182">182</a> 
-<a name="183" href="#183">183</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> nullOrBlank(<strong class="jxr_keyword">final</strong> String string) {
-<a name="184" href="#184">184</a>         <strong class="jxr_keyword">return</strong> string == <strong class="jxr_keyword">null</strong> || string.trim().equals(<span class="jxr_string">""</span>);
-<a name="185" href="#185">185</a>     }
-<a name="186" href="#186">186</a> }
+<a name="138" href="#138">138</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> describeTo(<strong class="jxr_keyword">final</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/HelpMessage.html">HelpMessage</a> helpMessage) {
+<a name="139" href="#139">139</a>         <strong class="jxr_keyword">if</strong> (!hasCustomApplicationName() &amp;&amp; !hasUnparsedSpecification()) {
+<a name="140" href="#140">140</a>             helpMessage.noUsageInformation();
+<a name="141" href="#141">141</a>         } <strong class="jxr_keyword">else</strong> {
+<a name="142" href="#142">142</a>             <strong class="jxr_keyword">if</strong> (hasCustomApplicationName()) {
+<a name="143" href="#143">143</a>                 helpMessage.hasUsageInformation(applicationName());
+<a name="144" href="#144">144</a>             }
+<a name="145" href="#145">145</a>             <strong class="jxr_keyword">else</strong>
+<a name="146" href="#146">146</a>             {
+<a name="147" href="#147">147</a>                 helpMessage.hasUsageInformation();
+<a name="148" href="#148">148</a>             }
+<a name="149" href="#149">149</a> 
+<a name="150" href="#150">150</a>             <strong class="jxr_keyword">if</strong> (getMandatoryOptions().isEmpty()) {
+<a name="151" href="#151">151</a>                 helpMessage.hasOnlyOptionalOptions();
+<a name="152" href="#152">152</a>             }
+<a name="153" href="#153">153</a>             <strong class="jxr_keyword">else</strong>
+<a name="154" href="#154">154</a>             {
+<a name="155" href="#155">155</a>                 helpMessage.hasSomeMandatoryOptions();
+<a name="156" href="#156">156</a>             }
+<a name="157" href="#157">157</a> 
+<a name="158" href="#158">158</a>             <strong class="jxr_keyword">if</strong> (hasUnparsedSpecification()) {
+<a name="159" href="#159">159</a>                 <strong class="jxr_keyword">if</strong> (getUnparsedSpecification().isMultiValued()) {
+<a name="160" href="#160">160</a>                     helpMessage.hasUnparsedMultiValuedOption(getUnparsedSpecification().getValueName());
+<a name="161" href="#161">161</a>                 }
+<a name="162" href="#162">162</a>                 <strong class="jxr_keyword">else</strong>
+<a name="163" href="#163">163</a>                 {
+<a name="164" href="#164">164</a>                     helpMessage.hasUnparsedOption(getUnparsedSpecification().getValueName());
+<a name="165" href="#165">165</a>                 }
+<a name="166" href="#166">166</a>             }
+<a name="167" href="#167">167</a>         }
+<a name="168" href="#168">168</a> 
+<a name="169" href="#169">169</a>         helpMessage.startOfOptions();
+<a name="170" href="#170">170</a> 
+<a name="171" href="#171">171</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> ParsedOptionSpecification specification : options) {
+<a name="172" href="#172">172</a>             <strong class="jxr_keyword">new</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/ParsedOptionSummary.html">ParsedOptionSummary</a>(specification).describeOptionTo(helpMessage.option());
+<a name="173" href="#173">173</a>         }
+<a name="174" href="#174">174</a> 
+<a name="175" href="#175">175</a>         helpMessage.endOfOptions();
+<a name="176" href="#176">176</a>     }
+<a name="177" href="#177">177</a> 
+<a name="178" href="#178">178</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> hasCustomApplicationName() {
+<a name="179" href="#179">179</a>         <strong class="jxr_keyword">return</strong> !nullOrBlank(applicationName());
+<a name="180" href="#180">180</a>     }
+<a name="181" href="#181">181</a> 
+<a name="182" href="#182">182</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> nullOrBlank(<strong class="jxr_keyword">final</strong> String string) {
+<a name="183" href="#183">183</a>         <strong class="jxr_keyword">return</strong> string == <strong class="jxr_keyword">null</strong> || string.trim().equals(<span class="jxr_string">""</span>);
+<a name="184" href="#184">184</a>     }
+<a name="185" href="#185">185</a> 
+<a name="186" href="#186">186</a>     @Override <strong class="jxr_keyword">public</strong> String toString() {
+<a name="187" href="#187">187</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/HelpMessageBuilderImpl.html">HelpMessageBuilderImpl</a> helpMessage = <strong class="jxr_keyword">new</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/HelpMessageBuilderImpl.html">HelpMessageBuilderImpl</a>();
+<a name="188" href="#188">188</a>         describeTo(helpMessage);
+<a name="189" href="#189">189</a>         <strong class="jxr_keyword">return</strong> helpMessage.toString();
+<a name="190" href="#190">190</a>     }
+<a name="191" href="#191">191</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>
