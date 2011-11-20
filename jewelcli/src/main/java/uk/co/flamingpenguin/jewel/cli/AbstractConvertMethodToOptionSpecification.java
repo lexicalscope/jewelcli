@@ -99,20 +99,33 @@ public class AbstractConvertMethodToOptionSpecification {
         final String pattern = optionAnnotation.pattern();
         optionSpecificationBuilder.setPattern(pattern);
 
-        if (optionAnnotation.defaultToNull() && optionAnnotation.defaultValue().length != 0)
+        if (optionAnnotation.defaultToNull() && hasDefaultValue(optionAnnotation))
         {
             throw new OptionSpecificationException("option cannot have null default and non-null default value: "
                     + method);
         }
         else if (optionAnnotation.defaultToNull())
         {
-            optionSpecificationBuilder.setDefaultValue(asList((String) null));
+            optionSpecificationBuilder.setDefaultToNull(true);
+            if (isMultiValued(method.returnType()))
+            {
+                optionSpecificationBuilder.setDefaultValue(null);
+            }
+            else
+            {
+                optionSpecificationBuilder.setDefaultValue(asList((String) null));
+            }
         }
-        else
+        else if (hasDefaultValue(optionAnnotation))
         {
             optionSpecificationBuilder.setDefaultValue(asList(optionAnnotation.defaultValue()));
         }
 
         optionSpecificationBuilder.setHelpRequest(optionAnnotation.helpRequest());
+    }
+
+    private boolean hasDefaultValue(final Option optionAnnotation) {
+        return !(optionAnnotation.defaultValue().length == 1
+        && optionAnnotation.defaultValue()[0].equals(Option.stringToMarkNoDefault));
     }
 }

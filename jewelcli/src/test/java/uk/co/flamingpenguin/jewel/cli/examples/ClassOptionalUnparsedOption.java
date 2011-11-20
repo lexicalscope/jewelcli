@@ -13,7 +13,7 @@ public class ClassOptionalUnparsedOption
         return myOptionalUnparsedValues;
     }
 
-    @Option(defaultToNull = true) void setMyOptionalUnparsedOption(final List<Integer> myOptionalUnparsedValues) {
+    @Option(defaultValue = {}) void setMyOptionalUnparsedOption(final List<Integer> myOptionalUnparsedValues) {
         this.myOptionalUnparsedValues = myOptionalUnparsedValues;
     }
 }

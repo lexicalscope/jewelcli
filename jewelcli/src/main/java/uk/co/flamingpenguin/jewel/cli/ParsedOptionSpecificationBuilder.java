@@ -30,6 +30,7 @@ class ParsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
     private String m_pattern;
     private List<String> m_defaultValue;
     private boolean m_helpRequest;
+    private boolean defaultToNull;
 
     public ParsedOptionSpecificationBuilder(final ReflectedMethod method) {
         m_method = method;
@@ -67,6 +68,10 @@ class ParsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
         m_defaultValue = defaultValue;
     }
 
+    public void setDefaultToNull(final boolean defaultToNull) {
+        this.defaultToNull = defaultToNull;
+    }
+
     public void setHelpRequest(final boolean helpRequest) {
         m_helpRequest = helpRequest;
     }
@@ -75,7 +80,7 @@ class ParsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
         final OptionName optionName =
                 new OptionName(m_method, m_method.propertyName(), m_longName, m_shortNames, m_description);
         final OptionType optionType = new OptionType(m_type.classUnderReflection(), m_pattern, m_multiValued);
-        final OptionContext optionContext = new OptionContext(m_defaultValue, m_helpRequest);
+        final OptionContext optionContext = new OptionContext(m_defaultValue, m_helpRequest, defaultToNull);
 
         return new ParsedOptionSpecificationImpl(optionName,
                 optionType,

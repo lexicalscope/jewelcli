@@ -26,6 +26,8 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME) @Target(ElementType.METHOD) public @interface Option
 {
+    static final String stringToMarkNoDefault = "7acb394c-4c4f-4414-89df-28a62e785507?39858";
+
     /**
      * The long name of this option
      * 
@@ -59,7 +61,7 @@ import java.lang.annotation.Target;
      * 
      * @return The value to present if none is specified
      */
-    String[] defaultValue() default {};
+    String[] defaultValue() default { stringToMarkNoDefault };
 
     /**
      * The default value is null. Java does not allow null values in

@@ -1,7 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.annotatedWith;
-import static java.util.Arrays.asList;
 import static uk.co.flamingpenguin.jewel.cli.ConvertTypeOfObject.converterTo;
 
 import java.util.LinkedHashMap;
@@ -37,18 +36,17 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
 
             final ConvertTypeOfObject<?> convertTypeOfObject =
                     converterTo(validationErrorBuilder, optionSpecification, reflectedMethod);
-            final Option optionAnnotation = reflectedMethod.annotation(Option.class);
-            if (optionSpecification.isMultiValued())
+            if (optionSpecification.isMultiValued() && optionSpecification.hasDefaultValue())
             {
                 argumentMap.put(
                         reflectedMethod.propertyName(),
-                        convertTypeOfObject.convert(asList(optionAnnotation.defaultValue())));
+                        convertTypeOfObject.convert(optionSpecification.getDefaultValue()));
             }
-            else if (optionAnnotation.defaultValue() != null && optionAnnotation.defaultValue().length > 0)
+            else if (optionSpecification.hasDefaultValue() && optionSpecification.getDefaultValue().size() > 0)
             {
                 argumentMap.put(
                         reflectedMethod.propertyName(),
-                        convertTypeOfObject.convert(optionAnnotation.defaultValue()[0]));
+                        convertTypeOfObject.convert(optionSpecification.getDefaultValue().get(0)));
             }
 
             final Argument argument = validatedArguments.getArgument(optionSpecification.getNames());

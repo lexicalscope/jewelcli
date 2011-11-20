@@ -61,7 +61,7 @@ class ParsedOptionSpecificationImpl implements Comparable<OptionSpecification>, 
     }
 
     @Override public boolean hasDefaultValue() {
-        return !getDefaultValue().isEmpty();
+        return getDefaultValue() != null || optionContext.isDefaultToNull();
     }
 
     @Override public boolean hasShortName() {
