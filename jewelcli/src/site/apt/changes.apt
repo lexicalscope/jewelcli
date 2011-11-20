@@ -7,7 +7,9 @@ API Changes
 * Changes in version 0.7.6
 
   * empty list can now be specified as a default value for multivalued options by using {} as the default value
+  
   * fixed bug where optional multivalued option was always incorrectly indicated as specified
+  
   * changed behaviour of "defaultToNull" for multivalued options to allow the default value to be null instead of confusingly being empty list 
 
 * Changes in version 0.7.5

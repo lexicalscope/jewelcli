@@ -42,14 +42,8 @@ class ParsedOptionSummary
             helpMessage.startMandatoryOption();
         }
 
-        for (final String longName : m_option.getLongName()) {
-            helpMessage.longName(longName);
-        }
-
-        for (final String shortName : m_option.getShortNames())
-        {
-            helpMessage.shortName(shortName);
-        }
+        helpMessage.longName(m_option.getLongName());
+        helpMessage.shortName(m_option.getShortNames());
 
         if (m_option.hasValue())
         {
@@ -62,7 +56,8 @@ class ParsedOptionSummary
                 {
                     helpMessage.multiValuedWithCustomPattern();
                 }
-            } else if (hasCustomPattern())
+            }
+            else if (hasCustomPattern())
             {
                 helpMessage.singleValuedWithCustomPattern(m_option.getPattern());
             }
@@ -70,6 +65,10 @@ class ParsedOptionSummary
             {
                 helpMessage.singleValued();
             }
+        }
+        else
+        {
+            helpMessage.noValued();
         }
 
         if (m_option.isOptional())

@@ -1,5 +1,7 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import java.util.List;
+
 /*
  * Copyright 2011 Tim Wood
  *
@@ -35,15 +37,18 @@ class HelpMessageOptionSummaryBuilderImpl implements OptionHelpMessage {
 
     }
 
-    private String sepatator = "";
-
-    @Override public void longName(final String longName) {
-        result.append(sepatator).append("--").append(longName);
-        sepatator = " ";
+    @Override public void longName(final List<String> longNames) {
+        String sepatator = "";
+        for (final String longName : longNames) {
+            result.append(sepatator).append("--").append(longName);
+            sepatator = " ";
+        }
     }
 
-    @Override public void shortName(final String shortName) {
-        result.append(" -").append(shortName);
+    @Override public void shortName(final List<String> shortNames) {
+        for (final String shortName : shortNames) {
+            result.append(" -").append(shortName);
+        }
     }
 
     private void multiValued() {
@@ -66,6 +71,10 @@ class HelpMessageOptionSummaryBuilderImpl implements OptionHelpMessage {
 
     @Override public void singleValued() {
         result.append(" value");
+    }
+
+    @Override public void noValued() {
+        // OK
     }
 
     @Override public void endOptionalOption() {

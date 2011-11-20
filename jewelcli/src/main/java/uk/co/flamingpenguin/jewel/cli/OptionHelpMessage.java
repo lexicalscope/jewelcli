@@ -1,5 +1,7 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import java.util.List;
+
 /*
  * Copyright 2011 Tim Wood
  *
@@ -26,9 +28,9 @@ public interface OptionHelpMessage {
 
     void startMandatoryOption();
 
-    void longName(String longName);
+    void longName(List<String> longNames);
 
-    void shortName(String shortName);
+    void shortName(List<String> shortName);
 
     void multiValuedWithCustomPattern(String pattern);
 
@@ -37,6 +39,8 @@ public interface OptionHelpMessage {
     void singleValuedWithCustomPattern(String pattern);
 
     void singleValued();
+
+    void noValued();
 
     void endOptionalOption();
 

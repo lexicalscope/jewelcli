@@ -16,6 +16,8 @@ package com.lexicalscope.jewelcli.maven.report;
  * limitations under the License.
  */
 
+import static ch.lambdaj.Lambda.*;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -24,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.doxia.sink.Sink;
@@ -33,7 +34,11 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
 
+import uk.co.flamingpenguin.jewel.cli.Cli;
 import uk.co.flamingpenguin.jewel.cli.CliFactory;
+import uk.co.flamingpenguin.jewel.cli.HelpMessage;
+import uk.co.flamingpenguin.jewel.cli.OptionHelpMessage;
+import ch.lambdaj.function.convert.Converter;
 
 /**
  * Goal which produces a CLI help page for you maven site
@@ -48,6 +53,18 @@ import uk.co.flamingpenguin.jewel.cli.CliFactory;
 public class JewelCliReportMojo
         extends AbstractMavenReport
 {
+    private static final class AddDash implements Converter<String, String> {
+        @Override public String convert(final String string) {
+            return "-" + string;
+        }
+    }
+
+    private static final class AddDashDash implements Converter<String, String> {
+        @Override public String convert(final String string) {
+            return "--" + string;
+        }
+    }
+
     /**
      * Directory where reports will go.
      * 
@@ -103,8 +120,8 @@ public class JewelCliReportMojo
         final ClassLoader classLoader = getClassLoader();
         final Class<?> interfaceClass = interfaceClass(classLoader);
 
-        final String helpMessage = CliFactory.createCli(interfaceClass).getHelpMessage();
-        getLog().debug("cli interface with  " + helpMessage);
+        final Cli<?> cli = CliFactory.createCli(interfaceClass);
+        getLog().debug("cli interface with  " + cli);
 
         final Sink sink = getSink();
         sink.head();
@@ -120,16 +137,154 @@ public class JewelCliReportMojo
         sink.text(getBundle(locale).getString("report.jewelcli.title") + " " + getProject().getName());
         sink.sectionTitle1_();
         sink.lineBreak();
-        sink.lineBreak();
 
         sink.text("Command line interface for " + " " + getProject().getName());
         sink.lineBreak();
+        sink.lineBreak();
 
-        final Scanner scanner = new Scanner(helpMessage);
-        while (scanner.hasNextLine()) {
-            sink.lineBreak();
-            sink.text(scanner.nextLine());
-        }
+        cli.describeTo(new HelpMessage() {
+            @Override public void startOfOptions() {
+                sink.table();
+                sink.tableRow();
+
+                sink.tableHeaderCell();
+                sink.text("Mandatory");
+                sink.tableHeaderCell_();
+
+                sink.tableHeaderCell();
+                sink.text("Long Form");
+                sink.tableHeaderCell_();
+
+                sink.tableHeaderCell();
+                sink.text("Short Form");
+                sink.tableHeaderCell_();
+
+                sink.tableHeaderCell();
+                sink.text("Pattern");
+                sink.tableHeaderCell_();
+
+                sink.tableHeaderCell();
+                sink.text("Description");
+                sink.tableHeaderCell_();
+
+                sink.tableRow_();
+            }
+
+            @Override public OptionHelpMessage option() {
+                return new OptionHelpMessage() {
+                    @Override public void startOptionalOption() {
+                        sink.tableRow();
+                        sink.tableCell("true");
+                    }
+
+                    @Override public void startMandatoryOption() {
+                        sink.tableRow();
+                        sink.tableCell();
+                        sink.text("true");
+                        sink.tableCell_();
+                    }
+
+                    @Override public void singleValuedWithCustomPattern(final String pattern) {
+                        sink.tableCell();
+                        sink.text("/" + pattern + "/");
+                        sink.tableCell_();
+                    }
+
+                    @Override public void singleValued() {
+                        sink.tableCell();
+                        sink.text("/.*/");
+                        sink.tableCell_();
+                    }
+
+                    @Override public void noValued() {
+                        sink.tableCell();
+                        sink.tableCell_();
+                    }
+
+                    @Override public void shortName(final List<String> shortNames) {
+                        sink.tableCell();
+                        sink.text(join(convert(shortNames, new AddDash()), ", "));
+                        sink.tableCell_();
+                    }
+
+                    @Override public void multiValuedWithCustomPattern() {
+                        sink.tableCell();
+                        sink.text("/.*/...");
+                        sink.tableCell_();
+                    }
+
+                    @Override public void multiValuedWithCustomPattern(final String pattern) {
+                        sink.tableCell();
+                        sink.text("/" + pattern + "/...");
+                        sink.tableCell_();
+                    }
+
+                    @Override public void longName(final List<String> longNames) {
+                        sink.tableCell();
+                        sink.text(join(convert(longNames, new AddDashDash()), ", "));
+                        sink.tableCell_();
+                    }
+
+                    @Override public void endOptionalOption(final String description) {
+                        sink.tableCell();
+                        sink.text(description);
+                        sink.tableCell_();
+                        sink.tableRow_();
+                    }
+
+                    @Override public void endOptionalOption() {
+                        sink.tableCell();
+                        sink.tableCell_();
+                        sink.tableRow_();
+                    }
+
+                    @Override public void endMandatoryOption(final String description) {
+                        sink.tableCell();
+                        sink.text(description);
+                        sink.tableCell_();
+                        sink.tableRow_();
+                    }
+
+                    @Override public void endMandatoryOption() {
+                        sink.tableCell();
+                        sink.tableCell_();
+                        sink.tableRow_();
+                    }
+                };
+            }
+
+            @Override public void noUsageInformation() {
+                // nothing
+            }
+
+            @Override public void hasUsageInformation() {
+                sink.text("Usage: ");
+            }
+
+            @Override public void hasUsageInformation(final String applicationName) {
+                sink.text("Usage: " + applicationName + " ");
+            }
+
+            @Override public void hasUnparsedOption(final String valueName) {
+                sink.text(valueName);
+            }
+
+            @Override public void hasUnparsedMultiValuedOption(final String valueName) {
+                sink.text(valueName + "...");
+            }
+
+            @Override public void hasSomeMandatoryOptions() {
+                sink.text("options ");
+            }
+
+            @Override public void hasOnlyOptionalOptions() {
+                sink.text("[options] ");
+            }
+
+            @Override public void endOfOptions() {
+                sink.table_();
+            };
+        });
 
         sink.lineBreak();
         sink.section1_();
