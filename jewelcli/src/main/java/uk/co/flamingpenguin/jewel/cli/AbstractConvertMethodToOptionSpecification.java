@@ -31,15 +31,6 @@ public class AbstractConvertMethodToOptionSpecification {
         this.klass = klass;
     }
 
-    protected final void configureOptionalityMethod(
-            final OptionAdapter optionAdapter,
-            final OptionSpecificationBuilder optionSpecificationBuilder) {
-        final ReflectedMethod optionalityMethod = optionAdapter.correspondingOptionalityMethod();
-        if (optionalityMethod != null) {
-            optionSpecificationBuilder.setOptionalityMethod(optionalityMethod);
-        }
-    }
-
     protected void configureSpecificationFromAnnotation(
             final ReflectedMethod method,
             final ParsedOptionSpecificationBuilder optionSpecificationBuilder) {
@@ -70,25 +61,24 @@ public class AbstractConvertMethodToOptionSpecification {
                         optionAnnotation));
     }
 
-    private void configureSpecificationFromAnnotation(
+    protected void configureSpecificationFromAnnotation(
             final ReflectedMethod method,
             final OptionSpecificationBuilder optionSpecificationBuilder,
-            final OptionAdapter optionAnnotation) {
-        final String description = optionAnnotation.description().trim();
-        optionSpecificationBuilder.setDescription(description);
+            final OptionAdapter annotation) {
 
-        final String pattern = optionAnnotation.pattern();
-        optionSpecificationBuilder.setPattern(pattern);
+        optionSpecificationBuilder.setDescription(annotation.description().trim());
+        optionSpecificationBuilder.setPattern(annotation.pattern());
+        optionSpecificationBuilder.setOptionalityMethod(annotation.correspondingOptionalityMethod());
 
-        if (optionAnnotation.defaultToNull() && hasDefaultValue(optionAnnotation))
+        if (annotation.defaultToNull() && hasDefaultValue(annotation))
         {
             throw new OptionSpecificationException("option cannot have null default and non-null default value: "
                     + method);
         }
-        else if (optionAnnotation.defaultToNull())
+        else if (annotation.defaultToNull())
         {
             optionSpecificationBuilder.setDefaultToNull(true);
-            if (optionAnnotation.isMultiValued())
+            if (annotation.isMultiValued())
             {
                 optionSpecificationBuilder.setDefaultValue(null);
             }
@@ -97,9 +87,9 @@ public class AbstractConvertMethodToOptionSpecification {
                 optionSpecificationBuilder.setDefaultValue(asList((String) null));
             }
         }
-        else if (hasDefaultValue(optionAnnotation))
+        else if (hasDefaultValue(annotation))
         {
-            optionSpecificationBuilder.setDefaultValue(asList(optionAnnotation.defaultValue()));
+            optionSpecificationBuilder.setDefaultValue(asList(annotation.defaultValue()));
         }
     }
 

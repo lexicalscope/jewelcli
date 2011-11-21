@@ -36,8 +36,6 @@ class ConvertGetterMethodToParsedOptionSpecification extends AbstractConvertMeth
         optionSpecificationBuilder.setType(annotation.getValueType());
         optionSpecificationBuilder.setMultiValued(annotation.isMultiValued());
 
-        configureOptionalityMethod(annotation, optionSpecificationBuilder);
-
         configureSpecificationFromAnnotation(method, optionSpecificationBuilder);
 
         return optionSpecificationBuilder.createOptionSpecification();

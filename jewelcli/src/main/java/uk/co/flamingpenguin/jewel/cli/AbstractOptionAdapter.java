@@ -46,6 +46,11 @@ abstract class AbstractOptionAdapter implements OptionAdapter {
     }
 
     @Override public final ReflectedMethod correspondingOptionalityMethod() {
+        if (isMutator().matches(method))
+        {
+            return null;
+        }
+
         final List<ReflectedMethod> methods =
                 klass.methods(
                         callableHasName(addPrefix("is", method.propertyName())).and(isExistence()));
