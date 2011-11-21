@@ -1,6 +1,7 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import static org.junit.Assert.*;
+import static uk.co.flamingpenguin.jewel.cli.CliFactory.parseArguments;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,14 +49,12 @@ public class TestUnparsedArguments {
     }
 
     @Test public void testUnparsedOption() throws ArgumentValidationException {
-        final UnparsedOption result =
-                new CliInterfaceImpl<UnparsedOption>(UnparsedOption.class).parseArguments(new String[] { "value" });
-        assertEquals("value", result.getName());
+        assertEquals("value", parseArguments(UnparsedOption.class, "value").getName());
     }
 
     @Test public void testUnparsedOptionMissingValue() {
         try {
-            new CliInterfaceImpl<UnparsedOption>(UnparsedOption.class).parseArguments(new String[] {});
+            parseArguments(UnparsedOption.class);
             fail();
         } catch (final ArgumentValidationException e) {
             final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
@@ -65,38 +64,29 @@ public class TestUnparsedArguments {
     }
 
     @Test public void testUnparsedListOption() throws ArgumentValidationException {
-        final UnparsedListOption result =
-                new CliInterfaceImpl<UnparsedListOption>(UnparsedListOption.class).parseArguments(new String[] {
-                        "value0",
-                        "value1" });
+        final UnparsedListOption result = parseArguments(UnparsedListOption.class, "value0", "value1");
         assertEquals(2, result.getNames().size());
         assertEquals("value0", result.getNames().get(0));
         assertEquals("value1", result.getNames().get(1));
     }
 
     @Test public void testUnparsedListOptionMissingValue() throws ArgumentValidationException {
-        new CliInterfaceImpl<UnparsedListOption>(UnparsedListOption.class).parseArguments(new String[] {});
+        parseArguments(UnparsedListOption.class);
     }
 
     @Test public void testOptionalUnparsedOption() throws ArgumentValidationException {
-        final UnparsedOption result =
-                new CliInterfaceImpl<UnparsedOption>(UnparsedOption.class).parseArguments(new String[] { "value" });
-        assertEquals(result.getName(), "value");
+        assertEquals(parseArguments(UnparsedOption.class, "value").getName(), "value");
     }
 
     @Test public void testOptionalUnparsedOptionMissingValue() throws ArgumentValidationException {
-        final OptionalUnparsedOption result =
-                new CliInterfaceImpl<OptionalUnparsedOption>(OptionalUnparsedOption.class)
-                        .parseArguments(new String[] {});
-        assertFalse(result.isName());
+        assertFalse(parseArguments(OptionalUnparsedOption.class).isName());
     }
 
     @Test public void testOptionalUnparsedListOption() throws ArgumentValidationException {
-        final OptionalUnparsedListOption result =
-                new CliInterfaceImpl<OptionalUnparsedListOption>(OptionalUnparsedListOption.class)
-                        .parseArguments(new String[] {
-                                "value0",
-                                "value1" });
+        final OptionalUnparsedListOption result = parseArguments(
+                OptionalUnparsedListOption.class,
+                "value0",
+                "value1");
         assertEquals(2, result.getNames().size());
         assertEquals("value0", result.getNames().get(0));
         assertEquals("value1", result.getNames().get(1));
@@ -104,9 +94,6 @@ public class TestUnparsedArguments {
     }
 
     @Test public void testOptionalUnparsedListOptionMissingValue() throws ArgumentValidationException {
-        final OptionalUnparsedListOption result =
-                new CliInterfaceImpl<OptionalUnparsedListOption>(OptionalUnparsedListOption.class)
-                        .parseArguments(new String[] {});
-        assertFalse(result.isNames());
+        assertFalse(parseArguments(OptionalUnparsedListOption.class).isNames());
     }
 }
