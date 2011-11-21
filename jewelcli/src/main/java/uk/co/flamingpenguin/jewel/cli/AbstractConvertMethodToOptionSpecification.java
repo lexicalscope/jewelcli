@@ -2,9 +2,6 @@ package uk.co.flamingpenguin.jewel.cli;
 
 import static java.util.Arrays.asList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
@@ -51,30 +48,15 @@ public class AbstractConvertMethodToOptionSpecification {
         final ParsedOptionSpecificationBuilder optionSpecificationBuilder =
                 new ParsedOptionSpecificationBuilder(method);
 
-        final Option optionAnnotation = method.annotation(Option.class);
+        final OptionAnnotationAdapter annotation = new OptionAnnotationAdapter(klass, method);
 
-        final String[] shortNameSpecification = optionAnnotation.shortName();
-        final List<String> shortNames = new ArrayList<String>();
-        for (final String element : shortNameSpecification) {
-            final String shortName = element.trim();
-            if (shortName.length() > 0) {
-                shortNames.add(element.substring(0, 1));
-            }
-        }
-        optionSpecificationBuilder.setShortNames(shortNames);
-
-        optionSpecificationBuilder.setLongName(optionAnnotation.longName().length == 0
-                ? asList(method.propertyName())
-                : asList(optionAnnotation.longName()));
-
-        optionSpecificationBuilder.setHelpRequest(optionAnnotation.helpRequest());
+        optionSpecificationBuilder.setShortNames(annotation.shortName());
+        optionSpecificationBuilder.setLongName(annotation.longName());
+        optionSpecificationBuilder.setHelpRequest(annotation.helpRequest());
 
         configureSpecificationFromAnnotation(
                 optionSpecificationBuilder,
-                new OptionAnnotationAdapter(
-                        klass,
-                        method,
-                        optionAnnotation));
+                annotation);
 
         return optionSpecificationBuilder.createOptionSpecification();
     }

@@ -1,5 +1,10 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import static java.util.Arrays.asList;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
@@ -24,10 +29,9 @@ class OptionAnnotationAdapter extends AbstractOptionAdapter {
 
     OptionAnnotationAdapter(
             final ReflectedClass<?> klass,
-            final ReflectedMethod method,
-            final Option option) {
+            final ReflectedMethod method) {
         super(klass, method);
-        this.option = option;
+        this.option = method.annotation(Option.class);
     }
 
     @Override public String description() {
@@ -44,5 +48,26 @@ class OptionAnnotationAdapter extends AbstractOptionAdapter {
 
     @Override public String[] defaultValue() {
         return option.defaultValue();
+    }
+
+    public List<String> shortName() {
+        final List<String> shortNames = new ArrayList<String>();
+        for (final String element : option.shortName()) {
+            final String shortName = element.trim();
+            if (shortName.length() > 0) {
+                shortNames.add(element.substring(0, 1));
+            }
+        }
+        return shortNames;
+    }
+
+    public List<String> longName() {
+        return option.longName().length == 0
+                ? asList(method.propertyName())
+                : asList(option.longName());
+    }
+
+    public boolean helpRequest() {
+        return option.helpRequest();
     }
 }

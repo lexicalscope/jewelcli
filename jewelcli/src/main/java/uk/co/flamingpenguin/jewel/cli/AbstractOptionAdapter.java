@@ -27,7 +27,7 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 abstract class AbstractOptionAdapter implements OptionAdapter {
     private final ReflectedClass<?> klass;
-    private final ReflectedMethod method;
+    protected final ReflectedMethod method;
     private final ReflectedClass<?> methodType;
 
     AbstractOptionAdapter(
