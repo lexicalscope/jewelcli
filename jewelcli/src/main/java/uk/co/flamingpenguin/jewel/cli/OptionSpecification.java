@@ -4,6 +4,8 @@
 //
 package uk.co.flamingpenguin.jewel.cli;
 
+import java.util.List;
+
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 /**
@@ -41,6 +43,23 @@ interface OptionSpecification
      * @return is the argument optional
      */
     boolean isOptional();
+
+    /**
+     * Get the default values which will be used if the option is not specified
+     * by the user.
+     * 
+     * @return The default values which will be used if the option is not
+     *         present
+     */
+    List<String> getDefaultValue();
+
+    /**
+     * Is there a default value to use if this option is not present? Options
+     * with a default value are assumed to be optional.
+     * 
+     * @return True iff this option has a default value
+     */
+    boolean hasDefaultValue();
 
     ReflectedMethod getMethod();
 

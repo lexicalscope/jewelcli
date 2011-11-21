@@ -24,18 +24,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
         for (final ParsedOptionSpecification optionSpecification : specification) {
             final ConvertTypeOfObject<?> convertTypeOfObject =
                     converterTo(validationErrorBuilder, optionSpecification, optionSpecification.getMethod());
-            if (optionSpecification.isMultiValued() && optionSpecification.hasDefaultValue())
-            {
-                argumentMap.put(
-                        optionSpecification.getCanonicalIdentifier(),
-                        convertTypeOfObject.convert(optionSpecification.getDefaultValue()));
-            }
-            else if (optionSpecification.hasDefaultValue() && optionSpecification.getDefaultValue().size() > 0)
-            {
-                argumentMap.put(
-                        optionSpecification.getCanonicalIdentifier(),
-                        convertTypeOfObject.convert(optionSpecification.getDefaultValue().get(0)));
-            }
+            putDefaultInMap(argumentMap, optionSpecification, convertTypeOfObject);
 
             final Argument argument = validatedArguments.getArgument(optionSpecification.getNames());
             if (argument != null) {
@@ -61,6 +50,9 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
                             validationErrorBuilder,
                             unparsedSpecification,
                             unparsedSpecification.getMethod());
+
+            putDefaultInMap(argumentMap, unparsedSpecification, convertTypeOfObject);
+
             if (!validatedArguments.getUnparsed().isEmpty())
             {
                 if (unparsedSpecification.isMultiValued())
@@ -79,5 +71,23 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
         }
         validationErrorBuilder.validate();
         return argumentPresentingStrategy.presentArguments(argumentMap);
+    }
+
+    private void putDefaultInMap(
+            final Map<String, Object> argumentMap,
+            final OptionSpecification optionSpecification,
+            final ConvertTypeOfObject<?> convertTypeOfObject) {
+        if (optionSpecification.isMultiValued() && optionSpecification.hasDefaultValue())
+        {
+            argumentMap.put(
+                    optionSpecification.getCanonicalIdentifier(),
+                    convertTypeOfObject.convert(optionSpecification.getDefaultValue()));
+        }
+        else if (optionSpecification.hasDefaultValue() && optionSpecification.getDefaultValue().size() > 0)
+        {
+            argumentMap.put(
+                    optionSpecification.getCanonicalIdentifier(),
+                    convertTypeOfObject.convert(optionSpecification.getDefaultValue().get(0)));
+        }
     }
 }

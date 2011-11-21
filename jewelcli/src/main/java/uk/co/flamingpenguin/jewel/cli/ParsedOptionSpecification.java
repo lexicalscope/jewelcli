@@ -71,23 +71,6 @@ interface ParsedOptionSpecification extends OptionSpecification {
     boolean isHelpOption();
 
     /**
-     * Get the default values which will be used if the option is not specified
-     * by the user.
-     * 
-     * @return The default values which will be used if the option is not
-     *         present
-     */
-    List<String> getDefaultValue();
-
-    /**
-     * Is there a default value to use if this option is not present? Options
-     * with a default value are assumed to be optional.
-     * 
-     * @return True iff this option has a default value
-     */
-    boolean hasDefaultValue();
-
-    /**
      * Get a description of the option. The description can be specified in the
      * <code>Option</code> annotation
      * 

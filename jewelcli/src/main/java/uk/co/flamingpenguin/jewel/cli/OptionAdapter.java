@@ -1,10 +1,5 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import java.util.List;
-
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
-
 /*
  * Copyright 2011 Tim Wood
  *
@@ -21,12 +16,9 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
  * limitations under the License. 
  */
 
-interface OptionSpecificationBuilder {
-    void setPattern(String pattern);
-    void setDescription(String description);
-    void setOptionalityMethod(ReflectedMethod optionalityMethod);
-    void setType(ReflectedClass<?> type);
-    void setDefaultValue(List<String> defaultValue);
-    void setDefaultToNull(boolean defaultToNull);
-    void setMultiValued(boolean multiValued);
+interface OptionAdapter {
+    String description();
+    String pattern();
+    boolean defaultToNull();
+    String[] defaultValue();
 }

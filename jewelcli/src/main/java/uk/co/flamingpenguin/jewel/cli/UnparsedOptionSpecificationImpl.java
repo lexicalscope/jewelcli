@@ -15,6 +15,8 @@ package uk.co.flamingpenguin.jewel.cli;
 
 import static uk.co.flamingpenguin.jewel.cli.OptionsSpecificationImpl.nullOrBlank;
 
+import java.util.List;
+
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class UnparsedOptionSpecificationImpl implements UnparsedOptionSpecification {
@@ -23,18 +25,24 @@ class UnparsedOptionSpecificationImpl implements UnparsedOptionSpecification {
     private final String valueName;
     private final Class<?> type;
     private final boolean multiValued;
+    private final List<String> defaultValue;
+    private final boolean defaultToNull;
 
     public UnparsedOptionSpecificationImpl(
             final String valueName,
             final Class<?> type,
             final boolean multiValued,
             final ReflectedMethod method,
-            final ReflectedMethod optionalityMethod) {
+            final ReflectedMethod optionalityMethod,
+            final List<String> defaultValue,
+            final boolean defaultToNull) {
         this.valueName = valueName;
         this.type = type;
         this.multiValued = multiValued;
         this.method = method;
         this.optionalityMethod = optionalityMethod;
+        this.defaultValue = defaultValue;
+        this.defaultToNull = defaultToNull;
     }
 
     @Override public Class<?> getType() {
@@ -63,6 +71,14 @@ class UnparsedOptionSpecificationImpl implements UnparsedOptionSpecification {
 
     @Override public String getValueName() {
         return nullOrBlank(valueName) ? "ARGUMENTS" : valueName;
+    }
+
+    @Override public List<String> getDefaultValue() {
+        return defaultValue;
+    }
+
+    @Override public boolean hasDefaultValue() {
+        return defaultValue != null || defaultToNull;
     }
 
     @Override public String toString() {

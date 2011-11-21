@@ -65,6 +65,7 @@ public class AbstractConvertMethodToOptionSpecification {
                 ? type(String.class)
                 : valueType;
     }
+
     protected final void configureOptionalityMethod(
             final ReflectedMethod method,
             final OptionSpecificationBuilder optionSpecificationBuilder) {
@@ -93,6 +94,16 @@ public class AbstractConvertMethodToOptionSpecification {
                 ? asList(method.propertyName())
                 : asList(optionAnnotation.longName()));
 
+        optionSpecificationBuilder.setHelpRequest(optionAnnotation.helpRequest());
+
+        configureSpecificationFromAnnotation(method, optionSpecificationBuilder, new OptionAnnotationAdapter(
+                optionAnnotation));
+    }
+
+    private void configureSpecificationFromAnnotation(
+            final ReflectedMethod method,
+            final OptionSpecificationBuilder optionSpecificationBuilder,
+            final OptionAdapter optionAnnotation) {
         final String description = optionAnnotation.description().trim();
         optionSpecificationBuilder.setDescription(description);
 
@@ -120,11 +131,9 @@ public class AbstractConvertMethodToOptionSpecification {
         {
             optionSpecificationBuilder.setDefaultValue(asList(optionAnnotation.defaultValue()));
         }
-
-        optionSpecificationBuilder.setHelpRequest(optionAnnotation.helpRequest());
     }
 
-    private boolean hasDefaultValue(final Option optionAnnotation) {
+    private boolean hasDefaultValue(final OptionAdapter optionAnnotation) {
         return !(optionAnnotation.defaultValue().length == 1
         && optionAnnotation.defaultValue()[0].equals(Option.stringToMarkNoDefault));
     }

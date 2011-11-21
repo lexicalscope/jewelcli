@@ -1,12 +1,13 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static uk.co.flamingpenguin.jewel.cli.ArgumentValidationExceptionMatcher.validationException;
 import static uk.co.flamingpenguin.jewel.cli.CliFactory.parseArguments;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -48,6 +49,18 @@ public class TestUnparsedArguments {
         @Unparsed List<String> getNames();
 
         boolean isNames();
+    }
+
+    public interface UnparsedListOptionDefaultToEmpty {
+        @Unparsed(defaultValue = {}) List<String> getNames();
+    }
+
+    public interface UnparsedListOptionDefaultToNull {
+        @Unparsed(defaultToNull = true) List<String> getNames();
+    }
+
+    public interface UnparsedListOptionDefaultToValues {
+        @Unparsed(defaultValue = { "value0", "value1" }) List<String> getNames();
     }
 
     public interface NoUnparsedOption {
@@ -102,6 +115,20 @@ public class TestUnparsedArguments {
     }
 
     @Test public void testOptionalUnparsedListOptionMissingValue() throws ArgumentValidationException {
-        assertFalse(parseArguments(OptionalUnparsedListOption.class).isNames());
+        final OptionalUnparsedListOption result = parseArguments(OptionalUnparsedListOption.class);
+        assertFalse(result.isNames());
+        assertThat(result.getNames(), nullValue());
+    }
+
+    @Test @Ignore public void unparsedListOptionMissingValueDefaultsToEmpty() throws ArgumentValidationException {
+        assertThat(parseArguments(UnparsedListOptionDefaultToEmpty.class).getNames().size(), equalTo(0));
+    }
+
+    @Test public void unparsedListOptionMissingValueDefaultsToNull() throws ArgumentValidationException {
+        assertThat(parseArguments(UnparsedListOptionDefaultToNull.class).getNames(), nullValue());
+    }
+
+    @Test @Ignore public void unparsedListOptionMissingValueDefaultsToValues() throws ArgumentValidationException {
+        assertThat(parseArguments(UnparsedListOptionDefaultToValues.class).getNames(), contains("value0", "value1"));
     }
 }

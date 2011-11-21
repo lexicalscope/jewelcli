@@ -20,25 +20,34 @@ import java.lang.annotation.Target;
      *         and error messages
      */
     String name() default "";
-    //
-    //    /**
-    //     * The regexp that the values of this option must match
-    //     * 
-    //     * @return The regexp that the values of this option must match
-    //     */
-    //    String pattern() default ".*";
-    //
-    //    /**
-    //     * A description of this option
-    //     * 
-    //     * @return A description of this option
-    //     */
-    //    String description() default "";
-    //
-    //    /**
-    //     * The default value if none is specified
-    //     * 
-    //     * @return The value to present if none is specified
-    //     */
-    //    String[] defaultValue() default { Option.stringToMarkNoDefault };
+
+    /**
+     * The regexp that the values of this option must match
+     * 
+     * @return The regexp that the values of this option must match
+     */
+    String pattern() default ".*";
+
+    /**
+     * A description of this option
+     * 
+     * @return A description of this option
+     */
+    String description() default "";
+
+    /**
+     * The default value if none is specified
+     * 
+     * @return The value to present if none is specified
+     */
+    String[] defaultValue() default { Option.stringToMarkNoDefault };
+
+    /**
+     * The default value is null. Java does not allow null values in
+     * annotations. Setting this attribute to true will default the value of the
+     * option to null.
+     * 
+     * @return true iff the default value of the option should be null
+     */
+    boolean defaultToNull() default false;
 }

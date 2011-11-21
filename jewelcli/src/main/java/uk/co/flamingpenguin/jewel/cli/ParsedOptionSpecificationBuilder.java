@@ -16,36 +16,15 @@ package uk.co.flamingpenguin.jewel.cli;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
-class ParsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
-    private final ReflectedMethod m_method;
-    private ReflectedClass<?> m_type;
-    private boolean m_multiValued;
-    private ReflectedMethod optionalityMethod;
+class ParsedOptionSpecificationBuilder extends AbstractOptionSpecificationBuilder implements OptionSpecificationBuilder {
     private final List<String> m_shortNames = new ArrayList<String>();
     private List<String> m_longName;
-    private String m_description;
-    private String m_pattern;
-    private List<String> m_defaultValue;
     private boolean m_helpRequest;
-    private boolean defaultToNull;
 
     public ParsedOptionSpecificationBuilder(final ReflectedMethod method) {
-        m_method = method;
-    }
-
-    public void setType(final ReflectedClass<?> type) {
-        m_type = type;
-    }
-
-    public void setMultiValued(final boolean multiValued) {
-        m_multiValued = multiValued;
-    }
-
-    @Override public void setOptionalityMethod(final ReflectedMethod optionalityMethod) {
-        this.optionalityMethod = optionalityMethod;
+        super(method);
     }
 
     public void setShortNames(final List<String> shortNames) {
@@ -56,36 +35,20 @@ class ParsedOptionSpecificationBuilder implements OptionSpecificationBuilder {
         m_longName = longName;
     }
 
-    public void setDescription(final String description) {
-        m_description = description;
-    }
-
-    public void setPattern(final String pattern) {
-        m_pattern = pattern;
-    }
-
-    public void setDefaultValue(final List<String> defaultValue) {
-        m_defaultValue = defaultValue;
-    }
-
-    public void setDefaultToNull(final boolean defaultToNull) {
-        this.defaultToNull = defaultToNull;
-    }
-
     public void setHelpRequest(final boolean helpRequest) {
         m_helpRequest = helpRequest;
     }
 
     public ParsedOptionSpecification createOptionSpecification() {
         final OptionName optionName =
-                new OptionName(m_method, m_method.propertyName(), m_longName, m_shortNames, m_description);
-        final OptionType optionType = new OptionType(m_type.classUnderReflection(), m_pattern, m_multiValued);
-        final OptionContext optionContext = new OptionContext(m_defaultValue, m_helpRequest, defaultToNull);
+                new OptionName(method, method.propertyName(), m_longName, m_shortNames, description);
+        final OptionType optionType = new OptionType(type.classUnderReflection(), pattern, multiValued);
+        final OptionContext optionContext = new OptionContext(defaultValue, m_helpRequest, defaultToNull);
 
         return new ParsedOptionSpecificationImpl(optionName,
                 optionType,
                 optionContext,
-                m_method,
+                method,
                 optionalityMethod);
     }
 }
