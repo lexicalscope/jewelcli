@@ -1,15 +1,15 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.*;
+import static uk.co.flamingpenguin.jewel.cli.ArgumentValidationExceptionMatcher.validationException;
 import static uk.co.flamingpenguin.jewel.cli.CliFactory.parseArguments;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
-
-import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError;
-import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
+import org.junit.rules.ExpectedException;
 
 /*
  * Copyright 2011 Tim Wood
@@ -28,6 +28,8 @@ import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationErro
  */
 
 public class TestUnparsedArguments {
+    @Rule public final ExpectedException exception = ExpectedException.none();
+
     public interface UnparsedOption {
         @Unparsed String getName();
     }
@@ -52,22 +54,17 @@ public class TestUnparsedArguments {
         assertEquals("value", parseArguments(UnparsedOption.class, "value").getName());
     }
 
-    @Test public void testUnparsedOptionMissingValue() {
-        try {
-            parseArguments(UnparsedOption.class);
-            fail();
-        } catch (final ArgumentValidationException e) {
-            final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
-            assertEquals(1, validationErrors.size());
-            assertEquals(ErrorType.MissingValue, validationErrors.get(0).getErrorType());
-        }
+    @Test public void testUnparsedOptionMissingValue() throws ArgumentValidationException {
+        exception.expect(ArgumentValidationException.class);
+        exception.expect(validationException(ArgumentValidationException.ValidationError.ErrorType.MissingValue));
+
+        parseArguments(UnparsedOption.class);
     }
 
     @Test public void testUnparsedListOption() throws ArgumentValidationException {
-        final UnparsedListOption result = parseArguments(UnparsedListOption.class, "value0", "value1");
-        assertEquals(2, result.getNames().size());
-        assertEquals("value0", result.getNames().get(0));
-        assertEquals("value1", result.getNames().get(1));
+        assertThat(
+                parseArguments(UnparsedListOption.class, "value0", "value1").getNames(),
+                contains("value0", "value1"));
     }
 
     @Test public void testUnparsedListOptionMissingValue() throws ArgumentValidationException {
@@ -87,9 +84,7 @@ public class TestUnparsedArguments {
                 OptionalUnparsedListOption.class,
                 "value0",
                 "value1");
-        assertEquals(2, result.getNames().size());
-        assertEquals("value0", result.getNames().get(0));
-        assertEquals("value1", result.getNames().get(1));
+        assertThat(result.getNames(), contains("value0", "value1"));
         assertTrue(result.isNames());
     }
 
