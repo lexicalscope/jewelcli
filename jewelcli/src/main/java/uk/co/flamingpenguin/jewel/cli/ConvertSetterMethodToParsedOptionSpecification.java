@@ -33,7 +33,6 @@ class ConvertSetterMethodToParsedOptionSpecification extends AbstractConvertMeth
         final OptionAnnotationAdapter annotation =
                 new OptionAnnotationAdapter(klass, method, method.annotation(Option.class));
 
-        optionSpecificationBuilder.setType(annotation.getValueType());
         optionSpecificationBuilder.setMultiValued(annotation.isMultiValued());
 
         configureSpecificationFromAnnotation(method, optionSpecificationBuilder);

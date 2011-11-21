@@ -24,7 +24,10 @@ interface OptionAdapter {
     String pattern();
     boolean defaultToNull();
     String[] defaultValue();
-    ReflectedMethod correspondingOptionalityMethod();
+
     boolean isMultiValued();
     ReflectedClass<? extends Object> getValueType();
+
+    ReflectedMethod method();
+    ReflectedMethod correspondingOptionalityMethod();
 }

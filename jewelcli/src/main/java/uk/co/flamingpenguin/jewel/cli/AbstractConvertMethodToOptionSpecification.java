@@ -53,7 +53,6 @@ public class AbstractConvertMethodToOptionSpecification {
         optionSpecificationBuilder.setHelpRequest(optionAnnotation.helpRequest());
 
         configureSpecificationFromAnnotation(
-                method,
                 optionSpecificationBuilder,
                 new OptionAnnotationAdapter(
                         klass,
@@ -62,18 +61,18 @@ public class AbstractConvertMethodToOptionSpecification {
     }
 
     protected void configureSpecificationFromAnnotation(
-            final ReflectedMethod method,
             final OptionSpecificationBuilder optionSpecificationBuilder,
             final OptionAdapter annotation) {
 
         optionSpecificationBuilder.setDescription(annotation.description().trim());
         optionSpecificationBuilder.setPattern(annotation.pattern());
         optionSpecificationBuilder.setOptionalityMethod(annotation.correspondingOptionalityMethod());
+        optionSpecificationBuilder.setType(annotation.getValueType());
 
         if (annotation.defaultToNull() && hasDefaultValue(annotation))
         {
             throw new OptionSpecificationException("option cannot have null default and non-null default value: "
-                    + method);
+                    + annotation.method());
         }
         else if (annotation.defaultToNull())
         {
@@ -92,7 +91,6 @@ public class AbstractConvertMethodToOptionSpecification {
             optionSpecificationBuilder.setDefaultValue(asList(annotation.defaultValue()));
         }
     }
-
     private boolean hasDefaultValue(final OptionAdapter optionAnnotation) {
         return !(optionAnnotation.defaultValue().length == 1
         && optionAnnotation.defaultValue()[0].equals(Option.stringToMarkNoDefault));

@@ -45,6 +45,10 @@ abstract class AbstractOptionAdapter implements OptionAdapter {
         }
     }
 
+    @Override public final ReflectedMethod method() {
+        return method;
+    }
+
     @Override public final ReflectedMethod correspondingOptionalityMethod() {
         if (isMutator().matches(method))
         {
