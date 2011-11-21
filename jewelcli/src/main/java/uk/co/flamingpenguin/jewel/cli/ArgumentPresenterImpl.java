@@ -39,13 +39,13 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
             if (optionSpecification.isMultiValued() && optionSpecification.hasDefaultValue())
             {
                 argumentMap.put(
-                        reflectedMethod.propertyName(),
+                        optionSpecification.getCanonicalIdentifier(),
                         convertTypeOfObject.convert(optionSpecification.getDefaultValue()));
             }
             else if (optionSpecification.hasDefaultValue() && optionSpecification.getDefaultValue().size() > 0)
             {
                 argumentMap.put(
-                        reflectedMethod.propertyName(),
+                        optionSpecification.getCanonicalIdentifier(),
                         convertTypeOfObject.convert(optionSpecification.getDefaultValue().get(0)));
             }
 
