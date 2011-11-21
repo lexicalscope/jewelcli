@@ -7,7 +7,6 @@ import static uk.co.flamingpenguin.jewel.cli.CliFactory.parseArguments;
 
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -120,7 +119,7 @@ public class TestUnparsedArguments {
         assertThat(result.getNames(), nullValue());
     }
 
-    @Test @Ignore public void unparsedListOptionMissingValueDefaultsToEmpty() throws ArgumentValidationException {
+    @Test public void unparsedListOptionMissingValueDefaultsToEmpty() throws ArgumentValidationException {
         assertThat(parseArguments(UnparsedListOptionDefaultToEmpty.class).getNames().size(), equalTo(0));
     }
 
@@ -128,7 +127,7 @@ public class TestUnparsedArguments {
         assertThat(parseArguments(UnparsedListOptionDefaultToNull.class).getNames(), nullValue());
     }
 
-    @Test @Ignore public void unparsedListOptionMissingValueDefaultsToValues() throws ArgumentValidationException {
+    @Test public void unparsedListOptionMissingValueDefaultsToValues() throws ArgumentValidationException {
         assertThat(parseArguments(UnparsedListOptionDefaultToValues.class).getNames(), contains("value0", "value1"));
     }
 }
