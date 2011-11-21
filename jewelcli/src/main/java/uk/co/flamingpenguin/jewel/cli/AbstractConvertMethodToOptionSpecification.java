@@ -1,11 +1,8 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import static com.lexicalscope.fluentreflection.FluentReflection.type;
-import static com.lexicalscope.fluentreflection.ReflectionMatchers.reflectedTypeReflectingOn;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
@@ -32,24 +29,6 @@ public class AbstractConvertMethodToOptionSpecification {
 
     public AbstractConvertMethodToOptionSpecification(final ReflectedClass<?> klass) {
         this.klass = klass;
-    }
-
-    static final boolean isMultiValued(final ReflectedClass<?> methodType) {
-        return methodType.isType(reflectedTypeReflectingOn(Collection.class));
-    }
-
-    static final ReflectedClass<? extends Object> getValueTypeFromMethodType(
-            final ReflectedClass<?> methodType) {
-        final boolean multiValued = isMultiValued(methodType);
-
-        final ReflectedClass<? extends Object> valueType =
-                multiValued
-                        ? methodType.asType(reflectedTypeReflectingOn(Collection.class)).typeArgument(0)
-                        : methodType;
-
-        return reflectedTypeReflectingOn(Object.class).matches(valueType)
-                ? type(String.class)
-                : valueType;
     }
 
     protected final void configureOptionalityMethod(
@@ -109,7 +88,7 @@ public class AbstractConvertMethodToOptionSpecification {
         else if (optionAnnotation.defaultToNull())
         {
             optionSpecificationBuilder.setDefaultToNull(true);
-            if (isMultiValued(method.returnType()))
+            if (optionAnnotation.isMultiValued())
             {
                 optionSpecificationBuilder.setDefaultValue(null);
             }

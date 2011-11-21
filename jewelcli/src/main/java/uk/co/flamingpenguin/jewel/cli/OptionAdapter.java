@@ -1,5 +1,6 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 /*
@@ -24,4 +25,6 @@ interface OptionAdapter {
     boolean defaultToNull();
     String[] defaultValue();
     ReflectedMethod correspondingOptionalityMethod();
+    boolean isMultiValued();
+    ReflectedClass<? extends Object> getValueType();
 }

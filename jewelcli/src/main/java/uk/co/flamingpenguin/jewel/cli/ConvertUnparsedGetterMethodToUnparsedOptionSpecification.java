@@ -30,13 +30,11 @@ class ConvertUnparsedGetterMethodToUnparsedOptionSpecification extends AbstractC
         final UnparsedOptionSpecificationBuilder optionSpecificationBuilder =
                 new UnparsedOptionSpecificationBuilder(method);
 
-        final ReflectedClass<?> methodType = method.returnType();
-
-        optionSpecificationBuilder.setType(getValueTypeFromMethodType(methodType));
-        optionSpecificationBuilder.setMultiValued(isMultiValued(methodType));
-
         final UnparsedAnnotationAdapter annotation =
                 new UnparsedAnnotationAdapter(klass, method, method.annotation(Unparsed.class));
+
+        optionSpecificationBuilder.setType(annotation.getValueType());
+        optionSpecificationBuilder.setMultiValued(annotation.isMultiValued());
 
         configureOptionalityMethod(annotation, optionSpecificationBuilder);
 
