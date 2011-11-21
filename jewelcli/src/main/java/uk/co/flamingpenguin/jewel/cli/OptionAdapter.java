@@ -22,6 +22,8 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
 interface OptionAdapter {
     String description();
     String pattern();
+
+    boolean hasDefaultValue();
     boolean defaultToNull();
     String[] defaultValue();
 

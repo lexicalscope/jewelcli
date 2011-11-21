@@ -82,4 +82,8 @@ abstract class AbstractOptionAdapter implements OptionAdapter {
                 ? type(String.class)
                 : valueType;
     }
+
+    @Override public final boolean hasDefaultValue() {
+        return !(defaultValue().length == 1 && defaultValue()[0].equals(Option.stringToMarkNoDefault));
+    }
 }
