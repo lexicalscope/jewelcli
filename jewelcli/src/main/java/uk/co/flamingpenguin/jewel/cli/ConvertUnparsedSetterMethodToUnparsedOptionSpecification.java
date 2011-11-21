@@ -27,16 +27,6 @@ class ConvertUnparsedSetterMethodToUnparsedOptionSpecification extends AbstractC
     }
 
     @Override public UnparsedOptionSpecification convert(final ReflectedMethod method) {
-        final UnparsedOptionSpecificationBuilder optionSpecificationBuilder =
-                new UnparsedOptionSpecificationBuilder(method);
-
-        final UnparsedAnnotationAdapter annotation =
-                new UnparsedAnnotationAdapter(klass, method, method.annotation(Unparsed.class));
-
-        configureSpecificationFromAnnotation(optionSpecificationBuilder, annotation);
-
-        optionSpecificationBuilder.setValueName(annotation.name());
-
-        return optionSpecificationBuilder.createOptionSpecification();
+        return createUnparsedOptionSpecificationFrom(method);
     }
 }

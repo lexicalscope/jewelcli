@@ -31,6 +31,21 @@ public class AbstractConvertMethodToOptionSpecification {
         this.klass = klass;
     }
 
+    protected UnparsedOptionSpecification createUnparsedOptionSpecificationFrom(
+            final ReflectedMethod method) {
+        final UnparsedOptionSpecificationBuilder optionSpecificationBuilder =
+                new UnparsedOptionSpecificationBuilder(method);
+
+        final UnparsedAnnotationAdapter annotation =
+                new UnparsedAnnotationAdapter(klass, method, method.annotation(Unparsed.class));
+
+        configureSpecificationFromAnnotation(optionSpecificationBuilder, annotation);
+
+        optionSpecificationBuilder.setValueName(annotation.name());
+
+        return optionSpecificationBuilder.createOptionSpecification();
+    }
+
     protected ParsedOptionSpecification createParsedOptionSpecificationFrom(
             final ReflectedMethod method) {
         final ParsedOptionSpecificationBuilder optionSpecificationBuilder =
@@ -64,7 +79,7 @@ public class AbstractConvertMethodToOptionSpecification {
         return optionSpecificationBuilder.createOptionSpecification();
     }
 
-    protected void configureSpecificationFromAnnotation(
+    private void configureSpecificationFromAnnotation(
             final OptionSpecificationBuilder optionSpecificationBuilder,
             final OptionAdapter annotation) {
 
@@ -96,6 +111,7 @@ public class AbstractConvertMethodToOptionSpecification {
             optionSpecificationBuilder.setDefaultValue(asList(annotation.defaultValue()));
         }
     }
+
     private boolean hasDefaultValue(final OptionAdapter optionAnnotation) {
         return !(optionAnnotation.defaultValue().length == 1
         && optionAnnotation.defaultValue()[0].equals(Option.stringToMarkNoDefault));
