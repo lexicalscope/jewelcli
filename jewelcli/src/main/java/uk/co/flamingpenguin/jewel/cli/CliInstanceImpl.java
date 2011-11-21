@@ -37,7 +37,7 @@ class CliInstanceImpl<O> extends AbstractCliImpl<O> {
     @Override protected ArgumentPresenterImpl<O> argumentPresenter(
             final ReflectedClass<O> klass,
             final OptionsSpecification<O> specification) {
-        return new ArgumentPresenterImpl<O>(klass, specification, new InstanceArgumentPresentingStrategy<O>(
+        return new ArgumentPresenterImpl<O>(specification, new InstanceArgumentPresentingStrategy<O>(
                 specification,
                 klass,
                 options));

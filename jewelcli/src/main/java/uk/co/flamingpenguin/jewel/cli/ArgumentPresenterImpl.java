@@ -1,26 +1,18 @@
 package uk.co.flamingpenguin.jewel.cli;
 
-import static com.lexicalscope.fluentreflection.ReflectionMatchers.annotatedWith;
 import static uk.co.flamingpenguin.jewel.cli.ConvertTypeOfObject.converterTo;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
 
 class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
     private final OptionsSpecification<O> specification;
-    private final ReflectedClass<O> klass;
     private final ArgumentPresentingStrategy<O> argumentPresentingStrategy;
 
     public ArgumentPresenterImpl(
-            final ReflectedClass<O> klass,
             final OptionsSpecification<O> specification,
             final ArgumentPresentingStrategy<O> argumentPresentingStrategy) {
         this.specification = specification;
-        this.klass = klass;
         this.argumentPresentingStrategy = argumentPresentingStrategy;
     }
 
@@ -62,27 +54,26 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
         }
 
         if (specification.hasUnparsedSpecification()) {
-            final List<ReflectedMethod> unparsedMethods = klass.methods(annotatedWith(Unparsed.class));
-            for (final ReflectedMethod reflectedMethod : unparsedMethods) {
-                final ConvertTypeOfObject<?> convertTypeOfObject =
-                        converterTo(
-                                validationErrorBuilder,
-                                specification.getUnparsedSpecification(),
-                                reflectedMethod);
-                if (!validatedArguments.getUnparsed().isEmpty())
+            final UnparsedOptionSpecification unparsedSpecification = specification.getUnparsedSpecification();
+
+            final ConvertTypeOfObject<?> convertTypeOfObject =
+                    converterTo(
+                            validationErrorBuilder,
+                            unparsedSpecification,
+                            unparsedSpecification.getMethod());
+            if (!validatedArguments.getUnparsed().isEmpty())
+            {
+                if (unparsedSpecification.isMultiValued())
                 {
-                    if (specification.getUnparsedSpecification().isMultiValued())
-                    {
-                        argumentMap.put(
-                                reflectedMethod.propertyName(),
-                                convertTypeOfObject.convert(validatedArguments.getUnparsed()));
-                    }
-                    else if (!validatedArguments.getUnparsed().isEmpty())
-                    {
-                        argumentMap.put(
-                                reflectedMethod.propertyName(),
-                                convertTypeOfObject.convert(validatedArguments.getUnparsed().get(0)));
-                    }
+                    argumentMap.put(
+                            unparsedSpecification.getCanonicalIdentifier(),
+                            convertTypeOfObject.convert(validatedArguments.getUnparsed()));
+                }
+                else if (!validatedArguments.getUnparsed().isEmpty())
+                {
+                    argumentMap.put(
+                            unparsedSpecification.getCanonicalIdentifier(),
+                            convertTypeOfObject.convert(validatedArguments.getUnparsed().get(0)));
                 }
             }
         }
