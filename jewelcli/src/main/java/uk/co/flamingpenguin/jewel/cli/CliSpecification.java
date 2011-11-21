@@ -19,7 +19,7 @@ package uk.co.flamingpenguin.jewel.cli;
  * 
  * @author tim
  */
-interface CliSpecification extends Iterable<OptionSpecification>
+interface CliSpecification extends Iterable<ParsedOptionSpecification>
 {
     /**
      * The name of the application as specified in the

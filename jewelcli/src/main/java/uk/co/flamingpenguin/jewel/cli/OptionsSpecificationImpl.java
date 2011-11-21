@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
@@ -30,7 +31,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
 
     private final SortedSet<ParsedOptionSpecification> options = new TreeSet<ParsedOptionSpecification>();
     private final Map<String, ParsedOptionSpecification> optionsByName =
-            new HashMap<String, ParsedOptionSpecification>();
+            new TreeMap<String, ParsedOptionSpecification>();
     private final Map<ReflectedMethod, ParsedOptionSpecification> optionsMethod =
             new HashMap<ReflectedMethod, ParsedOptionSpecification>();
     private final Map<ReflectedMethod, ParsedOptionSpecification> optionalOptionsMethod =
@@ -82,8 +83,8 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         return result;
     }
 
-    @Override public Iterator<OptionSpecification> iterator() {
-        return new ArrayList<OptionSpecification>(optionsMethod.values()).iterator();
+    @Override public Iterator<ParsedOptionSpecification> iterator() {
+        return new ArrayList<ParsedOptionSpecification>(optionsByName.values()).iterator();
     }
 
     @Override public UnparsedOptionSpecification getUnparsedSpecification() {

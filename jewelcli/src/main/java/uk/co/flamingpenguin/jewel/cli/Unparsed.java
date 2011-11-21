@@ -20,4 +20,25 @@ import java.lang.annotation.Target;
      *         and error messages
      */
     String name() default "";
+    //
+    //    /**
+    //     * The regexp that the values of this option must match
+    //     * 
+    //     * @return The regexp that the values of this option must match
+    //     */
+    //    String pattern() default ".*";
+    //
+    //    /**
+    //     * A description of this option
+    //     * 
+    //     * @return A description of this option
+    //     */
+    //    String description() default "";
+    //
+    //    /**
+    //     * The default value if none is specified
+    //     * 
+    //     * @return The value to present if none is specified
+    //     */
+    //    String[] defaultValue() default { Option.stringToMarkNoDefault };
 }

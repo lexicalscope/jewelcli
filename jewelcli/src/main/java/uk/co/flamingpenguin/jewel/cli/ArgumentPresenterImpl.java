@@ -29,13 +29,9 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
 
         final ValidationErrorBuilder validationErrorBuilder = new ValidationErrorBuilderImpl();
 
-        final List<ReflectedMethod> optionMethods = klass.methods(annotatedWith(Option.class));
-        for (final ReflectedMethod reflectedMethod : optionMethods) {
-            final ParsedOptionSpecification optionSpecification =
-                    specification.getSpecification(reflectedMethod);
-
+        for (final ParsedOptionSpecification optionSpecification : specification) {
             final ConvertTypeOfObject<?> convertTypeOfObject =
-                    converterTo(validationErrorBuilder, optionSpecification, reflectedMethod);
+                    converterTo(validationErrorBuilder, optionSpecification, optionSpecification.getMethod());
             if (optionSpecification.isMultiValued() && optionSpecification.hasDefaultValue())
             {
                 argumentMap.put(
