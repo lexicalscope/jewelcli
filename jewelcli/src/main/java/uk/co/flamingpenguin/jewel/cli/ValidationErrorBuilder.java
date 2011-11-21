@@ -1,24 +1,28 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import java.util.List;
+
 interface ValidationErrorBuilder
 {
-   void unexpectedOption(String name);
+    void unexpectedOption(String name);
 
-   void unexpectedValue(OptionSpecification optionSpecification);
+    void unexpectedValue(OptionSpecification optionSpecification);
 
-   void missingValue(OptionSpecification optionSpecification);
+    void missingValue(OptionSpecification optionSpecification);
 
-   void unexpectedAdditionalValues(OptionSpecification optionSpecification);
+    void unexpectedAdditionalValues(OptionSpecification optionSpecification);
 
-   void missingOption(OptionSpecification optionSpecification);
+    void unexpectedTrailingValue(List<String> unparsedArguments);
 
-   void unableToConstructType(OptionSpecification optionSpecification, String message);
+    void missingOption(OptionSpecification optionSpecification);
 
-   void invalidValueForType(OptionSpecification optionSpecification, String message);
+    void unableToConstructType(OptionSpecification optionSpecification, String message);
 
-   void patternMismatch(OptionSpecification optionSpecification, String value);
+    void invalidValueForType(OptionSpecification optionSpecification, String message);
 
-   void helpRequested(OptionsSpecification<?> specification);
+    void patternMismatch(OptionSpecification optionSpecification, String value);
 
-   void validate() throws ArgumentValidationException;
+    void helpRequested(OptionsSpecification<?> specification);
+
+    void validate() throws ArgumentValidationException;
 }

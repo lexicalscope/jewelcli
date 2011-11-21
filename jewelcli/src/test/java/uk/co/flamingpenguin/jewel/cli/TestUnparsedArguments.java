@@ -50,6 +50,10 @@ public class TestUnparsedArguments {
         boolean isNames();
     }
 
+    public interface NoUnparsedOption {
+
+    }
+
     @Test public void testUnparsedOption() throws ArgumentValidationException {
         assertEquals("value", parseArguments(UnparsedOption.class, "value").getName());
     }
@@ -69,6 +73,15 @@ public class TestUnparsedArguments {
 
     @Test public void testUnparsedListOptionMissingValue() throws ArgumentValidationException {
         parseArguments(UnparsedListOption.class);
+    }
+
+    @Test public void ifNoUnparsedOptionIsSpecifiedButValuesArePresentThenAValidationErrorOccurs()
+            throws ArgumentValidationException {
+        exception.expect(ArgumentValidationException.class);
+        exception
+                .expect(validationException(ArgumentValidationException.ValidationError.ErrorType.UnexpectedTrailingValue));
+
+        parseArguments(NoUnparsedOption.class, "value0");
     }
 
     @Test public void testOptionalUnparsedOption() throws ArgumentValidationException {

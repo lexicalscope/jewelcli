@@ -136,6 +136,10 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
                 m_validationErrorBuilder.unexpectedValue(argumentSpecification);
             }
         }
+        else if (!m_validatedUnparsedArguments.isEmpty())
+        {
+            m_validationErrorBuilder.unexpectedTrailingValue(m_validatedUnparsedArguments);
+        }
     }
 
     private boolean hasExcessValues(final Argument entry, final ParsedOptionSpecification optionSpecification)

@@ -25,12 +25,16 @@ public class TestArgumentValidatorImpl {
 
     public interface MultipleValue {
         @Option List<String> getName();
+
+        @Unparsed List<String> getUnparsed();
     }
 
     public interface ExtraValue {
         @Option List<String> getName0();
 
         @Option String getName1();
+
+        @Unparsed List<String> getUnparsed();
     }
 
     public interface OptionalOption {

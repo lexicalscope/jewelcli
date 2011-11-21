@@ -89,7 +89,7 @@ public class TestObjectMethods {
 
     @Test public void testToStringBoolean() throws ArgumentValidationException {
         final BooleanOption parsedArguments =
-                CliFactory.parseArguments(BooleanOption.class, "--name", "value0", "value1", "value2");
+                CliFactory.parseArguments(BooleanOption.class, "--name");
         assertEquals(
                 "uk.co.flamingpenguin.jewel.cli.TestObjectMethods$BooleanOption {name=null}",
                 parsedArguments.toString());
