@@ -31,9 +31,11 @@ public class AbstractConvertMethodToOptionSpecification {
         this.klass = klass;
     }
 
-    protected void configureSpecificationFromAnnotation(
-            final ReflectedMethod method,
-            final ParsedOptionSpecificationBuilder optionSpecificationBuilder) {
+    protected ParsedOptionSpecification createParsedOptionSpecificationFrom(
+            final ReflectedMethod method) {
+        final ParsedOptionSpecificationBuilder optionSpecificationBuilder =
+                new ParsedOptionSpecificationBuilder(method);
+
         final Option optionAnnotation = method.annotation(Option.class);
 
         final String[] shortNameSpecification = optionAnnotation.shortName();
@@ -58,6 +60,8 @@ public class AbstractConvertMethodToOptionSpecification {
                         klass,
                         method,
                         optionAnnotation));
+
+        return optionSpecificationBuilder.createOptionSpecification();
     }
 
     protected void configureSpecificationFromAnnotation(
@@ -68,6 +72,7 @@ public class AbstractConvertMethodToOptionSpecification {
         optionSpecificationBuilder.setPattern(annotation.pattern());
         optionSpecificationBuilder.setOptionalityMethod(annotation.correspondingOptionalityMethod());
         optionSpecificationBuilder.setType(annotation.getValueType());
+        optionSpecificationBuilder.setMultiValued(annotation.isMultiValued());
 
         if (annotation.defaultToNull() && hasDefaultValue(annotation))
         {

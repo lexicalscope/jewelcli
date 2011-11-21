@@ -27,16 +27,6 @@ class ConvertGetterMethodToParsedOptionSpecification extends AbstractConvertMeth
     }
 
     @Override public ParsedOptionSpecification convert(final ReflectedMethod method) {
-        final ParsedOptionSpecificationBuilder optionSpecificationBuilder =
-                new ParsedOptionSpecificationBuilder(method);
-
-        final OptionAnnotationAdapter annotation =
-                new OptionAnnotationAdapter(klass, method, method.annotation(Option.class));
-
-        optionSpecificationBuilder.setMultiValued(annotation.isMultiValued());
-
-        configureSpecificationFromAnnotation(method, optionSpecificationBuilder);
-
-        return optionSpecificationBuilder.createOptionSpecification();
+        return createParsedOptionSpecificationFrom(method);
     }
 }

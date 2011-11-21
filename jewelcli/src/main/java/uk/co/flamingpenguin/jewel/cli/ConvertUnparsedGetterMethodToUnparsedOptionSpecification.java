@@ -35,8 +35,6 @@ class ConvertUnparsedGetterMethodToUnparsedOptionSpecification extends AbstractC
 
         configureSpecificationFromAnnotation(optionSpecificationBuilder, annotation);
 
-        optionSpecificationBuilder.setMultiValued(annotation.isMultiValued());
-
         optionSpecificationBuilder.setValueName(annotation.name());
 
         return optionSpecificationBuilder.createOptionSpecification();
