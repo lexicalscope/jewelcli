@@ -1,0 +1,50 @@
+package uk.co.flamingpenguin.jewel.cli;
+
+import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
+
+import java.util.List;
+
+import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.fluentreflection.ReflectedMethod;
+
+/*
+ * Copyright 2011 Tim Wood
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. 
+ */
+
+abstract class AbstractOptionAdapter implements OptionAdapter {
+    private final ReflectedClass<?> klass;
+    private final ReflectedMethod method;
+
+    AbstractOptionAdapter(
+            final ReflectedClass<?> klass,
+            final ReflectedMethod method) {
+        this.klass = klass;
+        this.method = method;
+    }
+
+    @Override public final ReflectedMethod correspondingOptionalityMethod() {
+        final List<ReflectedMethod> methods =
+                klass.methods(
+                        callableHasName(addPrefix("is", method.propertyName())).and(isExistence()));
+        if (!methods.isEmpty()) {
+            return methods.get(0);
+        }
+        return null;
+    }
+
+    private String addPrefix(final String prefix, final String name) {
+        return prefix + name.substring(0, 1).toUpperCase() + name.substring(1);
+    }
+}

@@ -1,7 +1,7 @@
 package uk.co.flamingpenguin.jewel.cli;
 
 import static com.lexicalscope.fluentreflection.FluentReflection.type;
-import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
+import static com.lexicalscope.fluentreflection.ReflectionMatchers.reflectedTypeReflectingOn;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
@@ -28,24 +28,10 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
  */
 
 public class AbstractConvertMethodToOptionSpecification {
-    private final ReflectedClass<?> klass;
+    protected final ReflectedClass<?> klass;
 
     public AbstractConvertMethodToOptionSpecification(final ReflectedClass<?> klass) {
         this.klass = klass;
-    }
-
-    protected final ReflectedMethod findCorrespondingOptionalityMethod(final String name, final ReflectedClass<?> klass) {
-        final List<ReflectedMethod> methods =
-                klass.methods(
-                        callableHasName(addPrefix("is", name)).and(isExistence()));
-        if (!methods.isEmpty()) {
-            return methods.get(0);
-        }
-        return null;
-    }
-
-    private String addPrefix(final String prefix, final String name) {
-        return prefix + name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 
     static final boolean isMultiValued(final ReflectedClass<?> methodType) {
@@ -67,9 +53,9 @@ public class AbstractConvertMethodToOptionSpecification {
     }
 
     protected final void configureOptionalityMethod(
-            final ReflectedMethod method,
+            final OptionAdapter optionAdapter,
             final OptionSpecificationBuilder optionSpecificationBuilder) {
-        final ReflectedMethod optionalityMethod = findCorrespondingOptionalityMethod(method.propertyName(), klass);
+        final ReflectedMethod optionalityMethod = optionAdapter.correspondingOptionalityMethod();
         if (optionalityMethod != null) {
             optionSpecificationBuilder.setOptionalityMethod(optionalityMethod);
         }
@@ -96,8 +82,13 @@ public class AbstractConvertMethodToOptionSpecification {
 
         optionSpecificationBuilder.setHelpRequest(optionAnnotation.helpRequest());
 
-        configureSpecificationFromAnnotation(method, optionSpecificationBuilder, new OptionAnnotationAdapter(
-                optionAnnotation));
+        configureSpecificationFromAnnotation(
+                method,
+                optionSpecificationBuilder,
+                new OptionAnnotationAdapter(
+                        klass,
+                        method,
+                        optionAnnotation));
     }
 
     private void configureSpecificationFromAnnotation(

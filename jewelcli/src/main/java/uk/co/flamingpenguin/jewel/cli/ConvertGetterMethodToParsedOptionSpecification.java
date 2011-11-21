@@ -31,10 +31,13 @@ class ConvertGetterMethodToParsedOptionSpecification extends AbstractConvertMeth
                 new ParsedOptionSpecificationBuilder(method);
 
         final ReflectedClass<?> methodType = method.returnType();
+        final OptionAnnotationAdapter annotation =
+                new OptionAnnotationAdapter(klass, method, method.annotation(Option.class));
+
         optionSpecificationBuilder.setType(getValueTypeFromMethodType(methodType));
         optionSpecificationBuilder.setMultiValued(isMultiValued(methodType));
 
-        configureOptionalityMethod(method, optionSpecificationBuilder);
+        configureOptionalityMethod(annotation, optionSpecificationBuilder);
 
         configureSpecificationFromAnnotation(method, optionSpecificationBuilder);
 

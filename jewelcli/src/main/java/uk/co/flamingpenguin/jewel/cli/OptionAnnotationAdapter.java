@@ -1,5 +1,8 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.fluentreflection.ReflectedMethod;
+
 /*
  * Copyright 2011 Tim Wood
  *
@@ -16,10 +19,14 @@ package uk.co.flamingpenguin.jewel.cli;
  * limitations under the License. 
  */
 
-class OptionAnnotationAdapter implements OptionAdapter {
+class OptionAnnotationAdapter extends AbstractOptionAdapter {
     private final Option option;
 
-    OptionAnnotationAdapter(final Option option) {
+    OptionAnnotationAdapter(
+            final ReflectedClass<?> klass,
+            final ReflectedMethod method,
+            final Option option) {
+        super(klass, method);
         this.option = option;
     }
 

@@ -1,5 +1,8 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.fluentreflection.ReflectedMethod;
+
 /*
  * Copyright 2011 Tim Wood
  *
@@ -16,10 +19,14 @@ package uk.co.flamingpenguin.jewel.cli;
  * limitations under the License. 
  */
 
-class UnparsedAnnotationAdapter implements OptionAdapter {
+final class UnparsedAnnotationAdapter extends AbstractOptionAdapter {
     private final Unparsed unparsed;
 
-    UnparsedAnnotationAdapter(final Unparsed unparsed) {
+    UnparsedAnnotationAdapter(
+            final ReflectedClass<?> klass,
+            final ReflectedMethod method,
+            final Unparsed unparsed) {
+        super(klass, method);
         this.unparsed = unparsed;
     }
 
@@ -37,5 +44,9 @@ class UnparsedAnnotationAdapter implements OptionAdapter {
 
     @Override public String[] defaultValue() {
         return unparsed.defaultValue();
+    }
+
+    public String name() {
+        return unparsed.name();
     }
 }

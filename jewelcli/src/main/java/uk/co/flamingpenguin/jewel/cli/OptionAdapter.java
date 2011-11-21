@@ -1,5 +1,7 @@
 package uk.co.flamingpenguin.jewel.cli;
 
+import com.lexicalscope.fluentreflection.ReflectedMethod;
+
 /*
  * Copyright 2011 Tim Wood
  *
@@ -21,4 +23,5 @@ interface OptionAdapter {
     String pattern();
     boolean defaultToNull();
     String[] defaultValue();
+    ReflectedMethod correspondingOptionalityMethod();
 }
