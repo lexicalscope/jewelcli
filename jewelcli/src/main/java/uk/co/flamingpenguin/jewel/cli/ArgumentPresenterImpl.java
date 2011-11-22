@@ -3,6 +3,7 @@ package uk.co.flamingpenguin.jewel.cli;
 import static uk.co.flamingpenguin.jewel.cli.ConvertTypeOfObject.converterTo;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
@@ -28,17 +29,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
 
             final Argument argument = validatedArguments.getArgument(optionSpecification.getNames());
             if (argument != null) {
-                if (optionSpecification.isMultiValued()) {
-                    argumentMap.put(
-                            optionSpecification.getCanonicalIdentifier(),
-                            convertTypeOfObject.convert(argument.getValues()));
-                } else if (!argument.getValues().isEmpty()) {
-                    argumentMap.put(
-                            optionSpecification.getCanonicalIdentifier(),
-                            convertTypeOfObject.convert(argument.getValues().get(0)));
-                } else if (argument.getValues().isEmpty()) {
-                    argumentMap.put(optionSpecification.getCanonicalIdentifier(), null);
-                }
+                putValuesInMap(argumentMap, optionSpecification, convertTypeOfObject, argument.getValues());
             }
         }
 
@@ -52,25 +43,37 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
                             unparsedSpecification.getMethod());
 
             putDefaultInMap(argumentMap, unparsedSpecification, convertTypeOfObject);
-
-            if (!validatedArguments.getUnparsed().isEmpty())
-            {
-                if (unparsedSpecification.isMultiValued())
-                {
-                    argumentMap.put(
-                            unparsedSpecification.getCanonicalIdentifier(),
-                            convertTypeOfObject.convert(validatedArguments.getUnparsed()));
-                }
-                else if (!validatedArguments.getUnparsed().isEmpty())
-                {
-                    argumentMap.put(
-                            unparsedSpecification.getCanonicalIdentifier(),
-                            convertTypeOfObject.convert(validatedArguments.getUnparsed().get(0)));
-                }
+            if (!validatedArguments.getUnparsed().isEmpty()) {
+                putValuesInMap(
+                        argumentMap,
+                        unparsedSpecification,
+                        convertTypeOfObject,
+                        validatedArguments.getUnparsed());
             }
         }
         validationErrorBuilder.validate();
         return argumentPresentingStrategy.presentArguments(argumentMap);
+    }
+
+    private void putValuesInMap(
+            final Map<String, Object> argumentMap,
+            final OptionSpecification specification,
+            final ConvertTypeOfObject<?> convertTypeOfObject,
+            final List<String> values) {
+        if (specification.isMultiValued())
+        {
+            argumentMap.put(
+                    specification.getCanonicalIdentifier(),
+                    convertTypeOfObject.convert(values));
+        }
+        else if (!values.isEmpty())
+        {
+            argumentMap.put(
+                    specification.getCanonicalIdentifier(),
+                    convertTypeOfObject.convert(values.get(0)));
+        } else if (values.isEmpty()) {
+            argumentMap.put(specification.getCanonicalIdentifier(), null);
+        }
     }
 
     private void putDefaultInMap(
