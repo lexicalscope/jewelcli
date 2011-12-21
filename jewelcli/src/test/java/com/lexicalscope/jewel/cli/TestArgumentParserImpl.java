@@ -4,22 +4,21 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
 
 public class TestArgumentParserImpl {
-    @Test public void testParseArguments() throws ArgumentValidationException {
+    @Test public void testParseArguments() throws CliValidationException {
         final ArgumentCollectionImpl parsed = parseArguments(new String[] {});
         assertEquals(0, parsed.getUnparsed().size());
     }
 
-    @Test public void testParseArgumentsNotUparsed() throws ArgumentValidationException {
+    @Test public void testParseArgumentsNotUparsed() throws CliValidationException {
         final ArgumentCollectionImpl parsed = parseArguments(new String[] { "-a", "1", "2", "-b", "-c", "1", "2" });
         assertTrue(parsed.containsAny("a"));
         assertTrue(parsed.containsAny("b"));
         assertTrue(parsed.containsAny("c"));
     }
 
-    @Test public void testParseArgumentsUnparsed() throws ArgumentValidationException {
+    @Test public void testParseArgumentsUnparsed() throws CliValidationException {
         final ArgumentCollectionImpl parsed =
                 parseArguments(new String[] { "-a", "1", "2", "-b", "-c", "1", "2", "--", "3", "4" });
         assertEquals(2, parsed.getUnparsed().size());
@@ -27,12 +26,12 @@ public class TestArgumentParserImpl {
         assertEquals("4", parsed.getUnparsed().get(1));
     }
 
-    @Test public void testParseArgumentsOnlyUnparsed() throws ArgumentValidationException {
+    @Test public void testParseArgumentsOnlyUnparsed() throws CliValidationException {
         final ArgumentCollectionImpl parsed = parseArguments(new String[] { "--", "3", "4" });
         assertEquals(2, parsed.getUnparsed().size());
     }
 
-    @Test public void testParseArgumentsOnlyUnparsedSeperator() throws ArgumentValidationException {
+    @Test public void testParseArgumentsOnlyUnparsedSeperator() throws CliValidationException {
         final ArgumentCollectionImpl parsed = parseArguments(new String[] { "--" });
         assertEquals(0, parsed.getUnparsed().size());
     }
@@ -41,13 +40,13 @@ public class TestArgumentParserImpl {
         try {
             parseArguments(new String[] { "a", "-b" });
             fail();
-        } catch (final ArgumentValidationException e) {
+        } catch (final CliValidationException e) {
             assertEquals(1, e.getValidationErrors().size());
             assertEquals(ErrorType.MisplacedOption, e.getValidationErrors().get(0).getErrorType());
         }
     }
 
-    @Test public void testParseShortArguments() throws ArgumentValidationException {
+    @Test public void testParseShortArguments() throws CliValidationException {
         final ArgumentCollectionImpl parsed = parseArguments(new String[] { "-abc" });
         assertEquals(0, parsed.getUnparsed().size());
         assertTrue(parsed.containsAny("a"));
@@ -56,7 +55,7 @@ public class TestArgumentParserImpl {
         assertFalse(parsed.containsAny("abc"));
     }
 
-    @Test public void testParseAssignedValue() throws ArgumentValidationException {
+    @Test public void testParseAssignedValue() throws CliValidationException {
         final ArgumentCollectionImpl parsed = parseArguments(new String[] { "--option=value" });
         assertEquals(0, parsed.getUnparsed().size());
         assertTrue(parsed.containsAny("option"));
@@ -64,7 +63,7 @@ public class TestArgumentParserImpl {
         assertFalse(parsed.containsAny("option=value"));
     }
 
-    private ArgumentCollectionImpl parseArguments(final String[] arguments) throws ArgumentValidationException {
+    private ArgumentCollectionImpl parseArguments(final String[] arguments) throws CliValidationException {
         final ArgumentParser impl = new ArgumentParserImpl();
         return (ArgumentCollectionImpl) impl.parseArguments(arguments);
     }

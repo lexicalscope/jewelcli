@@ -9,12 +9,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.lexicalscope.jewel.cli.ArgumentValidationException;
+import com.lexicalscope.jewel.cli.CliValidationException;
 
 public class TestClassOptionalUnparsedOption {
     @Rule public final ExpectedException exception = ExpectedException.none();
 
-    @Test public void testOptionalUnparsedOptionPresent() throws ArgumentValidationException {
+    @Test public void testOptionalUnparsedOptionPresent() throws CliValidationException {
         final ClassOptionalUnparsedOption result =
                 parseArgumentsUsingInstance(new ClassOptionalUnparsedOption(), new String[] {
                         "--myOptionalUnparsedOption",
@@ -24,7 +24,7 @@ public class TestClassOptionalUnparsedOption {
         assertThat(result.getMyOptionalUnparsedOption(), contains(3, 7));
     }
 
-    @Test public void testOptionalUnparsedOptionMissing() throws ArgumentValidationException {
+    @Test public void testOptionalUnparsedOptionMissing() throws CliValidationException {
         final ClassOptionalUnparsedOption result =
                 parseArgumentsUsingInstance(new ClassOptionalUnparsedOption(), new String[] {});
 

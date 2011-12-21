@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.lexicalscope.jewel.UtilitiesForTesting;
-import com.lexicalscope.jewel.cli.ArgumentValidationException;
+import com.lexicalscope.jewel.cli.CliValidationException;
 import com.lexicalscope.jewel.cli.Cli;
 import com.lexicalscope.jewel.cli.CliFactory;
 
@@ -29,7 +29,7 @@ public class TestHelpExample {
         try {
             cli.parseArguments("--help");
             fail("Help was requested");
-        } catch (final ArgumentValidationException e) {
+        } catch (final CliValidationException e) {
             assertEquals(HELP_MESSAGE, e.getMessage());
         }
     }

@@ -21,7 +21,7 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
  * limitations under the License. 
  */
 
-public class AbstractConvertMethodToOptionSpecification {
+class AbstractConvertMethodToOptionSpecification {
     protected final ReflectedClass<?> klass;
 
     public AbstractConvertMethodToOptionSpecification(final ReflectedClass<?> klass) {

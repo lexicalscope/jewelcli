@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.ArgumentValidationException;
+import com.lexicalscope.jewel.cli.CliValidationException;
 import com.lexicalscope.jewel.cli.CliFactory;
 
 public class TestMultipleOptionNames {
-    @Test public void testMultipleOptionNames() throws ArgumentValidationException {
+    @Test public void testMultipleOptionNames() throws CliValidationException {
         final MultipleOptionNames result0 =
                 CliFactory.parseArguments(MultipleOptionNames.class, new String[] { "--count", "3" });
         assertEquals(3, result0.getCount());

@@ -55,10 +55,10 @@ public abstract class CliFactory
      * @return The parsed arguments
      * 
      * @throws InvalidArgumentsException
-     * @throws ArgumentValidationException
+     * @throws CliValidationException
      */
     public static <O> O parseArguments(final Class<O> klass, final String... arguments)
-            throws ArgumentValidationException
+            throws CliValidationException
     {
         return createCli(klass).parseArguments(arguments);
     }
@@ -75,10 +75,10 @@ public abstract class CliFactory
      * @return The parsed arguments
      * 
      * @throws InvalidArgumentsException
-     * @throws ArgumentValidationException
+     * @throws CliValidationException
      */
     public static <O> O parseArgumentsUsingInstance(final O options, final String... arguments)
-            throws ArgumentValidationException
+            throws CliValidationException
     {
         return createCliUsingInstance(options).parseArguments(arguments);
     }

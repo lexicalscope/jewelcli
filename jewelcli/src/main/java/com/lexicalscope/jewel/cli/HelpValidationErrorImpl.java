@@ -14,14 +14,12 @@
 
 package com.lexicalscope.jewel.cli;
 
-import com.lexicalscope.jewel.cli.ArgumentValidationException.ValidationError;
-
 /**
  * The user requested help
  * 
  * @author tim
  */
-class HelpValidationErrorImpl implements ValidationError
+class HelpValidationErrorImpl extends OptionValidationException
 {
     private final OptionsSpecification<?> m_specification;
 
@@ -33,30 +31,15 @@ class HelpValidationErrorImpl implements ValidationError
      */
     public HelpValidationErrorImpl(final OptionsSpecification<?> specification)
     {
+        super(specification.toString());
         m_specification = specification;
     }
 
     /**
      * {@inheritdoc}
      */
-    public ErrorType getErrorType()
+    @Override public ErrorType getErrorType()
     {
         return ErrorType.HelpRequested;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public String getMessage()
-    {
-        return m_specification.toString();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    @Override public String toString()
-    {
-        return getMessage();
     }
 }

@@ -21,7 +21,7 @@ public class TestArgumentValidationException {
         try {
             CliFactory.parseArguments(TwoOptions.class, new String[] { "--count0", "3", "--coutn", "5" });
             fail();
-        } catch (final ArgumentValidationException e) {
+        } catch (final CliValidationException e) {
             assertEquals(UtilitiesForTesting.joinLines("Unexpected Option: coutn : Option not recognised",
                                           "Option is mandatory: --count1 value"),
                       e.getMessage());
@@ -32,7 +32,7 @@ public class TestArgumentValidationException {
         try {
             CliFactory.parseArguments(TwoOptions.class, new String[] { "--count0", "3" });
             fail();
-        } catch (final ArgumentValidationException e) {
+        } catch (final CliValidationException e) {
             assertEquals("Option is mandatory: --count1 value", e.getMessage());
         }
     }
@@ -41,7 +41,7 @@ public class TestArgumentValidationException {
         try {
             CliFactory.parseArguments(TwoOptions.class, new String[] { "count0", "3", "--count1", "4" });
             fail();
-        } catch (final ArgumentValidationException e) {
+        } catch (final CliValidationException e) {
             assertEquals("Option not expected in this position: count1", e.getMessage());
         }
     }
@@ -50,7 +50,7 @@ public class TestArgumentValidationException {
         try {
             CliFactory.parseArguments(TwoOptions.class, new String[] {});
             fail();
-        } catch (final ArgumentValidationException e) {
+        } catch (final CliValidationException e) {
             assertEquals(UtilitiesForTesting.joinLines("Option is mandatory: --count0 value",
                                 "Option is mandatory: --count1 value"),
                       e.getMessage());
@@ -61,7 +61,7 @@ public class TestArgumentValidationException {
         try {
             CliFactory.parseArguments(DescribedOption.class, new String[] {});
             fail();
-        } catch (final ArgumentValidationException e) {
+        } catch (final CliValidationException e) {
             assertEquals("Option is mandatory: --count value : the count", e.getMessage());
         }
     }

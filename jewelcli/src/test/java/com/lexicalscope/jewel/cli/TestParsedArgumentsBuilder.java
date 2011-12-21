@@ -7,16 +7,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.ArgumentValidationException.ValidationError;
-import com.lexicalscope.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
 
 public class TestParsedArgumentsBuilder {
-    @Test public void testAdd() throws ArgumentValidationException {
+    @Test public void testAdd() throws CliValidationException {
         try {
             final ArgumentParserImpl parsedArgumentsBuilder = new ArgumentParserImpl();
             parsedArgumentsBuilder.parseArguments("a", "-b");
             fail("rouge option should have been detected");
-        } catch (final ArgumentValidationException e) {
+        } catch (final CliValidationException e) {
             assertEquals(1, e.getValidationErrors().size());
             assertEquals(ErrorType.MisplacedOption, e.getValidationErrors().get(0).getErrorType());
         }
@@ -29,11 +27,11 @@ public class TestParsedArgumentsBuilder {
         assertEquals(0, new ArgumentParserImpl().getParsedArguments().getUnparsed().size());
     }
 
-    @Test public void testNoOptions() throws ArgumentValidationException {
+    @Test public void testNoOptions() throws CliValidationException {
         assertEquals(3, new ArgumentParserImpl().parseArguments("v0", "v1", "v2").getUnparsed().size());
     }
 
-    @Test public void testEndOfOptions() throws ArgumentValidationException {
+    @Test public void testEndOfOptions() throws CliValidationException {
         final List<String> unparsed =
                 new ArgumentParserImpl().parseArguments("-a", "v0", "--", "v1", "v2").getUnparsed();
         assertEquals(2, unparsed.size());
@@ -41,19 +39,19 @@ public class TestParsedArgumentsBuilder {
         assertEquals("v2", unparsed.get(1));
     }
 
-    @Test public void testMissingInitalSpecifier() throws ArgumentValidationException {
+    @Test public void testMissingInitalSpecifier() throws CliValidationException {
         try {
             new ArgumentParserImpl().parseArguments("v0", "-a");
-        } catch (final ArgumentValidationException e) {
+        } catch (final CliValidationException e) {
             assertEquals(1, e.getValidationErrors().size());
-            assertEquals(ValidationError.ErrorType.MisplacedOption, e
+            assertEquals(ErrorType.MisplacedOption, e
                     .getValidationErrors()
                     .get(0)
                     .getErrorType());
         }
     }
 
-    @Test public void testIterator() throws ArgumentValidationException {
+    @Test public void testIterator() throws CliValidationException {
         final Iterator<Argument> iterator = new ArgumentParserImpl().parseArguments("-a", "v1", "v2").iterator();
         assertTrue(iterator.hasNext());
 

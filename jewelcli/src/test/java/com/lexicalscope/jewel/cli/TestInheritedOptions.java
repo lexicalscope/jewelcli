@@ -11,7 +11,7 @@ public class TestInheritedOptions {
         @Option boolean getSubOption();
     }
 
-    @Test public void testSubInterface() throws ArgumentValidationException {
+    @Test public void testSubInterface() throws CliValidationException {
         CliFactory.parseArguments(SubInterface.class, new String[] { "--superOption", "--superOption" });
     }
 }

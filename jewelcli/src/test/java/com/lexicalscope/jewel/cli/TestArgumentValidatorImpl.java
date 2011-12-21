@@ -3,13 +3,10 @@ package com.lexicalscope.jewel.cli;
 import static com.lexicalscope.fluentreflection.FluentReflection.type;
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.ArgumentValidationException.ValidationError;
-import com.lexicalscope.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
 import com.lexicalscope.jewel.cli.examples.RmExample;
 
 public class TestArgumentValidatorImpl {
@@ -54,25 +51,25 @@ public class TestArgumentValidatorImpl {
         try {
             validate(new String[] { "--name1", "value" }, OptionalOption.class);
             fail();
-        } catch (final ArgumentValidationException e) {
-            final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
+        } catch (final CliValidationException e) {
+            final List<OptionValidationException> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
             assertEquals(ErrorType.MissingOption, validationErrors.get(0).getErrorType());
         }
     }
 
-    @Test public void testMultipleValue() throws ArgumentValidationException {
+    @Test public void testMultipleValue() throws CliValidationException {
         validate(new String[] { "--name", "a", "b" }, MultipleValue.class);
     }
 
-    @Test public void testMultipleValueEndOfArguments() throws ArgumentValidationException {
+    @Test public void testMultipleValueEndOfArguments() throws CliValidationException {
         final ArgumentCollectionImpl validated =
                 validate(new String[] { "--name", "a", "b", "--", "c", "d" }, MultipleValue.class);
         assertEquals(2, validated.getUnparsed().size());
         assertEquals(2, validated.getValues("name").size());
     }
 
-    @Test public void testMultipleValueNotEndOfArguments() throws ArgumentValidationException {
+    @Test public void testMultipleValueNotEndOfArguments() throws CliValidationException {
         final ArgumentCollectionImpl validated =
                 validate(
                         new String[] { "--name0", "a", "b", "--name1", "c", "d", "e", "--", "f", "g" },
@@ -82,12 +79,12 @@ public class TestArgumentValidatorImpl {
         assertEquals(1, validated.getValues("name1").size());
     }
 
-    @Test public void testAdjacentShortOptions() throws ArgumentValidationException {
+    @Test public void testAdjacentShortOptions() throws CliValidationException {
         final ArgumentCollection validated = validate(new String[] { "-vrf", "./" }, RmExample.class);
         assertEquals(1, validated.getUnparsed().size());
     }
 
-    @Test public void testSingleValue() throws ArgumentValidationException {
+    @Test public void testSingleValue() throws CliValidationException {
         validate(new String[] { "--name", "a" }, MultipleValue.class);
     }
 
@@ -95,8 +92,8 @@ public class TestArgumentValidatorImpl {
         try {
             validate(new String[] { "--name1", "value", "wrong", "--name0" }, ExtraValue.class);
             fail();
-        } catch (final ArgumentValidationException e) {
-            final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
+        } catch (final CliValidationException e) {
+            final List<OptionValidationException> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
             assertEquals(ErrorType.AdditionalValue, validationErrors.get(0).getErrorType());
         }
@@ -106,8 +103,8 @@ public class TestArgumentValidatorImpl {
         try {
             validate(new String[] { "--name" }, SingleValue.class);
             fail();
-        } catch (final ArgumentValidationException e) {
-            final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
+        } catch (final CliValidationException e) {
+            final List<OptionValidationException> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
             assertEquals(ErrorType.MissingValue, validationErrors.get(0).getErrorType());
         }
@@ -117,26 +114,26 @@ public class TestArgumentValidatorImpl {
         try {
             validate(new String[] { "--name1", "value", "--name0" }, NoValue.class);
             fail();
-        } catch (final ArgumentValidationException e) {
-            final ArrayList<ValidationError> validationErrors = e.getValidationErrors();
+        } catch (final CliValidationException e) {
+            final List<OptionValidationException> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
             assertEquals(ErrorType.UnexpectedValue, validationErrors.get(0).getErrorType());
         }
     }
 
-    @Test public void testMissingMultipleValue() throws ArgumentValidationException {
+    @Test public void testMissingMultipleValue() throws CliValidationException {
         validate(new String[] { "--name" }, MultipleValue.class);
         // TODO[tim]:support minimum/maximum value list lengths
     }
 
-    @Test public void testOptionAndUnparsed() throws ArgumentValidationException {
+    @Test public void testOptionAndUnparsed() throws CliValidationException {
         final ArgumentCollectionImpl validated =
                 validate(new String[] { "--name0", "value0", "remaining0" }, OptionAndUnparsed.class);
         assertEquals(1, validated.getUnparsed().size());
     }
 
     private <O> ArgumentCollectionImpl validate(final String[] arguments, final Class<O> klass)
-            throws ArgumentValidationException {
+            throws CliValidationException {
         final ArgumentValidatorImpl<O> impl =
                 new ArgumentValidatorImpl<O>(
                         InterfaceOptionsSpecificationParser.<O>createOptionsSpecificationImpl(type(klass)));

@@ -19,10 +19,9 @@ public interface Cli<O> {
      * @return An instance of the interface O which will present the parsed
      *         arguments
      * 
-     * @throws InvalidArgumentsException
-     * @throws ArgumentValidationException
+     * @throws CliValidationException
      */
-    O parseArguments(String... arguments) throws ArgumentValidationException;
+    O parseArguments(String... arguments) throws CliValidationException;
 
     /**
      * Get a help message suitable for describing the options to the user

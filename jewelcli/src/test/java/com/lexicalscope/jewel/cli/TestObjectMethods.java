@@ -56,30 +56,30 @@ public class TestObjectMethods {
         @Unparsed List<String> getName();
     }
 
-    @Test public void testHashCode() throws ArgumentValidationException {
+    @Test public void testHashCode() throws CliValidationException {
         final SingleOption parsedArguments = CliFactory.parseArguments(SingleOption.class, "--name", "value");
         parsedArguments.hashCode();
     }
 
-    @Test public void testEquals() throws ArgumentValidationException {
+    @Test public void testEquals() throws CliValidationException {
         final SingleOption parsedArguments = CliFactory.parseArguments(SingleOption.class, "--name", "value");
         assertTrue(parsedArguments.equals(parsedArguments));
     }
 
-    @Test public void testNotEquals() throws ArgumentValidationException {
+    @Test public void testNotEquals() throws CliValidationException {
         final SingleOption parsedArguments0 = CliFactory.parseArguments(SingleOption.class, "--name", "value");
         final SingleOption parsedArguments1 = CliFactory.parseArguments(SingleOption.class, "--name", "value");
         assertFalse(parsedArguments0.equals(parsedArguments1));
     }
 
-    @Test public void testToString() throws ArgumentValidationException {
+    @Test public void testToString() throws CliValidationException {
         final SingleOption parsedArguments = CliFactory.parseArguments(SingleOption.class, "--name", "value");
         assertEquals(
                 "com.lexicalscope.jewel.cli.TestObjectMethods$SingleOption {name=value}",
                 parsedArguments.toString());
     }
 
-    @Test public void testToStringList() throws ArgumentValidationException {
+    @Test public void testToStringList() throws CliValidationException {
         final ListOption parsedArguments =
                 CliFactory.parseArguments(ListOption.class, "--name", "value0", "value1", "value2");
         assertEquals(
@@ -87,7 +87,7 @@ public class TestObjectMethods {
                 parsedArguments.toString());
     }
 
-    @Test public void testToStringBoolean() throws ArgumentValidationException {
+    @Test public void testToStringBoolean() throws CliValidationException {
         final BooleanOption parsedArguments =
                 CliFactory.parseArguments(BooleanOption.class, "--name");
         assertEquals(
@@ -95,21 +95,21 @@ public class TestObjectMethods {
                 parsedArguments.toString());
     }
 
-    @Test public void testToStringOptionalMissing() throws ArgumentValidationException {
+    @Test public void testToStringOptionalMissing() throws CliValidationException {
         final OptionalOption parsedArguments = CliFactory.parseArguments(OptionalOption.class);
         assertEquals(
                 "com.lexicalscope.jewel.cli.TestObjectMethods$OptionalOption {}",
                 parsedArguments.toString());
     }
 
-    @Test public void testToStringOptionalPresent() throws ArgumentValidationException {
+    @Test public void testToStringOptionalPresent() throws CliValidationException {
         final OptionalOption parsedArguments = CliFactory.parseArguments(OptionalOption.class, "--name", "value");
         assertEquals(
                 "com.lexicalscope.jewel.cli.TestObjectMethods$OptionalOption {name=value}",
                 parsedArguments.toString());
     }
 
-    @Test public void testToStringUnparsedOptions() throws ArgumentValidationException {
+    @Test public void testToStringUnparsedOptions() throws CliValidationException {
         final UnparsedOption parsedArguments =
                 CliFactory.parseArguments(UnparsedOption.class, "value0", "value1", "value2", "value3");
         assertEquals(
@@ -117,7 +117,7 @@ public class TestObjectMethods {
                 parsedArguments.toString());
     }
 
-    @Test public void testToStringSeveralOptions() throws ArgumentValidationException {
+    @Test public void testToStringSeveralOptions() throws CliValidationException {
         final SeveralOptions parsedArguments =
                 CliFactory.parseArguments(
                         SeveralOptions.class,

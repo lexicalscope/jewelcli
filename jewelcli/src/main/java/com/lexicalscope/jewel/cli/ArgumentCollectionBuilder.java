@@ -25,7 +25,7 @@ class ArgumentCollectionBuilder {
     private interface IParsingState {
         IParsingState addValue(String value);
 
-        IParsingState addOption(String option) throws ArgumentValidationException;
+        IParsingState addOption(String option) throws CliValidationException;
     }
 
     private class Initial implements IParsingState {
@@ -48,7 +48,7 @@ class ArgumentCollectionBuilder {
             return this;
         }
 
-        @Override public IParsingState addOption(final String option) throws ArgumentValidationException {
+        @Override public IParsingState addOption(final String option) throws CliValidationException {
             throw misplacedOption(option);
         }
     }
@@ -63,7 +63,7 @@ class ArgumentCollectionBuilder {
             return this;
         }
 
-        @Override public IParsingState addOption(final String option) throws ArgumentValidationException {
+        @Override public IParsingState addOption(final String option) throws CliValidationException {
             throw misplacedOption(option);
         }
     }
@@ -102,7 +102,7 @@ class ArgumentCollectionBuilder {
         state = state.addValue(value);
     }
 
-    void addOption(final String option) throws ArgumentValidationException
+    void addOption(final String option) throws CliValidationException
     {
         state = state.addOption(option);
     }
@@ -114,21 +114,13 @@ class ArgumentCollectionBuilder {
                 new ArrayList<String>(unparsed));
     }
 
-    private ArgumentValidationException misplacedOption(final String option) {
-        return new ArgumentValidationException(new ArgumentValidationException.ValidationError() {
-            public ErrorType getErrorType()
+    private CliValidationException misplacedOption(final String option) {
+        return new CliValidationException(new OptionValidationException(String.format(
+                "Option not expected in this position: %s",
+                option)) {
+            @Override public ErrorType getErrorType()
             {
-                return ArgumentValidationException.ValidationError.ErrorType.MisplacedOption;
-            }
-
-            public String getMessage()
-            {
-                return option;
-            }
-
-            @Override public String toString()
-            {
-                return String.format("Option not expected in this position: %s", getMessage());
+                return ErrorType.MisplacedOption;
             }
         });
     }

@@ -17,7 +17,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
         this.argumentPresentingStrategy = argumentPresentingStrategy;
     }
 
-    @Option public O presentArguments(final ArgumentCollection validatedArguments) throws ArgumentValidationException {
+    @Option public O presentArguments(final ArgumentCollection validatedArguments) throws CliValidationException {
         final Map<String, Object> argumentMap = new LinkedHashMap<String, Object>();
 
         final ValidationErrorBuilder validationErrorBuilder = new ValidationErrorBuilderImpl();

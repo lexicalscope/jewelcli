@@ -24,5 +24,5 @@ interface ValidationErrorBuilder
 
     void helpRequested(OptionsSpecification<?> specification);
 
-    void validate() throws ArgumentValidationException;
+    void validate() throws CliValidationException;
 }

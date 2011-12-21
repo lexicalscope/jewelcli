@@ -6,8 +6,6 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-import com.lexicalscope.jewel.cli.ArgumentValidationException.ValidationError;
-import com.lexicalscope.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
 
 /*
  * Copyright 2011 Tim Wood
@@ -26,25 +24,25 @@ import com.lexicalscope.jewel.cli.ArgumentValidationException.ValidationError.Er
  */
 
 public class ArgumentValidationExceptionMatcher {
-    public static Matcher<ArgumentValidationException> validationException(final ErrorType expectedErrorType) {
-        return new TypeSafeMatcher<ArgumentValidationException>() {
+    public static Matcher<CliValidationException> validationException(final ErrorType expectedErrorType) {
+        return new TypeSafeMatcher<CliValidationException>() {
             @Override public void describeTo(final Description description) {
                 description
-                        .appendText(ArgumentValidationException.class.getSimpleName())
+                        .appendText(CliValidationException.class.getSimpleName())
                         .appendText(" with error type ")
                         .appendValue(expectedErrorType);
             }
 
-            @Override protected boolean matchesSafely(final ArgumentValidationException item) {
-                return selectFirst(item.getValidationErrors(), new TypeSafeMatcher<ValidationError>() {
+            @Override protected boolean matchesSafely(final CliValidationException item) {
+                return selectFirst(item.getValidationErrors(), new TypeSafeMatcher<OptionValidationException>() {
                     @Override public void describeTo(final Description description) {
                         description
-                                .appendText(ArgumentValidationException.ValidationError.class.getSimpleName())
+                                .appendText(OptionValidationException.class.getSimpleName())
                                 .appendText(" with error type ")
                                 .appendValue(expectedErrorType);
                     }
 
-                    @Override protected boolean matchesSafely(final ValidationError actualError) {
+                    @Override protected boolean matchesSafely(final OptionValidationException actualError) {
                         return actualError.getErrorType().equals(expectedErrorType);
                     }
                 }) != null;

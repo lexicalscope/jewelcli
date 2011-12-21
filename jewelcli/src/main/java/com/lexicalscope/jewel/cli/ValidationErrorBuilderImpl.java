@@ -4,76 +4,76 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.lexicalscope.jewel.cli.ArgumentValidationException.ValidationError.ErrorType;
-
 class ValidationErrorBuilderImpl implements ValidationErrorBuilder
 {
-    private final List<ArgumentValidationException.ValidationError> m_validationException =
-            new ArrayList<ArgumentValidationException.ValidationError>();
+    private final List<OptionValidationException> m_validationException =
+            new ArrayList<OptionValidationException>();
 
     public void missingValue(final OptionSpecification optionSpecification)
     {
-        m_validationException.add(ArgumentValidationException.createMissingValueError(optionSpecification));
+        m_validationException.add(ArgumentValidationExceptionFactory.createMissingValueError(optionSpecification));
     }
 
     public void unexpectedAdditionalValues(final OptionSpecification optionSpecification)
     {
-        m_validationException.add(ArgumentValidationException.createAdditionalValuesError(optionSpecification));
+        m_validationException.add(ArgumentValidationExceptionFactory.createAdditionalValuesError(optionSpecification));
     }
 
     public void unexpectedOption(final String name)
     {
-        m_validationException.add(ArgumentValidationException.createUnexpectedOptionError(name));
+        m_validationException.add(ArgumentValidationExceptionFactory.createUnexpectedOptionError(name));
     }
 
     public void unexpectedValue(final OptionSpecification optionSpecification)
     {
-        m_validationException.add(ArgumentValidationException.createUnexpectedValueError(optionSpecification));
+        m_validationException.add(ArgumentValidationExceptionFactory.createUnexpectedValueError(optionSpecification));
     }
 
     @Override public void unexpectedTrailingValue(final List<String> unparsedArguments) {
-        m_validationException.add(ArgumentValidationException.createUnexpectedTrailingValue());
+        m_validationException.add(ArgumentValidationExceptionFactory.createUnexpectedTrailingValue());
     }
 
     public void missingOption(final OptionSpecification optionSpecification)
     {
-        m_validationException.add(ArgumentValidationException.createMissingOptionError(optionSpecification));
+        m_validationException.add(ArgumentValidationExceptionFactory.createMissingOptionError(optionSpecification));
     }
 
     public void invalidValueForType(final OptionSpecification optionSpecification, final String message)
     {
-        m_validationException.add(ArgumentValidationException.createInvalidValueForType(optionSpecification, message));
+        m_validationException.add(ArgumentValidationExceptionFactory.createInvalidValueForType(
+                optionSpecification,
+                message));
     }
 
     public void unableToConstructType(final OptionSpecification optionSpecification, final String message)
     {
         m_validationException
-                .add(ArgumentValidationException.createUnableToConstructType(optionSpecification, message));
+                .add(ArgumentValidationExceptionFactory.createUnableToConstructType(optionSpecification, message));
     }
 
     public void patternMismatch(final OptionSpecification optionSpecification, final String value)
     {
-        m_validationException.add(ArgumentValidationException.createPatternMismatch(optionSpecification, value));
+        m_validationException.add(ArgumentValidationExceptionFactory.createPatternMismatch(optionSpecification, value));
     }
 
     public void helpRequested(final OptionsSpecification<?> specification)
     {
-        m_validationException.add(ArgumentValidationException.createhelpRequested(specification));
+        m_validationException.add(ArgumentValidationExceptionFactory.createhelpRequested(specification));
     }
 
-    public void validate() throws ArgumentValidationException
+    public void validate() throws CliValidationException
     {
         if (m_validationException.size() > 0)
         {
-            for (final ArgumentValidationException.ValidationError error : m_validationException)
+            for (final OptionValidationException error : m_validationException)
             {
                 if (ErrorType.HelpRequested.equals(error.getErrorType()))
                 {
-                    throw new ArgumentValidationException(Arrays.asList(error));
+                    throw new CliValidationException(Arrays.asList(error));
                 }
             }
 
-            throw new ArgumentValidationException(m_validationException);
+            throw new CliValidationException(m_validationException);
         }
     }
 }

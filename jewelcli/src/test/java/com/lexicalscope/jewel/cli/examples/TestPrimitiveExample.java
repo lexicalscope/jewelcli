@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.ArgumentValidationException;
+import com.lexicalscope.jewel.cli.CliValidationException;
 import com.lexicalscope.jewel.cli.CliFactory;
 
 public class TestPrimitiveExample {
-    @Test public void testPrimitiveExample() throws ArgumentValidationException {
+    @Test public void testPrimitiveExample() throws CliValidationException {
         final PrimitiveExample result0 = CliFactory.parseArguments(PrimitiveExample.class,
                 new String[] { "--boolean",
                          "--byte", "1",
