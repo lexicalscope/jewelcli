@@ -35,11 +35,4 @@ class HelpValidationErrorImpl extends OptionValidationException
         m_specification = specification;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    @Override public ErrorType getErrorType()
-    {
-        return ErrorType.HelpRequested;
-    }
 }

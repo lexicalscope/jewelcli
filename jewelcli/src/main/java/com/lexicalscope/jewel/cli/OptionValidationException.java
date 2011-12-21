@@ -26,5 +26,10 @@ public abstract class OptionValidationException extends JewelRuntimeException
         super(message);
     }
 
-    public abstract ErrorType getErrorType();
+    public OptionValidationException(
+            final OptionSpecification specification,
+            final String description)
+    {
+        super(String.format("%s: %s", description, specification));
+    }
 }

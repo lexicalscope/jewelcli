@@ -1,9 +1,9 @@
 package com.lexicalscope.jewel.cli;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
 import static com.lexicalscope.jewel.cli.ArgumentValidationExceptionMatcher.validationException;
 import static com.lexicalscope.jewel.cli.CliFactory.parseArguments;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -72,7 +72,7 @@ public class TestUnparsedArguments {
 
     @Test public void testUnparsedOptionMissingValue() throws CliValidationException {
         exception.expect(CliValidationException.class);
-        exception.expect(validationException(ErrorType.MissingValue));
+        exception.expect(validationException(ErrorType.MissingValueException.class));
 
         parseArguments(UnparsedOption.class);
     }
@@ -91,7 +91,7 @@ public class TestUnparsedArguments {
             throws CliValidationException {
         exception.expect(CliValidationException.class);
         exception
-                .expect(validationException(ErrorType.UnexpectedTrailingValue));
+                .expect(validationException(ErrorType.UnexpectedTrailingValueException.class));
 
         parseArguments(NoUnparsedOption.class, "value0");
     }

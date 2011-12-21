@@ -1,8 +1,8 @@
 package com.lexicalscope.jewel.cli.examples;
 
-import static org.junit.Assert.assertEquals;
 import static com.lexicalscope.jewel.cli.ArgumentValidationExceptionMatcher.validationException;
 import static com.lexicalscope.jewel.cli.CliFactory.parseArgumentsUsingInstance;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class TestClassOptionalOption {
 
     @Test public void testMandatoryOptionMissing() throws CliValidationException {
         exception.expect(CliValidationException.class);
-        exception.expect(validationException(ErrorType.MissingOption));
+        exception.expect(validationException(ErrorType.MissingOptionException.class));
 
         parseArgumentsUsingInstance(new ClassOptionalOption(), new String[] { "--myOptionalOption", "3" });
     }

@@ -23,8 +23,8 @@ public class TestArgumentValidationException {
             fail();
         } catch (final CliValidationException e) {
             assertEquals(UtilitiesForTesting.joinLines("Unexpected Option: coutn : Option not recognised",
-                                          "Option is mandatory: --count1 value"),
-                      e.getMessage());
+                    "Option is mandatory: --count1 value"),
+                    e.getMessage());
         }
     }
 
@@ -42,7 +42,7 @@ public class TestArgumentValidationException {
             CliFactory.parseArguments(TwoOptions.class, new String[] { "count0", "3", "--count1", "4" });
             fail();
         } catch (final CliValidationException e) {
-            assertEquals("Option not expected in this position: count1", e.getMessage());
+            assertEquals("Option not expected in this position (count1)", e.getMessage());
         }
     }
 
@@ -52,8 +52,8 @@ public class TestArgumentValidationException {
             fail();
         } catch (final CliValidationException e) {
             assertEquals(UtilitiesForTesting.joinLines("Option is mandatory: --count0 value",
-                                "Option is mandatory: --count1 value"),
-                      e.getMessage());
+                    "Option is mandatory: --count1 value"),
+                    e.getMessage());
         }
     }
 

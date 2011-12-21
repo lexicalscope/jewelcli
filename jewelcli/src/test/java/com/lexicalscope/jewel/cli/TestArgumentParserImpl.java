@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-
 public class TestArgumentParserImpl {
     @Test public void testParseArguments() throws CliValidationException {
         final ArgumentCollectionImpl parsed = parseArguments(new String[] {});
@@ -42,7 +41,7 @@ public class TestArgumentParserImpl {
             fail();
         } catch (final CliValidationException e) {
             assertEquals(1, e.getValidationErrors().size());
-            assertEquals(ErrorType.MisplacedOption, e.getValidationErrors().get(0).getErrorType());
+            assertEquals(ErrorType.MisplacedOptionException.class, e.getValidationErrors().get(0).getClass());
         }
     }
 

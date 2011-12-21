@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-
 public class TestParsedArgumentsBuilder {
     @Test public void testAdd() throws CliValidationException {
         try {
@@ -16,7 +15,7 @@ public class TestParsedArgumentsBuilder {
             fail("rouge option should have been detected");
         } catch (final CliValidationException e) {
             assertEquals(1, e.getValidationErrors().size());
-            assertEquals(ErrorType.MisplacedOption, e.getValidationErrors().get(0).getErrorType());
+            assertEquals(ErrorType.MisplacedOptionException.class, e.getValidationErrors().get(0).getClass());
         }
 
         new ArgumentParserImpl().parseArguments("-a");
@@ -44,10 +43,10 @@ public class TestParsedArgumentsBuilder {
             new ArgumentParserImpl().parseArguments("v0", "-a");
         } catch (final CliValidationException e) {
             assertEquals(1, e.getValidationErrors().size());
-            assertEquals(ErrorType.MisplacedOption, e
+            assertEquals(ErrorType.MisplacedOptionException.class, e
                     .getValidationErrors()
                     .get(0)
-                    .getErrorType());
+                    .getClass());
         }
     }
 

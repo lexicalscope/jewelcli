@@ -115,14 +115,7 @@ class ArgumentCollectionBuilder {
     }
 
     private CliValidationException misplacedOption(final String option) {
-        return new CliValidationException(new OptionValidationException(String.format(
-                "Option not expected in this position: %s",
-                option)) {
-            @Override public ErrorType getErrorType()
-            {
-                return ErrorType.MisplacedOption;
-            }
-        });
+        return new CliValidationException(new ErrorType.MisplacedOptionException(option));
     }
 
     private void addUnparsedValue(final String value) {

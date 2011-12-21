@@ -6,7 +6,6 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
-
 /*
  * Copyright 2011 Tim Wood
  *
@@ -24,7 +23,8 @@ import org.hamcrest.TypeSafeMatcher;
  */
 
 public class ArgumentValidationExceptionMatcher {
-    public static Matcher<CliValidationException> validationException(final ErrorType expectedErrorType) {
+    public static Matcher<CliValidationException> validationException(
+            final Class<? extends OptionValidationException> expectedErrorType) {
         return new TypeSafeMatcher<CliValidationException>() {
             @Override public void describeTo(final Description description) {
                 description
@@ -43,7 +43,7 @@ public class ArgumentValidationExceptionMatcher {
                     }
 
                     @Override protected boolean matchesSafely(final OptionValidationException actualError) {
-                        return actualError.getErrorType().equals(expectedErrorType);
+                        return actualError.getClass().equals(expectedErrorType);
                     }
                 }) != null;
             }

@@ -54,7 +54,7 @@ public class TestArgumentValidatorImpl {
         } catch (final CliValidationException e) {
             final List<OptionValidationException> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
-            assertEquals(ErrorType.MissingOption, validationErrors.get(0).getErrorType());
+            assertEquals(ErrorType.MissingOptionException.class, validationErrors.get(0).getClass());
         }
     }
 
@@ -95,7 +95,7 @@ public class TestArgumentValidatorImpl {
         } catch (final CliValidationException e) {
             final List<OptionValidationException> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
-            assertEquals(ErrorType.AdditionalValue, validationErrors.get(0).getErrorType());
+            assertEquals(ErrorType.AdditionalValueException.class, validationErrors.get(0).getClass());
         }
     }
 
@@ -106,7 +106,7 @@ public class TestArgumentValidatorImpl {
         } catch (final CliValidationException e) {
             final List<OptionValidationException> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
-            assertEquals(ErrorType.MissingValue, validationErrors.get(0).getErrorType());
+            assertEquals(ErrorType.MissingValueException.class, validationErrors.get(0).getClass());
         }
     }
 
@@ -117,7 +117,7 @@ public class TestArgumentValidatorImpl {
         } catch (final CliValidationException e) {
             final List<OptionValidationException> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
-            assertEquals(ErrorType.UnexpectedValue, validationErrors.get(0).getErrorType());
+            assertEquals(ErrorType.UnexpectedValueException.class, validationErrors.get(0).getClass());
         }
     }
 
