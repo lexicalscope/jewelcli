@@ -54,7 +54,6 @@ public abstract class CliFactory
      * 
      * @return The parsed arguments
      * 
-     * @throws InvalidArgumentsException
      * @throws CliValidationException
      */
     public static <O> O parseArguments(final Class<O> klass, final String... arguments)
