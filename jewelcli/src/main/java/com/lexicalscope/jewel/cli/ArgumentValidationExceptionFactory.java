@@ -66,9 +66,4 @@ class ArgumentValidationExceptionFactory {
     {
         return new PatternMismatchException(optionSpecification, message);
     }
-
-    static OptionValidationException createhelpRequested(final OptionsSpecification<?> specification)
-    {
-        return new HelpRequestedException(specification);
-    }
 }

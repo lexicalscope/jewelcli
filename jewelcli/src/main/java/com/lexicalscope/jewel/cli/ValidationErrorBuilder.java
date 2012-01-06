@@ -22,7 +22,5 @@ interface ValidationErrorBuilder
 
     void patternMismatch(OptionSpecification optionSpecification, String value);
 
-    void helpRequested(OptionsSpecification<?> specification);
-
     void validate() throws CliValidationException;
 }

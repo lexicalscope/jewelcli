@@ -60,7 +60,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
                         m_specification.getSpecification(argument.getOptionName());
                 if (optionSpecification.isHelpOption())
                 {
-                    m_validationErrorBuilder.helpRequested(m_specification);
+                    throw new HelpRequestedException(m_specification);
                 }
                 else if (argument.getValues().size() == 0
                         && optionSpecification.hasValue()

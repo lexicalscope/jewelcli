@@ -14,7 +14,7 @@ import com.lexicalscope.jewel.JewelRuntimeException;
  * 
  * @author tim
  */
-public final class CliValidationException extends JewelRuntimeException
+public class CliValidationException extends JewelRuntimeException
 {
     private static final long serialVersionUID = -4781861924515211053L;
     static final ResourceBundle m_messages = ResourceBundle.getBundle(

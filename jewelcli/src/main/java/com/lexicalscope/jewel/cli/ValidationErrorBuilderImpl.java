@@ -1,7 +1,5 @@
 package com.lexicalscope.jewel.cli;
 
-import static java.util.Arrays.asList;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,23 +55,10 @@ class ValidationErrorBuilderImpl implements ValidationErrorBuilder
         validationExceptions.add(ArgumentValidationExceptionFactory.createPatternMismatch(optionSpecification, value));
     }
 
-    public void helpRequested(final OptionsSpecification<?> specification)
-    {
-        validationExceptions.add(ArgumentValidationExceptionFactory.createhelpRequested(specification));
-    }
-
     public void validate() throws CliValidationException
     {
         if (validationExceptions.size() > 0)
         {
-            for (final OptionValidationException error : validationExceptions)
-            {
-                if (error instanceof HelpRequestedException)
-                {
-                    throw new CliValidationException(asList(error));
-                }
-            }
-
             throw new CliValidationException(validationExceptions);
         }
     }

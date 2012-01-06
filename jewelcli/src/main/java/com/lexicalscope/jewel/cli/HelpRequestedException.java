@@ -19,9 +19,9 @@ package com.lexicalscope.jewel.cli;
  * 
  * @author tim
  */
-class HelpRequestedException extends OptionValidationException
+public class HelpRequestedException extends CliValidationException
 {
-    private final OptionsSpecification<?> m_specification;
+    private static final long serialVersionUID = 2760658691533137382L;
 
     /**
      * The user requested help
@@ -32,7 +32,5 @@ class HelpRequestedException extends OptionValidationException
     public HelpRequestedException(final OptionsSpecification<?> specification)
     {
         super(specification.toString());
-        m_specification = specification;
     }
-
 }
