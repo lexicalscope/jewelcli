@@ -72,7 +72,7 @@ public class TestUnparsedArguments {
 
     @Test public void testUnparsedOptionMissingValue() throws CliValidationException {
         exception.expect(CliValidationException.class);
-        exception.expect(validationException(ValidationFailureMissingValue.class));
+        exception.expect(validationException(ValidationFailureType.MissingValue));
 
         parseArguments(UnparsedOption.class);
     }
@@ -91,7 +91,7 @@ public class TestUnparsedArguments {
             throws CliValidationException {
         exception.expect(CliValidationException.class);
         exception
-                .expect(validationException(ValidationFailureUnexpectedTrailingValue.class));
+                .expect(validationException(ValidationFailureType.UnexpectedTrailingValue));
 
         parseArguments(NoUnparsedOption.class, "value0");
     }

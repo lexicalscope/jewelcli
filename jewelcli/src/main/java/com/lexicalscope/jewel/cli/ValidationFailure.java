@@ -18,7 +18,7 @@ import java.io.Serializable;
  * limitations under the License. 
  */
 
-public abstract class ValidationFailure implements Serializable
+abstract class ValidationFailure implements Serializable
 {
     private static final long serialVersionUID = 358674581610898076L;
     private final String message;
@@ -41,4 +41,6 @@ public abstract class ValidationFailure implements Serializable
     @Override public final String toString() {
         return message;
     }
+
+    public abstract ValidationFailureType getFailureType();
 }

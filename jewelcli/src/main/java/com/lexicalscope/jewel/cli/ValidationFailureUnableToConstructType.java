@@ -16,7 +16,7 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public class ValidationFailureUnableToConstructType extends ValidationFailure
+class ValidationFailureUnableToConstructType extends ValidationFailure
 {
     private static final long serialVersionUID = 7263131866771297371L;
 
@@ -24,5 +24,9 @@ public class ValidationFailureUnableToConstructType extends ValidationFailure
         super(specification, String.format(
                 CliValidationException.m_messages.getString("validationError.UnableToConstructType"),
                 message));
+    }
+
+    @Override public ValidationFailureType getFailureType() {
+        return ValidationFailureType.UnableToConstructType;
     }
 }

@@ -16,7 +16,7 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public class ValidationFailurePatternMismatch extends ValidationFailure
+class ValidationFailurePatternMismatch extends ValidationFailure
 {
     private static final long serialVersionUID = -8802957860895277579L;
 
@@ -24,5 +24,9 @@ public class ValidationFailurePatternMismatch extends ValidationFailure
         super(specification, String.format(
                 CliValidationException.m_messages.getString("validationError.PatternMismatch"),
                 message));
+    }
+
+    @Override public ValidationFailureType getFailureType() {
+        return ValidationFailureType.PatternMismatch;
     }
 }

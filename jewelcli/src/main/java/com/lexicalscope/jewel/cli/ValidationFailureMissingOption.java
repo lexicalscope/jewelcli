@@ -16,11 +16,15 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public class ValidationFailureMissingOption extends ValidationFailure
+class ValidationFailureMissingOption extends ValidationFailure
 {
     private static final long serialVersionUID = 3863449901586707461L;
 
     public ValidationFailureMissingOption(final OptionSpecification specification) {
         super(specification, CliValidationException.m_messages.getString("validationError.MissingOption"));
+    }
+
+    @Override public ValidationFailureType getFailureType() {
+        return ValidationFailureType.MissingOption;
     }
 }

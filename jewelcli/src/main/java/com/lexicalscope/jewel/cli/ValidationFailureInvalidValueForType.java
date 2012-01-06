@@ -16,7 +16,7 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public class ValidationFailureInvalidValueForType extends ValidationFailure
+class ValidationFailureInvalidValueForType extends ValidationFailure
 {
     private static final long serialVersionUID = -1969505329041721032L;
 
@@ -24,5 +24,9 @@ public class ValidationFailureInvalidValueForType extends ValidationFailure
         super(specification, String.format(
                 CliValidationException.m_messages.getString("validationError.InvalidValueForType"),
                 message));
+    }
+
+    @Override public ValidationFailureType getFailureType() {
+        return ValidationFailureType.InvalidValueForType;
     }
 }

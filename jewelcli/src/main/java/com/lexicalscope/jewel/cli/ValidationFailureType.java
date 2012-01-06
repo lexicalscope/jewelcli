@@ -16,15 +16,15 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-class ValidationFailureUnexpectedAdditionalValue extends ValidationFailure
-{
-    private static final long serialVersionUID = -7899339429456035393L;
-
-    public ValidationFailureUnexpectedAdditionalValue(final OptionSpecification specification) {
-        super(specification, CliValidationException.m_messages.getString("validationError.AdditionalValue"));
-    }
-
-    @Override public ValidationFailureType getFailureType() {
-        return ValidationFailureType.UnexpectedAdditionalValue;
-    }
+public enum ValidationFailureType {
+    InvalidValueForType,
+    MisplacedOption,
+    MissingOption,
+    MissingValue,
+    PatternMismatch,
+    UnableToConstructType,
+    UnexpectedAdditionalValue,
+    UnexpectedOption,
+    UnexpectedTrailingValue,
+    UnexpectedValue
 }

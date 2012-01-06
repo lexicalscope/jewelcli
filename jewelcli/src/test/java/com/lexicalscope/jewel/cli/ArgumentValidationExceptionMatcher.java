@@ -24,7 +24,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 public class ArgumentValidationExceptionMatcher {
     public static Matcher<CliValidationException> validationException(
-            final Class<? extends ValidationFailure> expectedErrorType) {
+            final ValidationFailureType expectedErrorType) {
         return new TypeSafeMatcher<CliValidationException>() {
             @Override public void describeTo(final Description description) {
                 description
@@ -43,7 +43,7 @@ public class ArgumentValidationExceptionMatcher {
                     }
 
                     @Override protected boolean matchesSafely(final ValidationFailure actualError) {
-                        return actualError.getClass().equals(expectedErrorType);
+                        return actualError.getFailureType().equals(expectedErrorType);
                     }
                 }) != null;
             }
