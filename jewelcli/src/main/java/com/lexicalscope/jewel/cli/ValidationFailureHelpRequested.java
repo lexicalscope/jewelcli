@@ -16,16 +16,14 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public enum ValidationFailureType {
-    InvalidValueForType,
-    MisplacedOption,
-    MissingOption,
-    MissingValue,
-    PatternMismatch,
-    UnableToConstructType,
-    UnexpectedAdditionalValue,
-    UnexpectedOption,
-    UnexpectedTrailingValue,
-    UnexpectedValue,
-    HelpRequested
+class ValidationFailureHelpRequested extends ValidationFailure {
+    private static final long serialVersionUID = 142201362039099227L;
+
+    public ValidationFailureHelpRequested(final OptionsSpecification<?> specification) {
+        super(specification.toString());
+    }
+
+    @Override public ValidationFailureType getFailureType() {
+        return ValidationFailureType.HelpRequested;
+    }
 }

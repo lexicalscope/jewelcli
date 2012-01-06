@@ -14,6 +14,8 @@
 
 package com.lexicalscope.jewel.cli;
 
+import java.util.Arrays;
+
 /**
  * The user requested help
  * 
@@ -31,6 +33,7 @@ public class HelpRequestedException extends CliValidationException
      */
     public HelpRequestedException(final OptionsSpecification<?> specification)
     {
-        super(specification.toString());
+        super(specification.toString(), Arrays.<ValidationFailure>asList(new ValidationFailureHelpRequested(
+                specification)));
     }
 }
