@@ -1,7 +1,5 @@
 package com.lexicalscope.jewel.cli;
 
-import com.lexicalscope.jewel.JewelRuntimeException;
-
 /*
  * Copyright 2011 Tim Wood
  *
@@ -18,18 +16,27 @@ import com.lexicalscope.jewel.JewelRuntimeException;
  * limitations under the License. 
  */
 
-public abstract class OptionValidationException extends JewelRuntimeException
+public abstract class OptionValidationException
 {
     private static final long serialVersionUID = 358674581610898076L;
+    private final String message;
 
     public OptionValidationException(final String message) {
-        super(message);
+        this.message = message;
     }
 
     public OptionValidationException(
             final OptionSpecification specification,
             final String description)
     {
-        super(String.format("%s: %s", description, specification));
+        this(String.format("%s: %s", description, specification));
+    }
+
+    public final String getMessage() {
+        return message;
+    }
+
+    @Override public final String toString() {
+        return message;
     }
 }
