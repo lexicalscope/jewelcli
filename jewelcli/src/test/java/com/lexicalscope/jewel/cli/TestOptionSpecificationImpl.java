@@ -196,7 +196,7 @@ public class TestOptionSpecificationImpl {
     }
 
     @Test public void testEmptyLongNameIsNotAllowed() throws SecurityException, NoSuchMethodException {
-        exception.expect(OptionSpecificationException.class);
+        exception.expect(InvalidOptionSpecificationException.class);
         exception.expectMessage("option public java.lang.String getName0() long name cannot be blank");
 
         createOption(InvalidLongName.class, "getName0");

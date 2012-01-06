@@ -73,7 +73,7 @@ class AbstractConvertMethodToOptionSpecification {
 
         if (annotation.defaultToNull() && annotation.hasDefaultValue())
         {
-            throw new OptionSpecificationException("option cannot have null default and non-null default value: "
+            throw new InvalidOptionSpecificationException("option cannot have null default and non-null default value: "
                     + annotation.method());
         }
         else if (annotation.defaultToNull())

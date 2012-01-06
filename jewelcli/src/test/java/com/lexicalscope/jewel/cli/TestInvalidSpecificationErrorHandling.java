@@ -31,7 +31,7 @@ public class TestInvalidSpecificationErrorHandling {
 
     @Test public void testNullAndNonNullDefaults()
     {
-        exception.expect(OptionSpecificationException.class);
+        exception.expect(InvalidOptionSpecificationException.class);
         exception
                 .expectMessage(equalTo("option cannot have null default and non-null default value: public java.lang.String incorrectlySpecified()"));
         CliFactory.createCli(InvalidDefaultOptionSpecification.class);

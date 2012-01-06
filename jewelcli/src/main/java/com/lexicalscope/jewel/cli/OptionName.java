@@ -36,7 +36,7 @@ class OptionName
         for (final String longName : longNames) {
             if (longName.trim().isEmpty())
             {
-                throw new OptionSpecificationException(String.format(
+                throw new InvalidOptionSpecificationException(String.format(
                         "option %s long name cannot be blank",
                         method));
             }

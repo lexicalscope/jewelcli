@@ -7,14 +7,14 @@ import com.lexicalscope.jewel.JewelRuntimeException;
  * 
  * @author tim
  */
-public class OptionSpecificationException extends JewelRuntimeException
+public class InvalidOptionSpecificationException extends JewelRuntimeException
 {
     private static final long serialVersionUID = -5023726790561988859L;
 
     /**
      * A new exception with no message
      */
-    public OptionSpecificationException()
+    public InvalidOptionSpecificationException()
     {
         super();
     }
@@ -27,7 +27,7 @@ public class OptionSpecificationException extends JewelRuntimeException
      * @param cause
      *            The cause
      */
-    public OptionSpecificationException(final String message, final Throwable cause)
+    public InvalidOptionSpecificationException(final String message, final Throwable cause)
     {
         super(message, cause);
     }
@@ -38,7 +38,7 @@ public class OptionSpecificationException extends JewelRuntimeException
      * @param message
      *            The message
      */
-    public OptionSpecificationException(final String message)
+    public InvalidOptionSpecificationException(final String message)
     {
         super(message);
     }
@@ -49,7 +49,7 @@ public class OptionSpecificationException extends JewelRuntimeException
      * @param cause
      *            The cause
      */
-    public OptionSpecificationException(final Throwable cause)
+    public InvalidOptionSpecificationException(final Throwable cause)
     {
         super(cause);
     }
