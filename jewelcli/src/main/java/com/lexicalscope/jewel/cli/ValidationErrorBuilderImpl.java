@@ -68,7 +68,7 @@ class ValidationErrorBuilderImpl implements ValidationErrorBuilder
         {
             for (final OptionValidationException error : validationExceptions)
             {
-                if (error instanceof HelpValidationErrorImpl)
+                if (error instanceof HelpRequestedException)
                 {
                     throw new CliValidationException(asList(error));
                 }

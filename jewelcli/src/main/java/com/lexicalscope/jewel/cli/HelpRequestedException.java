@@ -19,7 +19,7 @@ package com.lexicalscope.jewel.cli;
  * 
  * @author tim
  */
-class HelpValidationErrorImpl extends OptionValidationException
+class HelpRequestedException extends OptionValidationException
 {
     private final OptionsSpecification<?> m_specification;
 
@@ -29,7 +29,7 @@ class HelpValidationErrorImpl extends OptionValidationException
      * @param specification
      *            The options specification
      */
-    public HelpValidationErrorImpl(final OptionsSpecification<?> specification)
+    public HelpRequestedException(final OptionsSpecification<?> specification)
     {
         super(specification.toString());
         m_specification = specification;

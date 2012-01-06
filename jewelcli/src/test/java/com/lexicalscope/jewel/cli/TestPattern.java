@@ -18,7 +18,7 @@ public class TestPattern {
         } catch (final CliValidationException e) {
             final List<OptionValidationException> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
-            assertEquals(ErrorType.PatternMismatchException.class, validationErrors.get(0).getClass());
+            assertEquals(PatternMismatchException.class, validationErrors.get(0).getClass());
             assertEquals("Cannot match (ABC) to pattern: --option /[a-z]+/", validationErrors.get(0).getMessage());
         }
     }

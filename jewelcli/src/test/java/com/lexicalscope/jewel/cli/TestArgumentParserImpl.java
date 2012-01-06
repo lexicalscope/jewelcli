@@ -41,7 +41,7 @@ public class TestArgumentParserImpl {
             fail();
         } catch (final CliValidationException e) {
             assertEquals(1, e.getValidationErrors().size());
-            assertEquals(ErrorType.MisplacedOptionException.class, e.getValidationErrors().get(0).getClass());
+            assertEquals(MisplacedOptionException.class, e.getValidationErrors().get(0).getClass());
         }
     }
 

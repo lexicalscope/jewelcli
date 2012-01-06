@@ -115,7 +115,7 @@ class ArgumentCollectionBuilder {
     }
 
     private CliValidationException misplacedOption(final String option) {
-        return new CliValidationException(new ErrorType.MisplacedOptionException(option));
+        return new CliValidationException(new MisplacedOptionException(option));
     }
 
     private void addUnparsedValue(final String value) {

@@ -19,56 +19,56 @@ package com.lexicalscope.jewel.cli;
 class ArgumentValidationExceptionFactory {
     static OptionValidationException createUnexpectedOptionError(final String name)
     {
-        return new ErrorType.UnexpectedOptionException(new UnexpectedOptionSpecification(name));
+        return new UnexpectedOptionException(new UnexpectedOptionSpecification(name));
     }
 
     static OptionValidationException createAdditionalValuesError(final OptionSpecification optionSpecification)
     {
-        return new ErrorType.AdditionalValueException(optionSpecification);
+        return new AdditionalValueException(optionSpecification);
     }
 
     static OptionValidationException createMissingValueError(final OptionSpecification optionSpecification)
     {
-        return new ErrorType.MissingValueException(optionSpecification);
+        return new MissingValueException(optionSpecification);
     }
 
     static OptionValidationException createUnexpectedValueError(final OptionSpecification optionSpecification)
     {
-        return new ErrorType.UnexpectedValueException(optionSpecification);
+        return new UnexpectedValueException(optionSpecification);
     }
 
     static OptionValidationException createUnexpectedTrailingValue() {
-        return new ErrorType.UnexpectedTrailingValueException(null, "");
+        return new UnexpectedTrailingValueException(null, "");
     }
 
     static OptionValidationException createMissingOptionError(final OptionSpecification optionSpecification)
     {
-        return new ErrorType.MissingOptionException(optionSpecification);
+        return new MissingOptionException(optionSpecification);
     }
 
     static OptionValidationException createInvalidValueForType(
             final OptionSpecification optionSpecification,
             final String message)
     {
-        return new ErrorType.InvalidValueForTypeException(optionSpecification, message);
+        return new InvalidValueForTypeException(optionSpecification, message);
     }
 
     static OptionValidationException createUnableToConstructType(
             final OptionSpecification optionSpecification,
             final String message)
     {
-        return new ErrorType.UnableToConstructTypeException(optionSpecification, message);
+        return new UnableToConstructTypeException(optionSpecification, message);
     }
 
     static OptionValidationException createPatternMismatch(
             final OptionSpecification optionSpecification,
             final String message)
     {
-        return new ErrorType.PatternMismatchException(optionSpecification, message);
+        return new PatternMismatchException(optionSpecification, message);
     }
 
     static OptionValidationException createhelpRequested(final OptionsSpecification<?> specification)
     {
-        return new HelpValidationErrorImpl(specification);
+        return new HelpRequestedException(specification);
     }
 }
