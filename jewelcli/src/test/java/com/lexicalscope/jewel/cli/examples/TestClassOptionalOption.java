@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import com.lexicalscope.jewel.cli.CliValidationException;
-import com.lexicalscope.jewel.cli.MissingOptionException;
+import com.lexicalscope.jewel.cli.ValidationFailureMissingOption;
 
 public class TestClassOptionalOption {
     @Rule public final ExpectedException exception = ExpectedException.none();
@@ -38,7 +38,7 @@ public class TestClassOptionalOption {
 
     @Test public void testMandatoryOptionMissing() throws CliValidationException {
         exception.expect(CliValidationException.class);
-        exception.expect(validationException(MissingOptionException.class));
+        exception.expect(validationException(ValidationFailureMissingOption.class));
 
         parseArgumentsUsingInstance(new ClassOptionalOption(), new String[] { "--myOptionalOption", "3" });
     }

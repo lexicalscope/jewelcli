@@ -85,7 +85,7 @@ public class TestCliImpl {
             fail();
         } catch (final CliValidationException e) {
             assertEquals(1, e.getValidationErrors().size());
-            assertEquals(InvalidValueForTypeException.class, e.getValidationErrors().get(0).getClass());
+            assertEquals(ValidationFailureInvalidValueForType.class, e.getValidationErrors().get(0).getClass());
             assertEquals("Invalid value (Unsupported number format: For input string: \"abc\"): --name value", e
                     .getValidationErrors()
                     .get(0)
@@ -99,7 +99,7 @@ public class TestCliImpl {
             fail();
         } catch (final CliValidationException e) {
             assertEquals(1, e.getValidationErrors().size());
-            assertEquals(InvalidValueForTypeException.class, e.getValidationErrors().get(0).getClass());
+            assertEquals(ValidationFailureInvalidValueForType.class, e.getValidationErrors().get(0).getClass());
             assertEquals("Invalid value (Unsupported number format: For input string: \"abc\"): --name value", e
                     .getValidationErrors()
                     .get(0)
@@ -113,12 +113,12 @@ public class TestCliImpl {
                     .parseArguments(new String[] { "--invalid", "value" });
             fail();
         } catch (final CliValidationException e) {
-            final List<OptionValidationException> validationErrors = e.getValidationErrors();
+            final List<ValidationFailure> validationErrors = e.getValidationErrors();
             assertEquals(2, validationErrors.size());
-            final OptionValidationException error0 = validationErrors.get(0);
-            assertEquals(UnexpectedOptionException.class, error0.getClass());
-            final OptionValidationException error1 = validationErrors.get(1);
-            assertEquals(MissingOptionException.class, error1.getClass());
+            final ValidationFailure error0 = validationErrors.get(0);
+            assertEquals(ValidationFailureUnexpectedOption.class, error0.getClass());
+            final ValidationFailure error1 = validationErrors.get(1);
+            assertEquals(ValidationFailureMissingOption.class, error1.getClass());
         }
     }
 
@@ -153,9 +153,9 @@ public class TestCliImpl {
             new CliInterfaceImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[] { "--name", "aa" });
             fail();
         } catch (final CliValidationException e) {
-            final List<OptionValidationException> validationErrors = e.getValidationErrors();
+            final List<ValidationFailure> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
-            assertEquals(InvalidValueForTypeException.class, validationErrors.get(0).getClass());
+            assertEquals(ValidationFailureInvalidValueForType.class, validationErrors.get(0).getClass());
         }
     }
 
@@ -167,7 +167,7 @@ public class TestCliImpl {
             fail();
         } catch (final CliValidationException e) {
             assertEquals(
-                    UnexpectedOptionException.class,
+                    ValidationFailureUnexpectedOption.class,
                     e.getValidationErrors().get(0).getClass());
         }
     }

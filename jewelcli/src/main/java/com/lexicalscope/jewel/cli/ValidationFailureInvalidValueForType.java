@@ -16,11 +16,13 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public class MissingValueException extends OptionValidationException
+public class ValidationFailureInvalidValueForType extends ValidationFailure
 {
-    private static final long serialVersionUID = -6121100779973420806L;
+    private static final long serialVersionUID = -1969505329041721032L;
 
-    public MissingValueException(final OptionSpecification specification) {
-        super(specification, CliValidationException.m_messages.getString("validationError.MissingValue"));
+    public ValidationFailureInvalidValueForType(final OptionSpecification specification, final String message) {
+        super(specification, String.format(
+                CliValidationException.m_messages.getString("validationError.InvalidValueForType"),
+                message));
     }
 }

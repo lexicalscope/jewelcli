@@ -1,5 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
+import java.io.Serializable;
+
 /*
  * Copyright 2011 Tim Wood
  *
@@ -16,11 +18,27 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public class MissingOptionException extends OptionValidationException
+public abstract class ValidationFailure implements Serializable
 {
-    private static final long serialVersionUID = 3863449901586707461L;
+    private static final long serialVersionUID = 358674581610898076L;
+    private final String message;
 
-    public MissingOptionException(final OptionSpecification specification) {
-        super(specification, CliValidationException.m_messages.getString("validationError.MissingOption"));
+    public ValidationFailure(final String message) {
+        this.message = message;
+    }
+
+    public ValidationFailure(
+            final OptionSpecification specification,
+            final String description)
+    {
+        this(String.format("%s: %s", description, specification));
+    }
+
+    public final String getMessage() {
+        return message;
+    }
+
+    @Override public final String toString() {
+        return message;
     }
 }

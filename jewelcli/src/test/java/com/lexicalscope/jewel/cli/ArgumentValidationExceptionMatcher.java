@@ -24,7 +24,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 public class ArgumentValidationExceptionMatcher {
     public static Matcher<CliValidationException> validationException(
-            final Class<? extends OptionValidationException> expectedErrorType) {
+            final Class<? extends ValidationFailure> expectedErrorType) {
         return new TypeSafeMatcher<CliValidationException>() {
             @Override public void describeTo(final Description description) {
                 description
@@ -34,15 +34,15 @@ public class ArgumentValidationExceptionMatcher {
             }
 
             @Override protected boolean matchesSafely(final CliValidationException item) {
-                return selectFirst(item.getValidationErrors(), new TypeSafeMatcher<OptionValidationException>() {
+                return selectFirst(item.getValidationErrors(), new TypeSafeMatcher<ValidationFailure>() {
                     @Override public void describeTo(final Description description) {
                         description
-                                .appendText(OptionValidationException.class.getSimpleName())
+                                .appendText(ValidationFailure.class.getSimpleName())
                                 .appendText(" with error type ")
                                 .appendValue(expectedErrorType);
                     }
 
-                    @Override protected boolean matchesSafely(final OptionValidationException actualError) {
+                    @Override protected boolean matchesSafely(final ValidationFailure actualError) {
                         return actualError.getClass().equals(expectedErrorType);
                     }
                 }) != null;

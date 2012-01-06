@@ -16,13 +16,11 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public class MisplacedOptionException extends OptionValidationException
+public class ValidationFailureUnexpectedOption extends ValidationFailure
 {
-    private static final long serialVersionUID = 299432534435955687L;
+    private static final long serialVersionUID = 928801832540765267L;
 
-    public MisplacedOptionException(final String message) {
-        super(String.format(
-                CliValidationException.m_messages.getString("validationError.MisplacedOption"),
-                message));
+    public ValidationFailureUnexpectedOption(final OptionSpecification specification) {
+        super(specification, CliValidationException.m_messages.getString("validationError.UnexpectedOption"));
     }
 }

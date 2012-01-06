@@ -17,53 +17,53 @@ package com.lexicalscope.jewel.cli;
  */
 
 class ArgumentValidationExceptionFactory {
-    static OptionValidationException createUnexpectedOptionError(final String name)
+    static ValidationFailure createUnexpectedOptionError(final String name)
     {
-        return new UnexpectedOptionException(new UnexpectedOptionSpecification(name));
+        return new ValidationFailureUnexpectedOption(new UnexpectedOptionSpecification(name));
     }
 
-    static OptionValidationException createAdditionalValuesError(final OptionSpecification optionSpecification)
+    static ValidationFailure createAdditionalValuesError(final OptionSpecification optionSpecification)
     {
-        return new AdditionalValueException(optionSpecification);
+        return new ValidationFailureUnexpectedAdditionalValue(optionSpecification);
     }
 
-    static OptionValidationException createMissingValueError(final OptionSpecification optionSpecification)
+    static ValidationFailure createMissingValueError(final OptionSpecification optionSpecification)
     {
-        return new MissingValueException(optionSpecification);
+        return new ValidationFailureMissingValue(optionSpecification);
     }
 
-    static OptionValidationException createUnexpectedValueError(final OptionSpecification optionSpecification)
+    static ValidationFailure createUnexpectedValueError(final OptionSpecification optionSpecification)
     {
-        return new UnexpectedValueException(optionSpecification);
+        return new ValidationFailureUnexpectedValue(optionSpecification);
     }
 
-    static OptionValidationException createUnexpectedTrailingValue() {
-        return new UnexpectedTrailingValueException(null, "");
+    static ValidationFailure createUnexpectedTrailingValue() {
+        return new ValidationFailureUnexpectedTrailingValue(null, "");
     }
 
-    static OptionValidationException createMissingOptionError(final OptionSpecification optionSpecification)
+    static ValidationFailure createMissingOptionError(final OptionSpecification optionSpecification)
     {
-        return new MissingOptionException(optionSpecification);
+        return new ValidationFailureMissingOption(optionSpecification);
     }
 
-    static OptionValidationException createInvalidValueForType(
+    static ValidationFailure createInvalidValueForType(
             final OptionSpecification optionSpecification,
             final String message)
     {
-        return new InvalidValueForTypeException(optionSpecification, message);
+        return new ValidationFailureInvalidValueForType(optionSpecification, message);
     }
 
-    static OptionValidationException createUnableToConstructType(
+    static ValidationFailure createUnableToConstructType(
             final OptionSpecification optionSpecification,
             final String message)
     {
-        return new UnableToConstructTypeException(optionSpecification, message);
+        return new ValidationFailureUnableToConstructType(optionSpecification, message);
     }
 
-    static OptionValidationException createPatternMismatch(
+    static ValidationFailure createPatternMismatch(
             final OptionSpecification optionSpecification,
             final String message)
     {
-        return new PatternMismatchException(optionSpecification, message);
+        return new ValidationFailurePatternMismatch(optionSpecification, message);
     }
 }

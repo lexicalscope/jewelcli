@@ -16,13 +16,10 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public class InvalidValueForTypeException extends OptionValidationException
-{
-    private static final long serialVersionUID = -1969505329041721032L;
+public class ValidationFailureUnexpectedTrailingValue extends ValidationFailure {
+    private static final long serialVersionUID = 4186655034725500358L;
 
-    public InvalidValueForTypeException(final OptionSpecification specification, final String message) {
-        super(specification, String.format(
-                CliValidationException.m_messages.getString("validationError.InvalidValueForType"),
-                message));
+    public ValidationFailureUnexpectedTrailingValue(final OptionSpecification specification, final String description) {
+        super(specification, CliValidationException.m_messages.getString("validationError.UnexpectedTrailingValue"));
     }
 }

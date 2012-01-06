@@ -52,9 +52,9 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name1", "value" }, OptionalOption.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<OptionValidationException> validationErrors = e.getValidationErrors();
+            final List<ValidationFailure> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
-            assertEquals(MissingOptionException.class, validationErrors.get(0).getClass());
+            assertEquals(ValidationFailureMissingOption.class, validationErrors.get(0).getClass());
         }
     }
 
@@ -93,9 +93,9 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name1", "value", "wrong", "--name0" }, ExtraValue.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<OptionValidationException> validationErrors = e.getValidationErrors();
+            final List<ValidationFailure> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
-            assertEquals(AdditionalValueException.class, validationErrors.get(0).getClass());
+            assertEquals(ValidationFailureUnexpectedAdditionalValue.class, validationErrors.get(0).getClass());
         }
     }
 
@@ -104,9 +104,9 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name" }, SingleValue.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<OptionValidationException> validationErrors = e.getValidationErrors();
+            final List<ValidationFailure> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
-            assertEquals(MissingValueException.class, validationErrors.get(0).getClass());
+            assertEquals(ValidationFailureMissingValue.class, validationErrors.get(0).getClass());
         }
     }
 
@@ -115,9 +115,9 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name1", "value", "--name0" }, NoValue.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<OptionValidationException> validationErrors = e.getValidationErrors();
+            final List<ValidationFailure> validationErrors = e.getValidationErrors();
             assertEquals(1, validationErrors.size());
-            assertEquals(UnexpectedValueException.class, validationErrors.get(0).getClass());
+            assertEquals(ValidationFailureUnexpectedValue.class, validationErrors.get(0).getClass());
         }
     }
 

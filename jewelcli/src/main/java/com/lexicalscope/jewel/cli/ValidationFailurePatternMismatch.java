@@ -16,11 +16,13 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public class AdditionalValueException extends OptionValidationException
+public class ValidationFailurePatternMismatch extends ValidationFailure
 {
-    private static final long serialVersionUID = -7899339429456035393L;
+    private static final long serialVersionUID = -8802957860895277579L;
 
-    public AdditionalValueException(final OptionSpecification specification) {
-        super(specification, CliValidationException.m_messages.getString("validationError.AdditionalValue"));
+    public ValidationFailurePatternMismatch(final OptionSpecification specification, final String message) {
+        super(specification, String.format(
+                CliValidationException.m_messages.getString("validationError.PatternMismatch"),
+                message));
     }
 }

@@ -5,8 +5,8 @@ import java.util.List;
 
 class ValidationErrorBuilderImpl implements ValidationErrorBuilder
 {
-    private final List<OptionValidationException> validationExceptions =
-            new ArrayList<OptionValidationException>();
+    private final List<ValidationFailure> validationExceptions =
+            new ArrayList<ValidationFailure>();
 
     public void missingValue(final OptionSpecification optionSpecification)
     {

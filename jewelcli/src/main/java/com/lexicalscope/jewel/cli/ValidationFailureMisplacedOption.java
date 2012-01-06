@@ -16,10 +16,13 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public class UnexpectedTrailingValueException extends OptionValidationException {
-    private static final long serialVersionUID = 4186655034725500358L;
+public class ValidationFailureMisplacedOption extends ValidationFailure
+{
+    private static final long serialVersionUID = 299432534435955687L;
 
-    public UnexpectedTrailingValueException(final OptionSpecification specification, final String description) {
-        super(specification, CliValidationException.m_messages.getString("validationError.UnexpectedTrailingValue"));
+    public ValidationFailureMisplacedOption(final String message) {
+        super(String.format(
+                CliValidationException.m_messages.getString("validationError.MisplacedOption"),
+                message));
     }
 }

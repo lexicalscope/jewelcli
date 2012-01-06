@@ -16,11 +16,13 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-public class UnexpectedValueException extends OptionValidationException
+public class ValidationFailureUnableToConstructType extends ValidationFailure
 {
-    private static final long serialVersionUID = 6824379048527305429L;
+    private static final long serialVersionUID = 7263131866771297371L;
 
-    public UnexpectedValueException(final OptionSpecification specification) {
-        super(specification, CliValidationException.m_messages.getString("validationError.UnexpectedValue"));
+    public ValidationFailureUnableToConstructType(final OptionSpecification specification, final String message) {
+        super(specification, String.format(
+                CliValidationException.m_messages.getString("validationError.UnableToConstructType"),
+                message));
     }
 }

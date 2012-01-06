@@ -21,30 +21,30 @@ public class CliValidationException extends JewelRuntimeException
             "com.lexicalscope.jewel.cli.Messages",
             Locale.getDefault());
 
-    private final List<OptionValidationException> validationErrors;
+    private final List<ValidationFailure> validationErrors;
 
     public CliValidationException() {
-        this(new ArrayList<OptionValidationException>());
+        this(new ArrayList<ValidationFailure>());
     }
 
     public CliValidationException(final String message, final Throwable cause) {
-        this(message, cause, new ArrayList<OptionValidationException>());
+        this(message, cause, new ArrayList<ValidationFailure>());
     }
 
     public CliValidationException(final String message) {
-        this(message, new ArrayList<OptionValidationException>());
+        this(message, new ArrayList<ValidationFailure>());
     }
 
     public CliValidationException(final Throwable cause) {
-        this(cause, new ArrayList<OptionValidationException>());
+        this(cause, new ArrayList<ValidationFailure>());
     }
 
-    public CliValidationException(final OptionValidationException validationError)
+    public CliValidationException(final ValidationFailure validationError)
     {
         this(asList(validationError));
     }
 
-    public CliValidationException(final List<OptionValidationException> validationErrors)
+    public CliValidationException(final List<ValidationFailure> validationErrors)
     {
         this(createMessageFromErrors(validationErrors), validationErrors);
     }
@@ -52,30 +52,30 @@ public class CliValidationException extends JewelRuntimeException
     public CliValidationException(
             final String message,
             final Throwable cause,
-            final List<OptionValidationException> validationErrors) {
+            final List<ValidationFailure> validationErrors) {
         super(message, cause);
         this.validationErrors = validationErrors;
     }
 
-    public CliValidationException(final String message, final List<OptionValidationException> validationErrors) {
+    public CliValidationException(final String message, final List<ValidationFailure> validationErrors) {
         super(message);
         this.validationErrors = validationErrors;
     }
 
-    public CliValidationException(final Throwable cause, final List<OptionValidationException> validationErrors) {
+    public CliValidationException(final Throwable cause, final List<ValidationFailure> validationErrors) {
         this(createMessageFromErrors(validationErrors), cause, validationErrors);
     }
 
-    public List<OptionValidationException> getValidationErrors()
+    public List<ValidationFailure> getValidationErrors()
     {
         return validationErrors;
     }
 
-    private static String createMessageFromErrors(final List<OptionValidationException> validationErrors) {
+    private static String createMessageFromErrors(final List<ValidationFailure> validationErrors) {
         final StringBuilder message = new StringBuilder();
 
         String separator = "";
-        for (final OptionValidationException error : validationErrors)
+        for (final ValidationFailure error : validationErrors)
         {
             message.append(separator).append(error.getMessage());
             separator = System.getProperty("line.separator");
