@@ -146,34 +146,38 @@
 <a name="136" href="#136">136</a>                 m_validationErrorBuilder.unexpectedValue(argumentSpecification);
 <a name="137" href="#137">137</a>             }
 <a name="138" href="#138">138</a>         }
-<a name="139" href="#139">139</a>     }
-<a name="140" href="#140">140</a> 
-<a name="141" href="#141">141</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> hasExcessValues(<strong class="jxr_keyword">final</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/Argument.html">Argument</a> entry, <strong class="jxr_keyword">final</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/ParsedOptionSpecification.html">ParsedOptionSpecification</a> optionSpecification)
-<a name="142" href="#142">142</a>     {
-<a name="143" href="#143">143</a>         <strong class="jxr_keyword">return</strong> !optionSpecification.isMultiValued()
-<a name="144" href="#144">144</a>                 &amp;&amp; (entry.getValues().size() &gt; 1 || entry.getValues().size() &gt; 0 &amp;&amp; !optionSpecification.hasValue());
-<a name="145" href="#145">145</a>     }
-<a name="146" href="#146">146</a> 
-<a name="147" href="#147">147</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkAndAddValues(
-<a name="148" href="#148">148</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/ParsedOptionSpecification.html">ParsedOptionSpecification</a> optionSpecification,
-<a name="149" href="#149">149</a>             <strong class="jxr_keyword">final</strong> String option,
-<a name="150" href="#150">150</a>             <strong class="jxr_keyword">final</strong> ArrayList&lt;String&gt; values)
-<a name="151" href="#151">151</a>     {
-<a name="152" href="#152">152</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String value : values)
-<a name="153" href="#153">153</a>         {
-<a name="154" href="#154">154</a>             <strong class="jxr_keyword">if</strong> (!patternMatches(optionSpecification, value))
-<a name="155" href="#155">155</a>             {
-<a name="156" href="#156">156</a>                 m_validationErrorBuilder.patternMismatch(optionSpecification, value);
-<a name="157" href="#157">157</a>             }
-<a name="158" href="#158">158</a>         }
-<a name="159" href="#159">159</a>         m_validatedArguments.put(option, <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;(values));
-<a name="160" href="#160">160</a>     }
-<a name="161" href="#161">161</a> 
-<a name="162" href="#162">162</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> patternMatches(<strong class="jxr_keyword">final</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/ParsedOptionSpecification.html">ParsedOptionSpecification</a> optionSpecification, <strong class="jxr_keyword">final</strong> String value)
-<a name="163" href="#163">163</a>     {
-<a name="164" href="#164">164</a>         <strong class="jxr_keyword">return</strong> value.matches(optionSpecification.getPattern());
-<a name="165" href="#165">165</a>     }
-<a name="166" href="#166">166</a> }
+<a name="139" href="#139">139</a>         <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!m_validatedUnparsedArguments.isEmpty())
+<a name="140" href="#140">140</a>         {
+<a name="141" href="#141">141</a>             m_validationErrorBuilder.unexpectedTrailingValue(m_validatedUnparsedArguments);
+<a name="142" href="#142">142</a>         }
+<a name="143" href="#143">143</a>     }
+<a name="144" href="#144">144</a> 
+<a name="145" href="#145">145</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> hasExcessValues(<strong class="jxr_keyword">final</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/Argument.html">Argument</a> entry, <strong class="jxr_keyword">final</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/ParsedOptionSpecification.html">ParsedOptionSpecification</a> optionSpecification)
+<a name="146" href="#146">146</a>     {
+<a name="147" href="#147">147</a>         <strong class="jxr_keyword">return</strong> !optionSpecification.isMultiValued()
+<a name="148" href="#148">148</a>                 &amp;&amp; (entry.getValues().size() &gt; 1 || entry.getValues().size() &gt; 0 &amp;&amp; !optionSpecification.hasValue());
+<a name="149" href="#149">149</a>     }
+<a name="150" href="#150">150</a> 
+<a name="151" href="#151">151</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkAndAddValues(
+<a name="152" href="#152">152</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/ParsedOptionSpecification.html">ParsedOptionSpecification</a> optionSpecification,
+<a name="153" href="#153">153</a>             <strong class="jxr_keyword">final</strong> String option,
+<a name="154" href="#154">154</a>             <strong class="jxr_keyword">final</strong> ArrayList&lt;String&gt; values)
+<a name="155" href="#155">155</a>     {
+<a name="156" href="#156">156</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String value : values)
+<a name="157" href="#157">157</a>         {
+<a name="158" href="#158">158</a>             <strong class="jxr_keyword">if</strong> (!patternMatches(optionSpecification, value))
+<a name="159" href="#159">159</a>             {
+<a name="160" href="#160">160</a>                 m_validationErrorBuilder.patternMismatch(optionSpecification, value);
+<a name="161" href="#161">161</a>             }
+<a name="162" href="#162">162</a>         }
+<a name="163" href="#163">163</a>         m_validatedArguments.put(option, <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;(values));
+<a name="164" href="#164">164</a>     }
+<a name="165" href="#165">165</a> 
+<a name="166" href="#166">166</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> patternMatches(<strong class="jxr_keyword">final</strong> <a href="../../../../../uk/co/flamingpenguin/jewel/cli/ParsedOptionSpecification.html">ParsedOptionSpecification</a> optionSpecification, <strong class="jxr_keyword">final</strong> String value)
+<a name="167" href="#167">167</a>     {
+<a name="168" href="#168">168</a>         <strong class="jxr_keyword">return</strong> value.matches(optionSpecification.getPattern());
+<a name="169" href="#169">169</a>     }
+<a name="170" href="#170">170</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>
