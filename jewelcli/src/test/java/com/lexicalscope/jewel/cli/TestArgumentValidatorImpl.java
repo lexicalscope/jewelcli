@@ -1,6 +1,8 @@
 package com.lexicalscope.jewel.cli;
 
 import static com.lexicalscope.fluentreflection.FluentReflection.type;
+import static com.lexicalscope.jewel.cli.ValidationFailureMatcher.validationError;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.*;
 
 import java.util.List;
@@ -52,9 +54,7 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name1", "value" }, OptionalOption.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationFailures();
-            assertEquals(1, validationErrors.size());
-            assertEquals(ValidationFailureMissingOption.class, validationErrors.get(0).getClass());
+            assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.MissingOption)));
         }
     }
 
@@ -93,9 +93,7 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name1", "value", "wrong", "--name0" }, ExtraValue.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationFailures();
-            assertEquals(1, validationErrors.size());
-            assertEquals(ValidationFailureUnexpectedAdditionalValue.class, validationErrors.get(0).getClass());
+            assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.UnexpectedAdditionalValue)));
         }
     }
 
@@ -104,9 +102,7 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name" }, SingleValue.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationFailures();
-            assertEquals(1, validationErrors.size());
-            assertEquals(ValidationFailureMissingValue.class, validationErrors.get(0).getClass());
+            assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.MissingValue)));
         }
     }
 
@@ -115,9 +111,7 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name1", "value", "--name0" }, NoValue.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationFailures();
-            assertEquals(1, validationErrors.size());
-            assertEquals(ValidationFailureUnexpectedValue.class, validationErrors.get(0).getClass());
+            assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.UnexpectedValue)));
         }
     }
 

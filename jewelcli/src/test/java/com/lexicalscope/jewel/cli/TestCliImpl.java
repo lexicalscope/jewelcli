@@ -1,7 +1,8 @@
 package com.lexicalscope.jewel.cli;
 
+import static com.lexicalscope.jewel.cli.ValidationFailureMatcher.validationError;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.util.List;
@@ -84,12 +85,9 @@ public class TestCliImpl {
             new CliInterfaceImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[] { "--name", "abc" });
             fail();
         } catch (final CliValidationException e) {
-            assertEquals(1, e.getValidationFailures().size());
-            assertEquals(ValidationFailureInvalidValueForType.class, e.getValidationFailures().get(0).getClass());
-            assertEquals("Invalid value (Unsupported number format: For input string: \"abc\"): --name value", e
-                    .getValidationFailures()
-                    .get(0)
-                    .getMessage());
+            assertThat(e.getValidationFailures(), contains(validationError(
+                    ValidationFailureType.InvalidValueForType,
+                    "Invalid value (Unsupported number format: For input string: \"abc\"): --name value")));
         }
     }
 
@@ -98,12 +96,9 @@ public class TestCliImpl {
             new CliInterfaceImpl<IntOption>(IntOption.class).parseArguments(new String[] { "--name", "abc" });
             fail();
         } catch (final CliValidationException e) {
-            assertEquals(1, e.getValidationFailures().size());
-            assertEquals(ValidationFailureInvalidValueForType.class, e.getValidationFailures().get(0).getClass());
-            assertEquals("Invalid value (Unsupported number format: For input string: \"abc\"): --name value", e
-                    .getValidationFailures()
-                    .get(0)
-                    .getMessage());
+            assertThat(e.getValidationFailures(), contains(validationError(
+                    ValidationFailureType.InvalidValueForType,
+                    "Invalid value (Unsupported number format: For input string: \"abc\"): --name value")));
         }
     }
 
@@ -113,12 +108,9 @@ public class TestCliImpl {
             .parseArguments(new String[] { "--invalid", "value" });
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationFailures();
-            assertEquals(2, validationErrors.size());
-            final ValidationFailure error0 = validationErrors.get(0);
-            assertEquals(ValidationFailureUnexpectedOption.class, error0.getClass());
-            final ValidationFailure error1 = validationErrors.get(1);
-            assertEquals(ValidationFailureMissingOption.class, error1.getClass());
+            assertThat(e.getValidationFailures(), contains(
+                    validationError(ValidationFailureType.UnexpectedOption),
+                    validationError(ValidationFailureType.MissingOption)));
         }
     }
 
@@ -153,9 +145,7 @@ public class TestCliImpl {
             new CliInterfaceImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[] { "--name", "aa" });
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationFailures();
-            assertEquals(1, validationErrors.size());
-            assertEquals(ValidationFailureInvalidValueForType.class, validationErrors.get(0).getClass());
+            assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.InvalidValueForType)));
         }
     }
 
@@ -166,9 +156,7 @@ public class TestCliImpl {
             "value" });
             fail();
         } catch (final CliValidationException e) {
-            assertEquals(
-                    ValidationFailureUnexpectedOption.class,
-                    e.getValidationFailures().get(0).getClass());
+            assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.UnexpectedOption)));
         }
     }
 

@@ -1,5 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
+import static org.hamcrest.Matchers.allOf;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -21,6 +23,21 @@ import org.hamcrest.TypeSafeMatcher;
  */
 
 public class ValidationFailureMatcher {
+    public static Matcher<ValidationFailure> validationError(final ValidationFailureType failureType, final String message) {
+        return allOf(validationError(failureType), validationError(message));
+    }
+
+    public static Matcher<ValidationFailure> validationError(final String message) {
+        return new TypeSafeMatcher<ValidationFailure>() {
+            @Override public void describeTo(final Description description) {
+                description.appendText("validation failure with message ").appendValue(message);
+            }
+
+            @Override protected boolean matchesSafely(final ValidationFailure item) {
+                return item.getMessage().equals(message);
+            }};
+    }
+
     public static Matcher<ValidationFailure> validationError(final ValidationFailureType failureType) {
         return new TypeSafeMatcher<ValidationFailure>() {
             @Override public void describeTo(final Description description) {

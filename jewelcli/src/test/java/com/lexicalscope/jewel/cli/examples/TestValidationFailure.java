@@ -44,8 +44,9 @@ public class TestValidationFailure {
         }
         catch(final HelpRequestedException e)
         {
-            assertThat(e.getMessage(), equalTo(format("The options available are:%n\t[--help]")));
-            assertThat(e.getValidationFailures(), contains(validationError(HelpRequested)));
+            final String expectedMessage = format("The options available are:%n\t[--help]");
+            assertThat(e.getMessage(), equalTo(expectedMessage));
+            assertThat(e.getValidationFailures(), contains(validationError(HelpRequested, expectedMessage)));
         }
     }
 }

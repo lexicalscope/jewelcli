@@ -1,8 +1,9 @@
 package com.lexicalscope.jewel.cli;
 
-import static org.junit.Assert.*;
-
-import java.util.List;
+import static com.lexicalscope.jewel.cli.ValidationFailureMatcher.validationError;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -16,10 +17,9 @@ public class TestPattern {
             CliFactory.parseArguments(TestStringPattern.class, "--option", "ABC");
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationFailures();
-            assertEquals(1, validationErrors.size());
-            assertEquals(ValidationFailurePatternMismatch.class, validationErrors.get(0).getClass());
-            assertEquals("Cannot match (ABC) to pattern: --option /[a-z]+/", validationErrors.get(0).getMessage());
+            assertThat(e.getValidationFailures(), contains(validationError(
+                    ValidationFailureType.PatternMismatch,
+                    "Cannot match (ABC) to pattern: --option /[a-z]+/")));
         }
     }
 

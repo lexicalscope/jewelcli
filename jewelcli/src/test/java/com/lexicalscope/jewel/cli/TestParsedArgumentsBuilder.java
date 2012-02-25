@@ -1,5 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
+import static com.lexicalscope.jewel.cli.ValidationFailureMatcher.validationError;
+import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.*;
 
 import java.util.Iterator;
@@ -14,8 +16,7 @@ public class TestParsedArgumentsBuilder {
             parsedArgumentsBuilder.parseArguments("a", "-b");
             fail("rouge option should have been detected");
         } catch (final CliValidationException e) {
-            assertEquals(1, e.getValidationFailures().size());
-            assertEquals(ValidationFailureMisplacedOption.class, e.getValidationFailures().get(0).getClass());
+            assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.MisplacedOption)));
         }
 
         new ArgumentParserImpl().parseArguments("-a");
@@ -42,11 +43,7 @@ public class TestParsedArgumentsBuilder {
         try {
             new ArgumentParserImpl().parseArguments("v0", "-a");
         } catch (final CliValidationException e) {
-            assertEquals(1, e.getValidationFailures().size());
-            assertEquals(ValidationFailureMisplacedOption.class, e
-                    .getValidationFailures()
-                    .get(0)
-                    .getClass());
+            assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.MisplacedOption)));
         }
     }
 
