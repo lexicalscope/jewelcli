@@ -19,8 +19,11 @@ public abstract class CliFactory
      *            The annotated interface definition
      * 
      * @return A Cli configured to create instance of klass
+     * 
+     * @throws CliValidationException the arguments do not meet the CLI specification
+     * @throws InvalidOptionSpecificationException the CLI specification is not valid
      */
-    public static <O> Cli<O> createCli(final Class<O> klass)
+    public static <O> Cli<O> createCli(final Class<O> klass) throws InvalidOptionSpecificationException
     {
         return new CliInterfaceImpl<O>(klass);
     }
@@ -34,8 +37,11 @@ public abstract class CliFactory
      *            The annotated class
      * 
      * @return A Cli configured to configure the options
+     * 
+     * @throws CliValidationException the arguments do not meet the CLI specification
+     * @throws InvalidOptionSpecificationException the CLI specification is not valid
      */
-    public static <O> Cli<O> createCliUsingInstance(final O options)
+    public static <O> Cli<O> createCliUsingInstance(final O options) throws InvalidOptionSpecificationException
     {
         return new CliInstanceImpl<O>(options);
     }
@@ -52,13 +58,14 @@ public abstract class CliFactory
      * 
      * @return The parsed arguments
      * 
-     * @throws CliValidationException
+     * @throws CliValidationException the arguments do not meet the CLI specification
+     * @throws InvalidOptionSpecificationException the CLI specification is not valid
      */
     public static <O> O parseArguments(final Class<O> klass, final String... arguments)
-            throws CliValidationException
-    {
+            throws CliValidationException, InvalidOptionSpecificationException
+            {
         return createCli(klass).parseArguments(arguments);
-    }
+            }
 
     /**
      * Parse arguments from an annotated class instance
@@ -71,11 +78,12 @@ public abstract class CliFactory
      * 
      * @return The parsed arguments
      * 
-     * @throws CliValidationException
+     * @throws CliValidationException the arguments do not meet the CLI specification
+     * @throws InvalidOptionSpecificationException the CLI specification is not valid
      */
     public static <O> O parseArgumentsUsingInstance(final O options, final String... arguments)
-            throws CliValidationException
-    {
+            throws CliValidationException, InvalidOptionSpecificationException
+            {
         return createCliUsingInstance(options).parseArguments(arguments);
-    }
+            }
 }
