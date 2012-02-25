@@ -20,7 +20,7 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 class InstanceArgumentPresentingStrategy<O> implements ArgumentPresentingStrategy<O> {
@@ -38,7 +38,6 @@ class InstanceArgumentPresentingStrategy<O> implements ArgumentPresentingStrateg
     }
 
     @Override public O presentArguments(final Map<String, Object> argumentMap) {
-        System.out.println(argumentMap);
         for (final ReflectedMethod reflectedMethod : klass.methods(annotatedWith(Option.class))) {
             final boolean isBoolean = specification.getSpecification(reflectedMethod).isBoolean();
             setValueOnOptions(argumentMap, reflectedMethod, isBoolean);

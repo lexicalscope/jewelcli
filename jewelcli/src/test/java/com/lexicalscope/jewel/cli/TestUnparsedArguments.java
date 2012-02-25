@@ -5,6 +5,7 @@ import static com.lexicalscope.jewel.cli.CliFactory.parseArguments;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Rule;
@@ -24,7 +25,7 @@ import org.junit.rules.ExpectedException;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 public class TestUnparsedArguments {
@@ -35,7 +36,15 @@ public class TestUnparsedArguments {
     }
 
     public interface UnparsedListOption {
-        @Unparsed List<String> getNames();
+        @Unparsed() List<String> getNames();
+    }
+
+    public interface UnparsedListOptionEmptyListDefault {
+        @Unparsed(defaultValue = {}) List<String> getNames();
+    }
+
+    public interface UnparsedListOptionNullDefault {
+        @Unparsed(defaultToNull = true) List<String> getNames();
     }
 
     public interface OptionalUnparsedOption {
@@ -84,14 +93,25 @@ public class TestUnparsedArguments {
     }
 
     @Test public void testUnparsedListOptionMissingValue() throws CliValidationException {
-        parseArguments(UnparsedListOption.class);
+        assertThat(parseArguments(UnparsedListOption.class).getNames(),
+                equalTo(null));
+    }
+
+    @Test public void missingUnparsedListOptionWithEmptyListDefaultReturnsEmptyList() throws CliValidationException {
+        assertThat(parseArguments(UnparsedListOptionDefaultToEmpty.class).getNames(),
+                equalTo(Collections.<String>emptyList()));
+    }
+
+    @Test public void missingUnparsedListOptionWithNullDefaultReturnsNull() throws CliValidationException {
+        assertThat(parseArguments(UnparsedListOptionDefaultToNull.class).getNames(),
+                equalTo(null));
     }
 
     @Test public void ifNoUnparsedOptionIsSpecifiedButValuesArePresentThenAValidationErrorOccurs()
             throws CliValidationException {
         exception.expect(CliValidationException.class);
         exception
-                .expect(validationException(ValidationFailureType.UnexpectedTrailingValue));
+        .expect(validationException(ValidationFailureType.UnexpectedTrailingValue));
 
         parseArguments(NoUnparsedOption.class, "value0");
     }
