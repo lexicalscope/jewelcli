@@ -18,16 +18,16 @@ import java.io.Serializable;
  * limitations under the License. 
  */
 
-abstract class ValidationFailure implements Serializable
+abstract class ValidationFailureImpl implements Serializable, ValidationFailure
 {
     private static final long serialVersionUID = 358674581610898076L;
     private final String message;
 
-    public ValidationFailure(final String message) {
+    public ValidationFailureImpl(final String message) {
         this.message = message;
     }
 
-    public ValidationFailure(
+    public ValidationFailureImpl(
             final OptionSpecification specification,
             final String description)
     {
@@ -41,6 +41,4 @@ abstract class ValidationFailure implements Serializable
     @Override public final String toString() {
         return message;
     }
-
-    public abstract ValidationFailureType getFailureType();
 }

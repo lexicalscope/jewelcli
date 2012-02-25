@@ -17,50 +17,50 @@ package com.lexicalscope.jewel.cli;
  */
 
 class ArgumentValidationExceptionFactory {
-    static ValidationFailure createUnexpectedOptionError(final String name)
+    static ValidationFailureImpl createUnexpectedOptionError(final String name)
     {
         return new ValidationFailureUnexpectedOption(new UnexpectedOptionSpecification(name));
     }
 
-    static ValidationFailure createAdditionalValuesError(final OptionSpecification optionSpecification)
+    static ValidationFailureImpl createAdditionalValuesError(final OptionSpecification optionSpecification)
     {
         return new ValidationFailureUnexpectedAdditionalValue(optionSpecification);
     }
 
-    static ValidationFailure createMissingValueError(final OptionSpecification optionSpecification)
+    static ValidationFailureImpl createMissingValueError(final OptionSpecification optionSpecification)
     {
         return new ValidationFailureMissingValue(optionSpecification);
     }
 
-    static ValidationFailure createUnexpectedValueError(final OptionSpecification optionSpecification)
+    static ValidationFailureImpl createUnexpectedValueError(final OptionSpecification optionSpecification)
     {
         return new ValidationFailureUnexpectedValue(optionSpecification);
     }
 
-    static ValidationFailure createUnexpectedTrailingValue() {
+    static ValidationFailureImpl createUnexpectedTrailingValue() {
         return new ValidationFailureUnexpectedTrailingValue(null, "");
     }
 
-    static ValidationFailure createMissingOptionError(final OptionSpecification optionSpecification)
+    static ValidationFailureImpl createMissingOptionError(final OptionSpecification optionSpecification)
     {
         return new ValidationFailureMissingOption(optionSpecification);
     }
 
-    static ValidationFailure createInvalidValueForType(
+    static ValidationFailureImpl createInvalidValueForType(
             final OptionSpecification optionSpecification,
             final String message)
     {
         return new ValidationFailureInvalidValueForType(optionSpecification, message);
     }
 
-    static ValidationFailure createUnableToConstructType(
+    static ValidationFailureImpl createUnableToConstructType(
             final OptionSpecification optionSpecification,
             final String message)
     {
         return new ValidationFailureUnableToConstructType(optionSpecification, message);
     }
 
-    static ValidationFailure createPatternMismatch(
+    static ValidationFailureImpl createPatternMismatch(
             final OptionSpecification optionSpecification,
             final String message)
     {

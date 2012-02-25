@@ -16,7 +16,7 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License. 
  */
 
-class ValidationFailureHelpRequested extends ValidationFailure {
+class ValidationFailureHelpRequested extends ValidationFailureImpl {
     private static final long serialVersionUID = 142201362039099227L;
 
     public ValidationFailureHelpRequested(final OptionsSpecification<?> specification) {

@@ -14,8 +14,8 @@ public class TestParsedArgumentsBuilder {
             parsedArgumentsBuilder.parseArguments("a", "-b");
             fail("rouge option should have been detected");
         } catch (final CliValidationException e) {
-            assertEquals(1, e.getValidationErrors().size());
-            assertEquals(ValidationFailureMisplacedOption.class, e.getValidationErrors().get(0).getClass());
+            assertEquals(1, e.getValidationFailures().size());
+            assertEquals(ValidationFailureMisplacedOption.class, e.getValidationFailures().get(0).getClass());
         }
 
         new ArgumentParserImpl().parseArguments("-a");
@@ -42,9 +42,9 @@ public class TestParsedArgumentsBuilder {
         try {
             new ArgumentParserImpl().parseArguments("v0", "-a");
         } catch (final CliValidationException e) {
-            assertEquals(1, e.getValidationErrors().size());
+            assertEquals(1, e.getValidationFailures().size());
             assertEquals(ValidationFailureMisplacedOption.class, e
-                    .getValidationErrors()
+                    .getValidationFailures()
                     .get(0)
                     .getClass());
         }

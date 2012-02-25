@@ -21,7 +21,7 @@ public class CliValidationException extends JewelRuntimeException
             "com.lexicalscope.jewel.cli.Messages",
             Locale.getDefault());
 
-    private final List<ValidationFailure> validationErrors;
+    private final List<ValidationFailure> validationFailures;
 
     public CliValidationException() {
         this(new ArrayList<ValidationFailure>());
@@ -44,38 +44,38 @@ public class CliValidationException extends JewelRuntimeException
         this(asList(validationError));
     }
 
-    public CliValidationException(final List<ValidationFailure> validationErrors)
+    public CliValidationException(final List<ValidationFailure> validationFailures)
     {
-        this(createMessageFromErrors(validationErrors), validationErrors);
+        this(createMessageFromErrors(validationFailures), validationFailures);
     }
 
     public CliValidationException(
             final String message,
             final Throwable cause,
-            final List<ValidationFailure> validationErrors) {
+            final List<ValidationFailure> validationFailures) {
         super(message, cause);
-        this.validationErrors = validationErrors;
+        this.validationFailures = validationFailures;
     }
 
-    public CliValidationException(final String message, final List<ValidationFailure> validationErrors) {
+    public CliValidationException(final String message, final List<ValidationFailure> validationFailures) {
         super(message);
-        this.validationErrors = validationErrors;
+        this.validationFailures = validationFailures;
     }
 
-    public CliValidationException(final Throwable cause, final List<ValidationFailure> validationErrors) {
-        this(createMessageFromErrors(validationErrors), cause, validationErrors);
+    public CliValidationException(final Throwable cause, final List<ValidationFailure> validationFailures) {
+        this(createMessageFromErrors(validationFailures), cause, validationFailures);
     }
 
-    public List<ValidationFailure> getValidationErrors()
+    public List<ValidationFailure> getValidationFailures()
     {
-        return validationErrors;
+        return validationFailures;
     }
 
-    private static String createMessageFromErrors(final List<ValidationFailure> validationErrors) {
+    private static String createMessageFromErrors(final List<ValidationFailure> validationFailures) {
         final StringBuilder message = new StringBuilder();
 
         String separator = "";
-        for (final ValidationFailure error : validationErrors)
+        for (final ValidationFailure error : validationFailures)
         {
             message.append(separator).append(error.getMessage());
             separator = System.getProperty("line.separator");

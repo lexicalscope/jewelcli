@@ -16,7 +16,7 @@ public class TestPattern {
             CliFactory.parseArguments(TestStringPattern.class, "--option", "ABC");
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationErrors();
+            final List<ValidationFailure> validationErrors = e.getValidationFailures();
             assertEquals(1, validationErrors.size());
             assertEquals(ValidationFailurePatternMismatch.class, validationErrors.get(0).getClass());
             assertEquals("Cannot match (ABC) to pattern: --option /[a-z]+/", validationErrors.get(0).getMessage());

@@ -52,7 +52,7 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name1", "value" }, OptionalOption.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationErrors();
+            final List<ValidationFailure> validationErrors = e.getValidationFailures();
             assertEquals(1, validationErrors.size());
             assertEquals(ValidationFailureMissingOption.class, validationErrors.get(0).getClass());
         }
@@ -93,7 +93,7 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name1", "value", "wrong", "--name0" }, ExtraValue.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationErrors();
+            final List<ValidationFailure> validationErrors = e.getValidationFailures();
             assertEquals(1, validationErrors.size());
             assertEquals(ValidationFailureUnexpectedAdditionalValue.class, validationErrors.get(0).getClass());
         }
@@ -104,7 +104,7 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name" }, SingleValue.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationErrors();
+            final List<ValidationFailure> validationErrors = e.getValidationFailures();
             assertEquals(1, validationErrors.size());
             assertEquals(ValidationFailureMissingValue.class, validationErrors.get(0).getClass());
         }
@@ -115,7 +115,7 @@ public class TestArgumentValidatorImpl {
             validate(new String[] { "--name1", "value", "--name0" }, NoValue.class);
             fail();
         } catch (final CliValidationException e) {
-            final List<ValidationFailure> validationErrors = e.getValidationErrors();
+            final List<ValidationFailure> validationErrors = e.getValidationFailures();
             assertEquals(1, validationErrors.size());
             assertEquals(ValidationFailureUnexpectedValue.class, validationErrors.get(0).getClass());
         }

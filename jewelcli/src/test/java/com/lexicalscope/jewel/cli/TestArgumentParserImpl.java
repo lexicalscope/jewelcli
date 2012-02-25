@@ -40,8 +40,8 @@ public class TestArgumentParserImpl {
             parseArguments(new String[] { "a", "-b" });
             fail();
         } catch (final CliValidationException e) {
-            assertEquals(1, e.getValidationErrors().size());
-            assertEquals(ValidationFailureMisplacedOption.class, e.getValidationErrors().get(0).getClass());
+            assertEquals(1, e.getValidationFailures().size());
+            assertEquals(ValidationFailureMisplacedOption.class, e.getValidationFailures().get(0).getClass());
         }
     }
 

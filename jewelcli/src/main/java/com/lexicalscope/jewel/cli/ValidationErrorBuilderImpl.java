@@ -47,7 +47,7 @@ class ValidationErrorBuilderImpl implements ValidationErrorBuilder
     public void unableToConstructType(final OptionSpecification optionSpecification, final String message)
     {
         validationExceptions
-                .add(ArgumentValidationExceptionFactory.createUnableToConstructType(optionSpecification, message));
+        .add(ArgumentValidationExceptionFactory.createUnableToConstructType(optionSpecification, message));
     }
 
     public void patternMismatch(final OptionSpecification optionSpecification, final String value)

@@ -33,7 +33,7 @@ public class HelpRequestedException extends CliValidationException
      */
     public HelpRequestedException(final OptionsSpecification<?> specification)
     {
-        super(specification.toString(), Arrays.<ValidationFailure>asList(new ValidationFailureHelpRequested(
-                specification)));
+        super(specification.toString(),
+                Arrays.<ValidationFailure>asList(new ValidationFailureHelpRequested(specification)));
     }
 }

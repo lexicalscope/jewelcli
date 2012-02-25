@@ -1,9 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
 /**
- * <p>
  * Constructs a Cli from an annotated interface definition.
- * </p>
  * 
  * @see com.lexicalscope.jewel.cli.Option
  * 
@@ -73,7 +71,6 @@ public abstract class CliFactory
      * 
      * @return The parsed arguments
      * 
-     * @throws InvalidArgumentsException
      * @throws CliValidationException
      */
     public static <O> O parseArgumentsUsingInstance(final O options, final String... arguments)
