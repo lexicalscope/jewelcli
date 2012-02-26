@@ -12,6 +12,7 @@ API Changes
   * throws "HelpRequestedException" if help has been requested, this makes it easier to catch help requests and behave differently (like exit without and error code)
   * corrected multiple bugs in the validation error messages and improved handling of pluralisation in the messages
   * fixed bug where excess values on the end of the command line were silently ignored (now they are reported as an error) 
+  * allowed construction of ArgumentValidationException with message and cause
 
 * Changes in version 0.7.6
 
