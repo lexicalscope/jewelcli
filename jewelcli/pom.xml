@@ -23,7 +23,6 @@
         <url>https://github.com/lexicalscope/jewelcli</url>
         <developerConnection>scm:git:git@github.com:lexicalscope/jewelcli.git</developerConnection>
     </scm>
-    <!-- gitsite has a problem with maven 3 site plugin -->
     <url>http://jewelcli.lexicalscope.com/</url>
     <distributionManagement>
         <site>
@@ -166,7 +165,7 @@
             <!-- workaround for m2e not handling workspace resolution of classifiers -->
             <groupId>com.lexicalscope.fluent-reflection</groupId>
             <artifactId>fluent-reflection</artifactId>
-            <version>0.0.6</version>
+            <version>0.0.11</version>
             <type>jar</type>
             <scope>test</scope>
             <optional>true</optional>
@@ -188,23 +187,6 @@
         </dependencies>
     </dependencyManagement>
     <build>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.scm</groupId>
-                <artifactId>maven-scm-provider-gitexe</artifactId>
-                <version>1.5</version>
-            </extension>
-            <extension>
-                <groupId>org.apache.maven.scm</groupId>
-                <artifactId>maven-scm-manager-plexus</artifactId>
-                <version>1.5</version>
-            </extension>
-            <extension>
-                <groupId>org.kathrynhuxtable.maven.wagon</groupId>
-                <artifactId>wagon-gitsite</artifactId>
-                <version>0.3.1</version>
-            </extension>
-        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -395,17 +377,33 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <configuration>
-                    <skipDeploy>false</skipDeploy>
-                </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.5</version>
+                <executions>
+                   <execution>
+                      <goals>
+                         <goal>site</goal>
+                      </goals>
+                      <phase>site-deploy</phase>
+                      <configuration>
+                         <message>Creating site for ${project.version}</message>
+                      </configuration>
+                   </execution>
+                </executions>
+          </plugin>
         </plugins>
         <pluginManagement>
-            <plugins>
+           <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.0</version>
+                    <configuration>
+                        <skipDeploy>true</skipDeploy>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
