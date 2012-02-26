@@ -34,11 +34,12 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
 
-import uk.co.flamingpenguin.jewel.cli.Cli;
-import uk.co.flamingpenguin.jewel.cli.CliFactory;
-import uk.co.flamingpenguin.jewel.cli.HelpMessage;
-import uk.co.flamingpenguin.jewel.cli.OptionHelpMessage;
 import ch.lambdaj.function.convert.Converter;
+
+import com.lexicalscope.jewel.cli.Cli;
+import com.lexicalscope.jewel.cli.CliFactory;
+import com.lexicalscope.jewel.cli.HelpMessage;
+import com.lexicalscope.jewel.cli.OptionHelpMessage;
 
 /**
  * Goal which produces a CLI help page for you maven site
@@ -51,7 +52,7 @@ import ch.lambdaj.function.convert.Converter;
  * @requiresReports true
  */
 public class JewelCliReportMojo
-        extends AbstractMavenReport
+extends AbstractMavenReport
 {
     private static final class AddDash implements Converter<String, String> {
         @Override public String convert(final String string) {

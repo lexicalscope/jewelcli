@@ -3,9 +3,9 @@ package com.lexicalscope.jewelcli.JewelCliPackagingTest;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
-import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException;
-import uk.co.flamingpenguin.jewel.cli.CliFactory;
-import uk.co.flamingpenguin.jewel.cli.Option;
+import com.lexicalscope.jewel.cli.ArgumentValidationException;
+import com.lexicalscope.jewel.cli.CliFactory;
+import com.lexicalscope.jewel.cli.Option;
 
 /*
  * Copyright 2011 Tim Wood
@@ -20,7 +20,7 @@ import uk.co.flamingpenguin.jewel.cli.Option;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 public class TestCliParsing {

@@ -8,7 +8,7 @@
     </parent>
     <artifactId>jewelcli-maven-report-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <name>Jewelcli Report Maven Mojo</name>
+    <name>JewelCli Report Maven Mojo</name>
     <url>http://maven.apache.org</url>
     <build>
         <plugins>
