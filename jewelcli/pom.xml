@@ -368,6 +368,23 @@
                         <option>-keep class com.lexicalscope.jewelcli.internal.fluentreflection.$ReflectedMethod</option>
                         <option>-keep class com.lexicalscope.jewelcli.internal.fluentreflection.FluentReflection</option>
                         <option>-keep interface uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError</option>
+                        <option>-keep public class com.lexicalscope.jewel.cli.* { public protected *; }</option>
+                        <option>-keepclassmembernames class com.lexicalscope.jewel.cli.* {
+                            java.lang.Class class$(java.lang.String);
+                            java.lang.Class class$(java.lang.String, boolean);
+                        }</option>
+                        <option>-keepclassmembers enum com.lexicalscope.jewel.cli.* {
+                            public static **[] values();
+                            public static ** valueOf(java.lang.String);
+                        }</option>
+                        <option>-keepclassmembers class com.lexicalscope.jewel.cli.* implements java.io.Serializable {
+                            static final long serialVersionUID;
+                            private static final java.io.ObjectStreamField[] serialPersistentFields;
+                            private void writeObject(java.io.ObjectOutputStream);
+                            private void readObject(java.io.ObjectInputStream);
+                            java.lang.Object writeReplace();
+                            java.lang.Object readResolve();
+                        }</option>                       
                     </options>
                     <libs>
                         <lib>${java.home}/lib/rt.jar</lib>

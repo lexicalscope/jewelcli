@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import com.lexicalscope.jewel.cli.ArgumentValidationException;
 import com.lexicalscope.jewel.cli.CliFactory;
 import com.lexicalscope.jewel.cli.Option;
+import com.lexicalscope.jewel.cli.ValidationFailureType;
 
 /*
  * Copyright 2011 Tim Wood
@@ -44,8 +45,8 @@ public class TestCliParsing {
             AssertJUnit.fail();
         } catch (final ArgumentValidationException e) {
             AssertJUnit.assertEquals(
-                    e.getValidationErrors().get(0).getErrorType(),
-                    ArgumentValidationException.ValidationError.ErrorType.MissingOption);
+                    e.getValidationFailures().get(0).getFailureType(),
+                    ValidationFailureType.MissingOption);
         }
     }
 }
