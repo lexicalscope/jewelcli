@@ -72,6 +72,8 @@ Reviews, blog posts, etc
   
   * {{{http://stackoverflow.com/questions/2315912/scala-best-way-to-parse-command-line-parameters-cli/3339770#3339770} using jewelcli in scala}}
   
+  * {{{http://stackoverflow.com/a/3339240/72810} Java library for parsing command-line parameters?}}
+  
 Users
 
   * {{{http://code.google.com/p/rtt/} RTT is a regression test tool for tree-structured repositories}}
@@ -89,3 +91,5 @@ Users
   * {{{http://lenskit.grouplens.org/reflens-eval/index.html} RefLens Evaluation Framework}}
   
   * {{{http://code.google.com/p/curtain/} Curtain - Assembling large genomes from short read sequences}}
+  
+  * {{{http://stardog.com/} Stardog - RDF database}}

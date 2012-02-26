@@ -16,22 +16,13 @@
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
     </properties>
     <issueManagement>
-        <url>http://sourceforge.net/tracker/?group_id=${sourceforge.project.groupId}</url>
+        <url>https://github.com/lexicalscope/jewelcli/issues</url>
     </issueManagement>
     <scm>
         <connection>scm:git:git@github.com:lexicalscope/jewelcli.git</connection>
         <url>https://github.com/lexicalscope/jewelcli</url>
         <developerConnection>scm:git:git@github.com:lexicalscope/jewelcli.git</developerConnection>
     </scm>
-    <mailingLists>
-        <mailingList>
-            <name>JewelCli users' mailing list</name>
-            <subscribe>https://lists.sourceforge.net/lists/listinfo/jewelcli-users</subscribe>
-            <unsubscribe>https://lists.sourceforge.net/lists/listinfo/jewelcli-users</unsubscribe>
-            <post>jewelcli-users@lists.sourceforge.net</post>
-            <archive />
-        </mailingList>
-    </mailingLists>
     <!-- gitsite has a problem with maven 3 site plugin -->
     <url>http://jewelcli.lexicalscope.com/</url>
     <distributionManagement>

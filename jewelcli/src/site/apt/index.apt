@@ -9,7 +9,9 @@ present command line arguments.
 
  Please note that I have recently moved the sourcecode for jewelcli on to 
  {{{https://github.com/lexicalscope/jewelcli} github}}. I have also changed its location in the 
- {{{http://repo1.maven.org/maven2/com/lexicalscope/jewelcli/jewelcli/} Maven Central Repository}}
+ {{{http://repo1.maven.org/maven2/com/lexicalscope/jewelcli/jewelcli/} Maven Central Repository}}.
+ 
+ Releases including and after 0.8 are in the package com.lexicalscope, and introduce some backwards incompatible changes, please see the {{{./changes.html} changes}} for details.
 
 * Features
 
