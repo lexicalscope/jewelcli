@@ -51,3 +51,7 @@ public interface MyExample
   List<String> getMyListOption();
 }
 +------------------------------------------+
+
+* Mailing List
+
+{{{http://groups.google.com/group/jewelcli}} JewelCli Google Group} for discussion of JewelCli

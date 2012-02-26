@@ -410,6 +410,7 @@
                       <phase>site-deploy</phase>
                       <configuration>
                          <message>Creating site for ${project.version}</message>
+                         <merge>true</merge>
                       </configuration>
                    </execution>
                 </executions>
