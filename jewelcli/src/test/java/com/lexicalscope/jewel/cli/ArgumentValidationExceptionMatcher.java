@@ -6,6 +6,8 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
+import com.lexicalscope.jewel.UtilitiesForTesting;
+
 /*
  * Copyright 2011 Tim Wood
  *
@@ -23,7 +25,7 @@ import org.hamcrest.TypeSafeMatcher;
  */
 
 public class ArgumentValidationExceptionMatcher {
-    public static Matcher<ArgumentValidationException> validationException(final ValidationFailureType expectedErrorType) {
+    public static Matcher<ArgumentValidationException> hasValidationException(final ValidationFailureType expectedErrorType) {
         return new TypeSafeMatcher<ArgumentValidationException>() {
             @Override public void describeTo(final Description description) {
                 description
@@ -31,7 +33,7 @@ public class ArgumentValidationExceptionMatcher {
                         .appendText(" with error type ")
                         .appendValue(expectedErrorType);
             }
-
+    
             @Override protected boolean matchesSafely(final ArgumentValidationException item) {
                 return selectFirst(item.getValidationFailures(), new TypeSafeMatcher<ValidationFailureImpl>() {
                     @Override public void describeTo(final Description description) {
@@ -40,12 +42,29 @@ public class ArgumentValidationExceptionMatcher {
                                 .appendText(" with error type ")
                                 .appendValue(expectedErrorType);
                     }
-
+    
                     @Override protected boolean matchesSafely(final ValidationFailureImpl actualError) {
                         return actualError.getFailureType().equals(expectedErrorType);
                     }
                 }) != null;
             }
         };
+    }
+
+    public static Matcher<ArgumentValidationException> validationExceptionWithMessage(final String message) {
+        return new TypeSafeMatcher<ArgumentValidationException>() {
+            @Override public void describeTo(final Description description) {
+                description.appendText(ArgumentValidationException.class.getSimpleName() + " with message ").appendValue(
+                        message);
+            }
+
+            @Override protected boolean matchesSafely(final ArgumentValidationException item) {
+                return item.getMessage().equals(message);
+            }
+        };
+    }
+
+    public static Matcher<ArgumentValidationException> validationExceptionWithMessageLines(final String... message) {
+        return validationExceptionWithMessage(UtilitiesForTesting.joinLines(message));
     }
 }

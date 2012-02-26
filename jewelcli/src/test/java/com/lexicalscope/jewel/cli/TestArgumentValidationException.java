@@ -1,7 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
 import static com.lexicalscope.jewel.cli.CliFactory.parseArguments;
-import static com.lexicalscope.jewel.cli.CliValidationExceptionMatcher.*;
+import static com.lexicalscope.jewel.cli.ArgumentValidationExceptionMatcher.*;
 
 import org.junit.Rule;
 import org.junit.Test;

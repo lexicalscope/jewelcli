@@ -1,7 +1,7 @@
 package com.lexicalscope.jewel.cli.examples;
 
-import static com.lexicalscope.jewel.cli.ArgumentValidationExceptionMatcher.validationException;
 import static com.lexicalscope.jewel.cli.CliFactory.parseArgumentsUsingInstance;
+import static com.lexicalscope.jewel.cli.ArgumentValidationExceptionMatcher.hasValidationException;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Rule;
@@ -17,10 +17,10 @@ public class TestClassOptionalOption {
     @Test public void testOptionalOptionPresent() throws ArgumentValidationException {
         final ClassOptionalOption result =
                 parseArgumentsUsingInstance(new ClassOptionalOption(), new String[] {
-                        "--myMandatoryOption",
-                        "3",
-                        "--myOptionalOption",
-                        "7" });
+                    "--myMandatoryOption",
+                    "3",
+                    "--myOptionalOption",
+                "7" });
 
         assertEquals(3, (int) result.getMyMandatoryOption());
         assertEquals(7, (int) result.getMyOptionalOption());
@@ -29,8 +29,8 @@ public class TestClassOptionalOption {
     @Test public void testOptionalOptionMissing() throws ArgumentValidationException {
         final ClassOptionalOption result =
                 parseArgumentsUsingInstance(new ClassOptionalOption(), new String[] {
-                        "--myMandatoryOption",
-                        "3" });
+                    "--myMandatoryOption",
+                "3" });
 
         assertEquals(3, (int) result.getMyMandatoryOption());
         assertEquals(null, result.getMyOptionalOption());
@@ -38,7 +38,7 @@ public class TestClassOptionalOption {
 
     @Test public void testMandatoryOptionMissing() throws ArgumentValidationException {
         exception.expect(ArgumentValidationException.class);
-        exception.expect(validationException(ValidationFailureType.MissingOption));
+        exception.expect(hasValidationException(ValidationFailureType.MissingOption));
 
         parseArgumentsUsingInstance(new ClassOptionalOption(), new String[] { "--myOptionalOption", "3" });
     }

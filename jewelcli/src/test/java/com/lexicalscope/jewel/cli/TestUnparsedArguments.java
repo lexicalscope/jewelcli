@@ -1,7 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
-import static com.lexicalscope.jewel.cli.ArgumentValidationExceptionMatcher.validationException;
 import static com.lexicalscope.jewel.cli.CliFactory.parseArguments;
+import static com.lexicalscope.jewel.cli.ArgumentValidationExceptionMatcher.hasValidationException;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -81,7 +81,7 @@ public class TestUnparsedArguments {
 
     @Test public void testUnparsedOptionMissingValue() throws ArgumentValidationException {
         exception.expect(ArgumentValidationException.class);
-        exception.expect(validationException(ValidationFailureType.MissingValue));
+        exception.expect(hasValidationException(ValidationFailureType.MissingValue));
 
         parseArguments(UnparsedOption.class);
     }
@@ -111,7 +111,7 @@ public class TestUnparsedArguments {
             throws ArgumentValidationException {
         exception.expect(ArgumentValidationException.class);
         exception
-        .expect(validationException(ValidationFailureType.UnexpectedTrailingValue));
+        .expect(hasValidationException(ValidationFailureType.UnexpectedTrailingValue));
 
         parseArguments(NoUnparsedOption.class, "value0");
     }
