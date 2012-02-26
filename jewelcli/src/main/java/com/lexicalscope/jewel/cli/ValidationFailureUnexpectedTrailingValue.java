@@ -28,9 +28,9 @@ class ValidationFailureUnexpectedTrailingValue extends ValidationFailureImpl {
     private static String formatMessage(final List<String> unparsedValues) {
         if(unparsedValues.size() > 1)
         {
-            return String.format(CliValidationException.m_messages.getString("validationError.UnexpectedTrailingValues"), unparsedValues);
+            return String.format(ArgumentValidationException.m_messages.getString("validationError.UnexpectedTrailingValues"), unparsedValues);
         }
-        return String.format(CliValidationException.m_messages.getString("validationError.UnexpectedTrailingValue"), unparsedValues.get(0));
+        return String.format(ArgumentValidationException.m_messages.getString("validationError.UnexpectedTrailingValue"), unparsedValues.get(0));
     }
 
     @Override public ValidationFailureType getFailureType() {

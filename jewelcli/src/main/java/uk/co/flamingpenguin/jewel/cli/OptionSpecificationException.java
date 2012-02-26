@@ -5,9 +5,11 @@ import uk.co.flamingpenguin.jewel.JewelRuntimeException;
 /**
  * The specification of the options is not valid
  * 
+ * @deprecated please use {@link com.lexicalscope.jewel.cli.InvalidOptionSpecificationException} instead
+ * 
  * @author tim
  */
-public class OptionSpecificationException extends JewelRuntimeException
+@Deprecated public class OptionSpecificationException extends JewelRuntimeException
 {
     private static final long serialVersionUID = -5023726790561988859L;
 

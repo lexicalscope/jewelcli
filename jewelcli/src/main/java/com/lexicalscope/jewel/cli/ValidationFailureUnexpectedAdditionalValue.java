@@ -23,7 +23,7 @@ class ValidationFailureUnexpectedAdditionalValue extends ValidationFailureImpl
     private static final long serialVersionUID = -7899339429456035393L;
 
     public ValidationFailureUnexpectedAdditionalValue(final OptionSpecification specification, final List<String> excessValues) {
-        super(specification, String.format(CliValidationException.m_messages.getString("validationError.AdditionalValue"), excessValues));
+        super(specification, String.format(ArgumentValidationException.m_messages.getString("validationError.AdditionalValue"), excessValues));
     }
 
     @Override public ValidationFailureType getFailureType() {

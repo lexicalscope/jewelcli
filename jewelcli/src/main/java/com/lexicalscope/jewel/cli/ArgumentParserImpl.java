@@ -7,7 +7,7 @@ class ArgumentParserImpl implements ArgumentParser
     /**
      * {@inheritDoc}
      */
-    public ArgumentCollection parseArguments(final String... arguments) throws CliValidationException
+    public ArgumentCollection parseArguments(final String... arguments) throws ArgumentValidationException
     {
         for (final String argument : arguments)
         {
@@ -16,7 +16,7 @@ class ArgumentParserImpl implements ArgumentParser
         return getParsedArguments();
     }
 
-    private void add(final String argument) throws CliValidationException
+    private void add(final String argument) throws ArgumentValidationException
     {
         if (startsWithDash(argument) && !builder.isExpectingUnparsedOptions())
         {
@@ -42,7 +42,7 @@ class ArgumentParserImpl implements ArgumentParser
         }
     }
 
-    private void addConjoinedOptions(final String options) throws CliValidationException
+    private void addConjoinedOptions(final String options) throws ArgumentValidationException
     {
         for (int i = 0; i < options.length(); i++)
         {
@@ -50,7 +50,7 @@ class ArgumentParserImpl implements ArgumentParser
         }
     }
 
-    private void addOptionAndValue(final String argument) throws CliValidationException
+    private void addOptionAndValue(final String argument) throws ArgumentValidationException
     {
         if (argument.contains("="))
         {
@@ -73,7 +73,7 @@ class ArgumentParserImpl implements ArgumentParser
         builder.addValue(value);
     }
 
-    private void addOption(final String option) throws CliValidationException
+    private void addOption(final String option) throws ArgumentValidationException
     {
         builder.addOption(option);
     }

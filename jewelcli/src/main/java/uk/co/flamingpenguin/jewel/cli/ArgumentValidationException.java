@@ -12,8 +12,11 @@ import uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationErro
 /**
  * The arguments are not valid
  * 
+ * @deprecated please use {@link com.lexicalscope.jewel.cli.ArgumentValidationException} class in package com.lexicalscope.jewel instead
+ * 
  * @author tim
  */
+@Deprecated
 public class ArgumentValidationException extends JewelException
 {
     private static final long serialVersionUID = -4781861924515211053L;

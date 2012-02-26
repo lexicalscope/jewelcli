@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.CliValidationException;
+import com.lexicalscope.jewel.cli.ArgumentValidationException;
 import com.lexicalscope.jewel.cli.CliFactory;
 import com.lexicalscope.jewel.cli.Option;
 
@@ -44,40 +44,40 @@ public class TestOptionalMultivaluedOptions {
     }
 
     @Test public void multivaluedOptionalOptionShouldReturnFalseIfOptionIsNotSpecified()
-            throws CliValidationException {
+            throws ArgumentValidationException {
         final ExampleOptions result = CliFactory.createCli(ExampleOptions.class).parseArguments("--name", "foo");
         assertTrue(result.isName());
         assertFalse(result.isOptionalMultivaluedOption());
     }
 
     @Test public void multivaluedOptionalOptionShouldReturnTrueIfOptionIsSpecified()
-            throws CliValidationException {
+            throws ArgumentValidationException {
         final ExampleOptions result =
                 CliFactory.createCli(ExampleOptions.class).parseArguments("--optionalMultivaluedOption", "foo");
         assertThat(result.getOptionalMultivaluedOption(), contains("foo"));
     }
 
     @Test public void multivaluedOptionalOptionShouldReturnFalseIfNothingIsSpecified()
-            throws CliValidationException {
+            throws ArgumentValidationException {
         final ExampleOptions result = CliFactory.createCli(ExampleOptions.class).parseArguments();
         assertFalse(result.isName());
         assertFalse(result.isOptionalMultivaluedOption());
     }
 
     @Test public void missingMultivaluedOptionalOptionShouldReturnNullIfQueried()
-            throws CliValidationException {
+            throws ArgumentValidationException {
         final ExampleOptions result = CliFactory.createCli(ExampleOptions.class).parseArguments();
         assertThat(result.getOptionalMultivaluedOption(), nullValue());
     }
 
     @Test public void multivaluedOptionalWithEmptyListDefaultShouldReturnEmptyListWhenQueried()
-            throws CliValidationException {
+            throws ArgumentValidationException {
         final ExampleOptions result = CliFactory.createCli(ExampleOptions.class).parseArguments();
         assertThat(result.getEmptyDefaultMultivaluedOption().size(), equalTo(0));
     }
 
     @Test public void multivaluedOptionalWithNullDefaultShouldReturnEmptyListWhenQueried()
-            throws CliValidationException {
+            throws ArgumentValidationException {
         final ExampleOptions result = CliFactory.createCli(ExampleOptions.class).parseArguments();
         assertThat(result.getNullDefaultMultivaluedOption(), nullValue());
     }

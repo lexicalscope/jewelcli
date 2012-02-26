@@ -8,13 +8,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.lexicalscope.jewel.cli.CliValidationException;
+import com.lexicalscope.jewel.cli.ArgumentValidationException;
 import com.lexicalscope.jewel.cli.ValidationFailureType;
 
 public class TestClassOptionalOption {
     @Rule public final ExpectedException exception = ExpectedException.none();
 
-    @Test public void testOptionalOptionPresent() throws CliValidationException {
+    @Test public void testOptionalOptionPresent() throws ArgumentValidationException {
         final ClassOptionalOption result =
                 parseArgumentsUsingInstance(new ClassOptionalOption(), new String[] {
                         "--myMandatoryOption",
@@ -26,7 +26,7 @@ public class TestClassOptionalOption {
         assertEquals(7, (int) result.getMyOptionalOption());
     }
 
-    @Test public void testOptionalOptionMissing() throws CliValidationException {
+    @Test public void testOptionalOptionMissing() throws ArgumentValidationException {
         final ClassOptionalOption result =
                 parseArgumentsUsingInstance(new ClassOptionalOption(), new String[] {
                         "--myMandatoryOption",
@@ -36,8 +36,8 @@ public class TestClassOptionalOption {
         assertEquals(null, result.getMyOptionalOption());
     }
 
-    @Test public void testMandatoryOptionMissing() throws CliValidationException {
-        exception.expect(CliValidationException.class);
+    @Test public void testMandatoryOptionMissing() throws ArgumentValidationException {
+        exception.expect(ArgumentValidationException.class);
         exception.expect(validationException(ValidationFailureType.MissingOption));
 
         parseArgumentsUsingInstance(new ClassOptionalOption(), new String[] { "--myOptionalOption", "3" });

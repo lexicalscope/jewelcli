@@ -6,9 +6,12 @@ package uk.co.flamingpenguin.jewel.cli;
  * 
  * @author Tim Wood
  * 
+ * @deprecated please use {@link com.lexicalscope.jewel.cli.Cli} instead
+ * 
  * @param <O>
  *            The type of interface provided by this Cli
  */
+@Deprecated
 public interface Cli<O> {
     /**
      * Parse the arguments and present them as an instance of the interface O

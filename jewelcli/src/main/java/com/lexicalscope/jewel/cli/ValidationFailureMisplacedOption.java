@@ -22,7 +22,7 @@ class ValidationFailureMisplacedOption extends ValidationFailureImpl
 
     public ValidationFailureMisplacedOption(final String message) {
         super(String.format(
-                CliValidationException.m_messages.getString("validationError.MisplacedOption"),
+                ArgumentValidationException.m_messages.getString("validationError.MisplacedOption"),
                 message));
     }
 

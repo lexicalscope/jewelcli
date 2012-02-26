@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.CliValidationException;
+import com.lexicalscope.jewel.cli.ArgumentValidationException;
 import com.lexicalscope.jewel.cli.CliFactory;
 
 public class TestDefaultExample {
-    @Test public void testDefaultExample() throws CliValidationException {
+    @Test public void testDefaultExample() throws ArgumentValidationException {
         final DefaultExample result0 = CliFactory.parseArguments(DefaultExample.class, new String[] {});
         assertEquals(3, result0.getCount());
         assertEquals(3, (int) result0.getCountList().get(0));
@@ -16,7 +16,7 @@ public class TestDefaultExample {
         assertEquals(5, (int) result0.getCountList().get(2));
     }
 
-    @Test public void testDefaultExampleSpecified() throws CliValidationException {
+    @Test public void testDefaultExampleSpecified() throws ArgumentValidationException {
         final DefaultExample result0 =
                 CliFactory.parseArguments(DefaultExample.class, new String[] {
                         "--count",

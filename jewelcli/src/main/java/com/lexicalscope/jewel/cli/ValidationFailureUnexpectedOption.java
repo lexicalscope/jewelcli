@@ -21,7 +21,7 @@ class ValidationFailureUnexpectedOption extends ValidationFailureImpl
     private static final long serialVersionUID = 928801832540765267L;
 
     public ValidationFailureUnexpectedOption(final OptionSpecification specification) {
-        super(specification, CliValidationException.m_messages.getString("validationError.UnexpectedOption"));
+        super(specification, ArgumentValidationException.m_messages.getString("validationError.UnexpectedOption"));
     }
 
     @Override public ValidationFailureType getFailureType() {

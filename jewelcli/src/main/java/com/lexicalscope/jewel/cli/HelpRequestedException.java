@@ -21,7 +21,7 @@ import java.util.Arrays;
  * 
  * @author tim
  */
-public class HelpRequestedException extends CliValidationException
+public class HelpRequestedException extends ArgumentValidationException
 {
     private static final long serialVersionUID = 2760658691533137382L;
 

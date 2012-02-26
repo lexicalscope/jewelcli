@@ -22,7 +22,7 @@ class ValidationFailureInvalidValueForType extends ValidationFailureImpl
 
     public ValidationFailureInvalidValueForType(final OptionSpecification specification, final String message) {
         super(specification, String.format(
-                CliValidationException.m_messages.getString("validationError.InvalidValueForType"),
+                ArgumentValidationException.m_messages.getString("validationError.InvalidValueForType"),
                 message));
     }
 

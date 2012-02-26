@@ -21,7 +21,7 @@ class ValidationFailureMissingValue extends ValidationFailureImpl
     private static final long serialVersionUID = -6121100779973420806L;
 
     public ValidationFailureMissingValue(final OptionSpecification specification) {
-        super(specification, CliValidationException.m_messages.getString("validationError.MissingValue"));
+        super(specification, ArgumentValidationException.m_messages.getString("validationError.MissingValue"));
     }
 
     @Override public ValidationFailureType getFailureType() {

@@ -22,8 +22,11 @@ import java.lang.annotation.Target;
 /**
  * Tags a method as an option
  * 
+ * @deprecated please use {@link com.lexicalscope.jewel.cli.Option} instead
+ * 
  * @author Tim Wood
  */
+@Deprecated
 @Retention(RetentionPolicy.RUNTIME) @Target(ElementType.METHOD) public @interface Option
 {
     static final String stringToMarkNoDefault = "7acb394c-4c4f-4414-89df-28a62e785507?39858";

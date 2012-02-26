@@ -7,12 +7,12 @@ import java.io.File;
 import org.junit.Test;
 
 import com.lexicalscope.jewel.UtilitiesForTesting;
-import com.lexicalscope.jewel.cli.CliValidationException;
+import com.lexicalscope.jewel.cli.ArgumentValidationException;
 import com.lexicalscope.jewel.cli.Cli;
 import com.lexicalscope.jewel.cli.CliFactory;
 
 public class TestRmClassExample {
-    @Test public void testRmExample() throws CliValidationException {
+    @Test public void testRmExample() throws ArgumentValidationException {
         final RmClassExample result0 =
                 CliFactory.parseArgumentsUsingInstance(new RmClassExample(), new String[] { "-vrf", "./" });
         assertTrue(result0.isRecursive());
@@ -27,7 +27,7 @@ public class TestRmClassExample {
         assertEquals(new File("./"), result0.getFiles().get(0));
     }
 
-    @Test public void testRmExampleHelp() throws CliValidationException {
+    @Test public void testRmExampleHelp() throws ArgumentValidationException {
         final Cli<RmClassExample> result0 = CliFactory.createCliUsingInstance(new RmClassExample());
         assertEquals(
                 UtilitiesForTesting.joinLines(

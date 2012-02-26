@@ -58,14 +58,14 @@ public class TestCliImpl {
         @Option(defaultValue = { "Value0", "Value1" }) List<TestEnum> getName();
     }
 
-    @Test public void testSingleOption() throws CliValidationException {
+    @Test public void testSingleOption() throws ArgumentValidationException {
         final SingleOption option =
                 new CliInterfaceImpl<SingleOption>(SingleOption.class)
                 .parseArguments(new String[] { "--name", "value" });
         assertEquals(option.getName(), "value");
     }
 
-    @Test public void testSingleBooleanOption() throws CliValidationException {
+    @Test public void testSingleBooleanOption() throws ArgumentValidationException {
         final SingleBooleanOption option =
                 new CliInterfaceImpl<SingleBooleanOption>(SingleBooleanOption.class)
                 .parseArguments(new String[] { "--name1" });
@@ -73,7 +73,7 @@ public class TestCliImpl {
         assertEquals(option.isName1(), true);
     }
 
-    @Test public void testIntegerOption() throws CliValidationException {
+    @Test public void testIntegerOption() throws ArgumentValidationException {
         final IntegerOption option =
                 new CliInterfaceImpl<IntegerOption>(IntegerOption.class)
                 .parseArguments(new String[] { "--name", "10" });
@@ -84,7 +84,7 @@ public class TestCliImpl {
         try {
             new CliInterfaceImpl<IntegerOption>(IntegerOption.class).parseArguments(new String[] { "--name", "abc" });
             fail();
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(
                     ValidationFailureType.InvalidValueForType,
                     "Invalid value (Unsupported number format: For input string: \"abc\"): --name value")));
@@ -95,7 +95,7 @@ public class TestCliImpl {
         try {
             new CliInterfaceImpl<IntOption>(IntOption.class).parseArguments(new String[] { "--name", "abc" });
             fail();
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(
                     ValidationFailureType.InvalidValueForType,
                     "Invalid value (Unsupported number format: For input string: \"abc\"): --name value")));
@@ -107,14 +107,14 @@ public class TestCliImpl {
             new CliInterfaceImpl<SingleOption>(SingleOption.class)
             .parseArguments(new String[] { "--invalid", "value" });
             fail();
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(
                     validationError(ValidationFailureType.UnexpectedOption),
                     validationError(ValidationFailureType.MissingOption)));
         }
     }
 
-    @Test public void testSingleOptionalOption() throws CliValidationException {
+    @Test public void testSingleOptionalOption() throws ArgumentValidationException {
         SingleOptionalOption option =
                 new CliInterfaceImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[] {
                         "--name",
@@ -126,14 +126,14 @@ public class TestCliImpl {
         assertFalse(option.isName());
     }
 
-    @Test public void testSingleOptionalOptionRequestMissing() throws CliValidationException {
+    @Test public void testSingleOptionalOptionRequestMissing() throws ArgumentValidationException {
         final SingleOptionalOption option =
                 new CliInterfaceImpl<SingleOptionalOption>(SingleOptionalOption.class).parseArguments(new String[] {});
 
         assertThat(option.getName(), equalTo(null));
     }
 
-    @Test public void testCharacterValue() throws CliValidationException {
+    @Test public void testCharacterValue() throws ArgumentValidationException {
         final CharacterValue option =
                 new CliInterfaceImpl<CharacterValue>(CharacterValue.class)
                 .parseArguments(new String[] { "--name", "a" });
@@ -144,23 +144,23 @@ public class TestCliImpl {
         try {
             new CliInterfaceImpl<CharacterValue>(CharacterValue.class).parseArguments(new String[] { "--name", "aa" });
             fail();
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.InvalidValueForType)));
         }
     }
 
-    @Test public void testMethodWithArguments() throws CliValidationException {
+    @Test public void testMethodWithArguments() throws ArgumentValidationException {
         try {
             new CliInterfaceImpl<SingleOptionWithArgument>(SingleOptionWithArgument.class).parseArguments(new String[] {
                     "--name",
             "value" });
             fail();
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.UnexpectedOption)));
         }
     }
 
-    @Test public void testMethodWithMissingAnnotation() throws CliValidationException {
+    @Test public void testMethodWithMissingAnnotation() throws ArgumentValidationException {
         final SingleOptionMissingAnnotation result =
                 new CliInterfaceImpl<SingleOptionMissingAnnotation>(SingleOptionMissingAnnotation.class)
                 .parseArguments(new String[] {});
@@ -168,11 +168,11 @@ public class TestCliImpl {
         assertThat(result.getName(), equalTo(null));
     }
 
-    @Test public void testListOptionMissingValue() throws CliValidationException {
+    @Test public void testListOptionMissingValue() throws ArgumentValidationException {
         new CliInterfaceImpl<ListOption>(ListOption.class).parseArguments(new String[] { "--name" });
     }
 
-    @Test public void testEnumDefaultList() throws CliValidationException {
+    @Test public void testEnumDefaultList() throws ArgumentValidationException {
         final EnumDefaultListOption result =
                 new CliInterfaceImpl<EnumDefaultListOption>(EnumDefaultListOption.class)
                 .parseArguments(new String[] {});

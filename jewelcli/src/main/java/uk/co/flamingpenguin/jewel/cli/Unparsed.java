@@ -8,8 +8,11 @@ import java.lang.annotation.Target;
 /**
  * Tags a method as returning any unparsed arguments
  * 
+ * @deprecated please use {@link com.lexicalscope.jewel.cli.Unparsed} instead
+ * 
  * @author Tim Wood
  */
+@Deprecated
 @Retention(RetentionPolicy.RUNTIME) @Target(ElementType.METHOD) public @interface Unparsed
 {
     /**

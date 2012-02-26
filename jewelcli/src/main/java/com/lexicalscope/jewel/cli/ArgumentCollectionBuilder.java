@@ -25,7 +25,7 @@ class ArgumentCollectionBuilder {
     private interface IParsingState {
         IParsingState addValue(String value);
 
-        IParsingState addOption(String option) throws CliValidationException;
+        IParsingState addOption(String option) throws ArgumentValidationException;
     }
 
     private class Initial implements IParsingState {
@@ -48,7 +48,7 @@ class ArgumentCollectionBuilder {
             return this;
         }
 
-        @Override public IParsingState addOption(final String option) throws CliValidationException {
+        @Override public IParsingState addOption(final String option) throws ArgumentValidationException {
             throw misplacedOption(option);
         }
     }
@@ -63,7 +63,7 @@ class ArgumentCollectionBuilder {
             return this;
         }
 
-        @Override public IParsingState addOption(final String option) throws CliValidationException {
+        @Override public IParsingState addOption(final String option) throws ArgumentValidationException {
             throw misplacedOption(option);
         }
     }
@@ -102,7 +102,7 @@ class ArgumentCollectionBuilder {
         state = state.addValue(value);
     }
 
-    void addOption(final String option) throws CliValidationException
+    void addOption(final String option) throws ArgumentValidationException
     {
         state = state.addOption(option);
     }
@@ -114,8 +114,8 @@ class ArgumentCollectionBuilder {
                 new ArrayList<String>(unparsed));
     }
 
-    private CliValidationException misplacedOption(final String option) {
-        return new CliValidationException(new ValidationFailureMisplacedOption(option));
+    private ArgumentValidationException misplacedOption(final String option) {
+        return new ArgumentValidationException(new ValidationFailureMisplacedOption(option));
     }
 
     private void addUnparsedValue(final String value) {

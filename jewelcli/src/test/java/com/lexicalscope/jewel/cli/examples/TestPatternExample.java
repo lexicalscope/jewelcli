@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.CliValidationException;
+import com.lexicalscope.jewel.cli.ArgumentValidationException;
 import com.lexicalscope.jewel.cli.CliFactory;
 
 public class TestPatternExample {
@@ -15,7 +15,7 @@ public class TestPatternExample {
                     "java.util.String",
                     "my.invalid..Klass" });
             fail();
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertEquals("Cannot match (my.invalid..Klass) to pattern: --classes /(\\w+\\.)*\\w+/...", e.getMessage());
         }
     }

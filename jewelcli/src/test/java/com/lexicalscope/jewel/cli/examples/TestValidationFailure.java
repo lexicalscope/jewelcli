@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.CliValidationException;
+import com.lexicalscope.jewel.cli.ArgumentValidationException;
 import com.lexicalscope.jewel.cli.HelpRequestedException;
 import com.lexicalscope.jewel.cli.Option;
 import com.lexicalscope.jewel.cli.Unparsed;
@@ -38,7 +38,7 @@ public class TestValidationFailure {
         @Option(helpRequest = true) boolean getHelp();
     }
 
-    @Test public void testHelpRequested() throws CliValidationException
+    @Test public void testHelpRequested() throws ArgumentValidationException
     {
         try
         {
@@ -57,14 +57,14 @@ public class TestValidationFailure {
         @Option Integer getMyOption();
     }
 
-    @Test public void invalidNumberThrowsException() throws CliValidationException
+    @Test public void invalidNumberThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(InvalidValueForType.class, "--myOption", "wrongValue");
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Invalid value (Unsupported number format: For input string: \"wrongValue\"): --myOption value");
             assertThat(e.getMessage(), equalTo(expectedMessage));
@@ -77,14 +77,14 @@ public class TestValidationFailure {
         @Unparsed List<String> getMyUnparsed();
     }
 
-    @Test public void optionAfterUnparsedThrowsException() throws CliValidationException
+    @Test public void optionAfterUnparsedThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(MisplacedOption.class, "myOutOfPlaceValue", "--myOption", "2");
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Option not expected in this position (myOption)");
             assertThat(e.getMessage(), equalTo(expectedMessage));
@@ -96,14 +96,14 @@ public class TestValidationFailure {
         @Option Integer getMyOption();
     }
 
-    @Test public void missingMandatoryOptionThrowsException() throws CliValidationException
+    @Test public void missingMandatoryOptionThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(MissingOption.class);
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Option is mandatory: --myOption value");
             assertThat(e.getMessage(), equalTo(expectedMessage));
@@ -115,14 +115,14 @@ public class TestValidationFailure {
         @Option Integer getMyOption();
     }
 
-    @Test public void missingValueForOptionThrowsException() throws CliValidationException
+    @Test public void missingValueForOptionThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(MissingValue.class, "--myOption");
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Option must have a value: --myOption value");
             assertThat(e.getMessage(), equalTo(expectedMessage));
@@ -134,14 +134,14 @@ public class TestValidationFailure {
         @Option(pattern="\\d+") String getMyOption();
     }
 
-    @Test public void valueThatDoesNotMatchThrowsException() throws CliValidationException
+    @Test public void valueThatDoesNotMatchThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(PatternMismatch.class, "--myOption", "myBadValue");
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Cannot match (myBadValue) to pattern: --myOption /\\d+/");
             assertThat(e.getMessage(), equalTo(expectedMessage));
@@ -158,14 +158,14 @@ public class TestValidationFailure {
         @Option String getMyOtherOption();
     }
 
-    @Test public void unusedAdditionalValueThrowsException() throws CliValidationException
+    @Test public void unusedAdditionalValueThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(UnexpectedAdditionalValue.class, "--myOption", "myValue", "myExcessValue", "--myOtherOption", "anotherValue");
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: --myOption value");
             assertThat(e.getMessage(), equalTo(expectedMessage));
@@ -179,14 +179,14 @@ public class TestValidationFailure {
     }
 
 
-    @Test public void unusedUnparsedValueThrowsException() throws CliValidationException
+    @Test public void unusedUnparsedValueThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(UnexpectedAdditionalUnparsedValue.class, "--myOption", "myValue", "anotherValue", "myExcessValue");
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: ARGUMENTS");
             assertThat(e.getMessage(), equalTo(expectedMessage));
@@ -198,14 +198,14 @@ public class TestValidationFailure {
         @Option String getMyOption();
     }
 
-    @Test public void unexpectedOptionThrowsException() throws CliValidationException
+    @Test public void unexpectedOptionThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(UnexpectedOption.class, "--myOption", "myValue", "--myOtherOption", "anotherValue");
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Unexpected Option: myOtherOption");
             assertThat(e.getMessage(), equalTo(expectedMessage));
@@ -217,14 +217,14 @@ public class TestValidationFailure {
         @Option String getMyOption();
     }
 
-    @Test public void unexpectedTrailingValueThrowsException() throws CliValidationException
+    @Test public void unexpectedTrailingValueThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(UnexpectedTrailingValue.class, "--myOption", "myValue", "anotherValue");
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Unexpected trailing value (anotherValue)");
             assertThat(e.getMessage(), equalTo(expectedMessage));
@@ -232,14 +232,14 @@ public class TestValidationFailure {
         }
     }
 
-    @Test public void multipleUnexpectedTrailingValuesThrowsException() throws CliValidationException
+    @Test public void multipleUnexpectedTrailingValuesThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(UnexpectedTrailingValue.class, "--myOption", "myValue", "anotherValue", "yetAnotherValue");
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Unexpected trailing values [anotherValue, yetAnotherValue]");
             assertThat(e.getMessage(), equalTo(expectedMessage));
@@ -252,14 +252,14 @@ public class TestValidationFailure {
         @Option String getMyOtherOption();
     }
 
-    @Test public void unexpectedValueThrowsException() throws CliValidationException
+    @Test public void unexpectedValueThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(UnexpectedValue.class, "--myOption", "myValue", "--myOtherOption", "myOtherValue");
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Option does not take a value; cannot use (myValue): [--myOption]");
             assertThat(e.getMessage(), equalTo(expectedMessage));
@@ -267,14 +267,14 @@ public class TestValidationFailure {
         }
     }
 
-    @Test public void multipleUnexpectedValuesThrowsException() throws CliValidationException
+    @Test public void multipleUnexpectedValuesThrowsException() throws ArgumentValidationException
     {
         try
         {
             parseArguments(UnexpectedValue.class, "--myOption", "myRougeValue", "myOtherRougeValue", "--myOtherOption", "myOtherValue");
             fail("exception should have been thrown");
         }
-        catch(final CliValidationException e)
+        catch(final ArgumentValidationException e)
         {
             final String expectedMessage = format("Option does not take any values; cannot use [myRougeValue, myOtherRougeValue]: [--myOption]");
             assertThat(e.getMessage(), equalTo(expectedMessage));

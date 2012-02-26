@@ -6,11 +6,11 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.CliValidationException;
+import com.lexicalscope.jewel.cli.ArgumentValidationException;
 import com.lexicalscope.jewel.cli.CliFactory;
 
 public class TestFileExample {
-    @Test public void testFileExample() throws CliValidationException {
+    @Test public void testFileExample() throws ArgumentValidationException {
         final FileExample result0 =
                 CliFactory.parseArguments(FileExample.class, new String[] { "--source", "test.txt", "/etc/passwd" });
         assertEquals(2, result0.getSource().size());

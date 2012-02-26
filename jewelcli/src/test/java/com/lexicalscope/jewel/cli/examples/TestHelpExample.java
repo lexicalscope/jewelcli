@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.lexicalscope.jewel.UtilitiesForTesting;
 import com.lexicalscope.jewel.cli.Cli;
 import com.lexicalscope.jewel.cli.CliFactory;
-import com.lexicalscope.jewel.cli.CliValidationException;
+import com.lexicalscope.jewel.cli.ArgumentValidationException;
 
 public class TestHelpExample {
     private static final String HELP_MESSAGE =
@@ -29,7 +29,7 @@ public class TestHelpExample {
         try {
             cli.parseArguments("--help");
             fail("Help was requested");
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertEquals(HELP_MESSAGE, e.getMessage());
         }
     }

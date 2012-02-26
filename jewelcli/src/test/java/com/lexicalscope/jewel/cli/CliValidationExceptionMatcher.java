@@ -23,20 +23,20 @@ import com.lexicalscope.jewel.UtilitiesForTesting;
  */
 
 public class CliValidationExceptionMatcher {
-    public static Matcher<CliValidationException> validationExceptionWithMessage(final String message) {
-        return new TypeSafeMatcher<CliValidationException>() {
+    public static Matcher<ArgumentValidationException> validationExceptionWithMessage(final String message) {
+        return new TypeSafeMatcher<ArgumentValidationException>() {
             @Override public void describeTo(final Description description) {
-                description.appendText(CliValidationException.class.getSimpleName() + " with message ").appendValue(
+                description.appendText(ArgumentValidationException.class.getSimpleName() + " with message ").appendValue(
                         message);
             }
 
-            @Override protected boolean matchesSafely(final CliValidationException item) {
+            @Override protected boolean matchesSafely(final ArgumentValidationException item) {
                 return item.getMessage().equals(message);
             }
         };
     }
 
-    public static Matcher<CliValidationException> validationExceptionWithMessageLines(final String... message) {
+    public static Matcher<ArgumentValidationException> validationExceptionWithMessageLines(final String... message) {
         return validationExceptionWithMessage(UtilitiesForTesting.joinLines(message));
     }
 }

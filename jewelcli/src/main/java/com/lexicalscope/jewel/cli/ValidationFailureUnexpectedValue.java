@@ -29,9 +29,9 @@ class ValidationFailureUnexpectedValue extends ValidationFailureImpl
     private static String formatMessage(final List<String> values) {
         if(values.size() > 1)
         {
-            return String.format(CliValidationException.m_messages.getString("validationError.UnexpectedValues"), values);
+            return String.format(ArgumentValidationException.m_messages.getString("validationError.UnexpectedValues"), values);
         }
-        return String.format(CliValidationException.m_messages.getString("validationError.UnexpectedValue"), values.get(0));
+        return String.format(ArgumentValidationException.m_messages.getString("validationError.UnexpectedValue"), values.get(0));
     }
 
     @Override public ValidationFailureType getFailureType() {

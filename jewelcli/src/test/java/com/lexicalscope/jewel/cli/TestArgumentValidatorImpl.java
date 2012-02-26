@@ -53,23 +53,23 @@ public class TestArgumentValidatorImpl {
         try {
             validate(new String[] { "--name1", "value" }, OptionalOption.class);
             fail();
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.MissingOption)));
         }
     }
 
-    @Test public void testMultipleValue() throws CliValidationException {
+    @Test public void testMultipleValue() throws ArgumentValidationException {
         validate(new String[] { "--name", "a", "b" }, MultipleValue.class);
     }
 
-    @Test public void testMultipleValueEndOfArguments() throws CliValidationException {
+    @Test public void testMultipleValueEndOfArguments() throws ArgumentValidationException {
         final ArgumentCollectionImpl validated =
                 validate(new String[] { "--name", "a", "b", "--", "c", "d" }, MultipleValue.class);
         assertEquals(2, validated.getUnparsed().size());
         assertEquals(2, validated.getValues("name").size());
     }
 
-    @Test public void testMultipleValueNotEndOfArguments() throws CliValidationException {
+    @Test public void testMultipleValueNotEndOfArguments() throws ArgumentValidationException {
         final ArgumentCollectionImpl validated =
                 validate(
                         new String[] { "--name0", "a", "b", "--name1", "c", "d", "e", "--", "f", "g" },
@@ -79,12 +79,12 @@ public class TestArgumentValidatorImpl {
         assertEquals(1, validated.getValues("name1").size());
     }
 
-    @Test public void testAdjacentShortOptions() throws CliValidationException {
+    @Test public void testAdjacentShortOptions() throws ArgumentValidationException {
         final ArgumentCollection validated = validate(new String[] { "-vrf", "./" }, RmExample.class);
         assertEquals(1, validated.getUnparsed().size());
     }
 
-    @Test public void testSingleValue() throws CliValidationException {
+    @Test public void testSingleValue() throws ArgumentValidationException {
         validate(new String[] { "--name", "a" }, MultipleValue.class);
     }
 
@@ -92,7 +92,7 @@ public class TestArgumentValidatorImpl {
         try {
             validate(new String[] { "--name1", "value", "wrong", "--name0" }, ExtraValue.class);
             fail();
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.UnexpectedAdditionalValue)));
         }
     }
@@ -101,7 +101,7 @@ public class TestArgumentValidatorImpl {
         try {
             validate(new String[] { "--name" }, SingleValue.class);
             fail();
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.MissingValue)));
         }
     }
@@ -110,24 +110,24 @@ public class TestArgumentValidatorImpl {
         try {
             validate(new String[] { "--name1", "value", "--name0" }, NoValue.class);
             fail();
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.UnexpectedValue)));
         }
     }
 
-    @Test public void testMissingMultipleValue() throws CliValidationException {
+    @Test public void testMissingMultipleValue() throws ArgumentValidationException {
         validate(new String[] { "--name" }, MultipleValue.class);
         // TODO[tim]:support minimum/maximum value list lengths
     }
 
-    @Test public void testOptionAndUnparsed() throws CliValidationException {
+    @Test public void testOptionAndUnparsed() throws ArgumentValidationException {
         final ArgumentCollectionImpl validated =
                 validate(new String[] { "--name0", "value0", "remaining0" }, OptionAndUnparsed.class);
         assertEquals(1, validated.getUnparsed().size());
     }
 
     private <O> ArgumentCollectionImpl validate(final String[] arguments, final Class<O> klass)
-            throws CliValidationException {
+            throws ArgumentValidationException {
         final ArgumentValidatorImpl<O> impl =
                 new ArgumentValidatorImpl<O>(
                         InterfaceOptionsSpecificationParser.<O>createOptionsSpecificationImpl(type(klass)));

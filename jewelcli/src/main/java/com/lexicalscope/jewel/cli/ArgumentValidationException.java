@@ -14,7 +14,7 @@ import com.lexicalscope.jewel.JewelRuntimeException;
  * 
  * @author tim
  */
-public class CliValidationException extends JewelRuntimeException
+public class ArgumentValidationException extends JewelRuntimeException
 {
     private static final long serialVersionUID = -4781861924515211053L;
     static final ResourceBundle m_messages = ResourceBundle.getBundle(
@@ -23,33 +23,33 @@ public class CliValidationException extends JewelRuntimeException
 
     private final List<ValidationFailure> validationFailures;
 
-    public CliValidationException() {
+    public ArgumentValidationException() {
         this(new ArrayList<ValidationFailure>());
     }
 
-    public CliValidationException(final String message, final Throwable cause) {
+    public ArgumentValidationException(final String message, final Throwable cause) {
         this(message, cause, new ArrayList<ValidationFailure>());
     }
 
-    public CliValidationException(final String message) {
+    public ArgumentValidationException(final String message) {
         this(message, new ArrayList<ValidationFailure>());
     }
 
-    public CliValidationException(final Throwable cause) {
+    public ArgumentValidationException(final Throwable cause) {
         this(cause, new ArrayList<ValidationFailure>());
     }
 
-    public CliValidationException(final ValidationFailure validationError)
+    public ArgumentValidationException(final ValidationFailure validationError)
     {
         this(asList(validationError));
     }
 
-    public CliValidationException(final List<ValidationFailure> validationFailures)
+    public ArgumentValidationException(final List<ValidationFailure> validationFailures)
     {
         this(createMessageFromErrors(validationFailures), validationFailures);
     }
 
-    public CliValidationException(
+    public ArgumentValidationException(
             final String message,
             final Throwable cause,
             final List<ValidationFailure> validationFailures) {
@@ -57,12 +57,12 @@ public class CliValidationException extends JewelRuntimeException
         this.validationFailures = validationFailures;
     }
 
-    public CliValidationException(final String message, final List<ValidationFailure> validationFailures) {
+    public ArgumentValidationException(final String message, final List<ValidationFailure> validationFailures) {
         super(message);
         this.validationFailures = validationFailures;
     }
 
-    public CliValidationException(final Throwable cause, final List<ValidationFailure> validationFailures) {
+    public ArgumentValidationException(final Throwable cause, final List<ValidationFailure> validationFailures) {
         this(createMessageFromErrors(validationFailures), cause, validationFailures);
     }
 

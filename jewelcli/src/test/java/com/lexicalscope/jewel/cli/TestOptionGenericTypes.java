@@ -80,7 +80,7 @@ public class TestOptionGenericTypes {
         boolean isOptionThree();
     }
 
-    @Test public void genericTypesCanBeUsedAsOptionValues() throws CliValidationException {
+    @Test public void genericTypesCanBeUsedAsOptionValues() throws ArgumentValidationException {
         final CliWithGenericReturnType parsedArguments = CliFactory.parseArguments(CliWithGenericReturnType.class,
                 new String[] { "--optionOne", "my string" });
 
@@ -88,7 +88,7 @@ public class TestOptionGenericTypes {
     }
 
     @Test public void genericTypeWithAConstructorTakingTypeIsPassedTheGenericReturnTypeOfTheMethod()
-            throws CliValidationException {
+            throws ArgumentValidationException {
         final CliWithGenericReturnType parsedArguments = CliFactory.parseArguments(CliWithGenericReturnType.class,
                 new String[] { "--optionTwo", "my string" });
 
@@ -98,7 +98,7 @@ public class TestOptionGenericTypes {
                 equalTo((Type) SomeOtherType.class));
     }
 
-    @Test public void stringConstructorIsPreferedToConstructorContainingType() throws CliValidationException {
+    @Test public void stringConstructorIsPreferedToConstructorContainingType() throws ArgumentValidationException {
         final CliWithGenericReturnType parsedArguments = CliFactory.parseArguments(CliWithGenericReturnType.class,
                 new String[] { "--optionThree", "my string" });
 

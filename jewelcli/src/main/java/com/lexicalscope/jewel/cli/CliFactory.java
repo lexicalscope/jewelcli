@@ -20,7 +20,7 @@ public abstract class CliFactory
      * 
      * @return A Cli configured to create instance of klass
      * 
-     * @throws CliValidationException the arguments do not meet the CLI specification
+     * @throws ArgumentValidationException the arguments do not meet the CLI specification
      * @throws InvalidOptionSpecificationException the CLI specification is not valid
      */
     public static <O> Cli<O> createCli(final Class<O> klass) throws InvalidOptionSpecificationException
@@ -38,7 +38,7 @@ public abstract class CliFactory
      * 
      * @return A Cli configured to configure the options
      * 
-     * @throws CliValidationException the arguments do not meet the CLI specification
+     * @throws ArgumentValidationException the arguments do not meet the CLI specification
      * @throws InvalidOptionSpecificationException the CLI specification is not valid
      */
     public static <O> Cli<O> createCliUsingInstance(final O options) throws InvalidOptionSpecificationException
@@ -58,11 +58,11 @@ public abstract class CliFactory
      * 
      * @return The parsed arguments
      * 
-     * @throws CliValidationException the arguments do not meet the CLI specification
+     * @throws ArgumentValidationException the arguments do not meet the CLI specification
      * @throws InvalidOptionSpecificationException the CLI specification is not valid
      */
     public static <O> O parseArguments(final Class<O> klass, final String... arguments)
-            throws CliValidationException, InvalidOptionSpecificationException
+            throws ArgumentValidationException, InvalidOptionSpecificationException
             {
         return createCli(klass).parseArguments(arguments);
             }
@@ -78,11 +78,11 @@ public abstract class CliFactory
      * 
      * @return The parsed arguments
      * 
-     * @throws CliValidationException the arguments do not meet the CLI specification
+     * @throws ArgumentValidationException the arguments do not meet the CLI specification
      * @throws InvalidOptionSpecificationException the CLI specification is not valid
      */
     public static <O> O parseArgumentsUsingInstance(final O options, final String... arguments)
-            throws CliValidationException, InvalidOptionSpecificationException
+            throws ArgumentValidationException, InvalidOptionSpecificationException
             {
         return createCliUsingInstance(options).parseArguments(arguments);
             }

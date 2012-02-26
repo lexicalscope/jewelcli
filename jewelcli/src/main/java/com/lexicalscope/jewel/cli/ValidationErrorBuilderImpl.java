@@ -55,11 +55,11 @@ class ValidationErrorBuilderImpl implements ValidationErrorBuilder
         validationExceptions.add(ArgumentValidationExceptionFactory.createPatternMismatch(optionSpecification, value));
     }
 
-    public void validate() throws CliValidationException
+    public void validate() throws ArgumentValidationException
     {
         if (validationExceptions.size() > 0)
         {
-            throw new CliValidationException(validationExceptions);
+            throw new ArgumentValidationException(validationExceptions);
         }
     }
 }

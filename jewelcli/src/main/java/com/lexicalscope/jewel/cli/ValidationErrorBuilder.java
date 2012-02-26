@@ -22,5 +22,5 @@ interface ValidationErrorBuilder
 
     void patternMismatch(OptionSpecification optionSpecification, String value);
 
-    void validate() throws CliValidationException;
+    void validate() throws ArgumentValidationException;
 }

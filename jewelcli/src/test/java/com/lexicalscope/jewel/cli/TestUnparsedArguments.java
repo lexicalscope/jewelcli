@@ -75,56 +75,56 @@ public class TestUnparsedArguments {
 
     }
 
-    @Test public void testUnparsedOption() throws CliValidationException {
+    @Test public void testUnparsedOption() throws ArgumentValidationException {
         assertEquals("value", parseArguments(UnparsedOption.class, "value").getName());
     }
 
-    @Test public void testUnparsedOptionMissingValue() throws CliValidationException {
-        exception.expect(CliValidationException.class);
+    @Test public void testUnparsedOptionMissingValue() throws ArgumentValidationException {
+        exception.expect(ArgumentValidationException.class);
         exception.expect(validationException(ValidationFailureType.MissingValue));
 
         parseArguments(UnparsedOption.class);
     }
 
-    @Test public void testUnparsedListOption() throws CliValidationException {
+    @Test public void testUnparsedListOption() throws ArgumentValidationException {
         assertThat(
                 parseArguments(UnparsedListOption.class, "value0", "value1").getNames(),
                 contains("value0", "value1"));
     }
 
-    @Test public void testUnparsedListOptionMissingValue() throws CliValidationException {
+    @Test public void testUnparsedListOptionMissingValue() throws ArgumentValidationException {
         assertThat(parseArguments(UnparsedListOption.class).getNames(),
                 equalTo(null));
     }
 
-    @Test public void missingUnparsedListOptionWithEmptyListDefaultReturnsEmptyList() throws CliValidationException {
+    @Test public void missingUnparsedListOptionWithEmptyListDefaultReturnsEmptyList() throws ArgumentValidationException {
         assertThat(parseArguments(UnparsedListOptionDefaultToEmpty.class).getNames(),
                 equalTo(Collections.<String>emptyList()));
     }
 
-    @Test public void missingUnparsedListOptionWithNullDefaultReturnsNull() throws CliValidationException {
+    @Test public void missingUnparsedListOptionWithNullDefaultReturnsNull() throws ArgumentValidationException {
         assertThat(parseArguments(UnparsedListOptionDefaultToNull.class).getNames(),
                 equalTo(null));
     }
 
     @Test public void ifNoUnparsedOptionIsSpecifiedButValuesArePresentThenAValidationErrorOccurs()
-            throws CliValidationException {
-        exception.expect(CliValidationException.class);
+            throws ArgumentValidationException {
+        exception.expect(ArgumentValidationException.class);
         exception
         .expect(validationException(ValidationFailureType.UnexpectedTrailingValue));
 
         parseArguments(NoUnparsedOption.class, "value0");
     }
 
-    @Test public void testOptionalUnparsedOption() throws CliValidationException {
+    @Test public void testOptionalUnparsedOption() throws ArgumentValidationException {
         assertEquals(parseArguments(UnparsedOption.class, "value").getName(), "value");
     }
 
-    @Test public void testOptionalUnparsedOptionMissingValue() throws CliValidationException {
+    @Test public void testOptionalUnparsedOptionMissingValue() throws ArgumentValidationException {
         assertFalse(parseArguments(OptionalUnparsedOption.class).isName());
     }
 
-    @Test public void testOptionalUnparsedListOption() throws CliValidationException {
+    @Test public void testOptionalUnparsedListOption() throws ArgumentValidationException {
         final OptionalUnparsedListOption result = parseArguments(
                 OptionalUnparsedListOption.class,
                 "value0",
@@ -133,21 +133,21 @@ public class TestUnparsedArguments {
         assertTrue(result.isNames());
     }
 
-    @Test public void testOptionalUnparsedListOptionMissingValue() throws CliValidationException {
+    @Test public void testOptionalUnparsedListOptionMissingValue() throws ArgumentValidationException {
         final OptionalUnparsedListOption result = parseArguments(OptionalUnparsedListOption.class);
         assertFalse(result.isNames());
         assertThat(result.getNames(), nullValue());
     }
 
-    @Test public void unparsedListOptionMissingValueDefaultsToEmpty() throws CliValidationException {
+    @Test public void unparsedListOptionMissingValueDefaultsToEmpty() throws ArgumentValidationException {
         assertThat(parseArguments(UnparsedListOptionDefaultToEmpty.class).getNames().size(), equalTo(0));
     }
 
-    @Test public void unparsedListOptionMissingValueDefaultsToNull() throws CliValidationException {
+    @Test public void unparsedListOptionMissingValueDefaultsToNull() throws ArgumentValidationException {
         assertThat(parseArguments(UnparsedListOptionDefaultToNull.class).getNames(), nullValue());
     }
 
-    @Test public void unparsedListOptionMissingValueDefaultsToValues() throws CliValidationException {
+    @Test public void unparsedListOptionMissingValueDefaultsToValues() throws ArgumentValidationException {
         assertThat(parseArguments(UnparsedListOptionDefaultToValues.class).getNames(), contains("value0", "value1"));
     }
 }

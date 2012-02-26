@@ -5,10 +5,13 @@ package uk.co.flamingpenguin.jewel.cli;
  * Constructs a Cli from an annotated interface definition.
  * </p>
  * 
+ * @deprecated please use {@link com.lexicalscope.jewel.cli.CliFactory} instead
+ * 
  * @see uk.co.flamingpenguin.jewel.cli.Option
  * 
  * @author Tim Wood
  */
+@Deprecated
 public abstract class CliFactory
 {
     /**
@@ -59,9 +62,9 @@ public abstract class CliFactory
      */
     public static <O> O parseArguments(final Class<O> klass, final String... arguments)
             throws ArgumentValidationException
-    {
+            {
         return createCli(klass).parseArguments(arguments);
-    }
+            }
 
     /**
      * Parse arguments from an annotated class instance
@@ -79,7 +82,7 @@ public abstract class CliFactory
      */
     public static <O> O parseArgumentsUsingInstance(final O options, final String... arguments)
             throws ArgumentValidationException
-    {
+            {
         return createCliUsingInstance(options).parseArguments(arguments);
-    }
+            }
 }

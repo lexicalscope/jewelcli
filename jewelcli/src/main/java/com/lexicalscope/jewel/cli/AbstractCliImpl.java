@@ -29,7 +29,7 @@ abstract class AbstractCliImpl<O> implements Cli<O> {
         this.optionsSpecification = optionsSpecification;
     }
 
-    @Override public O parseArguments(final String... arguments) throws CliValidationException {
+    @Override public O parseArguments(final String... arguments) throws ArgumentValidationException {
         final ArgumentCollection parseArguments = new ArgumentParserImpl()
                 .parseArguments(arguments);
 

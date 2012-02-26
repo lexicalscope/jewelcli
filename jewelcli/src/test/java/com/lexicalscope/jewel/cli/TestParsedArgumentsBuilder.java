@@ -10,12 +10,12 @@ import java.util.List;
 import org.junit.Test;
 
 public class TestParsedArgumentsBuilder {
-    @Test public void testAdd() throws CliValidationException {
+    @Test public void testAdd() throws ArgumentValidationException {
         try {
             final ArgumentParserImpl parsedArgumentsBuilder = new ArgumentParserImpl();
             parsedArgumentsBuilder.parseArguments("a", "-b");
             fail("rouge option should have been detected");
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.MisplacedOption)));
         }
 
@@ -27,11 +27,11 @@ public class TestParsedArgumentsBuilder {
         assertEquals(0, new ArgumentParserImpl().getParsedArguments().getUnparsed().size());
     }
 
-    @Test public void testNoOptions() throws CliValidationException {
+    @Test public void testNoOptions() throws ArgumentValidationException {
         assertEquals(3, new ArgumentParserImpl().parseArguments("v0", "v1", "v2").getUnparsed().size());
     }
 
-    @Test public void testEndOfOptions() throws CliValidationException {
+    @Test public void testEndOfOptions() throws ArgumentValidationException {
         final List<String> unparsed =
                 new ArgumentParserImpl().parseArguments("-a", "v0", "--", "v1", "v2").getUnparsed();
         assertEquals(2, unparsed.size());
@@ -39,15 +39,15 @@ public class TestParsedArgumentsBuilder {
         assertEquals("v2", unparsed.get(1));
     }
 
-    @Test public void testMissingInitalSpecifier() throws CliValidationException {
+    @Test public void testMissingInitalSpecifier() throws ArgumentValidationException {
         try {
             new ArgumentParserImpl().parseArguments("v0", "-a");
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.MisplacedOption)));
         }
     }
 
-    @Test public void testIterator() throws CliValidationException {
+    @Test public void testIterator() throws ArgumentValidationException {
         final Iterator<Argument> iterator = new ArgumentParserImpl().parseArguments("-a", "v1", "v2").iterator();
         assertTrue(iterator.hasNext());
 

@@ -16,14 +16,14 @@ public class TestPattern {
         try {
             CliFactory.parseArguments(TestStringPattern.class, "--option", "ABC");
             fail();
-        } catch (final CliValidationException e) {
+        } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(
                     ValidationFailureType.PatternMismatch,
                     "Cannot match (ABC) to pattern: --option /[a-z]+/")));
         }
     }
 
-    @Test public void testStringPattern() throws CliValidationException {
+    @Test public void testStringPattern() throws ArgumentValidationException {
         CliFactory.parseArguments(TestStringPattern.class, "--option", "abc");
     }
 }

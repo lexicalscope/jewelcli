@@ -15,15 +15,17 @@ import java.util.List;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 /**
  * BETA - may be altered or removed in future versions
  * 
+ * @deprecated please use {@link com.lexicalscope.jewel.cli.OptionHelpMessage} instead
+ * 
  * @author Tim Wood
  */
-public interface OptionHelpMessage {
+@Deprecated public interface OptionHelpMessage {
     void startOptionalOption();
 
     void startMandatoryOption();

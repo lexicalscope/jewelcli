@@ -46,7 +46,7 @@ public class TestConvertTypeOfObject {
         assertThat(converterTo(validationErrorBuilder, specification, char.class).convert("c"), equalTo('c'));
     }
 
-    @Test(expected = CliValidationException.class) public void argumentConversionCannotConvertFromStringToChar()
+    @Test(expected = ArgumentValidationException.class) public void argumentConversionCannotConvertFromStringToChar()
             throws Exception {
         assertThat(converterTo(validationErrorBuilder, specification, char.class).convert("cc"), equalTo(null));
 

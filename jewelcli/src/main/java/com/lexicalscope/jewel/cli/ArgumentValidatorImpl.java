@@ -40,7 +40,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
     /**
      * {@inheritDoc}
      */
-    public ArgumentCollection validateArguments(final ArgumentCollection arguments) throws CliValidationException
+    public ArgumentCollection validateArguments(final ArgumentCollection arguments) throws ArgumentValidationException
     {
         m_validatedUnparsedArguments.addAll(arguments.getUnparsed());
 
