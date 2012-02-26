@@ -24,6 +24,15 @@
         <developerConnection>scm:git:git@github.com:lexicalscope/jewelcli.git</developerConnection>
     </scm>
     <url>http://jewelcli.lexicalscope.com/</url>
+    <mailingLists>
+        <mailingList>
+            <name>Discussion List</name>
+            <subscribe>jewelcli+subscribe@googlegroups.com</subscribe>
+            <unsubscribe>jewelcli+unsubscribe@googlegroups.com</unsubscribe>
+            <post>jewelcli@googlegroups.com</post>
+            <archive>http://groups.google.com/group/jewelcli</archive>
+        </mailingList>
+    </mailingLists>    
     <reporting>
         <plugins>
             <plugin>
