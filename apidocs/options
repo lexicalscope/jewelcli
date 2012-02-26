@@ -15,10 +15,10 @@
 -docencoding
 'UTF-8'
 -doctitle
-'JewelCli 0.8.1-SNAPSHOT API'
+'JewelCli 0.8.2-SNAPSHOT API'
 -linkoffline
 'http://download.oracle.com/javase/6/docs/api' '/home/tim/workspace/jewelcli-parent/jewelcli/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
-'JewelCli 0.8.1-SNAPSHOT API'
+'JewelCli 0.8.2-SNAPSHOT API'

@@ -26,40 +26,56 @@
 <a name="16" href="#16">16</a>  <em class="jxr_comment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
 <a name="17" href="#17">17</a>  <em class="jxr_comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
 <a name="18" href="#18">18</a>  <em class="jxr_comment"> * See the License for the specific language governing permissions and</em>
-<a name="19" href="#19">19</a>  <em class="jxr_comment"> * limitations under the License. </em>
+<a name="19" href="#19">19</a>  <em class="jxr_comment"> * limitations under the License.</em>
 <a name="20" href="#20">20</a>  <em class="jxr_comment"> */</em>
 <a name="21" href="#21">21</a>  
 <a name="22" href="#22">22</a>  <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/lexicalscope/jewel/cli/UnparsedAnnotationAdapter.html">UnparsedAnnotationAdapter</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../com/lexicalscope/jewel/cli/AbstractOptionAdapter.html">AbstractOptionAdapter</a> {
-<a name="23" href="#23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/Unparsed.html">Unparsed</a> unparsed;
+<a name="23" href="#23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/Unparsed.html">Unparsed</a> option;
 <a name="24" href="#24">24</a>  
 <a name="25" href="#25">25</a>      <a href="../../../../com/lexicalscope/jewel/cli/UnparsedAnnotationAdapter.html">UnparsedAnnotationAdapter</a>(
 <a name="26" href="#26">26</a>              <strong class="jxr_keyword">final</strong> ReflectedClass&lt;?&gt; klass,
 <a name="27" href="#27">27</a>              <strong class="jxr_keyword">final</strong> ReflectedMethod method,
 <a name="28" href="#28">28</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/Unparsed.html">Unparsed</a> unparsed) {
 <a name="29" href="#29">29</a>          <strong class="jxr_keyword">super</strong>(klass, method);
-<a name="30" href="#30">30</a>          <strong class="jxr_keyword">this</strong>.unparsed = unparsed;
+<a name="30" href="#30">30</a>          <strong class="jxr_keyword">this</strong>.option = unparsed;
 <a name="31" href="#31">31</a>      }
 <a name="32" href="#32">32</a>  
 <a name="33" href="#33">33</a>      @Override <strong class="jxr_keyword">public</strong> String description() {
-<a name="34" href="#34">34</a>          <strong class="jxr_keyword">return</strong> unparsed.description();
+<a name="34" href="#34">34</a>          <strong class="jxr_keyword">return</strong> option.description().trim();
 <a name="35" href="#35">35</a>      }
 <a name="36" href="#36">36</a>  
 <a name="37" href="#37">37</a>      @Override <strong class="jxr_keyword">public</strong> String pattern() {
-<a name="38" href="#38">38</a>          <strong class="jxr_keyword">return</strong> unparsed.pattern();
+<a name="38" href="#38">38</a>          <strong class="jxr_keyword">return</strong> option.pattern();
 <a name="39" href="#39">39</a>      }
 <a name="40" href="#40">40</a>  
 <a name="41" href="#41">41</a>      @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> defaultToNull() {
-<a name="42" href="#42">42</a>          <strong class="jxr_keyword">return</strong> unparsed.defaultToNull();
+<a name="42" href="#42">42</a>          <strong class="jxr_keyword">return</strong> option.defaultToNull();
 <a name="43" href="#43">43</a>      }
 <a name="44" href="#44">44</a>  
 <a name="45" href="#45">45</a>      @Override <strong class="jxr_keyword">public</strong> String[] defaultValue() {
-<a name="46" href="#46">46</a>          <strong class="jxr_keyword">return</strong> unparsed.defaultValue();
+<a name="46" href="#46">46</a>          <strong class="jxr_keyword">return</strong> option.defaultValue();
 <a name="47" href="#47">47</a>      }
 <a name="48" href="#48">48</a>  
 <a name="49" href="#49">49</a>      <strong class="jxr_keyword">public</strong> String name() {
-<a name="50" href="#50">50</a>          <strong class="jxr_keyword">return</strong> unparsed.name();
+<a name="50" href="#50">50</a>          <strong class="jxr_keyword">return</strong> option.name();
 <a name="51" href="#51">51</a>      }
-<a name="52" href="#52">52</a>  }
+<a name="52" href="#52">52</a>  
+<a name="53" href="#53">53</a>      @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isHidden() {
+<a name="54" href="#54">54</a>          <strong class="jxr_keyword">return</strong> option.hidden();
+<a name="55" href="#55">55</a>      }
+<a name="56" href="#56">56</a>  
+<a name="57" href="#57">57</a>      @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> minimum() {
+<a name="58" href="#58">58</a>          <strong class="jxr_keyword">return</strong> option.minimum();
+<a name="59" href="#59">59</a>      }
+<a name="60" href="#60">60</a>  
+<a name="61" href="#61">61</a>      @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> exactly() {
+<a name="62" href="#62">62</a>          <strong class="jxr_keyword">return</strong> option.exactly();
+<a name="63" href="#63">63</a>      }
+<a name="64" href="#64">64</a>  
+<a name="65" href="#65">65</a>      @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> maximum() {
+<a name="66" href="#66">66</a>          <strong class="jxr_keyword">return</strong> option.maximum();
+<a name="67" href="#67">67</a>      }
+<a name="68" href="#68">68</a>  }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

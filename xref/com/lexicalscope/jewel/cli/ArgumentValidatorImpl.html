@@ -72,112 +72,91 @@
 <a name="62" href="#62">62</a>                  {
 <a name="63" href="#63">63</a>                      <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/lexicalscope/jewel/cli/HelpRequestedException.html">HelpRequestedException</a>(m_specification);
 <a name="64" href="#64">64</a>                  }
-<a name="65" href="#65">65</a>                  <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (argument.getValues().size() == 0
-<a name="66" href="#66">66</a>                          &amp;&amp; optionSpecification.hasValue()
-<a name="67" href="#67">67</a>                          &amp;&amp; !optionSpecification.isMultiValued())
-<a name="68" href="#68">68</a>                  {
-<a name="69" href="#69">69</a>                      m_validationErrorBuilder.missingValue(optionSpecification);
-<a name="70" href="#70">70</a>                  }
-<a name="71" href="#71">71</a>                  <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!isLast &amp;&amp; argument.getValues().size() &gt; 0 &amp;&amp; !optionSpecification.hasValue())
-<a name="72" href="#72">72</a>                  {
-<a name="73" href="#73">73</a>                      m_validationErrorBuilder.unexpectedValue(optionSpecification, argument.getValues());
+<a name="65" href="#65">65</a>  
+<a name="66" href="#66">66</a>                  <strong class="jxr_keyword">final</strong> List&lt;String&gt; allValues = argument.getValues();
+<a name="67" href="#67">67</a>                  <strong class="jxr_keyword">final</strong> List&lt;String&gt; values = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
+<a name="68" href="#68">68</a>  
+<a name="69" href="#69">69</a>                  <strong class="jxr_keyword">if</strong>(isLast &amp;&amp; m_specification.hasUnparsedSpecification())
+<a name="70" href="#70">70</a>                  {
+<a name="71" href="#71">71</a>                      <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> maximumArgumentConsumption = Math.min(allValues.size(), optionSpecification.maximumArgumentConsumption());
+<a name="72" href="#72">72</a>                      values.addAll(allValues.subList(0, maximumArgumentConsumption));
+<a name="73" href="#73">73</a>                      m_validatedUnparsedArguments.addAll(0, allValues.subList(maximumArgumentConsumption, allValues.size()));
 <a name="74" href="#74">74</a>                  }
-<a name="75" href="#75">75</a>                  <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!isLast &amp;&amp; argument.getValues().size() &gt; 1 &amp;&amp; !optionSpecification.isMultiValued())
+<a name="75" href="#75">75</a>                  <strong class="jxr_keyword">else</strong>
 <a name="76" href="#76">76</a>                  {
-<a name="77" href="#77">77</a>                      m_validationErrorBuilder.unexpectedAdditionalValues(optionSpecification, argument.getValues().subList(1, argument.getValues().size()));
+<a name="77" href="#77">77</a>                      values.addAll(allValues);
 <a name="78" href="#78">78</a>                  }
 <a name="79" href="#79">79</a>  
-<a name="80" href="#80">80</a>                  <strong class="jxr_keyword">if</strong> (isLast &amp;&amp; hasExcessValues(argument, optionSpecification))
+<a name="80" href="#80">80</a>                  <strong class="jxr_keyword">if</strong>(!optionSpecification.allowedThisManyValues(values.size()))
 <a name="81" href="#81">81</a>                  {
-<a name="82" href="#82">82</a>                      <strong class="jxr_keyword">final</strong> List&lt;String&gt; values = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
-<a name="83" href="#83">83</a>                      <strong class="jxr_keyword">final</strong> List&lt;String&gt; unparsed;
-<a name="84" href="#84">84</a>                      <strong class="jxr_keyword">if</strong> (optionSpecification.hasValue())
-<a name="85" href="#85">85</a>                      {
-<a name="86" href="#86">86</a>                          values.add(argument.getValues().get(0));
-<a name="87" href="#87">87</a>                          unparsed = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;(argument.getValues().subList(1, argument.getValues().size()));
-<a name="88" href="#88">88</a>                      }
-<a name="89" href="#89">89</a>                      <strong class="jxr_keyword">else</strong>
-<a name="90" href="#90">90</a>                      {
-<a name="91" href="#91">91</a>                          unparsed = argument.getValues();
-<a name="92" href="#92">92</a>                      }
+<a name="82" href="#82">82</a>                      m_validationErrorBuilder.wrongNumberOfValues(optionSpecification, values);
+<a name="83" href="#83">83</a>                  }
+<a name="84" href="#84">84</a>                  <strong class="jxr_keyword">else</strong>
+<a name="85" href="#85">85</a>                  {
+<a name="86" href="#86">86</a>                      checkAndAddValues(
+<a name="87" href="#87">87</a>                              optionSpecification,
+<a name="88" href="#88">88</a>                              argument.getOptionName(),
+<a name="89" href="#89">89</a>                              <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;(values));
+<a name="90" href="#90">90</a>                  }
+<a name="91" href="#91">91</a>              }
+<a name="92" href="#92">92</a>          }
 <a name="93" href="#93">93</a>  
-<a name="94" href="#94">94</a>                      m_validatedArguments.put(argument.getOptionName(), values);
-<a name="95" href="#95">95</a>                      m_validatedUnparsedArguments.addAll(0, unparsed);
-<a name="96" href="#96">96</a>                  }
-<a name="97" href="#97">97</a>                  <strong class="jxr_keyword">else</strong>
-<a name="98" href="#98">98</a>                  {
-<a name="99" href="#99">99</a>                      checkAndAddValues(
-<a name="100" href="#100">100</a>                             optionSpecification,
-<a name="101" href="#101">101</a>                             argument.getOptionName(),
-<a name="102" href="#102">102</a>                             <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;(argument.getValues()));
-<a name="103" href="#103">103</a>                 }
-<a name="104" href="#104">104</a>             }
-<a name="105" href="#105">105</a>         }
-<a name="106" href="#106">106</a> 
-<a name="107" href="#107">107</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> ParsedOptionSpecification optionSpecification : m_specification.getMandatoryOptions())
-<a name="108" href="#108">108</a>         {
-<a name="109" href="#109">109</a>             <strong class="jxr_keyword">if</strong> (!arguments.containsAny(optionSpecification.getNames()))
-<a name="110" href="#110">110</a>             {
-<a name="111" href="#111">111</a>                 m_validationErrorBuilder.missingOption(optionSpecification);
-<a name="112" href="#112">112</a>             }
-<a name="113" href="#113">113</a>         }
+<a name="94" href="#94">94</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> ParsedOptionSpecification optionSpecification : m_specification.getMandatoryOptions())
+<a name="95" href="#95">95</a>          {
+<a name="96" href="#96">96</a>              <strong class="jxr_keyword">if</strong> (!arguments.containsAny(optionSpecification.getNames()))
+<a name="97" href="#97">97</a>              {
+<a name="98" href="#98">98</a>                  m_validationErrorBuilder.missingOption(optionSpecification);
+<a name="99" href="#99">99</a>              }
+<a name="100" href="#100">100</a>         }
+<a name="101" href="#101">101</a> 
+<a name="102" href="#102">102</a>         validateUnparsedOptions();
+<a name="103" href="#103">103</a> 
+<a name="104" href="#104">104</a>         m_validationErrorBuilder.validate();
+<a name="105" href="#105">105</a> 
+<a name="106" href="#106">106</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionImpl.html">ArgumentCollectionImpl</a>(m_validatedArguments, m_validatedUnparsedArguments);
+<a name="107" href="#107">107</a>     }
+<a name="108" href="#108">108</a> 
+<a name="109" href="#109">109</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> validateUnparsedOptions()
+<a name="110" href="#110">110</a>     {
+<a name="111" href="#111">111</a>         <strong class="jxr_keyword">if</strong> (m_specification.hasUnparsedSpecification())
+<a name="112" href="#112">112</a>         {
+<a name="113" href="#113">113</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/OptionSpecification.html">OptionSpecification</a> argumentSpecification = m_specification.getUnparsedSpecification();
 <a name="114" href="#114">114</a> 
-<a name="115" href="#115">115</a>         validateUnparsedOptions();
-<a name="116" href="#116">116</a> 
-<a name="117" href="#117">117</a>         m_validationErrorBuilder.validate();
-<a name="118" href="#118">118</a> 
-<a name="119" href="#119">119</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionImpl.html">ArgumentCollectionImpl</a>(m_validatedArguments, m_validatedUnparsedArguments);
-<a name="120" href="#120">120</a>     }
-<a name="121" href="#121">121</a> 
-<a name="122" href="#122">122</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> validateUnparsedOptions()
-<a name="123" href="#123">123</a>     {
-<a name="124" href="#124">124</a>         <strong class="jxr_keyword">if</strong> (m_specification.hasUnparsedSpecification())
+<a name="115" href="#115">115</a>             <strong class="jxr_keyword">if</strong>(argumentSpecification.isOptional() &amp;&amp; m_validatedUnparsedArguments.isEmpty())
+<a name="116" href="#116">116</a>             {
+<a name="117" href="#117">117</a>                 <em class="jxr_comment">// OK</em>
+<a name="118" href="#118">118</a>             }
+<a name="119" href="#119">119</a>             <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(!argumentSpecification.allowedThisManyValues(m_validatedUnparsedArguments.size()))
+<a name="120" href="#120">120</a>             {
+<a name="121" href="#121">121</a>                 m_validationErrorBuilder.wrongNumberOfValues(argumentSpecification, m_validatedUnparsedArguments);
+<a name="122" href="#122">122</a>             }
+<a name="123" href="#123">123</a>         }
+<a name="124" href="#124">124</a>         <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!m_validatedUnparsedArguments.isEmpty())
 <a name="125" href="#125">125</a>         {
-<a name="126" href="#126">126</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/OptionSpecification.html">OptionSpecification</a> argumentSpecification = m_specification.getUnparsedSpecification();
-<a name="127" href="#127">127</a> 
-<a name="128" href="#128">128</a>             <strong class="jxr_keyword">if</strong> (!argumentSpecification.isMultiValued()
-<a name="129" href="#129">129</a>                     &amp;&amp; !argumentSpecification.isOptional()
-<a name="130" href="#130">130</a>                     &amp;&amp; m_validatedUnparsedArguments.isEmpty())
-<a name="131" href="#131">131</a>             {
-<a name="132" href="#132">132</a>                 m_validationErrorBuilder.missingValue(argumentSpecification);
-<a name="133" href="#133">133</a>             }
-<a name="134" href="#134">134</a>             <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!argumentSpecification.isMultiValued() &amp;&amp; m_validatedUnparsedArguments.size() &gt; 1)
-<a name="135" href="#135">135</a>             {
-<a name="136" href="#136">136</a>                 m_validationErrorBuilder.unexpectedAdditionalValues(argumentSpecification, m_validatedUnparsedArguments.subList(1, m_validatedUnparsedArguments.size()));
-<a name="137" href="#137">137</a>             }
-<a name="138" href="#138">138</a>         }
-<a name="139" href="#139">139</a>         <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (!m_validatedUnparsedArguments.isEmpty())
-<a name="140" href="#140">140</a>         {
-<a name="141" href="#141">141</a>             m_validationErrorBuilder.unexpectedTrailingValue(m_validatedUnparsedArguments);
-<a name="142" href="#142">142</a>         }
+<a name="126" href="#126">126</a>             m_validationErrorBuilder.unexpectedTrailingValue(m_validatedUnparsedArguments);
+<a name="127" href="#127">127</a>         }
+<a name="128" href="#128">128</a>     }
+<a name="129" href="#129">129</a> 
+<a name="130" href="#130">130</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkAndAddValues(
+<a name="131" href="#131">131</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/ParsedOptionSpecification.html">ParsedOptionSpecification</a> optionSpecification,
+<a name="132" href="#132">132</a>             <strong class="jxr_keyword">final</strong> String option,
+<a name="133" href="#133">133</a>             <strong class="jxr_keyword">final</strong> ArrayList&lt;String&gt; values)
+<a name="134" href="#134">134</a>     {
+<a name="135" href="#135">135</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String value : values)
+<a name="136" href="#136">136</a>         {
+<a name="137" href="#137">137</a>             <strong class="jxr_keyword">if</strong> (!patternMatches(optionSpecification, value))
+<a name="138" href="#138">138</a>             {
+<a name="139" href="#139">139</a>                 m_validationErrorBuilder.patternMismatch(optionSpecification, value);
+<a name="140" href="#140">140</a>             }
+<a name="141" href="#141">141</a>         }
+<a name="142" href="#142">142</a>         m_validatedArguments.put(option, <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;(values));
 <a name="143" href="#143">143</a>     }
 <a name="144" href="#144">144</a> 
-<a name="145" href="#145">145</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> hasExcessValues(<strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/Argument.html">Argument</a> entry, <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/ParsedOptionSpecification.html">ParsedOptionSpecification</a> optionSpecification)
+<a name="145" href="#145">145</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> patternMatches(<strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/ParsedOptionSpecification.html">ParsedOptionSpecification</a> optionSpecification, <strong class="jxr_keyword">final</strong> String value)
 <a name="146" href="#146">146</a>     {
-<a name="147" href="#147">147</a>         <strong class="jxr_keyword">return</strong> !optionSpecification.isMultiValued()
-<a name="148" href="#148">148</a>                 &amp;&amp; (entry.getValues().size() &gt; 1 || entry.getValues().size() &gt; 0 &amp;&amp; !optionSpecification.hasValue());
-<a name="149" href="#149">149</a>     }
-<a name="150" href="#150">150</a> 
-<a name="151" href="#151">151</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> checkAndAddValues(
-<a name="152" href="#152">152</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/ParsedOptionSpecification.html">ParsedOptionSpecification</a> optionSpecification,
-<a name="153" href="#153">153</a>             <strong class="jxr_keyword">final</strong> String option,
-<a name="154" href="#154">154</a>             <strong class="jxr_keyword">final</strong> ArrayList&lt;String&gt; values)
-<a name="155" href="#155">155</a>     {
-<a name="156" href="#156">156</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String value : values)
-<a name="157" href="#157">157</a>         {
-<a name="158" href="#158">158</a>             <strong class="jxr_keyword">if</strong> (!patternMatches(optionSpecification, value))
-<a name="159" href="#159">159</a>             {
-<a name="160" href="#160">160</a>                 m_validationErrorBuilder.patternMismatch(optionSpecification, value);
-<a name="161" href="#161">161</a>             }
-<a name="162" href="#162">162</a>         }
-<a name="163" href="#163">163</a>         m_validatedArguments.put(option, <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;(values));
-<a name="164" href="#164">164</a>     }
-<a name="165" href="#165">165</a> 
-<a name="166" href="#166">166</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> patternMatches(<strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/ParsedOptionSpecification.html">ParsedOptionSpecification</a> optionSpecification, <strong class="jxr_keyword">final</strong> String value)
-<a name="167" href="#167">167</a>     {
-<a name="168" href="#168">168</a>         <strong class="jxr_keyword">return</strong> value.matches(optionSpecification.getPattern());
-<a name="169" href="#169">169</a>     }
-<a name="170" href="#170">170</a> }
+<a name="147" href="#147">147</a>         <strong class="jxr_keyword">return</strong> value.matches(optionSpecification.getPattern());
+<a name="148" href="#148">148</a>     }
+<a name="149" href="#149">149</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>
