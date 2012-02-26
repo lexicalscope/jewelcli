@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
      * @return The name to use when describe the unparsed arguments in help text
      *         and error messages
      */
-    String name() default "";
+    String name() default "ARGUMENTS";
 
     /**
      * The regexp that the values of this option must match
@@ -57,4 +57,25 @@ import java.lang.annotation.Target;
      * @return the option is not displayed in any help messages
      */
     boolean hidden() default false;
+
+    /**
+     * Multivalued option must have at least this many values
+     *
+     * @return Multivalued option must have at least this many values
+     */
+    int minimum() default -1;
+
+    /**
+     * Multivalued option must have exactly this many values
+     *
+     * @return Multivalued option must have exactly this many values
+     */
+    int exactly() default -1;
+
+    /**
+     * Multivalued option can have at most this many values
+     *
+     * @return Multivalued option can have at most this many values
+     */
+    int maximum() default -1;
 }

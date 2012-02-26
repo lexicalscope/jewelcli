@@ -52,6 +52,14 @@ class UnexpectedOptionSpecification implements OptionSpecification
         return false;
     }
 
+    @Override public String getDescription() {
+        return "";
+    }
+
+    @Override public boolean allowedThisManyValues(final int count) {
+        return false;
+    }
+
     @Override public String toString()
     {
         final StringBuilder result = new StringBuilder();

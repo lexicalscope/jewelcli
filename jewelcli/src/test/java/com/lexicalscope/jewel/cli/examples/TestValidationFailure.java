@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.*;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.lexicalscope.jewel.cli.ArgumentValidationException;
@@ -130,6 +131,44 @@ public class TestValidationFailure {
         }
     }
 
+    public interface MissingValuesInListWithMinimumOfOne {
+        @Option(minimum = 1) List<String> getMyOption();
+    }
+
+    @Ignore @Test public void missingValueInListWithMinimumOfOneThrowsException() throws ArgumentValidationException
+    {
+        try
+        {
+            parseArguments(MissingValuesInListWithMinimumOfOne.class, "--myOption");
+            fail("exception should have been thrown");
+        }
+        catch(final ArgumentValidationException e)
+        {
+            final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: --myOption value");
+            assertThat(e.getMessage(), equalTo(expectedMessage));
+            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
+        }
+    }
+
+    public interface MissingValuesInListWithMinimumOfTwo {
+        @Option(minimum = 2) List<String> getMyOption();
+    }
+
+    @Ignore @Test public void missingValueInListWithMinimumOfTwoThrowsException() throws ArgumentValidationException
+    {
+        try
+        {
+            parseArguments(MissingValuesInListWithMinimumOfTwo.class, "--myOption", "myValue");
+            fail("exception should have been thrown");
+        }
+        catch(final ArgumentValidationException e)
+        {
+            final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: --myOption value");
+            assertThat(e.getMessage(), equalTo(expectedMessage));
+            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
+        }
+    }
+
     public interface PatternMismatch {
         @Option(pattern="\\d+") String getMyOption();
     }
@@ -173,11 +212,70 @@ public class TestValidationFailure {
         }
     }
 
+    public interface UnexpectedAdditionalValueInListWithMaximumOfOne {
+        @Option(maximum = 1) List<String> getMyOption();
+        @Option String getMyOtherOption();
+    }
+
+    @Ignore @Test public void unexpectedAdditionalValueInListWithMaximumOfOneThrowsException() throws ArgumentValidationException
+    {
+        try
+        {
+            parseArguments(UnexpectedAdditionalValueInListWithMaximumOfOne.class, "--myOption", "myValue", "myExcessValue", "--myOtherOption", "anotherValue");
+            fail("exception should have been thrown");
+        }
+        catch(final ArgumentValidationException e)
+        {
+            final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: --myOption value");
+            assertThat(e.getMessage(), equalTo(expectedMessage));
+            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
+        }
+    }
+
+    public interface UnexpectedAdditionalValueInListWithMaximumOfTwo {
+        @Option(maximum = 2) List<String> getMyOption();
+        @Option String getMyOtherOption();
+    }
+
+    @Ignore @Test public void unexpectedAdditionalValueInListWithMaximumOfTwoThrowsException() throws ArgumentValidationException
+    {
+        try
+        {
+            parseArguments(UnexpectedAdditionalValueInListWithMaximumOfTwo.class, "--myOption", "myValue", "myOhterValue", "myExcessValue", "--myOtherOption", "anotherValue");
+            fail("exception should have been thrown");
+        }
+        catch(final ArgumentValidationException e)
+        {
+            final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: --myOption value");
+            assertThat(e.getMessage(), equalTo(expectedMessage));
+            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
+        }
+    }
+
+    public interface UnexpectedAdditionalValueInListWithExactArity {
+        @Option(exactly = 1) List<String> getMyOption();
+        @Option String getMyOtherOption();
+    }
+
+    @Ignore @Test public void unexpectedAdditionalValueInListWithExactArityThrowsException() throws ArgumentValidationException
+    {
+        try
+        {
+            parseArguments(UnexpectedAdditionalValueInListWithExactArity.class, "--myOption", "myValue", "myExcessValue", "--myOtherOption", "anotherValue");
+            fail("exception should have been thrown");
+        }
+        catch(final ArgumentValidationException e)
+        {
+            final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: --myOption value");
+            assertThat(e.getMessage(), equalTo(expectedMessage));
+            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
+        }
+    }
+
     public interface UnexpectedAdditionalUnparsedValue {
         @Option Integer getMyOption();
         @Unparsed String getMyUnparsed();
     }
-
 
     @Test public void unusedUnparsedValueThrowsException() throws ArgumentValidationException
     {

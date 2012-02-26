@@ -20,37 +20,37 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
  */
 
 final class UnparsedAnnotationAdapter extends AbstractOptionAdapter {
-    private final Unparsed unparsed;
+    private final Unparsed option;
 
     UnparsedAnnotationAdapter(
             final ReflectedClass<?> klass,
             final ReflectedMethod method,
             final Unparsed unparsed) {
         super(klass, method);
-        this.unparsed = unparsed;
+        this.option = unparsed;
     }
 
     @Override public String description() {
-        return unparsed.description();
+        return option.description().trim();
     }
 
     @Override public String pattern() {
-        return unparsed.pattern();
+        return option.pattern();
     }
 
     @Override public boolean defaultToNull() {
-        return unparsed.defaultToNull();
+        return option.defaultToNull();
     }
 
     @Override public String[] defaultValue() {
-        return unparsed.defaultValue();
+        return option.defaultValue();
     }
 
     public String name() {
-        return unparsed.name();
+        return option.name();
     }
 
     @Override public boolean isHidden() {
-        return unparsed.hidden();
+        return option.hidden();
     }
 }

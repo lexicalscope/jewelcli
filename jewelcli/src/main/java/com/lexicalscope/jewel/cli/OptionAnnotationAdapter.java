@@ -35,7 +35,7 @@ class OptionAnnotationAdapter extends AbstractOptionAdapter {
     }
 
     @Override public String description() {
-        return option.description();
+        return option.description().trim();
     }
 
     @Override public String pattern() {

@@ -72,6 +72,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
                 {
                     m_validationErrorBuilder.unexpectedValue(optionSpecification, argument.getValues());
                 }
+                //else if (!isLast && !optionSpecification.allowedThisManyValues(argument.getValues().size()))
                 else if (!isLast && argument.getValues().size() > 1 && !optionSpecification.isMultiValued())
                 {
                     m_validationErrorBuilder.unexpectedAdditionalValues(optionSpecification, argument.getValues().subList(1, argument.getValues().size()));
