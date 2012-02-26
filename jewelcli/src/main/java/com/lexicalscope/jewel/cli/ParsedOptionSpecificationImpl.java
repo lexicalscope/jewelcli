@@ -89,7 +89,7 @@ class ParsedOptionSpecificationImpl implements Comparable<OptionSpecification>, 
     }
 
     @Override public boolean isOptional() {
-        return optionalityMethod != null || isBoolean();
+        return optionalityMethod != null || isBoolean() || hasDefaultValue();
     }
 
     @Override public final boolean isBoolean() {

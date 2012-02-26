@@ -1,5 +1,13 @@
 package com.lexicalscope.jewel.cli.examples;
 
+import static com.lexicalscope.jewel.cli.CliFactory.createCli;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+
+import org.junit.Test;
+
+import com.lexicalscope.jewel.cli.Option;
+
 /*
  * Copyright 2012 Tim Wood
  *
@@ -13,9 +21,21 @@ package com.lexicalscope.jewel.cli.examples;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 public class TestHelpMessages {
+    interface OptionWithDefault
+    {
+        @Option(defaultValue = "3")
+        int getMyOption();
 
+        @Option(helpRequest = true)
+        boolean getHelp();
+    }
+
+    @Test public void optionWithDefaultShowAsOptional()
+    {
+        assertThat(createCli(OptionWithDefault.class).getHelpMessage(), containsString("[--myOption value]"));
+    }
 }
