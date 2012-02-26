@@ -5,6 +5,20 @@
     <href>http://sourceforge.net</href>
     <src>http://sflogo.sourceforge.net/sflogo.php?group_id=166725&amp;type=1</src>
   </bannerRight>
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.1</version>
+  </skin>
+  <custom>
+    <fluidoSkin>
+      <gitHub>
+        <projectId>lexicalscope/jewelcli</projectId>
+        <ribbonOrientation>right</ribbonOrientation>
+        <ribbonColor>black</ribbonColor>
+      </gitHub>
+    </fluidoSkin>
+  </custom>
   <body>
     <links>
       <item name="SourceForge Page" href="http://sourceforge.net/projects/jewelcli" />

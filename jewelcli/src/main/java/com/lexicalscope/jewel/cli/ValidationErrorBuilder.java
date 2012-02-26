@@ -6,11 +6,11 @@ interface ValidationErrorBuilder
 {
     void unexpectedOption(String name);
 
-    void unexpectedValue(OptionSpecification optionSpecification);
+    void unexpectedValue(OptionSpecification optionSpecification, List<String> values);
 
     void missingValue(OptionSpecification optionSpecification);
 
-    void unexpectedAdditionalValues(OptionSpecification optionSpecification);
+    void unexpectedAdditionalValues(OptionSpecification optionSpecification, List<String> values);
 
     void unexpectedTrailingValue(List<String> unparsedArguments);
 

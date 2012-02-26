@@ -13,9 +13,9 @@ class ValidationErrorBuilderImpl implements ValidationErrorBuilder
         validationExceptions.add(ArgumentValidationExceptionFactory.createMissingValueError(optionSpecification));
     }
 
-    public void unexpectedAdditionalValues(final OptionSpecification optionSpecification)
+    public void unexpectedAdditionalValues(final OptionSpecification optionSpecification, final List<String> excessValues)
     {
-        validationExceptions.add(ArgumentValidationExceptionFactory.createAdditionalValuesError(optionSpecification));
+        validationExceptions.add(ArgumentValidationExceptionFactory.createAdditionalValuesError(optionSpecification, excessValues));
     }
 
     public void unexpectedOption(final String name)
@@ -23,13 +23,13 @@ class ValidationErrorBuilderImpl implements ValidationErrorBuilder
         validationExceptions.add(ArgumentValidationExceptionFactory.createUnexpectedOptionError(name));
     }
 
-    public void unexpectedValue(final OptionSpecification optionSpecification)
+    public void unexpectedValue(final OptionSpecification optionSpecification, final List<String> values)
     {
-        validationExceptions.add(ArgumentValidationExceptionFactory.createUnexpectedValueError(optionSpecification));
+        validationExceptions.add(ArgumentValidationExceptionFactory.createUnexpectedValueError(optionSpecification, values));
     }
 
     @Override public void unexpectedTrailingValue(final List<String> unparsedArguments) {
-        validationExceptions.add(ArgumentValidationExceptionFactory.createUnexpectedTrailingValue());
+        validationExceptions.add(ArgumentValidationExceptionFactory.createUnexpectedTrailingValues(unparsedArguments));
     }
 
     public void missingOption(final OptionSpecification optionSpecification)

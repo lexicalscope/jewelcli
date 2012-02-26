@@ -22,7 +22,7 @@ public class TestArgumentValidationException {
 
     @Test public void testUnrecognisedAndMissingOption() {
         exception.expect(validationExceptionWithMessageLines(
-                "Unexpected Option: coutn : Option not recognised",
+                "Unexpected Option: coutn",
                 "Option is mandatory: --count1 value"));
 
         parseArguments(TwoOptions.class, new String[] { "--count0", "3", "--coutn", "5" });

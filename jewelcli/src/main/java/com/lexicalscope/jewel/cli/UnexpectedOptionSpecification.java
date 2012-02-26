@@ -51,7 +51,7 @@ class UnexpectedOptionSpecification implements OptionSpecification
     @Override public String toString()
     {
         final StringBuilder result = new StringBuilder();
-        result.append(m_name).append(" : ").append("Option not recognised");
+        result.append(m_name);
         return result.toString();
     }
 }

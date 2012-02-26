@@ -1,5 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
+import java.util.List;
+
 /*
  * Copyright 2011 Tim Wood
  *
@@ -13,15 +15,23 @@ package com.lexicalscope.jewel.cli;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 class ValidationFailureUnexpectedValue extends ValidationFailureImpl
 {
     private static final long serialVersionUID = 2360308973259628892L;
 
-    public ValidationFailureUnexpectedValue(final OptionSpecification specification) {
-        super(specification, CliValidationException.m_messages.getString("validationError.UnexpectedValue"));
+    public ValidationFailureUnexpectedValue(final OptionSpecification specification, final List<String> values) {
+        super(specification, formatMessage(values));
+    }
+
+    private static String formatMessage(final List<String> values) {
+        if(values.size() > 1)
+        {
+            return String.format(CliValidationException.m_messages.getString("validationError.UnexpectedValues"), values);
+        }
+        return String.format(CliValidationException.m_messages.getString("validationError.UnexpectedValue"), values.get(0));
     }
 
     @Override public ValidationFailureType getFailureType() {

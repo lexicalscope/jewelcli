@@ -70,11 +70,11 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
                 }
                 else if (!isLast && argument.getValues().size() > 0 && !optionSpecification.hasValue())
                 {
-                    m_validationErrorBuilder.unexpectedValue(optionSpecification);
+                    m_validationErrorBuilder.unexpectedValue(optionSpecification, argument.getValues());
                 }
                 else if (!isLast && argument.getValues().size() > 1 && !optionSpecification.isMultiValued())
                 {
-                    m_validationErrorBuilder.unexpectedAdditionalValues(optionSpecification);
+                    m_validationErrorBuilder.unexpectedAdditionalValues(optionSpecification, argument.getValues().subList(1, argument.getValues().size()));
                 }
 
                 if (isLast && hasExcessValues(argument, optionSpecification))
@@ -131,9 +131,9 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
             {
                 m_validationErrorBuilder.missingValue(argumentSpecification);
             }
-            else if (!argumentSpecification.isMultiValued() && m_validatedArguments.size() > 1)
+            else if (!argumentSpecification.isMultiValued() && m_validatedUnparsedArguments.size() > 1)
             {
-                m_validationErrorBuilder.unexpectedValue(argumentSpecification);
+                m_validationErrorBuilder.unexpectedAdditionalValues(argumentSpecification, m_validatedUnparsedArguments.subList(1, m_validatedUnparsedArguments.size()));
             }
         }
         else if (!m_validatedUnparsedArguments.isEmpty())

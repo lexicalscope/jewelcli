@@ -1,5 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
+import java.util.List;
+
 /*
  * Copyright 2011 Tim Wood
  *
@@ -13,7 +15,7 @@ package com.lexicalscope.jewel.cli;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 class ArgumentValidationExceptionFactory {
@@ -22,9 +24,9 @@ class ArgumentValidationExceptionFactory {
         return new ValidationFailureUnexpectedOption(new UnexpectedOptionSpecification(name));
     }
 
-    static ValidationFailureImpl createAdditionalValuesError(final OptionSpecification optionSpecification)
+    static ValidationFailureImpl createAdditionalValuesError(final OptionSpecification optionSpecification, final List<String> excessValues)
     {
-        return new ValidationFailureUnexpectedAdditionalValue(optionSpecification);
+        return new ValidationFailureUnexpectedAdditionalValue(optionSpecification, excessValues);
     }
 
     static ValidationFailureImpl createMissingValueError(final OptionSpecification optionSpecification)
@@ -32,13 +34,13 @@ class ArgumentValidationExceptionFactory {
         return new ValidationFailureMissingValue(optionSpecification);
     }
 
-    static ValidationFailureImpl createUnexpectedValueError(final OptionSpecification optionSpecification)
+    static ValidationFailureImpl createUnexpectedValueError(final OptionSpecification optionSpecification, final List<String> values)
     {
-        return new ValidationFailureUnexpectedValue(optionSpecification);
+        return new ValidationFailureUnexpectedValue(optionSpecification, values);
     }
 
-    static ValidationFailureImpl createUnexpectedTrailingValue() {
-        return new ValidationFailureUnexpectedTrailingValue(null, "");
+    static ValidationFailureImpl createUnexpectedTrailingValues(final List<String> unparsedArguments) {
+        return new ValidationFailureUnexpectedTrailingValue(unparsedArguments);
     }
 
     static ValidationFailureImpl createMissingOptionError(final OptionSpecification optionSpecification)

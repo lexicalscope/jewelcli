@@ -1,5 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
+import java.util.List;
+
 /*
  * Copyright 2011 Tim Wood
  *
@@ -13,14 +15,22 @@ package com.lexicalscope.jewel.cli;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 class ValidationFailureUnexpectedTrailingValue extends ValidationFailureImpl {
     private static final long serialVersionUID = 4186655034725500358L;
 
-    public ValidationFailureUnexpectedTrailingValue(final OptionSpecification specification, final String description) {
-        super(specification, CliValidationException.m_messages.getString("validationError.UnexpectedTrailingValue"));
+    public ValidationFailureUnexpectedTrailingValue(final List<String> unparsedValues) {
+        super(formatMessage(unparsedValues));
+    }
+
+    private static String formatMessage(final List<String> unparsedValues) {
+        if(unparsedValues.size() > 1)
+        {
+            return String.format(CliValidationException.m_messages.getString("validationError.UnexpectedTrailingValues"), unparsedValues);
+        }
+        return String.format(CliValidationException.m_messages.getString("validationError.UnexpectedTrailingValue"), unparsedValues.get(0));
     }
 
     @Override public ValidationFailureType getFailureType() {
