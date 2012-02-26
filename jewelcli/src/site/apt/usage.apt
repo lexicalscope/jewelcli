@@ -14,7 +14,7 @@ Definition Stage
 
   JewelCli uses an annotated Java interface definition to describe the Command Line Interface in a
   declarative style. The main annotation is the
-  {{{apidocs/uk/co/flamingpenguin/jewel/cli/Option.html} Option Annotation}}
+  {{{apidocs/com/lexicalscope/jewel/cli/Option.html} Option Annotation}}
 
 * Option Annotation
 
@@ -179,7 +179,7 @@ public interface MyExample
 
   In some applications, the last arguments on the command line are not arguments to any option, but are
   arguments to the central function of the program itself. The
-  {{{apidocs/uk/co/flamingpenguin/jewel/cli/Unparsed.html} Unparsed Annotation}} annotation is used to mark
+  {{{apidocs/com/lexicalscope/jewel/cli/Unparsed.html} Unparsed Annotation}} annotation is used to mark
   a method as the accessor for these unparsed options.
 
   The <Unparsed> method may use any of the return types that normal <Option> methods may, with the
@@ -231,7 +231,7 @@ public interface MySubExample extends MySuperExample
 Parsing Stage
 
   JewelCli's parsing stage is very simple. Use the
-  {{{apidocs/uk/co/flamingpenguin/jewel/cli/CliFactory.html} CliFactory}} to produce an instance of your
+  {{{apidocs/com/lexicalscope/jewel/cli/CliFactory.html} CliFactory}} to produce an instance of your
   annotated Java interface.
 
 +------------------------------------------+
@@ -251,8 +251,8 @@ public static void main(String [] args)
 
  * Error Handling
 
-   If any errors are found durring parsing an
-   {{{apidocs/uk/co/flamingpenguin/jewel/cli/ArgumentValidationException.html} ArgumentValidationException}}
+   If any errors are found during parsing an
+   {{{apidocs/com/lexicalscope/jewel/cli/ArgumentValidationException.html} ArgumentValidationException}}
    is thrown. The message of the <ArgumentValidationException> can be displayed to the user to inform them
    of the problem.
 

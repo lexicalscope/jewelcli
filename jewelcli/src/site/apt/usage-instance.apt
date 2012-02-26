@@ -11,7 +11,7 @@ Definition Stage
 
   JewelCli uses an annotated Java class definition to describe the Command Line Interface in a
   declarative style. The main annotation is the
-  {{{apidocs/uk/co/flamingpenguin/jewel/cli/Option.html} Option Annotation}}
+  {{{apidocs/com/lexicalscope/jewel/cli/Option.html} Option Annotation}}
 
 * Option Annotation
 
@@ -67,7 +67,7 @@ public class MyExample
 * Unparsed arguments
 
   Unparsed arguments work the same way as for {{{./usage.html} interface}}. The
-  {{{apidocs/uk/co/flamingpenguin/jewel/cli/Unparsed.html} Unparsed Annotation}} annotation is used to mark
+  {{{apidocs/com/lexicalscope/jewel/cli/Unparsed.html} Unparsed Annotation}} annotation is used to mark
   a method as the mutator for these unparsed options.
 
 +------------------------------------------+
@@ -93,7 +93,7 @@ public class MyExample
 Parsing Stage
 
   JewelCli's parsing stage is very simple. Use the
-  {{{apidocs/uk/co/flamingpenguin/jewel/cli/CliFactory.html} CliFactory}} to produce an instance of your
+  {{{apidocs/com/lexicalscope/jewel/cli/CliFactory.html} CliFactory}} to produce an instance of your
   annotated Java interface.
 
 +------------------------------------------+

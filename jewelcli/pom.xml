@@ -24,12 +24,6 @@
         <developerConnection>scm:git:git@github.com:lexicalscope/jewelcli.git</developerConnection>
     </scm>
     <url>http://jewelcli.lexicalscope.com/</url>
-    <distributionManagement>
-        <site>
-            <id>github-project-site</id>
-            <url>gitsite:git@github.com/lexicalscope/jewelcli.git</url>
-        </site>
-    </distributionManagement>    
     <reporting>
         <plugins>
             <plugin>
@@ -393,7 +387,7 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
+                <artifactId>maven-site-plugin</artifactId>              
             </plugin>
             <plugin>
                 <groupId>com.github.github</groupId>
@@ -414,14 +408,6 @@
         </plugins>
         <pluginManagement>
            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.0</version>
-                    <configuration>
-                        <skipDeploy>true</skipDeploy>
-                    </configuration>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
