@@ -1,5 +1,6 @@
 package com.lexicalscope.jewel.cli.examples;
 
+import static com.lexicalscope.jewel.cli.CliFactory.parseArguments;
 import static com.lexicalscope.jewel.cli.ValidationFailureMatcher.validationError;
 import static com.lexicalscope.jewel.cli.ValidationFailureType.HelpRequested;
 import static java.lang.String.format;
@@ -9,10 +10,10 @@ import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.CliFactory;
 import com.lexicalscope.jewel.cli.CliValidationException;
 import com.lexicalscope.jewel.cli.HelpRequestedException;
 import com.lexicalscope.jewel.cli.Option;
+import com.lexicalscope.jewel.cli.ValidationFailureType;
 
 /*
  * Copyright 2011 Tim Wood
@@ -39,7 +40,7 @@ public class TestValidationFailure {
     {
         try
         {
-            CliFactory.parseArguments(HelpArugments.class, "--help");
+            parseArguments(HelpArugments.class, "--help");
             fail("exception should have been thrown");
         }
         catch(final HelpRequestedException e)
@@ -49,4 +50,37 @@ public class TestValidationFailure {
             assertThat(e.getValidationFailures(), contains(validationError(HelpRequested, expectedMessage)));
         }
     }
+
+    public interface InvalidValueForType {
+        @Option Integer getMyOption();
+    }
+
+    @Test public void invalidImageThrowsException() throws CliValidationException
+    {
+        try
+        {
+            parseArguments(InvalidValueForType.class, "--myOption", "wrongValue");
+            fail("exception should have been thrown");
+        }
+        catch(final CliValidationException e)
+        {
+            final String expectedMessage = format("Invalid value (Unsupported number format: For input string: \"wrongValue\"): --myOption value");
+            assertThat(e.getMessage(), equalTo(expectedMessage));
+            assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.InvalidValueForType, expectedMessage)));
+        }
+    }
+
+
+    /*
+    InvalidValueForType,
+    MisplacedOption,
+    MissingOption,
+    MissingValue,
+    PatternMismatch,
+    UnableToConstructType,
+    UnexpectedAdditionalValue,
+    UnexpectedOption,
+    UnexpectedTrailingValue,
+    UnexpectedValue,
+     */
 }

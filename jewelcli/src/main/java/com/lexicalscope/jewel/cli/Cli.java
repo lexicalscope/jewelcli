@@ -19,7 +19,7 @@ public interface Cli<O> {
      * @return An instance of the interface O which will present the parsed
      *         arguments
      * 
-     * @throws CliValidationException
+     * @throws CliValidationException the arguments do not meet the cli specification
      */
     O parseArguments(String... arguments) throws CliValidationException;
 
