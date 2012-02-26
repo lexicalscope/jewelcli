@@ -4,7 +4,7 @@
     <parent>
         <artifactId>jewelcli-parent</artifactId>
         <groupId>com.lexicalscope.jewelcli</groupId>
-        <version>0.8.0</version>
+        <version>0.8.1-SNAPSHOT</version>
     </parent>
     <artifactId>jewelcli-packagingtest</artifactId>
     <name>JewelCli Packaging Test</name>
@@ -80,7 +80,7 @@
         <dependency>
             <groupId>com.lexicalscope.jewelcli</groupId>
             <artifactId>jewelcli</artifactId>
-            <version>0.8.0</version>
+            <version>0.8.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
