@@ -62,45 +62,31 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
                 {
                     throw new HelpRequestedException(m_specification);
                 }
-                else if (argument.getValues().size() == 0
-                        && optionSpecification.hasValue()
-                        && !optionSpecification.isMultiValued())
+
+                final List<String> allValues = argument.getValues();
+                final List<String> values = new ArrayList<String>();
+
+                if(isLast && m_specification.hasUnparsedSpecification())
                 {
-                    m_validationErrorBuilder.missingValue(optionSpecification);
+                    final int maximumArgumentConsumption = Math.min(allValues.size(), optionSpecification.maximumArgumentConsumption());
+                    values.addAll(allValues.subList(0, maximumArgumentConsumption));
+                    m_validatedUnparsedArguments.addAll(0, allValues.subList(maximumArgumentConsumption, allValues.size()));
                 }
-                else if (!isLast && argument.getValues().size() > 0 && !optionSpecification.hasValue())
+                else
                 {
-                    m_validationErrorBuilder.unexpectedValue(optionSpecification, argument.getValues());
-                }
-                //else if (!isLast && !optionSpecification.allowedThisManyValues(argument.getValues().size()))
-                else if (!isLast && argument.getValues().size() > 1 && !optionSpecification.isMultiValued())
-                {
-                    m_validationErrorBuilder.unexpectedAdditionalValues(optionSpecification, argument.getValues().subList(1, argument.getValues().size()));
+                    values.addAll(allValues);
                 }
 
-                if (isLast && hasExcessValues(argument, optionSpecification))
+                if(!optionSpecification.allowedThisManyValues(values.size()))
                 {
-                    final List<String> values = new ArrayList<String>();
-                    final List<String> unparsed;
-                    if (optionSpecification.hasValue())
-                    {
-                        values.add(argument.getValues().get(0));
-                        unparsed = new ArrayList<String>(argument.getValues().subList(1, argument.getValues().size()));
-                    }
-                    else
-                    {
-                        unparsed = argument.getValues();
-                    }
-
-                    m_validatedArguments.put(argument.getOptionName(), values);
-                    m_validatedUnparsedArguments.addAll(0, unparsed);
+                    m_validationErrorBuilder.wrongNumberOfValues(optionSpecification, values);
                 }
                 else
                 {
                     checkAndAddValues(
                             optionSpecification,
                             argument.getOptionName(),
-                            new ArrayList<String>(argument.getValues()));
+                            new ArrayList<String>(values));
                 }
             }
         }
@@ -126,27 +112,19 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
         {
             final OptionSpecification argumentSpecification = m_specification.getUnparsedSpecification();
 
-            if (!argumentSpecification.isMultiValued()
-                    && !argumentSpecification.isOptional()
-                    && m_validatedUnparsedArguments.isEmpty())
+            if(argumentSpecification.isOptional() && m_validatedUnparsedArguments.isEmpty())
             {
-                m_validationErrorBuilder.missingValue(argumentSpecification);
+                // OK
             }
-            else if (!argumentSpecification.isMultiValued() && m_validatedUnparsedArguments.size() > 1)
+            else if(!argumentSpecification.allowedThisManyValues(m_validatedUnparsedArguments.size()))
             {
-                m_validationErrorBuilder.unexpectedAdditionalValues(argumentSpecification, m_validatedUnparsedArguments.subList(1, m_validatedUnparsedArguments.size()));
+                m_validationErrorBuilder.wrongNumberOfValues(argumentSpecification, m_validatedUnparsedArguments);
             }
         }
         else if (!m_validatedUnparsedArguments.isEmpty())
         {
             m_validationErrorBuilder.unexpectedTrailingValue(m_validatedUnparsedArguments);
         }
-    }
-
-    private boolean hasExcessValues(final Argument entry, final ParsedOptionSpecification optionSpecification)
-    {
-        return !optionSpecification.isMultiValued()
-                && (entry.getValues().size() > 1 || entry.getValues().size() > 0 && !optionSpecification.hasValue());
     }
 
     private void checkAndAddValues(

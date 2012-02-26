@@ -53,6 +53,22 @@ abstract class AbstractOptionSpecification implements OptionSpecification, Compa
         {
             defaultValue = null;
         }
+
+        if(hasExactCount() && exactly() < minimum() || exactly() > maximum())
+        {
+            throw new InvalidOptionSpecificationException("option has maximum and minimum and exact count which can never be satisfied: "
+                    + annotation.method());
+        }
+        else if(minimum() > maximum())
+        {
+            throw new InvalidOptionSpecificationException("minimum cannot be greater than maximum: "
+                    + annotation.method());
+        }
+        else if(maximum() < 0)
+        {
+            throw new InvalidOptionSpecificationException("maximum must not be less than zero: "
+                    + annotation.method());
+        }
     }
 
     @Override public final List<String> getDefaultValue() {
@@ -102,7 +118,76 @@ abstract class AbstractOptionSpecification implements OptionSpecification, Compa
     }
 
     @Override public boolean allowedThisManyValues(final int count) {
-        // TODO Auto-generated method stub
+        if(count == 0 && !hasValue())
+        {
+            return true;
+        }
+        else if(count == 1 && hasValue() && !isMultiValued())
+        {
+            return true;
+        }
+        else if(isMultiValued() && hasExactCount())
+        {
+            return count == exactly();
+        }
+        else if(isMultiValued())
+        {
+            return minimum() <= count && count <= maximum();
+        }
         return false;
+    }
+
+    public final int maximum() {
+        return annotation.maximum();
+    }
+
+    public final int minimum() {
+        return annotation.minimum();
+    }
+
+    public final int exactly() {
+        return annotation.exactly();
+    }
+
+    public final boolean hasExactCount() {
+        return annotation.exactly() >= 0;
+    }
+
+    @Override public <T> T compareCountToSpecification(
+            final int valueCount,
+            final SpecificationMultiplicity<T> specificationMultiplicity) {
+        if(!hasValue() && valueCount > 0) {
+            return specificationMultiplicity.expectedNoneGotSome();
+        } else if(!isMultiValued() && hasValue() && valueCount == 0) {
+            return specificationMultiplicity.expectedOneGotNone();
+        } else if(!isMultiValued() && valueCount > 1) {
+            return specificationMultiplicity.expectedOneGotSome();
+        } else if(isMultiValued()) {
+            if(hasExactCount() && valueCount != exactly()) {
+                if(valueCount < exactly()) {
+                    return specificationMultiplicity.expectedExactGotTooFew(exactly(), valueCount);
+                } else {
+                    return specificationMultiplicity.expectedExactGotTooMany(exactly(), valueCount);
+                }
+            } else if(valueCount < minimum()) {
+                return specificationMultiplicity.expectedMinimumGotTooFew(minimum(), valueCount);
+            } else if(valueCount > maximum()) {
+                return specificationMultiplicity.expectedMaximumGotTooMany(maximum(), valueCount);
+            }
+        }
+        return specificationMultiplicity.allowed();
+    }
+
+    @Override public int maximumArgumentConsumption() {
+        if(isMultiValued()) {
+            if(hasExactCount()) {
+                return exactly();
+            } else {
+                return maximum();
+            }
+        } else if (hasValue()) {
+            return 1;
+        }
+        return 0;
     }
 }

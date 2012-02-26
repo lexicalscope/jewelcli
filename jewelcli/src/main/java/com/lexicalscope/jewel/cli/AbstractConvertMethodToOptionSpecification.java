@@ -19,21 +19,20 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
  * limitations under the License.
  */
 
-interface OptionAdapter {
-    String description();
-    boolean isHidden();
-    String pattern();
+class AbstractConvertMethodToOptionSpecification {
+    protected final ReflectedClass<?> klass;
 
-    boolean hasDefaultValue();
-    boolean defaultToNull();
-    String[] defaultValue();
+    public AbstractConvertMethodToOptionSpecification(final ReflectedClass<?> klass) {
+        this.klass = klass;
+    }
 
-    boolean isMultiValued();
-    int minimum();
-    int exactly();
-    int maximum();
+    protected UnparsedOptionSpecification createUnparsedOptionSpecificationFrom(
+            final ReflectedMethod method) {
 
-    ReflectedClass<? extends Object> getValueType();
-    ReflectedMethod method();
-    ReflectedMethod correspondingOptionalityMethod();
+        return new UnparsedOptionSpecificationImpl(new UnparsedAnnotationAdapter(klass, method, method.annotation(Unparsed.class)));
+    }
+
+    protected ParsedOptionSpecification createParsedOptionSpecificationFrom(final ReflectedMethod method) {
+        return new ParsedOptionSpecificationImpl(new OptionAnnotationAdapter(klass, method));
+    }
 }

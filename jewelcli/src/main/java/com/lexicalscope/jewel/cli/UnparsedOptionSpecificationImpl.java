@@ -30,6 +30,10 @@ class UnparsedOptionSpecificationImpl extends AbstractOptionSpecification implem
         return false;
     }
 
+    @Override public boolean hasValue() {
+        return true;
+    }
+
     @Override public String toString() {
         return new UnparsedOptionSummary(this).toString();
     }

@@ -10,7 +10,6 @@ import static org.hamcrest.Matchers.*;
 
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.lexicalscope.jewel.cli.ArgumentValidationException;
@@ -135,7 +134,7 @@ public class TestValidationFailure {
         @Option(minimum = 1) List<String> getMyOption();
     }
 
-    @Ignore @Test public void missingValueInListWithMinimumOfOneThrowsException() throws ArgumentValidationException
+    @Test public void missingValueInListWithMinimumOfOneThrowsException() throws ArgumentValidationException
     {
         try
         {
@@ -144,9 +143,9 @@ public class TestValidationFailure {
         }
         catch(final ArgumentValidationException e)
         {
-            final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: --myOption value");
+            final String expectedMessage = format("Option takes at least 1 value; please specify more than []: --myOption value...");
             assertThat(e.getMessage(), equalTo(expectedMessage));
-            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
+            assertThat(e.getValidationFailures(), contains(validationError(TooFewValues, expectedMessage)));
         }
     }
 
@@ -154,7 +153,7 @@ public class TestValidationFailure {
         @Option(minimum = 2) List<String> getMyOption();
     }
 
-    @Ignore @Test public void missingValueInListWithMinimumOfTwoThrowsException() throws ArgumentValidationException
+    @Test public void missingValueInListWithMinimumOfTwoThrowsException() throws ArgumentValidationException
     {
         try
         {
@@ -163,9 +162,9 @@ public class TestValidationFailure {
         }
         catch(final ArgumentValidationException e)
         {
-            final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: --myOption value");
+            final String expectedMessage = format("Option takes at least 2 values; please specify more than [myValue]: --myOption value...");
             assertThat(e.getMessage(), equalTo(expectedMessage));
-            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
+            assertThat(e.getValidationFailures(), contains(validationError(TooFewValues, expectedMessage)));
         }
     }
 
@@ -217,7 +216,7 @@ public class TestValidationFailure {
         @Option String getMyOtherOption();
     }
 
-    @Ignore @Test public void unexpectedAdditionalValueInListWithMaximumOfOneThrowsException() throws ArgumentValidationException
+    @Test public void unexpectedAdditionalValueInListWithMaximumOfOneThrowsException() throws ArgumentValidationException
     {
         try
         {
@@ -226,9 +225,9 @@ public class TestValidationFailure {
         }
         catch(final ArgumentValidationException e)
         {
-            final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: --myOption value");
+            final String expectedMessage = format("Option takes at most 1 value; please remove [myExcessValue]: --myOption value...");
             assertThat(e.getMessage(), equalTo(expectedMessage));
-            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
+            assertThat(e.getValidationFailures(), contains(validationError(TooManyValues, expectedMessage)));
         }
     }
 
@@ -237,18 +236,18 @@ public class TestValidationFailure {
         @Option String getMyOtherOption();
     }
 
-    @Ignore @Test public void unexpectedAdditionalValueInListWithMaximumOfTwoThrowsException() throws ArgumentValidationException
+    @Test public void unexpectedAdditionalValueInListWithMaximumOfTwoThrowsException() throws ArgumentValidationException
     {
         try
         {
-            parseArguments(UnexpectedAdditionalValueInListWithMaximumOfTwo.class, "--myOption", "myValue", "myOhterValue", "myExcessValue", "--myOtherOption", "anotherValue");
+            parseArguments(UnexpectedAdditionalValueInListWithMaximumOfTwo.class, "--myOption", "myValue", "myOtherValue", "myExcessValue", "--myOtherOption", "anotherValue");
             fail("exception should have been thrown");
         }
         catch(final ArgumentValidationException e)
         {
-            final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: --myOption value");
+            final String expectedMessage = format("Option takes at most 2 values; please remove [myExcessValue]: --myOption value...");
             assertThat(e.getMessage(), equalTo(expectedMessage));
-            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
+            assertThat(e.getValidationFailures(), contains(validationError(TooManyValues, expectedMessage)));
         }
     }
 
@@ -257,7 +256,7 @@ public class TestValidationFailure {
         @Option String getMyOtherOption();
     }
 
-    @Ignore @Test public void unexpectedAdditionalValueInListWithExactArityThrowsException() throws ArgumentValidationException
+    @Test public void unexpectedAdditionalValueInListWithExactArityThrowsException() throws ArgumentValidationException
     {
         try
         {
@@ -266,9 +265,9 @@ public class TestValidationFailure {
         }
         catch(final ArgumentValidationException e)
         {
-            final String expectedMessage = format("Option only takes one value; cannot use [myExcessValue]: --myOption value");
+            final String expectedMessage = format("Option takes exactly 1 value; please remove [myExcessValue]: --myOption value...");
             assertThat(e.getMessage(), equalTo(expectedMessage));
-            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
+            assertThat(e.getValidationFailures(), contains(validationError(TooManyValues, expectedMessage)));
         }
     }
 
@@ -324,9 +323,9 @@ public class TestValidationFailure {
         }
         catch(final ArgumentValidationException e)
         {
-            final String expectedMessage = format("Unexpected trailing value (anotherValue)");
+            final String expectedMessage = format("Option only takes one value; cannot use [anotherValue]: --myOption value");
             assertThat(e.getMessage(), equalTo(expectedMessage));
-            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedTrailingValue, expectedMessage)));
+            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
         }
     }
 
@@ -339,9 +338,9 @@ public class TestValidationFailure {
         }
         catch(final ArgumentValidationException e)
         {
-            final String expectedMessage = format("Unexpected trailing values [anotherValue, yetAnotherValue]");
+            final String expectedMessage = format("Option only takes one value; cannot use [anotherValue, yetAnotherValue]: --myOption value");
             assertThat(e.getMessage(), equalTo(expectedMessage));
-            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedTrailingValue, expectedMessage)));
+            assertThat(e.getValidationFailures(), contains(validationError(UnexpectedAdditionalValue, expectedMessage)));
         }
     }
 

@@ -66,4 +66,34 @@ class UnexpectedOptionSpecification implements OptionSpecification
         result.append(m_name);
         return result.toString();
     }
+
+    @Override public boolean hasValue() {
+        return false;
+    }
+
+    @Override public boolean hasExactCount() {
+        return false;
+    }
+
+    @Override public int exactly() {
+        return 0;
+    }
+
+    @Override public int minimum() {
+        return 0;
+    }
+
+    @Override public int maximum() {
+        return 0;
+    }
+
+    @Override public <T> T compareCountToSpecification(
+            final int valueCount,
+            final SpecificationMultiplicity<T> specificationMultiplicity) {
+        return specificationMultiplicity.allowed();
+    }
+
+    @Override public int maximumArgumentConsumption() {
+        return 0;
+    }
 }

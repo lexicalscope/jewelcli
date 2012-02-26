@@ -7,6 +7,7 @@ API Changes
 * Changes in version 0.8.1
 
   * support hidden options that do not show up in help messages
+  * support minimum, maximum and exact number of values for multivalued options
 
 * Changes in version 0.8.0
   

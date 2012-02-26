@@ -1,7 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
 /*
- * Copyright 2011 Tim Wood
+ * Copyright 2012 Tim Wood
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,20 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License.
  */
 
-public enum ValidationFailureType {
-    InvalidValueForType,
-    MisplacedOption,
-    MissingOption,
-    MissingValue,
-    PatternMismatch,
-    UnableToConstructType,
-    UnexpectedAdditionalValue,
-    UnexpectedOption,
-    UnexpectedTrailingValue,
-    UnexpectedValue,
-    TooFewValues,
-    TooManyValues,
-    HelpRequested,
+interface SpecificationMultiplicity<T> {
+    T expectedNoneGotSome();
+
+    T expectedOneGotNone();
+
+    T expectedOneGotSome();
+
+    T expectedExactGotTooFew(int exactly, int valueCount);
+
+    T expectedExactGotTooMany(int exactly, int valueCount);
+
+    T expectedMinimumGotTooFew(int minimum, int valueCount);
+
+    T expectedMaximumGotTooMany(int maximum, int valueCount);
+
+    T allowed();
 }

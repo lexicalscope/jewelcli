@@ -48,6 +48,13 @@ interface OptionSpecification
     boolean isMultiValued();
 
     /**
+     * Does the option have a value
+     *
+     * @return true iff the option has at least one value
+     */
+    boolean hasValue();
+
+    /**
      * Is the argument optional
      *
      * @return is the argument optional
@@ -90,4 +97,16 @@ interface OptionSpecification
     ReflectedMethod getMethod();
 
     ReflectedMethod getOptionalityMethod();
+
+    boolean hasExactCount();
+
+    int exactly();
+
+    int minimum();
+
+    int maximum();
+
+    int maximumArgumentConsumption();
+
+    <T> T compareCountToSpecification(int valueCount, SpecificationMultiplicity<T> specificationMultiplicity);
 }

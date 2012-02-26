@@ -10,7 +10,7 @@ interface ValidationErrorBuilder
 
     void missingValue(OptionSpecification optionSpecification);
 
-    void unexpectedAdditionalValues(OptionSpecification optionSpecification, List<String> values);
+    void wrongNumberOfValues(OptionSpecification optionSpecification, List<String> values);
 
     void unexpectedTrailingValue(List<String> unparsedArguments);
 

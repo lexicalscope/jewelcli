@@ -74,4 +74,5 @@ interface ParsedOptionSpecification extends OptionSpecification {
      * @return option is a boolean option
      */
     boolean isBoolean();
+
 }

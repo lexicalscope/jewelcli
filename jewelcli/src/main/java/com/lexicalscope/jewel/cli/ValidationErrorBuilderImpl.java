@@ -13,9 +13,9 @@ class ValidationErrorBuilderImpl implements ValidationErrorBuilder
         validationExceptions.add(new ValidationFailureMissingValue(optionSpecification));
     }
 
-    public void unexpectedAdditionalValues(final OptionSpecification optionSpecification, final List<String> excessValues)
+    public void wrongNumberOfValues(final OptionSpecification optionSpecification, final List<String> excessValues)
     {
-        validationExceptions.add(ArgumentValidationExceptionFactory.createAdditionalValuesError(optionSpecification, excessValues));
+        validationExceptions.add(new ValidationFailureWrongNumberOfValues(optionSpecification, excessValues));
     }
 
     public void unexpectedOption(final String name)

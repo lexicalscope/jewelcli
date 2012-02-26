@@ -24,11 +24,6 @@ class ArgumentValidationExceptionFactory {
         return new ValidationFailureUnexpectedOption(new UnexpectedOptionSpecification(name));
     }
 
-    static ValidationFailureImpl createAdditionalValuesError(final OptionSpecification optionSpecification, final List<String> excessValues)
-    {
-        return new ValidationFailureUnexpectedAdditionalValue(optionSpecification, excessValues);
-    }
-
     static ValidationFailureImpl createUnexpectedValueError(final OptionSpecification optionSpecification, final List<String> values)
     {
         return new ValidationFailureUnexpectedValue(optionSpecification, values);

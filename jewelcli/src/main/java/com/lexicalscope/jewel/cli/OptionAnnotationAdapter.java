@@ -74,4 +74,16 @@ class OptionAnnotationAdapter extends AbstractOptionAdapter {
     @Override public boolean isHidden() {
         return option.hidden();
     }
+
+    @Override public int minimum() {
+        return option.minimum();
+    }
+
+    @Override public int exactly() {
+        return option.exactly();
+    }
+
+    @Override public int maximum() {
+        return option.maximum();
+    }
 }

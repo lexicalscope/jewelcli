@@ -77,5 +77,5 @@ import java.lang.annotation.Target;
      *
      * @return Multivalued option can have at most this many values
      */
-    int maximum() default -1;
+    int maximum() default Integer.MAX_VALUE;
 }
