@@ -30,7 +30,7 @@ class OptionName
             final List<String> longNames,
             final List<String> shortNames,
             final String description)
-    {
+            {
         this.canonicalIdentifier = canonicalIdentifier;
         this.longNames = longNames;
         for (final String longName : longNames) {
@@ -43,7 +43,7 @@ class OptionName
         }
         this.shortNames = shortNames;
         this.description = description;
-    }
+            }
 
     String getCanonicalIdentifier() {
         return canonicalIdentifier;

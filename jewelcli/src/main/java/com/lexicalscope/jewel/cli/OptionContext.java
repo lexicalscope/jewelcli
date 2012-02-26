@@ -17,23 +17,26 @@ import java.util.List;
 
 class OptionContext
 {
-    private final List<String> m_defaultValue;
-    private final boolean m_helpRequest;
+    private final List<String> defaultValue;
+    private final boolean helpRequest;
     private final boolean defaultToNull;
+    private final boolean hidden;
 
     OptionContext(
             final List<String> defaultValue,
+            final boolean hidden,
             final boolean helpRequest,
             final boolean deafultToNull)
     {
-        m_defaultValue = defaultValue;
-        m_helpRequest = helpRequest;
+        this.defaultValue = defaultValue;
+        this.hidden = hidden;
+        this.helpRequest = helpRequest;
         this.defaultToNull = deafultToNull;
     }
 
     List<String> getDefaultValue()
     {
-        return m_defaultValue;
+        return defaultValue;
     }
 
     boolean isDefaultToNull() {
@@ -42,6 +45,11 @@ class OptionContext
 
     boolean isHelpRequest()
     {
-        return m_helpRequest;
+        return helpRequest;
+    }
+
+    boolean isHidden()
+    {
+        return hidden;
     }
 }

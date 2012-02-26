@@ -57,9 +57,16 @@ interface OptionSpecification
      * Is there a default value to use if this option is not present? Options
      * with a default value are assumed to be optional.
      * 
-     * @return True iff this option has a default value
+     * @return true iff this option has a default value
      */
     boolean hasDefaultValue();
+
+    /**
+     * Is the option hidden from help messages?
+     * 
+     * @return true iff the option is hidden from help messages
+     */
+    boolean isHidden();
 
     ReflectedMethod getMethod();
 

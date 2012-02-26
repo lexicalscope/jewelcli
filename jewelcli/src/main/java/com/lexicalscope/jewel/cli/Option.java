@@ -78,4 +78,11 @@ import java.lang.annotation.Target;
      * @return True if this option is a help option
      */
     boolean helpRequest() default false;
+
+    /**
+     * Option is not displayed in help messages. Probably best not to use this with mandatory options.
+     * 
+     * @return the option is not displayed in any help messages
+     */
+    boolean hidden() default false;
 }

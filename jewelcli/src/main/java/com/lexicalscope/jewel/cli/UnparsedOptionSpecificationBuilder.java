@@ -36,7 +36,8 @@ class UnparsedOptionSpecificationBuilder extends AbstractOptionSpecificationBuil
                 method,
                 optionalityMethod,
                 defaultValue,
-                defaultToNull);
+                defaultToNull,
+                hidden);
     }
 
 }

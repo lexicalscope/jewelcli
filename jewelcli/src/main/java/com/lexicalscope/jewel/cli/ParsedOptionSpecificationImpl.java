@@ -115,4 +115,8 @@ class ParsedOptionSpecificationImpl implements Comparable<OptionSpecification>, 
     @Override public String toString() {
         return new ParsedOptionSummary(this).toString();
     }
+
+    @Override public boolean isHidden() {
+        return optionContext.isHidden();
+    }
 }

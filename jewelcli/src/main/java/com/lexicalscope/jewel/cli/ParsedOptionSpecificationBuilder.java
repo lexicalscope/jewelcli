@@ -43,7 +43,7 @@ class ParsedOptionSpecificationBuilder extends AbstractOptionSpecificationBuilde
         final OptionName optionName =
                 new OptionName(method, method.propertyName(), m_longName, m_shortNames, description);
         final OptionType optionType = new OptionType(type.classUnderReflection(), pattern, multiValued);
-        final OptionContext optionContext = new OptionContext(defaultValue, m_helpRequest, defaultToNull);
+        final OptionContext optionContext = new OptionContext(defaultValue, hidden, m_helpRequest, defaultToNull);
 
         return new ParsedOptionSpecificationImpl(optionName,
                 optionType,

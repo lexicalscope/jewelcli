@@ -27,6 +27,7 @@ class UnparsedOptionSpecificationImpl implements UnparsedOptionSpecification {
     private final boolean multiValued;
     private final List<String> defaultValue;
     private final boolean defaultToNull;
+    private final boolean hidden;
 
     public UnparsedOptionSpecificationImpl(
             final String valueName,
@@ -35,7 +36,8 @@ class UnparsedOptionSpecificationImpl implements UnparsedOptionSpecification {
             final ReflectedMethod method,
             final ReflectedMethod optionalityMethod,
             final List<String> defaultValue,
-            final boolean defaultToNull) {
+            final boolean defaultToNull,
+            final boolean hidden) {
         this.valueName = valueName;
         this.type = type;
         this.multiValued = multiValued;
@@ -43,6 +45,7 @@ class UnparsedOptionSpecificationImpl implements UnparsedOptionSpecification {
         this.optionalityMethod = optionalityMethod;
         this.defaultValue = defaultValue;
         this.defaultToNull = defaultToNull;
+        this.hidden = hidden;
     }
 
     @Override public Class<?> getType() {
@@ -83,5 +86,9 @@ class UnparsedOptionSpecificationImpl implements UnparsedOptionSpecification {
 
     @Override public String toString() {
         return new UnparsedOptionSummary(this).toString();
+    }
+
+    @Override public boolean isHidden() {
+        return hidden;
     }
 }

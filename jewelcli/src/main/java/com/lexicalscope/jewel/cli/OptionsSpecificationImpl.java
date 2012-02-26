@@ -137,7 +137,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
     }
 
     @Override public void describeTo(final HelpMessage helpMessage) {
-        if (!hasCustomApplicationName() && !hasUnparsedSpecification()) {
+        if (!hasCustomApplicationName() && (!hasUnparsedSpecification() || getUnparsedSpecification().isHidden())) {
             helpMessage.noUsageInformation();
         } else {
             if (hasCustomApplicationName()) {
@@ -156,7 +156,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
                 helpMessage.hasSomeMandatoryOptions();
             }
 
-            if (hasUnparsedSpecification()) {
+            if (hasUnparsedSpecification() && !getUnparsedSpecification().isHidden()) {
                 if (getUnparsedSpecification().isMultiValued()) {
                     helpMessage.hasUnparsedMultiValuedOption(getUnparsedSpecification().getValueName());
                 }
@@ -170,7 +170,10 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         helpMessage.startOfOptions();
 
         for (final ParsedOptionSpecification specification : options) {
-            new ParsedOptionSummary(specification).describeOptionTo(helpMessage.option());
+            if(!specification.isHidden())
+            {
+                new ParsedOptionSummary(specification).describeOptionTo(helpMessage.option());
+            }
         }
 
         helpMessage.endOfOptions();

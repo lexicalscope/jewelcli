@@ -48,6 +48,10 @@ class UnexpectedOptionSpecification implements OptionSpecification
         return false;
     }
 
+    @Override public boolean isHidden() {
+        return false;
+    }
+
     @Override public String toString()
     {
         final StringBuilder result = new StringBuilder();

@@ -18,7 +18,7 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 class AbstractOptionSpecificationBuilder implements OptionSpecificationBuilder {
@@ -30,6 +30,7 @@ class AbstractOptionSpecificationBuilder implements OptionSpecificationBuilder {
     protected List<String> defaultValue;
     protected boolean defaultToNull;
     protected boolean multiValued;
+    protected boolean hidden;
 
     public AbstractOptionSpecificationBuilder(final ReflectedMethod method) {
         this.method = method;
@@ -61,5 +62,9 @@ class AbstractOptionSpecificationBuilder implements OptionSpecificationBuilder {
 
     @Override public final void setMultiValued(final boolean multiValued) {
         this.multiValued = multiValued;
+    }
+
+    @Override public void setHidden(final boolean hidden) {
+        this.hidden = hidden;
     }
 }

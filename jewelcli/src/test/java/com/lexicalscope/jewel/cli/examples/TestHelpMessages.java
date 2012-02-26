@@ -2,11 +2,12 @@ package com.lexicalscope.jewel.cli.examples;
 
 import static com.lexicalscope.jewel.cli.CliFactory.createCli;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.*;
 
 import org.junit.Test;
 
 import com.lexicalscope.jewel.cli.Option;
+import com.lexicalscope.jewel.cli.Unparsed;
 
 /*
  * Copyright 2012 Tim Wood
@@ -37,5 +38,27 @@ public class TestHelpMessages {
     @Test public void optionWithDefaultShowAsOptional()
     {
         assertThat(createCli(OptionWithDefault.class).getHelpMessage(), containsString("[--myOption value]"));
+    }
+
+    interface HiddenOptionNotIncludedInHelp
+    {
+        @Option(hidden = true)
+        int getMyOption();
+    }
+
+    @Test public void hiddenOptionNotIncludedInHelp()
+    {
+        assertThat(createCli(HiddenOptionNotIncludedInHelp.class).getHelpMessage(), not(containsString("myOption")));
+    }
+
+    interface HiddenUnparsedOptionNotIncludedInHelp
+    {
+        @Unparsed(hidden = true)
+        int getMyOption();
+    }
+
+    @Test public void hiddenUnparsedOptionNotIncludedInHelp()
+    {
+        assertThat(createCli(HiddenUnparsedOptionNotIncludedInHelp.class).getHelpMessage(), not(containsString("ARGUMENTS")));
     }
 }
