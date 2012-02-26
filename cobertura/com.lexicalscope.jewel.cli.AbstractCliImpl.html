@@ -69,25 +69,25 @@
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> AbstractCliImpl(</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;26</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            <span class="keyword">final</span> ReflectedClass&lt;O&gt; klass,</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;27</td>  <td class="nbHitsCovered">&nbsp;84</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">final</span> OptionsSpecification&lt;O&gt; optionsSpecification) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;28</td>  <td class="nbHitsCovered">&nbsp;84</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.klass = klass;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;29</td>  <td class="nbHitsCovered">&nbsp;84</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.optionsSpecification = optionsSpecification;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;30</td>  <td class="nbHitsCovered">&nbsp;84</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;27</td>  <td class="nbHitsCovered">&nbsp;100</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">final</span> OptionsSpecification&lt;O&gt; optionsSpecification) {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;28</td>  <td class="nbHitsCovered">&nbsp;100</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.klass = klass;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;29</td>  <td class="nbHitsCovered">&nbsp;100</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.optionsSpecification = optionsSpecification;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;30</td>  <td class="nbHitsCovered">&nbsp;100</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;31</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;32</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    @Override <span class="keyword">public</span> O parseArguments(<span class="keyword">final</span> String... arguments) <span class="keyword">throws</span> CliValidationException {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;33</td>  <td class="nbHitsCovered">&nbsp;81</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> ArgumentCollection parseArguments = <span class="keyword">new</span> ArgumentParserImpl()</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;    @Override <span class="keyword">public</span> O parseArguments(<span class="keyword">final</span> String... arguments) <span class="keyword">throws</span> ArgumentValidationException {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;33</td>  <td class="nbHitsCovered">&nbsp;96</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> ArgumentCollection parseArguments = <span class="keyword">new</span> ArgumentParserImpl()</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;34</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                .parseArguments(arguments);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;35</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;36</td>  <td class="nbHitsCovered">&nbsp;80</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> ArgumentCollection validatedArguments =</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;36</td>  <td class="nbHitsCovered">&nbsp;94</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> ArgumentCollection validatedArguments =</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;37</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="keyword">new</span> ArgumentValidatorImpl&lt;O&gt;(optionsSpecification).validateArguments(parseArguments);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;38</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;39</td>  <td class="nbHitsCovered">&nbsp;68</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> argumentPresenter(klass, optionsSpecification).presentArguments(validatedArguments);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;39</td>  <td class="nbHitsCovered">&nbsp;71</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> argumentPresenter(klass, optionsSpecification).presentArguments(validatedArguments);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;40</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;41</td>  <td class="nbHits">&nbsp;</td>
@@ -102,7 +102,7 @@
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;46</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    @Override <span class="keyword">public</span> String getHelpMessage() {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;47</td>  <td class="nbHitsCovered">&nbsp;3</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> optionsSpecification.toString();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;47</td>  <td class="nbHitsCovered">&nbsp;4</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> optionsSpecification.toString();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;48</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;49</td>  <td class="nbHits">&nbsp;</td>
@@ -122,6 +122,6 @@
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 31/01/12 20:49.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 26/02/12 14:22.</div>
 </body>
 </html>

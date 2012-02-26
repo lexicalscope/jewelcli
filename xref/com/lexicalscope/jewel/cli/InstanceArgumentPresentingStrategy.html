@@ -30,7 +30,7 @@
 <a name="20" href="#20">20</a>  <em class="jxr_comment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
 <a name="21" href="#21">21</a>  <em class="jxr_comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
 <a name="22" href="#22">22</a>  <em class="jxr_comment"> * See the License for the specific language governing permissions and</em>
-<a name="23" href="#23">23</a>  <em class="jxr_comment"> * limitations under the License. </em>
+<a name="23" href="#23">23</a>  <em class="jxr_comment"> * limitations under the License.</em>
 <a name="24" href="#24">24</a>  <em class="jxr_comment"> */</em>
 <a name="25" href="#25">25</a>  
 <a name="26" href="#26">26</a>  <strong class="jxr_keyword">class</strong> InstanceArgumentPresentingStrategy&lt;O&gt; implements ArgumentPresentingStrategy&lt;O&gt; {
@@ -48,34 +48,33 @@
 <a name="38" href="#38">38</a>      }
 <a name="39" href="#39">39</a>  
 <a name="40" href="#40">40</a>      @Override <strong class="jxr_keyword">public</strong> O presentArguments(<strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; argumentMap) {
-<a name="41" href="#41">41</a>          System.out.println(argumentMap);
-<a name="42" href="#42">42</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> ReflectedMethod reflectedMethod : klass.methods(annotatedWith(Option.<strong class="jxr_keyword">class</strong>))) {
-<a name="43" href="#43">43</a>              <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isBoolean = specification.getSpecification(reflectedMethod).isBoolean();
-<a name="44" href="#44">44</a>              setValueOnOptions(argumentMap, reflectedMethod, isBoolean);
-<a name="45" href="#45">45</a>          }
-<a name="46" href="#46">46</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> ReflectedMethod reflectedMethod : klass.methods(annotatedWith(Unparsed.<strong class="jxr_keyword">class</strong>))) {
-<a name="47" href="#47">47</a>              setValueOnOptions(argumentMap, reflectedMethod, false);
-<a name="48" href="#48">48</a>          }
-<a name="49" href="#49">49</a>          <strong class="jxr_keyword">return</strong> options;
-<a name="50" href="#50">50</a>      }
-<a name="51" href="#51">51</a>  
-<a name="52" href="#52">52</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> setValueOnOptions(
-<a name="53" href="#53">53</a>              <strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; argumentMap,
-<a name="54" href="#54">54</a>              <strong class="jxr_keyword">final</strong> ReflectedMethod reflectedMethod,
-<a name="55" href="#55">55</a>              <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isBoolean) {
-<a name="56" href="#56">56</a>          <strong class="jxr_keyword">if</strong> (argumentMap.containsKey(reflectedMethod.propertyName()))
-<a name="57" href="#57">57</a>          {
-<a name="58" href="#58">58</a>              <strong class="jxr_keyword">if</strong> (isBoolean)
-<a name="59" href="#59">59</a>              {
-<a name="60" href="#60">60</a>                  reflectedMethod.call(options, argumentMap.containsKey(reflectedMethod.propertyName()));
-<a name="61" href="#61">61</a>              }
-<a name="62" href="#62">62</a>              <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (argumentMap.get(reflectedMethod.propertyName()) != <strong class="jxr_keyword">null</strong>)
-<a name="63" href="#63">63</a>              {
-<a name="64" href="#64">64</a>                  reflectedMethod.call(options, argumentMap.get(reflectedMethod.propertyName()));
-<a name="65" href="#65">65</a>              }
-<a name="66" href="#66">66</a>          }
-<a name="67" href="#67">67</a>      }
-<a name="68" href="#68">68</a>  }
+<a name="41" href="#41">41</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> ReflectedMethod reflectedMethod : klass.methods(annotatedWith(Option.<strong class="jxr_keyword">class</strong>))) {
+<a name="42" href="#42">42</a>              <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isBoolean = specification.getSpecification(reflectedMethod).isBoolean();
+<a name="43" href="#43">43</a>              setValueOnOptions(argumentMap, reflectedMethod, isBoolean);
+<a name="44" href="#44">44</a>          }
+<a name="45" href="#45">45</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> ReflectedMethod reflectedMethod : klass.methods(annotatedWith(Unparsed.<strong class="jxr_keyword">class</strong>))) {
+<a name="46" href="#46">46</a>              setValueOnOptions(argumentMap, reflectedMethod, false);
+<a name="47" href="#47">47</a>          }
+<a name="48" href="#48">48</a>          <strong class="jxr_keyword">return</strong> options;
+<a name="49" href="#49">49</a>      }
+<a name="50" href="#50">50</a>  
+<a name="51" href="#51">51</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> setValueOnOptions(
+<a name="52" href="#52">52</a>              <strong class="jxr_keyword">final</strong> Map&lt;String, Object&gt; argumentMap,
+<a name="53" href="#53">53</a>              <strong class="jxr_keyword">final</strong> ReflectedMethod reflectedMethod,
+<a name="54" href="#54">54</a>              <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> isBoolean) {
+<a name="55" href="#55">55</a>          <strong class="jxr_keyword">if</strong> (argumentMap.containsKey(reflectedMethod.propertyName()))
+<a name="56" href="#56">56</a>          {
+<a name="57" href="#57">57</a>              <strong class="jxr_keyword">if</strong> (isBoolean)
+<a name="58" href="#58">58</a>              {
+<a name="59" href="#59">59</a>                  reflectedMethod.call(options, argumentMap.containsKey(reflectedMethod.propertyName()));
+<a name="60" href="#60">60</a>              }
+<a name="61" href="#61">61</a>              <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (argumentMap.get(reflectedMethod.propertyName()) != <strong class="jxr_keyword">null</strong>)
+<a name="62" href="#62">62</a>              {
+<a name="63" href="#63">63</a>                  reflectedMethod.call(options, argumentMap.get(reflectedMethod.propertyName()));
+<a name="64" href="#64">64</a>              }
+<a name="65" href="#65">65</a>          }
+<a name="66" href="#66">66</a>      }
+<a name="67" href="#67">67</a>  }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

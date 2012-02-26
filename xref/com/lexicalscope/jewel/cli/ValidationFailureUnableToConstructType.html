@@ -26,13 +26,13 @@
 <a name="16" href="#16">16</a>  <em class="jxr_comment"> * limitations under the License. </em>
 <a name="17" href="#17">17</a>  <em class="jxr_comment"> */</em>
 <a name="18" href="#18">18</a>  
-<a name="19" href="#19">19</a>  <strong class="jxr_keyword">class</strong> <a href="../../../../com/lexicalscope/jewel/cli/ValidationFailureUnableToConstructType.html">ValidationFailureUnableToConstructType</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../com/lexicalscope/jewel/cli/ValidationFailure.html">ValidationFailure</a>
+<a name="19" href="#19">19</a>  <strong class="jxr_keyword">class</strong> <a href="../../../../com/lexicalscope/jewel/cli/ValidationFailureUnableToConstructType.html">ValidationFailureUnableToConstructType</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../com/lexicalscope/jewel/cli/ValidationFailureImpl.html">ValidationFailureImpl</a>
 <a name="20" href="#20">20</a>  {
 <a name="21" href="#21">21</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 7263131866771297371L;
 <a name="22" href="#22">22</a>  
 <a name="23" href="#23">23</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/ValidationFailureUnableToConstructType.html">ValidationFailureUnableToConstructType</a>(<strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/OptionSpecification.html">OptionSpecification</a> specification, <strong class="jxr_keyword">final</strong> String message) {
 <a name="24" href="#24">24</a>          <strong class="jxr_keyword">super</strong>(specification, String.format(
-<a name="25" href="#25">25</a>                  CliValidationException.m_messages.getString(<span class="jxr_string">"validationError.UnableToConstructType"</span>),
+<a name="25" href="#25">25</a>                  ArgumentValidationException.m_messages.getString(<span class="jxr_string">"validationError.UnableToConstructType"</span>),
 <a name="26" href="#26">26</a>                  message));
 <a name="27" href="#27">27</a>      }
 <a name="28" href="#28">28</a>  

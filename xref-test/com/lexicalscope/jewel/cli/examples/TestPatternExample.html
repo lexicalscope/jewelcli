@@ -14,7 +14,7 @@
 <a name="4" href="#4">4</a>   
 <a name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> org.junit.Test;
 <a name="6" href="#6">6</a>   
-<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.CliValidationException;
+<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.ArgumentValidationException;
 <a name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.CliFactory;
 <a name="9" href="#9">9</a>   
 <a name="10" href="#10">10</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/lexicalscope/jewel/cli/examples/TestPatternExample.html">TestPatternExample</a> {
@@ -25,7 +25,7 @@
 <a name="15" href="#15">15</a>                      <span class="jxr_string">"java.util.String"</span>,
 <a name="16" href="#16">16</a>                      <span class="jxr_string">"my.invalid..Klass"</span> });
 <a name="17" href="#17">17</a>              fail();
-<a name="18" href="#18">18</a>          } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> CliValidationException e) {
+<a name="18" href="#18">18</a>          } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> ArgumentValidationException e) {
 <a name="19" href="#19">19</a>              assertEquals(<span class="jxr_string">"Cannot match (my.invalid..Klass) to pattern: --classes /(&#92;&#92;w+&#92;&#92;.)*&#92;&#92;w+/..."</span>, e.getMessage());
 <a name="20" href="#20">20</a>          }
 <a name="21" href="#21">21</a>      }

@@ -58,43 +58,43 @@
 <tr>  <td class="numLine">&nbsp;20</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment"> * See the License for the specific language governing permissions and</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;21</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="comment"> * limitations under the License. </span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="comment"> * limitations under the License.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;22</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment"> */</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;23</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;24</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="keyword">public</span> <span class="keyword">class</span> AbstractConvertMethodToOptionSpecification {</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">class</span> AbstractConvertMethodToOptionSpecification {</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;25</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">final</span> ReflectedClass&lt;?&gt; klass;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;26</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;27</td>  <td class="nbHitsCovered">&nbsp;161</td>  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> AbstractConvertMethodToOptionSpecification(<span class="keyword">final</span> ReflectedClass&lt;?&gt; klass) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;28</td>  <td class="nbHitsCovered">&nbsp;161</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.klass = klass;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;29</td>  <td class="nbHitsCovered">&nbsp;161</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;27</td>  <td class="nbHitsCovered">&nbsp;224</td>  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> AbstractConvertMethodToOptionSpecification(<span class="keyword">final</span> ReflectedClass&lt;?&gt; klass) {</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;28</td>  <td class="nbHitsCovered">&nbsp;224</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">this</span>.klass = klass;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;29</td>  <td class="nbHitsCovered">&nbsp;224</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;30</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;31</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> UnparsedOptionSpecification createUnparsedOptionSpecificationFrom(</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;32</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            <span class="keyword">final</span> ReflectedMethod method) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;33</td>  <td class="nbHitsCovered">&nbsp;17</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> UnparsedOptionSpecificationBuilder optionSpecificationBuilder =</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;33</td>  <td class="nbHitsCovered">&nbsp;25</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> UnparsedOptionSpecificationBuilder optionSpecificationBuilder =</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;34</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="keyword">new</span> UnparsedOptionSpecificationBuilder(method);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;35</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;36</td>  <td class="nbHitsCovered">&nbsp;17</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> UnparsedAnnotationAdapter annotation =</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;36</td>  <td class="nbHitsCovered">&nbsp;25</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> UnparsedAnnotationAdapter annotation =</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;37</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="keyword">new</span> UnparsedAnnotationAdapter(klass, method, method.annotation(Unparsed.<span class="keyword">class</span>));</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;38</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;39</td>  <td class="nbHitsCovered">&nbsp;17</td>  <td class="src"><pre class="src">&nbsp;        configureSpecificationFromAnnotation(optionSpecificationBuilder, annotation);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;39</td>  <td class="nbHitsCovered">&nbsp;25</td>  <td class="src"><pre class="src">&nbsp;        configureSpecificationFromAnnotation(optionSpecificationBuilder, annotation);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;40</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;41</td>  <td class="nbHitsCovered">&nbsp;17</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setValueName(annotation.name());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;41</td>  <td class="nbHitsCovered">&nbsp;25</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setValueName(annotation.name());</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;42</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;43</td>  <td class="nbHitsCovered">&nbsp;17</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> optionSpecificationBuilder.createOptionSpecification();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;43</td>  <td class="nbHitsCovered">&nbsp;25</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> optionSpecificationBuilder.createOptionSpecification();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;44</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;45</td>  <td class="nbHits">&nbsp;</td>
@@ -103,27 +103,27 @@
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> ParsedOptionSpecification createParsedOptionSpecificationFrom(</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;47</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            <span class="keyword">final</span> ReflectedMethod method) {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;48</td>  <td class="nbHitsCovered">&nbsp;147</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> ParsedOptionSpecificationBuilder optionSpecificationBuilder =</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;48</td>  <td class="nbHitsCovered">&nbsp;209</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> ParsedOptionSpecificationBuilder optionSpecificationBuilder =</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;49</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="keyword">new</span> ParsedOptionSpecificationBuilder(method);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;50</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;51</td>  <td class="nbHitsCovered">&nbsp;147</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> OptionAnnotationAdapter annotation = <span class="keyword">new</span> OptionAnnotationAdapter(klass, method);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;51</td>  <td class="nbHitsCovered">&nbsp;209</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> OptionAnnotationAdapter annotation = <span class="keyword">new</span> OptionAnnotationAdapter(klass, method);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;52</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;53</td>  <td class="nbHitsCovered">&nbsp;147</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setShortNames(annotation.shortName());</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;54</td>  <td class="nbHitsCovered">&nbsp;147</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setLongName(annotation.longName());</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;55</td>  <td class="nbHitsCovered">&nbsp;147</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setHelpRequest(annotation.helpRequest());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;53</td>  <td class="nbHitsCovered">&nbsp;209</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setShortNames(annotation.shortName());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;54</td>  <td class="nbHitsCovered">&nbsp;209</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setLongName(annotation.longName());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;55</td>  <td class="nbHitsCovered">&nbsp;209</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setHelpRequest(annotation.helpRequest());</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;56</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;57</td>  <td class="nbHitsCovered">&nbsp;147</td>  <td class="src"><pre class="src">&nbsp;        configureSpecificationFromAnnotation(</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;57</td>  <td class="nbHitsCovered">&nbsp;209</td>  <td class="src"><pre class="src">&nbsp;        configureSpecificationFromAnnotation(</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;58</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                optionSpecificationBuilder,</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;59</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                annotation);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;60</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;61</td>  <td class="nbHitsCovered">&nbsp;146</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> optionSpecificationBuilder.createOptionSpecification();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;61</td>  <td class="nbHitsCovered">&nbsp;208</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> optionSpecificationBuilder.createOptionSpecification();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;62</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;63</td>  <td class="nbHits">&nbsp;</td>
@@ -136,14 +136,14 @@
   <td class="src"><pre class="src">&nbsp;            <span class="keyword">final</span> OptionAdapter annotation) {</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;67</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;68</td>  <td class="nbHitsCovered">&nbsp;164</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setDescription(annotation.description().trim());</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;69</td>  <td class="nbHitsCovered">&nbsp;164</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setPattern(annotation.pattern());</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;70</td>  <td class="nbHitsCovered">&nbsp;164</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setOptionalityMethod(annotation.correspondingOptionalityMethod());</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;71</td>  <td class="nbHitsCovered">&nbsp;164</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setType(annotation.getValueType());</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;72</td>  <td class="nbHitsCovered">&nbsp;164</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setMultiValued(annotation.isMultiValued());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;68</td>  <td class="nbHitsCovered">&nbsp;234</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setDescription(annotation.description().trim());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;69</td>  <td class="nbHitsCovered">&nbsp;234</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setPattern(annotation.pattern());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;70</td>  <td class="nbHitsCovered">&nbsp;234</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setOptionalityMethod(annotation.correspondingOptionalityMethod());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;71</td>  <td class="nbHitsCovered">&nbsp;234</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setType(annotation.getValueType());</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;72</td>  <td class="nbHitsCovered">&nbsp;234</td>  <td class="src"><pre class="src">&nbsp;        optionSpecificationBuilder.setMultiValued(annotation.isMultiValued());</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;73</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;74</td>  <td class="nbHitsCovered"><a title="Line 74: Conditional coverage 100% (4/4) [each condition: 100%, 100%].">&nbsp;164</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 74: Conditional coverage 100% (4/4) [each condition: 100%, 100%].">        <span class="keyword">if</span> (annotation.defaultToNull() &amp;&amp; annotation.hasDefaultValue())</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;74</td>  <td class="nbHitsCovered"><a title="Line 74: Conditional coverage 100% (4/4) [each condition: 100%, 100%].">&nbsp;234</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 74: Conditional coverage 100% (4/4) [each condition: 100%, 100%].">        <span class="keyword">if</span> (annotation.defaultToNull() &amp;&amp; annotation.hasDefaultValue())</a></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;75</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        {</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;76</td>  <td class="nbHitsCovered">&nbsp;1</td>  <td class="src"><pre class="src">&nbsp;            <span class="keyword">throw</span> <span class="keyword">new</span> OptionSpecificationException(<span class="string">"option cannot have null default and non-null default value: "</span></pre></td></tr>
@@ -151,7 +151,7 @@
   <td class="src"><pre class="src">&nbsp;                    + annotation.method());</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;78</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;79</td>  <td class="nbHitsCovered"><a title="Line 79: Conditional coverage 100% (2/2).">&nbsp;163</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 79: Conditional coverage 100% (2/2).">        <span class="keyword">else</span> <span class="keyword">if</span> (annotation.defaultToNull())</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;79</td>  <td class="nbHitsCovered"><a title="Line 79: Conditional coverage 100% (2/2).">&nbsp;233</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 79: Conditional coverage 100% (2/2).">        <span class="keyword">else</span> <span class="keyword">if</span> (annotation.defaultToNull())</a></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;80</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        {</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;81</td>  <td class="nbHitsCovered">&nbsp;12</td>  <td class="src"><pre class="src">&nbsp;            optionSpecificationBuilder.setDefaultToNull(<span class="keyword">true</span>);</pre></td></tr>
@@ -170,17 +170,17 @@
   <td class="src"><pre class="src">&nbsp;            }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;90</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;91</td>  <td class="nbHitsCovered"><a title="Line 91: Conditional coverage 100% (2/2).">&nbsp;151</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 91: Conditional coverage 100% (2/2).">        <span class="keyword">else</span> <span class="keyword">if</span> (annotation.hasDefaultValue())</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;91</td>  <td class="nbHitsCovered"><a title="Line 91: Conditional coverage 100% (2/2).">&nbsp;221</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 91: Conditional coverage 100% (2/2).">        <span class="keyword">else</span> <span class="keyword">if</span> (annotation.hasDefaultValue())</a></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;92</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        {</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;93</td>  <td class="nbHitsCovered">&nbsp;15</td>  <td class="src"><pre class="src">&nbsp;            optionSpecificationBuilder.setDefaultValue(asList(annotation.defaultValue()));</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;94</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;95</td>  <td class="nbHitsCovered">&nbsp;163</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;95</td>  <td class="nbHitsCovered">&nbsp;233</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;96</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 31/01/12 20:49.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 1.9.4.1 on 26/02/12 14:22.</div>
 </body>
 </html>

@@ -29,9 +29,9 @@
 <a name="19" href="#19">19</a>  <em class="jxr_javadoccomment">     * @return An instance of the interface O which will present the parsed</em>
 <a name="20" href="#20">20</a>  <em class="jxr_javadoccomment">     *         arguments</em>
 <a name="21" href="#21">21</a>  <em class="jxr_javadoccomment">     * </em>
-<a name="22" href="#22">22</a>  <em class="jxr_javadoccomment">     * @throws CliValidationException</em>
+<a name="22" href="#22">22</a>  <em class="jxr_javadoccomment">     * @throws ArgumentValidationException the arguments do not meet the cli specification</em>
 <a name="23" href="#23">23</a>  <em class="jxr_javadoccomment">     */</em>
-<a name="24" href="#24">24</a>      O parseArguments(String... arguments) <strong class="jxr_keyword">throws</strong> CliValidationException;
+<a name="24" href="#24">24</a>      O parseArguments(String... arguments) <strong class="jxr_keyword">throws</strong> ArgumentValidationException;
 <a name="25" href="#25">25</a>  
 <a name="26" href="#26">26</a>      <em class="jxr_javadoccomment">/**</em>
 <a name="27" href="#27">27</a>  <em class="jxr_javadoccomment">     * Get a help message suitable for describing the options to the user</em>

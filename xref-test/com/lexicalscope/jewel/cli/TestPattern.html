@@ -10,30 +10,30 @@
 
 <a name="1" href="#1">1</a>   <strong class="jxr_keyword">package</strong> com.lexicalscope.jewel.cli;
 <a name="2" href="#2">2</a>   
-<a name="3" href="#3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.*;
-<a name="4" href="#4">4</a>   
-<a name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> java.util.List;
-<a name="6" href="#6">6</a>   
-<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> org.junit.Test;
-<a name="8" href="#8">8</a>   
-<a name="9" href="#9">9</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestPattern.html">TestPattern</a> {
-<a name="10" href="#10">10</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestPattern.html">TestStringPattern</a> {
-<a name="11" href="#11">11</a>          @Option(pattern = <span class="jxr_string">"[a-z]+"</span>) String getOption();
-<a name="12" href="#12">12</a>      }
-<a name="13" href="#13">13</a>  
-<a name="14" href="#14">14</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testStringPatternMismatch() {
-<a name="15" href="#15">15</a>          <strong class="jxr_keyword">try</strong> {
-<a name="16" href="#16">16</a>              CliFactory.parseArguments(TestStringPattern.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"--option"</span>, <span class="jxr_string">"ABC"</span>);
-<a name="17" href="#17">17</a>              fail();
-<a name="18" href="#18">18</a>          } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> CliValidationException e) {
-<a name="19" href="#19">19</a>              <strong class="jxr_keyword">final</strong> List&lt;ValidationFailure&gt; validationErrors = e.getValidationErrors();
-<a name="20" href="#20">20</a>              assertEquals(1, validationErrors.size());
-<a name="21" href="#21">21</a>              assertEquals(ValidationFailurePatternMismatch.<strong class="jxr_keyword">class</strong>, validationErrors.get(0).getClass());
-<a name="22" href="#22">22</a>              assertEquals(<span class="jxr_string">"Cannot match (ABC) to pattern: --option /[a-z]+/"</span>, validationErrors.get(0).getMessage());
+<a name="3" href="#3">3</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> com.lexicalscope.jewel.cli.ValidationFailureMatcher.validationError;
+<a name="4" href="#4">4</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.hamcrest.MatcherAssert.assertThat;
+<a name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.hamcrest.Matchers.contains;
+<a name="6" href="#6">6</a>   <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.fail;
+<a name="7" href="#7">7</a>   
+<a name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a name="9" href="#9">9</a>   
+<a name="10" href="#10">10</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestPattern.html">TestPattern</a> {
+<a name="11" href="#11">11</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestPattern.html">TestStringPattern</a> {
+<a name="12" href="#12">12</a>          @Option(pattern = <span class="jxr_string">"[a-z]+"</span>) String getOption();
+<a name="13" href="#13">13</a>      }
+<a name="14" href="#14">14</a>  
+<a name="15" href="#15">15</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testStringPatternMismatch() {
+<a name="16" href="#16">16</a>          <strong class="jxr_keyword">try</strong> {
+<a name="17" href="#17">17</a>              CliFactory.parseArguments(TestStringPattern.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"--option"</span>, <span class="jxr_string">"ABC"</span>);
+<a name="18" href="#18">18</a>              fail();
+<a name="19" href="#19">19</a>          } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> ArgumentValidationException e) {
+<a name="20" href="#20">20</a>              assertThat(e.getValidationFailures(), contains(validationError(
+<a name="21" href="#21">21</a>                      ValidationFailureType.PatternMismatch,
+<a name="22" href="#22">22</a>                      <span class="jxr_string">"Cannot match (ABC) to pattern: --option /[a-z]+/"</span>)));
 <a name="23" href="#23">23</a>          }
 <a name="24" href="#24">24</a>      }
 <a name="25" href="#25">25</a>  
-<a name="26" href="#26">26</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testStringPattern() <strong class="jxr_keyword">throws</strong> CliValidationException {
+<a name="26" href="#26">26</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testStringPattern() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
 <a name="27" href="#27">27</a>          CliFactory.parseArguments(TestStringPattern.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"--option"</span>, <span class="jxr_string">"abc"</span>);
 <a name="28" href="#28">28</a>      }
 <a name="29" href="#29">29</a>  }

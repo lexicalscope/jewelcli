@@ -35,7 +35,7 @@
 <a name="25" href="#25">25</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">interface</strong> <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.html">IParsingState</a> {
 <a name="26" href="#26">26</a>          <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.html">IParsingState</a> addValue(String value);
 <a name="27" href="#27">27</a>  
-<a name="28" href="#28">28</a>          <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.html">IParsingState</a> addOption(String option) <strong class="jxr_keyword">throws</strong> CliValidationException;
+<a name="28" href="#28">28</a>          <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.html">IParsingState</a> addOption(String option) <strong class="jxr_keyword">throws</strong> ArgumentValidationException;
 <a name="29" href="#29">29</a>      }
 <a name="30" href="#30">30</a>  
 <a name="31" href="#31">31</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.html">Initial</a> implements <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.html">IParsingState</a> {
@@ -58,7 +58,7 @@
 <a name="48" href="#48">48</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
 <a name="49" href="#49">49</a>          }
 <a name="50" href="#50">50</a>  
-<a name="51" href="#51">51</a>          @Override <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.html">IParsingState</a> addOption(<strong class="jxr_keyword">final</strong> String option) <strong class="jxr_keyword">throws</strong> CliValidationException {
+<a name="51" href="#51">51</a>          @Override <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.html">IParsingState</a> addOption(<strong class="jxr_keyword">final</strong> String option) <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
 <a name="52" href="#52">52</a>              <strong class="jxr_keyword">throw</strong> misplacedOption(option);
 <a name="53" href="#53">53</a>          }
 <a name="54" href="#54">54</a>      }
@@ -73,7 +73,7 @@
 <a name="63" href="#63">63</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>;
 <a name="64" href="#64">64</a>          }
 <a name="65" href="#65">65</a>  
-<a name="66" href="#66">66</a>          @Override <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.html">IParsingState</a> addOption(<strong class="jxr_keyword">final</strong> String option) <strong class="jxr_keyword">throws</strong> CliValidationException {
+<a name="66" href="#66">66</a>          @Override <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.html">IParsingState</a> addOption(<strong class="jxr_keyword">final</strong> String option) <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
 <a name="67" href="#67">67</a>              <strong class="jxr_keyword">throw</strong> misplacedOption(option);
 <a name="68" href="#68">68</a>          }
 <a name="69" href="#69">69</a>      }
@@ -112,7 +112,7 @@
 <a name="102" href="#102">102</a>         state = state.addValue(value);
 <a name="103" href="#103">103</a>     }
 <a name="104" href="#104">104</a> 
-<a name="105" href="#105">105</a>     <strong class="jxr_keyword">void</strong> addOption(<strong class="jxr_keyword">final</strong> String option) <strong class="jxr_keyword">throws</strong> CliValidationException
+<a name="105" href="#105">105</a>     <strong class="jxr_keyword">void</strong> addOption(<strong class="jxr_keyword">final</strong> String option) <strong class="jxr_keyword">throws</strong> ArgumentValidationException
 <a name="106" href="#106">106</a>     {
 <a name="107" href="#107">107</a>         state = state.addOption(option);
 <a name="108" href="#108">108</a>     }
@@ -124,8 +124,8 @@
 <a name="114" href="#114">114</a>                 <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;(unparsed));
 <a name="115" href="#115">115</a>     }
 <a name="116" href="#116">116</a> 
-<a name="117" href="#117">117</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../com/lexicalscope/jewel/cli/CliValidationException.html">CliValidationException</a> misplacedOption(<strong class="jxr_keyword">final</strong> String option) {
-<a name="118" href="#118">118</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/lexicalscope/jewel/cli/CliValidationException.html">CliValidationException</a>(<strong class="jxr_keyword">new</strong> <a href="../../../../com/lexicalscope/jewel/cli/ValidationFailureMisplacedOption.html">ValidationFailureMisplacedOption</a>(option));
+<a name="117" href="#117">117</a>     <strong class="jxr_keyword">private</strong> <a href="../../../../com/lexicalscope/jewel/cli/ArgumentValidationException.html">ArgumentValidationException</a> misplacedOption(<strong class="jxr_keyword">final</strong> String option) {
+<a name="118" href="#118">118</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../../com/lexicalscope/jewel/cli/ArgumentValidationException.html">ArgumentValidationException</a>(<strong class="jxr_keyword">new</strong> <a href="../../../../com/lexicalscope/jewel/cli/ValidationFailureMisplacedOption.html">ValidationFailureMisplacedOption</a>(option));
 <a name="119" href="#119">119</a>     }
 <a name="120" href="#120">120</a> 
 <a name="121" href="#121">121</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> addUnparsedValue(<strong class="jxr_keyword">final</strong> String value) {

@@ -14,11 +14,11 @@
 <a name="4" href="#4">4</a>   
 <a name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> org.junit.Test;
 <a name="6" href="#6">6</a>   
-<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.CliValidationException;
+<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.ArgumentValidationException;
 <a name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.CliFactory;
 <a name="9" href="#9">9</a>   
 <a name="10" href="#10">10</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/lexicalscope/jewel/cli/examples/TestSimpleExample.html">TestSimpleExample</a> {
-<a name="11" href="#11">11</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSimpleExample() <strong class="jxr_keyword">throws</strong> CliValidationException {
+<a name="11" href="#11">11</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSimpleExample() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
 <a name="12" href="#12">12</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../com/lexicalscope/jewel/cli/examples/SimpleExample.html">SimpleExample</a> result0 = CliFactory.parseArguments(SimpleExample.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> String[] { <span class="jxr_string">"--count"</span>, <span class="jxr_string">"3"</span> });
 <a name="13" href="#13">13</a>          assertEquals(3, result0.getCount());
 <a name="14" href="#14">14</a>      }

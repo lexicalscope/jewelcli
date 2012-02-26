@@ -31,7 +31,7 @@
 <a name="21" href="#21">21</a>  <em class="jxr_javadoccomment"> * </em>
 <a name="22" href="#22">22</a>  <em class="jxr_javadoccomment"> * @author tim</em>
 <a name="23" href="#23">23</a>  <em class="jxr_javadoccomment"> */</em>
-<a name="24" href="#24">24</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/lexicalscope/jewel/cli/HelpRequestedException.html">HelpRequestedException</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../com/lexicalscope/jewel/cli/CliValidationException.html">CliValidationException</a>
+<a name="24" href="#24">24</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../com/lexicalscope/jewel/cli/HelpRequestedException.html">HelpRequestedException</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../com/lexicalscope/jewel/cli/ArgumentValidationException.html">ArgumentValidationException</a>
 <a name="25" href="#25">25</a>  {
 <a name="26" href="#26">26</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 2760658691533137382L;
 <a name="27" href="#27">27</a>  
@@ -43,8 +43,8 @@
 <a name="33" href="#33">33</a>  <em class="jxr_javadoccomment">     */</em>
 <a name="34" href="#34">34</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/HelpRequestedException.html">HelpRequestedException</a>(<strong class="jxr_keyword">final</strong> OptionsSpecification&lt;?&gt; specification)
 <a name="35" href="#35">35</a>      {
-<a name="36" href="#36">36</a>          <strong class="jxr_keyword">super</strong>(specification.toString(), Arrays.&lt;ValidationFailure&gt;asList(<strong class="jxr_keyword">new</strong> ValidationFailureHelpRequested(
-<a name="37" href="#37">37</a>                  specification)));
+<a name="36" href="#36">36</a>          <strong class="jxr_keyword">super</strong>(specification.toString(),
+<a name="37" href="#37">37</a>                  Arrays.&lt;ValidationFailure&gt;asList(<strong class="jxr_keyword">new</strong> <a href="../../../../com/lexicalscope/jewel/cli/ValidationFailureHelpRequested.html">ValidationFailureHelpRequested</a>(specification)));
 <a name="38" href="#38">38</a>      }
 <a name="39" href="#39">39</a>  }
 </pre>

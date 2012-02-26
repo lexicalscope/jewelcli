@@ -17,12 +17,12 @@
 <a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> org.junit.Test;
 <a name="8" href="#8">8</a>   
 <a name="9" href="#9">9</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.UtilitiesForTesting;
-<a name="10" href="#10">10</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.CliValidationException;
+<a name="10" href="#10">10</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.ArgumentValidationException;
 <a name="11" href="#11">11</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.Cli;
 <a name="12" href="#12">12</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.CliFactory;
 <a name="13" href="#13">13</a>  
 <a name="14" href="#14">14</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../com/lexicalscope/jewel/cli/examples/TestRmExample.html">TestRmExample</a> {
-<a name="15" href="#15">15</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testRmExample() <strong class="jxr_keyword">throws</strong> CliValidationException {
+<a name="15" href="#15">15</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testRmExample() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
 <a name="16" href="#16">16</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../../com/lexicalscope/jewel/cli/examples/RmExample.html">RmExample</a> result0 = CliFactory.parseArguments(RmExample.<strong class="jxr_keyword">class</strong>, <strong class="jxr_keyword">new</strong> String[] { <span class="jxr_string">"-vrf"</span>, <span class="jxr_string">"./"</span> });
 <a name="17" href="#17">17</a>          assertTrue(result0.isRecursive());
 <a name="18" href="#18">18</a>          assertTrue(result0.isVerbose());
@@ -35,7 +35,7 @@
 <a name="25" href="#25">25</a>          assertEquals(<strong class="jxr_keyword">new</strong> File(<span class="jxr_string">"./"</span>), result0.getFiles().get(0));
 <a name="26" href="#26">26</a>      }
 <a name="27" href="#27">27</a>  
-<a name="28" href="#28">28</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testRmExampleHelp() <strong class="jxr_keyword">throws</strong> CliValidationException {
+<a name="28" href="#28">28</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testRmExampleHelp() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
 <a name="29" href="#29">29</a>          <strong class="jxr_keyword">final</strong> Cli&lt;RmExample&gt; result0 = CliFactory.createCli(RmExample.<strong class="jxr_keyword">class</strong>);
 <a name="30" href="#30">30</a>          assertEquals(
 <a name="31" href="#31">31</a>                  UtilitiesForTesting.joinLines(
