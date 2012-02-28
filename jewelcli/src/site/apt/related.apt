@@ -51,6 +51,12 @@ Alternatives
   * {{{http://jcommander.org/} jcommander}}
   
   * {{{http://ritopt.sourceforge.net/} ritopt}}
+
+  * {{{http://software.clapper.org/argot/} argot (scala)}}
+
+  * {{{https://github.com/jstrachan/scopt} scopt (scala)}}
+
+  * {{{https://github.com/alexy/optional} optional (scala, multiple github forks)}}
   
 Reviews, blog posts, etc
 
