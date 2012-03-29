@@ -32,7 +32,7 @@ import com.lexicalscope.fluentreflection.TypeToken;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 class ConvertTypeOfObject<T> implements Converter<Object, T> {
@@ -49,24 +49,29 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
         this.specification = specification;
         this.reflectedKlass = reflectedKlass;
         klass = reflectedKlass.classUnderReflection();
+
+        if(klass.equals(void.class))
+        {
+            throw new AssertionError("cannot convert to void");
+        }
     }
 
     /**
      * If T is assignable from value, then return the value. Otherwise tries to
      * create an instance of this type using the provided argument.
-     * 
+     *
      * Will first attempt to find a static method called "valueOf" which returns
      * this type and takes a single argument compatible with the type of the
      * value given. If that is not found, tries to find a constructor which
      * takes an argument of the type of the given value. Otherwise throws a
      * ClassCastException
-     * 
+     *
      * @param value
      *            the value to be converted
-     * 
+     *
      * @throws ClassCastException
      *             if the types cannot be converted
-     * 
+     *
      * @return the converted value
      */
     @Override public T convert(final Object value) {
@@ -181,7 +186,7 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
             final OptionSpecification specification,
             final ReflectedMethod method) {
         ReflectedClass<T> methodType;
-        if (isSetter().matches(method))
+        if (isMutator().matches(method))
         {
             methodType = (ReflectedClass<T>) method.argumentTypes().get(0);
         }

@@ -28,10 +28,10 @@ class InstanceOptionsSpecificationParser<O> {
     OptionsSpecification<O> buildOptionsSpecification() {
         return new OptionsSpecificationImpl<O>(klass,
                 convert(
-                        klass.methods(isSetter().and(annotatedWith(Option.class))),
+                        klass.methods(isMutator().and(annotatedWith(Option.class))),
                         new ConvertSetterMethodToParsedOptionSpecification(klass)),
                 convert(
-                        klass.methods(isSetter().and(annotatedWith(Unparsed.class))),
+                        klass.methods(isMutator().and(annotatedWith(Unparsed.class))),
                         new ConvertUnparsedSetterMethodToUnparsedOptionSpecification(klass)));
     }
 
