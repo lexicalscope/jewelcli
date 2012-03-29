@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.8743545611015491" branch-rate="0.8716814159292036" lines-covered="1524" lines-valid="1743" branches-covered="591" branches-valid="678" complexity="1.4533799533799534" version="1.9.4.1" timestamp="1330473435147">
+<coverage line-rate="0.8739255014326648" branch-rate="0.8705882352941177" lines-covered="1525" lines-valid="1745" branches-covered="592" branches-valid="680" complexity="1.4557109557109558" version="1.9.4.1" timestamp="1333063534758">
 	<sources>
 		<source>/home/tim/workspace/jewelcli-parent/jewelcli/src/main/java</source>
 		<source>--source</source>
@@ -49,16 +49,16 @@
 				</class>
 			</classes>
 		</package>
-		<package name="com.lexicalscope.jewel.cli" line-rate="0.8591385331781141" branch-rate="0.850828729281768" complexity="1.5046082949308757">
+		<package name="com.lexicalscope.jewel.cli" line-rate="0.8583042973286876" branch-rate="0.8489010989010989" complexity="1.5092165898617511">
 			<classes>
 				<class name="com.lexicalscope.jewel.cli.AbstractCliImpl" filename="com/lexicalscope/jewel/cli/AbstractCliImpl.java" line-rate="0.8181818181818182" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;Lcom/lexicalscope/jewel/cli/OptionsSpecification;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="27" hits="107" branch="false"/>
-								<line number="28" hits="107" branch="false"/>
-								<line number="29" hits="107" branch="false"/>
-								<line number="30" hits="107" branch="false"/>
+								<line number="27" hits="109" branch="false"/>
+								<line number="28" hits="109" branch="false"/>
+								<line number="29" hits="109" branch="false"/>
+								<line number="30" hits="109" branch="false"/>
 							</lines>
 						</method>
 						<method name="describeTo" signature="(Lcom/lexicalscope/jewel/cli/HelpMessage;)V" line-rate="0.0" branch-rate="1.0">
@@ -79,20 +79,20 @@
 						</method>
 						<method name="parseArguments" signature="([Ljava/lang/String;)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="33" hits="101" branch="false"/>
-								<line number="36" hits="99" branch="false"/>
-								<line number="39" hits="71" branch="false"/>
+								<line number="33" hits="103" branch="false"/>
+								<line number="36" hits="101" branch="false"/>
+								<line number="39" hits="73" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="27" hits="107" branch="false"/>
-						<line number="28" hits="107" branch="false"/>
-						<line number="29" hits="107" branch="false"/>
-						<line number="30" hits="107" branch="false"/>
-						<line number="33" hits="101" branch="false"/>
-						<line number="36" hits="99" branch="false"/>
-						<line number="39" hits="71" branch="false"/>
+						<line number="27" hits="109" branch="false"/>
+						<line number="28" hits="109" branch="false"/>
+						<line number="29" hits="109" branch="false"/>
+						<line number="30" hits="109" branch="false"/>
+						<line number="33" hits="103" branch="false"/>
+						<line number="36" hits="101" branch="false"/>
+						<line number="39" hits="73" branch="false"/>
 						<line number="47" hits="6" branch="false"/>
 						<line number="51" hits="1" branch="false"/>
 						<line number="55" hits="0" branch="false"/>
@@ -103,14 +103,14 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="25" hits="278" branch="false"/>
-								<line number="26" hits="278" branch="false"/>
-								<line number="27" hits="278" branch="false"/>
+								<line number="25" hits="282" branch="false"/>
+								<line number="26" hits="282" branch="false"/>
+								<line number="27" hits="282" branch="false"/>
 							</lines>
 						</method>
 						<method name="createParsedOptionSpecificationFrom" signature="(Lcom/lexicalscope/fluentreflection/ReflectedMethod;)Lcom/lexicalscope/jewel/cli/ParsedOptionSpecification;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="36" hits="244" branch="false"/>
+								<line number="36" hits="246" branch="false"/>
 							</lines>
 						</method>
 						<method name="createUnparsedOptionSpecificationFrom" signature="(Lcom/lexicalscope/fluentreflection/ReflectedMethod;)Lcom/lexicalscope/jewel/cli/UnparsedOptionSpecification;" line-rate="1.0" branch-rate="1.0">
@@ -120,61 +120,61 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="25" hits="278" branch="false"/>
-						<line number="26" hits="278" branch="false"/>
-						<line number="27" hits="278" branch="false"/>
+						<line number="25" hits="282" branch="false"/>
+						<line number="26" hits="282" branch="false"/>
+						<line number="27" hits="282" branch="false"/>
 						<line number="32" hits="30" branch="false"/>
-						<line number="36" hits="244" branch="false"/>
+						<line number="36" hits="246" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.AbstractOptionAdapter" filename="com/lexicalscope/jewel/cli/AbstractOptionAdapter.java" line-rate="1.0" branch-rate="1.0" complexity="2.142857142857143">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;Lcom/lexicalscope/fluentreflection/ReflectedMethod;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="35" hits="274" branch="false"/>
-								<line number="36" hits="274" branch="false"/>
-								<line number="37" hits="274" branch="false"/>
-								<line number="38" hits="274" branch="true" condition-coverage="100% (2/2)">
+								<line number="35" hits="276" branch="false"/>
+								<line number="36" hits="276" branch="false"/>
+								<line number="37" hits="276" branch="false"/>
+								<line number="38" hits="276" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="40" hits="24" branch="false"/>
-								<line number="44" hits="250" branch="false"/>
-								<line number="46" hits="274" branch="false"/>
+								<line number="40" hits="25" branch="false"/>
+								<line number="44" hits="251" branch="false"/>
+								<line number="46" hits="276" branch="false"/>
 							</lines>
 						</method>
 						<method name="addPrefix" signature="(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="68" hits="656" branch="false"/>
+								<line number="68" hits="658" branch="false"/>
 							</lines>
 						</method>
 						<method name="correspondingOptionalityMethod" signature="()Lcom/lexicalscope/fluentreflection/ReflectedMethod;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="53" hits="738" branch="true" condition-coverage="100% (2/2)">
+								<line number="53" hits="742" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="55" hits="82" branch="false"/>
-								<line number="58" hits="656" branch="false"/>
-								<line number="61" hits="656" branch="true" condition-coverage="100% (2/2)">
+								<line number="55" hits="84" branch="false"/>
+								<line number="58" hits="658" branch="false"/>
+								<line number="61" hits="658" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="62" hits="204" branch="false"/>
-								<line number="64" hits="452" branch="false"/>
+								<line number="64" hits="454" branch="false"/>
 							</lines>
 						</method>
 						<method name="getValueType" signature="()Lcom/lexicalscope/fluentreflection/ReflectedClass;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="76" hits="1303" branch="true" condition-coverage="100% (2/2)">
+								<line number="76" hits="1317" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="81" hits="1303" branch="true" condition-coverage="100% (2/2)">
+								<line number="81" hits="1317" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
@@ -183,7 +183,7 @@
 						</method>
 						<method name="hasDefaultValue" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="87" hits="274" branch="true" condition-coverage="100% (4/4)">
+								<line number="87" hits="276" branch="true" condition-coverage="100% (4/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
@@ -193,55 +193,55 @@
 						</method>
 						<method name="isMultiValued" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="72" hits="1852" branch="false"/>
+								<line number="72" hits="1872" branch="false"/>
 							</lines>
 						</method>
 						<method name="method" signature="()Lcom/lexicalscope/fluentreflection/ReflectedMethod;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="49" hits="846" branch="false"/>
+								<line number="49" hits="852" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="35" hits="274" branch="false"/>
-						<line number="36" hits="274" branch="false"/>
-						<line number="37" hits="274" branch="false"/>
-						<line number="38" hits="274" branch="true" condition-coverage="100% (2/2)">
+						<line number="35" hits="276" branch="false"/>
+						<line number="36" hits="276" branch="false"/>
+						<line number="37" hits="276" branch="false"/>
+						<line number="38" hits="276" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="40" hits="24" branch="false"/>
-						<line number="44" hits="250" branch="false"/>
-						<line number="46" hits="274" branch="false"/>
-						<line number="49" hits="846" branch="false"/>
-						<line number="53" hits="738" branch="true" condition-coverage="100% (2/2)">
+						<line number="40" hits="25" branch="false"/>
+						<line number="44" hits="251" branch="false"/>
+						<line number="46" hits="276" branch="false"/>
+						<line number="49" hits="852" branch="false"/>
+						<line number="53" hits="742" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="55" hits="82" branch="false"/>
-						<line number="58" hits="656" branch="false"/>
-						<line number="61" hits="656" branch="true" condition-coverage="100% (2/2)">
+						<line number="55" hits="84" branch="false"/>
+						<line number="58" hits="658" branch="false"/>
+						<line number="61" hits="658" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="62" hits="204" branch="false"/>
-						<line number="64" hits="452" branch="false"/>
-						<line number="68" hits="656" branch="false"/>
-						<line number="72" hits="1852" branch="false"/>
-						<line number="76" hits="1303" branch="true" condition-coverage="100% (2/2)">
+						<line number="64" hits="454" branch="false"/>
+						<line number="68" hits="658" branch="false"/>
+						<line number="72" hits="1872" branch="false"/>
+						<line number="76" hits="1317" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="81" hits="1303" branch="true" condition-coverage="100% (2/2)">
+						<line number="81" hits="1317" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="87" hits="274" branch="true" condition-coverage="100% (4/4)">
+						<line number="87" hits="276" branch="true" condition-coverage="100% (4/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
@@ -253,16 +253,16 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/jewel/cli/OptionAdapter;)V" line-rate="0.8333333333333334" branch-rate="0.8">
 							<lines>
-								<line number="29" hits="274" branch="false"/>
-								<line number="30" hits="274" branch="false"/>
-								<line number="32" hits="274" branch="true" condition-coverage="100% (4/4)">
+								<line number="29" hits="276" branch="false"/>
+								<line number="30" hits="276" branch="false"/>
+								<line number="32" hits="276" branch="true" condition-coverage="100% (4/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="34" hits="1" branch="false"/>
-								<line number="37" hits="273" branch="true" condition-coverage="100% (2/2)">
+								<line number="37" hits="275" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
@@ -274,14 +274,14 @@
 								</line>
 								<line number="41" hits="8" branch="false"/>
 								<line number="45" hits="5" branch="false"/>
-								<line number="48" hits="260" branch="true" condition-coverage="100% (2/2)">
+								<line number="48" hits="262" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="50" hits="17" branch="false"/>
-								<line number="54" hits="243" branch="false"/>
-								<line number="57" hits="273" branch="true" condition-coverage="66% (4/6)">
+								<line number="54" hits="245" branch="false"/>
+								<line number="57" hits="275" branch="true" condition-coverage="66% (4/6)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="50%"/>
@@ -289,38 +289,38 @@
 									</conditions>
 								</line>
 								<line number="59" hits="0" branch="false"/>
-								<line number="62" hits="273" branch="true" condition-coverage="50% (1/2)">
+								<line number="62" hits="275" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
 								<line number="64" hits="0" branch="false"/>
-								<line number="67" hits="273" branch="true" condition-coverage="50% (1/2)">
+								<line number="67" hits="275" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
 								<line number="69" hits="0" branch="false"/>
-								<line number="72" hits="273" branch="false"/>
+								<line number="72" hits="275" branch="false"/>
 							</lines>
 						</method>
 						<method name="allowedThisManyValues" signature="(I)Z" line-rate="1.0" branch-rate="0.9545454545454546">
 							<lines>
-								<line number="121" hits="129" branch="true" condition-coverage="100% (4/4)">
+								<line number="121" hits="131" branch="true" condition-coverage="100% (4/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="123" hits="18" branch="false"/>
-								<line number="125" hits="111" branch="true" condition-coverage="100% (6/6)">
+								<line number="125" hits="113" branch="true" condition-coverage="100% (6/6)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
 										<condition number="2" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="127" hits="63" branch="false"/>
+								<line number="127" hits="65" branch="false"/>
 								<line number="129" hits="48" branch="true" condition-coverage="100% (4/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
@@ -415,17 +415,17 @@
 						</method>
 						<method name="exactly" signature="()I" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="149" hits="281" branch="false"/>
+								<line number="149" hits="283" branch="false"/>
 							</lines>
 						</method>
 						<method name="getCanonicalIdentifier" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="101" hits="461" branch="false"/>
+								<line number="101" hits="463" branch="false"/>
 							</lines>
 						</method>
 						<method name="getDefaultValue" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="75" hits="666" branch="false"/>
+								<line number="75" hits="674" branch="false"/>
 							</lines>
 						</method>
 						<method name="getDescription" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
@@ -435,22 +435,22 @@
 						</method>
 						<method name="getMethod" signature="()Lcom/lexicalscope/fluentreflection/ReflectedMethod;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="105" hits="845" branch="false"/>
+								<line number="105" hits="851" branch="false"/>
 							</lines>
 						</method>
 						<method name="getOptionalityMethod" signature="()Lcom/lexicalscope/fluentreflection/ReflectedMethod;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="109" hits="738" branch="false"/>
+								<line number="109" hits="742" branch="false"/>
 							</lines>
 						</method>
 						<method name="getType" signature="()Ljava/lang/Class;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="87" hits="1303" branch="false"/>
+								<line number="87" hits="1317" branch="false"/>
 							</lines>
 						</method>
 						<method name="hasDefaultValue" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="79" hits="632" branch="true" condition-coverage="100% (4/4)">
+								<line number="79" hits="640" branch="true" condition-coverage="100% (4/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
@@ -460,7 +460,7 @@
 						</method>
 						<method name="hasExactCount" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="153" hits="325" branch="true" condition-coverage="100% (2/2)">
+								<line number="153" hits="327" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
@@ -474,12 +474,12 @@
 						</method>
 						<method name="isMultiValued" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="91" hits="536" branch="false"/>
+								<line number="91" hits="542" branch="false"/>
 							</lines>
 						</method>
 						<method name="isOptional" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="95" hits="617" branch="true" condition-coverage="100% (6/6)">
+								<line number="95" hits="621" branch="true" condition-coverage="100% (6/6)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
@@ -490,7 +490,7 @@
 						</method>
 						<method name="maximum" signature="()I" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="141" hits="866" branch="false"/>
+								<line number="141" hits="872" branch="false"/>
 							</lines>
 						</method>
 						<method name="maximumArgumentConsumption" signature="()I" line-rate="0.8571428571428571" branch-rate="0.8333333333333334">
@@ -518,22 +518,22 @@
 						</method>
 						<method name="minimum" signature="()I" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="145" hits="322" branch="false"/>
+								<line number="145" hits="324" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
 						<line number="25" hits="173" branch="false"/>
-						<line number="29" hits="274" branch="false"/>
-						<line number="30" hits="274" branch="false"/>
-						<line number="32" hits="274" branch="true" condition-coverage="100% (4/4)">
+						<line number="29" hits="276" branch="false"/>
+						<line number="30" hits="276" branch="false"/>
+						<line number="32" hits="276" branch="true" condition-coverage="100% (4/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="34" hits="1" branch="false"/>
-						<line number="37" hits="273" branch="true" condition-coverage="100% (2/2)">
+						<line number="37" hits="275" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
@@ -545,14 +545,14 @@
 						</line>
 						<line number="41" hits="8" branch="false"/>
 						<line number="45" hits="5" branch="false"/>
-						<line number="48" hits="260" branch="true" condition-coverage="100% (2/2)">
+						<line number="48" hits="262" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="50" hits="17" branch="false"/>
-						<line number="54" hits="243" branch="false"/>
-						<line number="57" hits="273" branch="true" condition-coverage="66% (4/6)">
+						<line number="54" hits="245" branch="false"/>
+						<line number="57" hits="275" branch="true" condition-coverage="66% (4/6)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="50%"/>
@@ -560,56 +560,56 @@
 							</conditions>
 						</line>
 						<line number="59" hits="0" branch="false"/>
-						<line number="62" hits="273" branch="true" condition-coverage="50% (1/2)">
+						<line number="62" hits="275" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
 						<line number="64" hits="0" branch="false"/>
-						<line number="67" hits="273" branch="true" condition-coverage="50% (1/2)">
+						<line number="67" hits="275" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
 						<line number="69" hits="0" branch="false"/>
-						<line number="72" hits="273" branch="false"/>
-						<line number="75" hits="666" branch="false"/>
-						<line number="79" hits="632" branch="true" condition-coverage="100% (4/4)">
+						<line number="72" hits="275" branch="false"/>
+						<line number="75" hits="674" branch="false"/>
+						<line number="79" hits="640" branch="true" condition-coverage="100% (4/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="83" hits="115" branch="false"/>
-						<line number="87" hits="1303" branch="false"/>
-						<line number="91" hits="536" branch="false"/>
-						<line number="95" hits="617" branch="true" condition-coverage="100% (6/6)">
+						<line number="87" hits="1317" branch="false"/>
+						<line number="91" hits="542" branch="false"/>
+						<line number="95" hits="621" branch="true" condition-coverage="100% (6/6)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
 								<condition number="2" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="101" hits="461" branch="false"/>
-						<line number="105" hits="845" branch="false"/>
-						<line number="109" hits="738" branch="false"/>
+						<line number="101" hits="463" branch="false"/>
+						<line number="105" hits="851" branch="false"/>
+						<line number="109" hits="742" branch="false"/>
 						<line number="113" hits="173" branch="false"/>
 						<line number="117" hits="40" branch="false"/>
-						<line number="121" hits="129" branch="true" condition-coverage="100% (4/4)">
+						<line number="121" hits="131" branch="true" condition-coverage="100% (4/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="123" hits="18" branch="false"/>
-						<line number="125" hits="111" branch="true" condition-coverage="100% (6/6)">
+						<line number="125" hits="113" branch="true" condition-coverage="100% (6/6)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
 								<condition number="2" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="127" hits="63" branch="false"/>
+						<line number="127" hits="65" branch="false"/>
 						<line number="129" hits="48" branch="true" condition-coverage="100% (4/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
@@ -633,10 +633,10 @@
 							</conditions>
 						</line>
 						<line number="137" hits="11" branch="false"/>
-						<line number="141" hits="866" branch="false"/>
-						<line number="145" hits="322" branch="false"/>
-						<line number="149" hits="281" branch="false"/>
-						<line number="153" hits="325" branch="true" condition-coverage="100% (2/2)">
+						<line number="141" hits="872" branch="false"/>
+						<line number="145" hits="324" branch="false"/>
+						<line number="149" hits="283" branch="false"/>
+						<line number="153" hits="327" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
@@ -731,9 +731,9 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="86" hits="128" branch="false"/>
-								<line number="87" hits="128" branch="false"/>
-								<line number="89" hits="128" branch="false"/>
+								<line number="86" hits="130" branch="false"/>
+								<line number="87" hits="130" branch="false"/>
+								<line number="89" hits="130" branch="false"/>
 							</lines>
 						</method>
 						<method name="access$000" signature="(Lcom/lexicalscope/jewel/cli/ArgumentCollectionBuilder;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
@@ -746,7 +746,7 @@
 						</method>
 						<method name="access$200" signature="(Lcom/lexicalscope/jewel/cli/ArgumentCollectionBuilder;)Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="24" hits="441" branch="false"/>
+								<line number="24" hits="447" branch="false"/>
 							</lines>
 						</method>
 						<method name="access$202" signature="(Lcom/lexicalscope/jewel/cli/ArgumentCollectionBuilder;Ljava/util/List;)Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
@@ -759,15 +759,15 @@
 						</method>
 						<method name="addFirstValueForOption" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="126" hits="133" branch="false"/>
-								<line number="127" hits="133" branch="false"/>
-								<line number="128" hits="133" branch="false"/>
+								<line number="126" hits="135" branch="false"/>
+								<line number="127" hits="135" branch="false"/>
+								<line number="128" hits="135" branch="false"/>
 							</lines>
 						</method>
 						<method name="addOption" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="107" hits="138" branch="false"/>
-								<line number="108" hits="133" branch="false"/>
+								<line number="107" hits="140" branch="false"/>
+								<line number="108" hits="135" branch="false"/>
 							</lines>
 						</method>
 						<method name="addUnparsedValue" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
@@ -778,18 +778,18 @@
 						</method>
 						<method name="addValue" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="102" hits="169" branch="false"/>
-								<line number="103" hits="169" branch="false"/>
+								<line number="102" hits="171" branch="false"/>
+								<line number="103" hits="171" branch="false"/>
 							</lines>
 						</method>
 						<method name="getParsedArguments" signature="()Lcom/lexicalscope/jewel/cli/ArgumentCollection;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="112" hits="123" branch="false"/>
+								<line number="112" hits="125" branch="false"/>
 							</lines>
 						</method>
 						<method name="isExpectingUnparsedOptions" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="97" hits="136" branch="false"/>
+								<line number="97" hits="138" branch="false"/>
 							</lines>
 						</method>
 						<method name="misplacedOption" signature="(Ljava/lang/String;)Lcom/lexicalscope/jewel/cli/ArgumentValidationException;" line-rate="1.0" branch-rate="1.0">
@@ -805,24 +805,24 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="24" hits="441" branch="false"/>
-						<line number="86" hits="128" branch="false"/>
-						<line number="87" hits="128" branch="false"/>
-						<line number="89" hits="128" branch="false"/>
+						<line number="24" hits="447" branch="false"/>
+						<line number="86" hits="130" branch="false"/>
+						<line number="87" hits="130" branch="false"/>
+						<line number="89" hits="130" branch="false"/>
 						<line number="93" hits="6" branch="false"/>
 						<line number="94" hits="6" branch="false"/>
-						<line number="97" hits="136" branch="false"/>
-						<line number="102" hits="169" branch="false"/>
-						<line number="103" hits="169" branch="false"/>
-						<line number="107" hits="138" branch="false"/>
-						<line number="108" hits="133" branch="false"/>
-						<line number="112" hits="123" branch="false"/>
+						<line number="97" hits="138" branch="false"/>
+						<line number="102" hits="171" branch="false"/>
+						<line number="103" hits="171" branch="false"/>
+						<line number="107" hits="140" branch="false"/>
+						<line number="108" hits="135" branch="false"/>
+						<line number="112" hits="125" branch="false"/>
 						<line number="118" hits="5" branch="false"/>
 						<line number="122" hits="30" branch="false"/>
 						<line number="123" hits="30" branch="false"/>
-						<line number="126" hits="133" branch="false"/>
-						<line number="127" hits="133" branch="false"/>
-						<line number="128" hits="133" branch="false"/>
+						<line number="126" hits="135" branch="false"/>
+						<line number="127" hits="135" branch="false"/>
+						<line number="128" hits="135" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.ArgumentCollectionBuilder$1" filename="com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.java" line-rate="1.0" branch-rate="1.0" complexity="1.0952380952380953">
@@ -845,12 +845,12 @@
 						</method>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/jewel/cli/ArgumentCollectionBuilder;Lcom/lexicalscope/jewel/cli/ArgumentCollectionBuilder$1;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="31" hits="256" branch="false"/>
+								<line number="31" hits="260" branch="false"/>
 							</lines>
 						</method>
 						<method name="addOption" signature="(Ljava/lang/String;)Lcom/lexicalscope/jewel/cli/ArgumentCollectionBuilder$IParsingState;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="37" hits="86" branch="false"/>
+								<line number="37" hits="88" branch="false"/>
 							</lines>
 						</method>
 						<method name="addValue" signature="(Ljava/lang/String;)Lcom/lexicalscope/jewel/cli/ArgumentCollectionBuilder$IParsingState;" line-rate="1.0" branch-rate="1.0">
@@ -860,9 +860,9 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="31" hits="256" branch="false"/>
+						<line number="31" hits="260" branch="false"/>
 						<line number="33" hits="12" branch="false"/>
-						<line number="37" hits="86" branch="false"/>
+						<line number="37" hits="88" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.ArgumentCollectionBuilder$NoOptions" filename="com/lexicalscope/jewel/cli/ArgumentCollectionBuilder.java" line-rate="1.0" branch-rate="1.0" complexity="1.0952380952380953">
@@ -899,9 +899,9 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/jewel/cli/ArgumentCollectionBuilder;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="72" hits="133" branch="false"/>
-								<line number="73" hits="133" branch="false"/>
-								<line number="74" hits="133" branch="false"/>
+								<line number="72" hits="135" branch="false"/>
+								<line number="73" hits="135" branch="false"/>
+								<line number="74" hits="135" branch="false"/>
 							</lines>
 						</method>
 						<method name="addOption" signature="(Ljava/lang/String;)Lcom/lexicalscope/jewel/cli/ArgumentCollectionBuilder$IParsingState;" line-rate="1.0" branch-rate="1.0">
@@ -911,17 +911,17 @@
 						</method>
 						<method name="addValue" signature="(Ljava/lang/String;)Lcom/lexicalscope/jewel/cli/ArgumentCollectionBuilder$IParsingState;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="77" hits="139" branch="false"/>
-								<line number="78" hits="139" branch="false"/>
+								<line number="77" hits="141" branch="false"/>
+								<line number="78" hits="141" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="72" hits="133" branch="false"/>
-						<line number="73" hits="133" branch="false"/>
-						<line number="74" hits="133" branch="false"/>
-						<line number="77" hits="139" branch="false"/>
-						<line number="78" hits="139" branch="false"/>
+						<line number="72" hits="135" branch="false"/>
+						<line number="73" hits="135" branch="false"/>
+						<line number="74" hits="135" branch="false"/>
+						<line number="77" hits="141" branch="false"/>
+						<line number="78" hits="141" branch="false"/>
 						<line number="82" hits="47" branch="false"/>
 					</lines>
 				</class>
@@ -959,30 +959,30 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ljava/util/Map;Ljava/util/List;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="30" hits="201" branch="false"/>
-								<line number="31" hits="201" branch="false"/>
-								<line number="32" hits="201" branch="false"/>
-								<line number="33" hits="201" branch="false"/>
+								<line number="30" hits="205" branch="false"/>
+								<line number="31" hits="205" branch="false"/>
+								<line number="32" hits="205" branch="false"/>
+								<line number="33" hits="205" branch="false"/>
 							</lines>
 						</method>
 						<method name="access$000" signature="(Lcom/lexicalscope/jewel/cli/ArgumentCollectionImpl;)Ljava/util/Map;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="24" hits="112" branch="false"/>
+								<line number="24" hits="114" branch="false"/>
 							</lines>
 						</method>
 						<method name="containsAny" signature="(Ljava/util/List;)Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="78" hits="89" branch="true" condition-coverage="100% (2/2)">
+								<line number="78" hits="91" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="80" hits="90" branch="true" condition-coverage="100% (2/2)">
+								<line number="80" hits="92" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="82" hits="78" branch="false"/>
+								<line number="82" hits="80" branch="false"/>
 								<line number="85" hits="11" branch="false"/>
 							</lines>
 						</method>
@@ -993,23 +993,23 @@
 						</method>
 						<method name="getArgument" signature="(Ljava/util/List;)Lcom/lexicalscope/jewel/cli/Argument;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="89" hits="135" branch="true" condition-coverage="100% (2/2)">
+								<line number="89" hits="137" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="90" hits="145" branch="true" condition-coverage="100% (2/2)">
+								<line number="90" hits="147" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="91" hits="79" branch="false"/>
+								<line number="91" hits="81" branch="false"/>
 								<line number="94" hits="56" branch="false"/>
 							</lines>
 						</method>
 						<method name="getUnparsed" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="42" hits="149" branch="false"/>
+								<line number="42" hits="151" branch="false"/>
 							</lines>
 						</method>
 						<method name="getValues" signature="(Ljava/util/List;)Ljava/util/List;" line-rate="0.75" branch-rate="0.5">
@@ -1044,47 +1044,47 @@
 						</method>
 						<method name="iterator" signature="()Ljava/util/Iterator;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="47" hits="112" branch="false"/>
+								<line number="47" hits="114" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="24" hits="112" branch="false"/>
-						<line number="30" hits="201" branch="false"/>
-						<line number="31" hits="201" branch="false"/>
-						<line number="32" hits="201" branch="false"/>
-						<line number="33" hits="201" branch="false"/>
+						<line number="24" hits="114" branch="false"/>
+						<line number="30" hits="205" branch="false"/>
+						<line number="31" hits="205" branch="false"/>
+						<line number="32" hits="205" branch="false"/>
+						<line number="33" hits="205" branch="false"/>
 						<line number="37" hits="0" branch="true" condition-coverage="0% (0/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="0%"/>
 							</conditions>
 						</line>
-						<line number="42" hits="149" branch="false"/>
-						<line number="47" hits="112" branch="false"/>
+						<line number="42" hits="151" branch="false"/>
+						<line number="47" hits="114" branch="false"/>
 						<line number="70" hits="9" branch="false"/>
-						<line number="78" hits="89" branch="true" condition-coverage="100% (2/2)">
+						<line number="78" hits="91" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="80" hits="90" branch="true" condition-coverage="100% (2/2)">
+						<line number="80" hits="92" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="82" hits="78" branch="false"/>
+						<line number="82" hits="80" branch="false"/>
 						<line number="85" hits="11" branch="false"/>
-						<line number="89" hits="135" branch="true" condition-coverage="100% (2/2)">
+						<line number="89" hits="137" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="90" hits="145" branch="true" condition-coverage="100% (2/2)">
+						<line number="90" hits="147" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="91" hits="79" branch="false"/>
+						<line number="91" hits="81" branch="false"/>
 						<line number="94" hits="56" branch="false"/>
 						<line number="99" hits="3" branch="false"/>
 						<line number="104" hits="3" branch="true" condition-coverage="50% (1/2)">
@@ -1105,23 +1105,23 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/jewel/cli/ArgumentCollectionImpl;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="48" hits="112" branch="false"/>
+								<line number="48" hits="114" branch="false"/>
 							</lines>
 						</method>
 						<method name="hasNext" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="52" hits="341" branch="false"/>
+								<line number="52" hits="347" branch="false"/>
 							</lines>
 						</method>
 						<method name="next" signature="()Lcom/lexicalscope/jewel/cli/Argument;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="57" hits="118" branch="false"/>
-								<line number="58" hits="118" branch="false"/>
+								<line number="57" hits="120" branch="false"/>
+								<line number="58" hits="120" branch="false"/>
 							</lines>
 						</method>
 						<method name="next" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="47" hits="230" branch="false"/>
+								<line number="47" hits="234" branch="false"/>
 							</lines>
 						</method>
 						<method name="remove" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -1132,11 +1132,11 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="47" hits="230" branch="false"/>
-						<line number="48" hits="112" branch="false"/>
-						<line number="52" hits="341" branch="false"/>
-						<line number="57" hits="118" branch="false"/>
-						<line number="58" hits="118" branch="false"/>
+						<line number="47" hits="234" branch="false"/>
+						<line number="48" hits="114" branch="false"/>
+						<line number="52" hits="347" branch="false"/>
+						<line number="57" hits="120" branch="false"/>
+						<line number="58" hits="120" branch="false"/>
 						<line number="63" hits="0" branch="false"/>
 						<line number="64" hits="0" branch="false"/>
 					</lines>
@@ -1145,30 +1145,30 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/util/List;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="15" hits="197" branch="false"/>
-								<line number="16" hits="197" branch="false"/>
-								<line number="17" hits="197" branch="false"/>
-								<line number="18" hits="197" branch="false"/>
+								<line number="15" hits="201" branch="false"/>
+								<line number="16" hits="201" branch="false"/>
+								<line number="17" hits="201" branch="false"/>
+								<line number="18" hits="201" branch="false"/>
 							</lines>
 						</method>
 						<method name="getOptionName" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="25" hits="329" branch="false"/>
+								<line number="25" hits="335" branch="false"/>
 							</lines>
 						</method>
 						<method name="getValues" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="33" hits="193" branch="false"/>
+								<line number="33" hits="197" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="15" hits="197" branch="false"/>
-						<line number="16" hits="197" branch="false"/>
-						<line number="17" hits="197" branch="false"/>
-						<line number="18" hits="197" branch="false"/>
-						<line number="25" hits="329" branch="false"/>
-						<line number="33" hits="193" branch="false"/>
+						<line number="15" hits="201" branch="false"/>
+						<line number="16" hits="201" branch="false"/>
+						<line number="17" hits="201" branch="false"/>
+						<line number="18" hits="201" branch="false"/>
+						<line number="25" hits="335" branch="false"/>
+						<line number="33" hits="197" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.ArgumentParser" filename="com/lexicalscope/jewel/cli/ArgumentParser.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
@@ -1181,33 +1181,33 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="3" hits="128" branch="false"/>
-								<line number="5" hits="128" branch="false"/>
+								<line number="3" hits="130" branch="false"/>
+								<line number="5" hits="130" branch="false"/>
 							</lines>
 						</method>
 						<method name="add" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="0.875">
 							<lines>
-								<line number="21" hits="304" branch="true" condition-coverage="75% (3/4)">
+								<line number="21" hits="308" branch="true" condition-coverage="75% (3/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="23" hits="136" branch="true" condition-coverage="100% (2/2)">
+								<line number="23" hits="138" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="25" hits="117" branch="true" condition-coverage="100% (2/2)">
+								<line number="25" hits="119" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="27" hits="111" branch="false"/>
+								<line number="27" hits="113" branch="false"/>
 								<line number="31" hits="6" branch="false"/>
 								<line number="36" hits="19" branch="false"/>
-								<line number="41" hits="168" branch="false"/>
-								<line number="43" hits="299" branch="false"/>
+								<line number="41" hits="170" branch="false"/>
+								<line number="43" hits="303" branch="false"/>
 							</lines>
 						</method>
 						<method name="addConjoinedOptions" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
@@ -1223,13 +1223,13 @@
 						</method>
 						<method name="addOption" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="78" hits="138" branch="false"/>
-								<line number="79" hits="133" branch="false"/>
+								<line number="78" hits="140" branch="false"/>
+								<line number="79" hits="135" branch="false"/>
 							</lines>
 						</method>
 						<method name="addOptionAndValue" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="0.75">
 							<lines>
-								<line number="55" hits="111" branch="true" condition-coverage="100% (2/2)">
+								<line number="55" hits="113" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
@@ -1243,35 +1243,35 @@
 								</line>
 								<line number="62" hits="1" branch="false"/>
 								<line number="64" hits="1" branch="false"/>
-								<line number="67" hits="110" branch="false"/>
-								<line number="69" hits="109" branch="false"/>
+								<line number="67" hits="112" branch="false"/>
+								<line number="69" hits="111" branch="false"/>
 							</lines>
 						</method>
 						<method name="addValue" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="73" hits="169" branch="false"/>
-								<line number="74" hits="169" branch="false"/>
+								<line number="73" hits="171" branch="false"/>
+								<line number="74" hits="171" branch="false"/>
 							</lines>
 						</method>
 						<method name="getParsedArguments" signature="()Lcom/lexicalscope/jewel/cli/ArgumentCollection;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="83" hits="123" branch="false"/>
+								<line number="83" hits="125" branch="false"/>
 							</lines>
 						</method>
 						<method name="parseArguments" signature="([Ljava/lang/String;)Lcom/lexicalscope/jewel/cli/ArgumentCollection;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="12" hits="426" branch="true" condition-coverage="100% (2/2)">
+								<line number="12" hits="432" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="14" hits="304" branch="false"/>
-								<line number="16" hits="122" branch="false"/>
+								<line number="14" hits="308" branch="false"/>
+								<line number="16" hits="124" branch="false"/>
 							</lines>
 						</method>
 						<method name="startsWithDash" signature="(Ljava/lang/String;)Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="88" hits="304" branch="true" condition-coverage="100% (4/4)">
+								<line number="88" hits="308" branch="true" condition-coverage="100% (4/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
@@ -1281,41 +1281,41 @@
 						</method>
 						<method name="startsWithDoubleDash" signature="(Ljava/lang/String;)Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="93" hits="136" branch="false"/>
+								<line number="93" hits="138" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="3" hits="128" branch="false"/>
-						<line number="5" hits="128" branch="false"/>
-						<line number="12" hits="426" branch="true" condition-coverage="100% (2/2)">
+						<line number="3" hits="130" branch="false"/>
+						<line number="5" hits="130" branch="false"/>
+						<line number="12" hits="432" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="14" hits="304" branch="false"/>
-						<line number="16" hits="122" branch="false"/>
-						<line number="21" hits="304" branch="true" condition-coverage="75% (3/4)">
+						<line number="14" hits="308" branch="false"/>
+						<line number="16" hits="124" branch="false"/>
+						<line number="21" hits="308" branch="true" condition-coverage="75% (3/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="23" hits="136" branch="true" condition-coverage="100% (2/2)">
+						<line number="23" hits="138" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="25" hits="117" branch="true" condition-coverage="100% (2/2)">
+						<line number="25" hits="119" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="27" hits="111" branch="false"/>
+						<line number="27" hits="113" branch="false"/>
 						<line number="31" hits="6" branch="false"/>
 						<line number="36" hits="19" branch="false"/>
-						<line number="41" hits="168" branch="false"/>
-						<line number="43" hits="299" branch="false"/>
+						<line number="41" hits="170" branch="false"/>
+						<line number="43" hits="303" branch="false"/>
 						<line number="47" hits="43" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
@@ -1323,7 +1323,7 @@
 						</line>
 						<line number="49" hits="27" branch="false"/>
 						<line number="51" hits="16" branch="false"/>
-						<line number="55" hits="111" branch="true" condition-coverage="100% (2/2)">
+						<line number="55" hits="113" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
@@ -1337,20 +1337,20 @@
 						</line>
 						<line number="62" hits="1" branch="false"/>
 						<line number="64" hits="1" branch="false"/>
-						<line number="67" hits="110" branch="false"/>
-						<line number="69" hits="109" branch="false"/>
-						<line number="73" hits="169" branch="false"/>
-						<line number="74" hits="169" branch="false"/>
-						<line number="78" hits="138" branch="false"/>
-						<line number="79" hits="133" branch="false"/>
-						<line number="83" hits="123" branch="false"/>
-						<line number="88" hits="304" branch="true" condition-coverage="100% (4/4)">
+						<line number="67" hits="112" branch="false"/>
+						<line number="69" hits="111" branch="false"/>
+						<line number="73" hits="171" branch="false"/>
+						<line number="74" hits="171" branch="false"/>
+						<line number="78" hits="140" branch="false"/>
+						<line number="79" hits="135" branch="false"/>
+						<line number="83" hits="125" branch="false"/>
+						<line number="88" hits="308" branch="true" condition-coverage="100% (4/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="93" hits="136" branch="false"/>
+						<line number="93" hits="138" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.ArgumentPresenter" filename="com/lexicalscope/jewel/cli/ArgumentPresenter.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
@@ -1363,32 +1363,32 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/jewel/cli/OptionsSpecification;Lcom/lexicalscope/jewel/cli/ArgumentPresentingStrategy;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="15" hits="71" branch="false"/>
-								<line number="16" hits="71" branch="false"/>
-								<line number="17" hits="71" branch="false"/>
-								<line number="18" hits="71" branch="false"/>
+								<line number="15" hits="73" branch="false"/>
+								<line number="16" hits="73" branch="false"/>
+								<line number="17" hits="73" branch="false"/>
+								<line number="18" hits="73" branch="false"/>
 							</lines>
 						</method>
 						<method name="presentArguments" signature="(Lcom/lexicalscope/jewel/cli/ArgumentCollection;)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="21" hits="71" branch="false"/>
-								<line number="23" hits="71" branch="false"/>
-								<line number="25" hits="71" branch="true" condition-coverage="100% (2/2)">
+								<line number="21" hits="73" branch="false"/>
+								<line number="23" hits="73" branch="false"/>
+								<line number="25" hits="73" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="26" hits="135" branch="false"/>
-								<line number="28" hits="135" branch="false"/>
-								<line number="30" hits="135" branch="false"/>
-								<line number="31" hits="135" branch="true" condition-coverage="100% (2/2)">
+								<line number="26" hits="137" branch="false"/>
+								<line number="28" hits="137" branch="false"/>
+								<line number="30" hits="137" branch="false"/>
+								<line number="31" hits="137" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="32" hits="79" branch="false"/>
-								<line number="34" hits="135" branch="false"/>
-								<line number="36" hits="71" branch="true" condition-coverage="100% (2/2)">
+								<line number="32" hits="81" branch="false"/>
+								<line number="34" hits="137" branch="false"/>
+								<line number="36" hits="73" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
@@ -1402,76 +1402,76 @@
 									</conditions>
 								</line>
 								<line number="47" hits="8" branch="false"/>
-								<line number="54" hits="71" branch="false"/>
-								<line number="55" hits="67" branch="false"/>
+								<line number="54" hits="73" branch="false"/>
+								<line number="55" hits="69" branch="false"/>
 							</lines>
 						</method>
 						<method name="putDefaultInMap" signature="(Ljava/util/Map;Lcom/lexicalscope/jewel/cli/OptionSpecification;Lcom/lexicalscope/jewel/cli/ConvertTypeOfObject;)V" line-rate="1.0" branch-rate="0.875">
 							<lines>
-								<line number="83" hits="151" branch="true" condition-coverage="100% (4/4)">
+								<line number="83" hits="153" branch="true" condition-coverage="100% (4/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="85" hits="22" branch="false"/>
-								<line number="89" hits="129" branch="true" condition-coverage="75% (3/4)">
+								<line number="89" hits="131" branch="true" condition-coverage="75% (3/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
 								<line number="91" hits="6" branch="false"/>
-								<line number="95" hits="151" branch="false"/>
+								<line number="95" hits="153" branch="false"/>
 							</lines>
 						</method>
 						<method name="putValuesInMap" signature="(Ljava/util/Map;Lcom/lexicalscope/jewel/cli/OptionSpecification;Lcom/lexicalscope/jewel/cli/ConvertTypeOfObject;Ljava/util/List;)V" line-rate="1.0" branch-rate="0.8333333333333334">
 							<lines>
-								<line number="63" hits="87" branch="true" condition-coverage="100% (2/2)">
+								<line number="63" hits="89" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="65" hits="16" branch="false"/>
-								<line number="69" hits="71" branch="true" condition-coverage="100% (2/2)">
+								<line number="69" hits="73" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="71" hits="49" branch="false"/>
+								<line number="71" hits="51" branch="false"/>
 								<line number="74" hits="22" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
 								<line number="75" hits="22" branch="false"/>
-								<line number="77" hits="87" branch="false"/>
+								<line number="77" hits="89" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="15" hits="71" branch="false"/>
-						<line number="16" hits="71" branch="false"/>
-						<line number="17" hits="71" branch="false"/>
-						<line number="18" hits="71" branch="false"/>
-						<line number="21" hits="71" branch="false"/>
-						<line number="23" hits="71" branch="false"/>
-						<line number="25" hits="71" branch="true" condition-coverage="100% (2/2)">
+						<line number="15" hits="73" branch="false"/>
+						<line number="16" hits="73" branch="false"/>
+						<line number="17" hits="73" branch="false"/>
+						<line number="18" hits="73" branch="false"/>
+						<line number="21" hits="73" branch="false"/>
+						<line number="23" hits="73" branch="false"/>
+						<line number="25" hits="73" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="26" hits="135" branch="false"/>
-						<line number="28" hits="135" branch="false"/>
-						<line number="30" hits="135" branch="false"/>
-						<line number="31" hits="135" branch="true" condition-coverage="100% (2/2)">
+						<line number="26" hits="137" branch="false"/>
+						<line number="28" hits="137" branch="false"/>
+						<line number="30" hits="137" branch="false"/>
+						<line number="31" hits="137" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="32" hits="79" branch="false"/>
-						<line number="34" hits="135" branch="false"/>
-						<line number="36" hits="71" branch="true" condition-coverage="100% (2/2)">
+						<line number="32" hits="81" branch="false"/>
+						<line number="34" hits="137" branch="false"/>
+						<line number="36" hits="73" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
@@ -1485,42 +1485,42 @@
 							</conditions>
 						</line>
 						<line number="47" hits="8" branch="false"/>
-						<line number="54" hits="71" branch="false"/>
-						<line number="55" hits="67" branch="false"/>
-						<line number="63" hits="87" branch="true" condition-coverage="100% (2/2)">
+						<line number="54" hits="73" branch="false"/>
+						<line number="55" hits="69" branch="false"/>
+						<line number="63" hits="89" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="65" hits="16" branch="false"/>
-						<line number="69" hits="71" branch="true" condition-coverage="100% (2/2)">
+						<line number="69" hits="73" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="71" hits="49" branch="false"/>
+						<line number="71" hits="51" branch="false"/>
 						<line number="74" hits="22" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
 						<line number="75" hits="22" branch="false"/>
-						<line number="77" hits="87" branch="false"/>
-						<line number="83" hits="151" branch="true" condition-coverage="100% (4/4)">
+						<line number="77" hits="89" branch="false"/>
+						<line number="83" hits="153" branch="true" condition-coverage="100% (4/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="85" hits="22" branch="false"/>
-						<line number="89" hits="129" branch="true" condition-coverage="75% (3/4)">
+						<line number="89" hits="131" branch="true" condition-coverage="75% (3/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
 						<line number="91" hits="6" branch="false"/>
-						<line number="95" hits="151" branch="false"/>
+						<line number="95" hits="153" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.ArgumentPresentingStrategy" filename="com/lexicalscope/jewel/cli/ArgumentPresentingStrategy.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
@@ -1711,67 +1711,67 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/jewel/cli/OptionsSpecification;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="31" hits="110" branch="false"/>
-								<line number="32" hits="110" branch="false"/>
-								<line number="34" hits="110" branch="false"/>
-								<line number="35" hits="110" branch="false"/>
-								<line number="37" hits="110" branch="false"/>
-								<line number="38" hits="110" branch="false"/>
+								<line number="31" hits="112" branch="false"/>
+								<line number="32" hits="112" branch="false"/>
+								<line number="34" hits="112" branch="false"/>
+								<line number="35" hits="112" branch="false"/>
+								<line number="37" hits="112" branch="false"/>
+								<line number="38" hits="112" branch="false"/>
 							</lines>
 						</method>
 						<method name="checkAndAddValues" signature="(Lcom/lexicalscope/jewel/cli/ParsedOptionSpecification;Ljava/lang/String;Ljava/util/ArrayList;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="135" hits="96" branch="true" condition-coverage="100% (2/2)">
+								<line number="135" hits="98" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="137" hits="88" branch="true" condition-coverage="100% (2/2)">
+								<line number="137" hits="90" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="139" hits="3" branch="false"/>
-								<line number="142" hits="96" branch="false"/>
-								<line number="143" hits="96" branch="false"/>
+								<line number="142" hits="98" branch="false"/>
+								<line number="143" hits="98" branch="false"/>
 							</lines>
 						</method>
 						<method name="patternMatches" signature="(Lcom/lexicalscope/jewel/cli/ParsedOptionSpecification;Ljava/lang/String;)Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="147" hits="88" branch="false"/>
+								<line number="147" hits="90" branch="false"/>
 							</lines>
 						</method>
 						<method name="validateArguments" signature="(Lcom/lexicalscope/jewel/cli/ArgumentCollection;)Lcom/lexicalscope/jewel/cli/ArgumentCollection;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="45" hits="110" branch="false"/>
-								<line number="47" hits="110" branch="false"/>
-								<line number="48" hits="224" branch="true" condition-coverage="100% (2/2)">
+								<line number="45" hits="112" branch="false"/>
+								<line number="47" hits="112" branch="false"/>
+								<line number="48" hits="228" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="50" hits="116" branch="false"/>
-								<line number="51" hits="116" branch="true" condition-coverage="100% (2/2)">
+								<line number="50" hits="118" branch="false"/>
+								<line number="51" hits="118" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="53" hits="116" branch="true" condition-coverage="100% (2/2)">
+								<line number="53" hits="118" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="55" hits="4" branch="false"/>
-								<line number="59" hits="112" branch="false"/>
-								<line number="61" hits="112" branch="true" condition-coverage="100% (2/2)">
+								<line number="59" hits="114" branch="false"/>
+								<line number="61" hits="114" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="63" hits="2" branch="false"/>
-								<line number="66" hits="110" branch="false"/>
-								<line number="67" hits="110" branch="false"/>
-								<line number="69" hits="110" branch="true" condition-coverage="100% (4/4)">
+								<line number="66" hits="112" branch="false"/>
+								<line number="67" hits="112" branch="false"/>
+								<line number="69" hits="112" branch="true" condition-coverage="100% (4/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
@@ -1781,34 +1781,34 @@
 								<line number="72" hits="12" branch="false"/>
 								<line number="73" hits="12" branch="false"/>
 								<line number="74" hits="12" branch="false"/>
-								<line number="77" hits="98" branch="false"/>
-								<line number="80" hits="110" branch="true" condition-coverage="100% (2/2)">
+								<line number="77" hits="100" branch="false"/>
+								<line number="80" hits="112" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="82" hits="14" branch="false"/>
-								<line number="86" hits="96" branch="false"/>
-								<line number="92" hits="114" branch="false"/>
-								<line number="94" hits="108" branch="true" condition-coverage="100% (2/2)">
+								<line number="86" hits="98" branch="false"/>
+								<line number="92" hits="116" branch="false"/>
+								<line number="94" hits="110" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="96" hits="80" branch="true" condition-coverage="100% (2/2)">
+								<line number="96" hits="82" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="98" hits="9" branch="false"/>
-								<line number="102" hits="108" branch="false"/>
-								<line number="104" hits="108" branch="false"/>
-								<line number="106" hits="78" branch="false"/>
+								<line number="102" hits="110" branch="false"/>
+								<line number="104" hits="110" branch="false"/>
+								<line number="106" hits="80" branch="false"/>
 							</lines>
 						</method>
 						<method name="validateUnparsedOptions" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="111" hits="108" branch="true" condition-coverage="100% (2/2)">
+								<line number="111" hits="110" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
@@ -1827,52 +1827,52 @@
 								</line>
 								<line number="121" hits="2" branch="false"/>
 								<line number="123" hits="26" branch="false"/>
-								<line number="124" hits="82" branch="true" condition-coverage="100% (2/2)">
+								<line number="124" hits="84" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="126" hits="1" branch="false"/>
-								<line number="128" hits="108" branch="false"/>
+								<line number="128" hits="110" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="31" hits="110" branch="false"/>
-						<line number="32" hits="110" branch="false"/>
-						<line number="34" hits="110" branch="false"/>
-						<line number="35" hits="110" branch="false"/>
-						<line number="37" hits="110" branch="false"/>
-						<line number="38" hits="110" branch="false"/>
-						<line number="45" hits="110" branch="false"/>
-						<line number="47" hits="110" branch="false"/>
-						<line number="48" hits="224" branch="true" condition-coverage="100% (2/2)">
+						<line number="31" hits="112" branch="false"/>
+						<line number="32" hits="112" branch="false"/>
+						<line number="34" hits="112" branch="false"/>
+						<line number="35" hits="112" branch="false"/>
+						<line number="37" hits="112" branch="false"/>
+						<line number="38" hits="112" branch="false"/>
+						<line number="45" hits="112" branch="false"/>
+						<line number="47" hits="112" branch="false"/>
+						<line number="48" hits="228" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="50" hits="116" branch="false"/>
-						<line number="51" hits="116" branch="true" condition-coverage="100% (2/2)">
+						<line number="50" hits="118" branch="false"/>
+						<line number="51" hits="118" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="53" hits="116" branch="true" condition-coverage="100% (2/2)">
+						<line number="53" hits="118" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="55" hits="4" branch="false"/>
-						<line number="59" hits="112" branch="false"/>
-						<line number="61" hits="112" branch="true" condition-coverage="100% (2/2)">
+						<line number="59" hits="114" branch="false"/>
+						<line number="61" hits="114" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="63" hits="2" branch="false"/>
-						<line number="66" hits="110" branch="false"/>
-						<line number="67" hits="110" branch="false"/>
-						<line number="69" hits="110" branch="true" condition-coverage="100% (4/4)">
+						<line number="66" hits="112" branch="false"/>
+						<line number="67" hits="112" branch="false"/>
+						<line number="69" hits="112" branch="true" condition-coverage="100% (4/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
@@ -1882,30 +1882,30 @@
 						<line number="72" hits="12" branch="false"/>
 						<line number="73" hits="12" branch="false"/>
 						<line number="74" hits="12" branch="false"/>
-						<line number="77" hits="98" branch="false"/>
-						<line number="80" hits="110" branch="true" condition-coverage="100% (2/2)">
+						<line number="77" hits="100" branch="false"/>
+						<line number="80" hits="112" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="82" hits="14" branch="false"/>
-						<line number="86" hits="96" branch="false"/>
-						<line number="92" hits="114" branch="false"/>
-						<line number="94" hits="108" branch="true" condition-coverage="100% (2/2)">
+						<line number="86" hits="98" branch="false"/>
+						<line number="92" hits="116" branch="false"/>
+						<line number="94" hits="110" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="96" hits="80" branch="true" condition-coverage="100% (2/2)">
+						<line number="96" hits="82" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="98" hits="9" branch="false"/>
-						<line number="102" hits="108" branch="false"/>
-						<line number="104" hits="108" branch="false"/>
-						<line number="106" hits="78" branch="false"/>
-						<line number="111" hits="108" branch="true" condition-coverage="100% (2/2)">
+						<line number="102" hits="110" branch="false"/>
+						<line number="104" hits="110" branch="false"/>
+						<line number="106" hits="80" branch="false"/>
+						<line number="111" hits="110" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
@@ -1924,27 +1924,27 @@
 						</line>
 						<line number="121" hits="2" branch="false"/>
 						<line number="123" hits="26" branch="false"/>
-						<line number="124" hits="82" branch="true" condition-coverage="100% (2/2)">
+						<line number="124" hits="84" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="126" hits="1" branch="false"/>
-						<line number="128" hits="108" branch="false"/>
-						<line number="135" hits="96" branch="true" condition-coverage="100% (2/2)">
+						<line number="128" hits="110" branch="false"/>
+						<line number="135" hits="98" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="137" hits="88" branch="true" condition-coverage="100% (2/2)">
+						<line number="137" hits="90" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="139" hits="3" branch="false"/>
-						<line number="142" hits="96" branch="false"/>
-						<line number="143" hits="96" branch="false"/>
-						<line number="147" hits="88" branch="false"/>
+						<line number="142" hits="98" branch="false"/>
+						<line number="143" hits="98" branch="false"/>
+						<line number="147" hits="90" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.Cli" filename="com/lexicalscope/jewel/cli/Cli.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
@@ -1962,101 +1962,101 @@
 						</method>
 						<method name="createCli" signature="(Ljava/lang/Class;)Lcom/lexicalscope/jewel/cli/Cli;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="28" hits="85" branch="false"/>
+								<line number="28" hits="86" branch="false"/>
 							</lines>
 						</method>
 						<method name="createCliUsingInstance" signature="(Ljava/lang/Object;)Lcom/lexicalscope/jewel/cli/Cli;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="46" hits="7" branch="false"/>
+								<line number="46" hits="8" branch="false"/>
 							</lines>
 						</method>
 						<method name="parseArguments" signature="(Ljava/lang/Class;[Ljava/lang/String;)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="67" hits="73" branch="false"/>
+								<line number="67" hits="74" branch="false"/>
 							</lines>
 						</method>
 						<method name="parseArgumentsUsingInstance" signature="(Ljava/lang/Object;[Ljava/lang/String;)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="87" hits="6" branch="false"/>
+								<line number="87" hits="7" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
 						<line number="10" hits="0" branch="false"/>
-						<line number="28" hits="85" branch="false"/>
-						<line number="46" hits="7" branch="false"/>
-						<line number="67" hits="73" branch="false"/>
-						<line number="87" hits="6" branch="false"/>
+						<line number="28" hits="86" branch="false"/>
+						<line number="46" hits="8" branch="false"/>
+						<line number="67" hits="74" branch="false"/>
+						<line number="87" hits="7" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.CliInstanceImpl" filename="com/lexicalscope/jewel/cli/CliInstanceImpl.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ljava/lang/Object;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="25" hits="7" branch="false"/>
-								<line number="26" hits="7" branch="false"/>
+								<line number="25" hits="8" branch="false"/>
+								<line number="26" hits="8" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Ljava/lang/Object;Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="29" hits="7" branch="false"/>
-								<line number="30" hits="7" branch="false"/>
-								<line number="31" hits="7" branch="false"/>
+								<line number="29" hits="8" branch="false"/>
+								<line number="30" hits="8" branch="false"/>
+								<line number="31" hits="8" branch="false"/>
 							</lines>
 						</method>
 						<method name="argumentPresenter" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;Lcom/lexicalscope/jewel/cli/OptionsSpecification;)Lcom/lexicalscope/jewel/cli/ArgumentPresenterImpl;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="40" hits="5" branch="false"/>
+								<line number="40" hits="6" branch="false"/>
 							</lines>
 						</method>
 						<method name="createOptionSpecification" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)Lcom/lexicalscope/jewel/cli/OptionsSpecification;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="34" hits="7" branch="false"/>
+								<line number="34" hits="8" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="25" hits="7" branch="false"/>
-						<line number="26" hits="7" branch="false"/>
-						<line number="29" hits="7" branch="false"/>
-						<line number="30" hits="7" branch="false"/>
-						<line number="31" hits="7" branch="false"/>
-						<line number="34" hits="7" branch="false"/>
-						<line number="40" hits="5" branch="false"/>
+						<line number="25" hits="8" branch="false"/>
+						<line number="26" hits="8" branch="false"/>
+						<line number="29" hits="8" branch="false"/>
+						<line number="30" hits="8" branch="false"/>
+						<line number="31" hits="8" branch="false"/>
+						<line number="34" hits="8" branch="false"/>
+						<line number="40" hits="6" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.CliInterfaceImpl" filename="com/lexicalscope/jewel/cli/CliInterfaceImpl.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="27" hits="101" branch="false"/>
-								<line number="28" hits="100" branch="false"/>
+								<line number="27" hits="102" branch="false"/>
+								<line number="28" hits="101" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Ljava/lang/Class;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="23" hits="101" branch="false"/>
-								<line number="24" hits="100" branch="false"/>
+								<line number="23" hits="102" branch="false"/>
+								<line number="24" hits="101" branch="false"/>
 							</lines>
 						</method>
 						<method name="argumentPresenter" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;Lcom/lexicalscope/jewel/cli/OptionsSpecification;)Lcom/lexicalscope/jewel/cli/ArgumentPresenterImpl;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="37" hits="66" branch="false"/>
+								<line number="37" hits="67" branch="false"/>
 							</lines>
 						</method>
 						<method name="createOptionSpecification" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)Lcom/lexicalscope/jewel/cli/OptionsSpecification;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="31" hits="101" branch="false"/>
+								<line number="31" hits="102" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="23" hits="101" branch="false"/>
-						<line number="24" hits="100" branch="false"/>
-						<line number="27" hits="101" branch="false"/>
-						<line number="28" hits="100" branch="false"/>
-						<line number="31" hits="101" branch="false"/>
-						<line number="37" hits="66" branch="false"/>
+						<line number="23" hits="102" branch="false"/>
+						<line number="24" hits="101" branch="false"/>
+						<line number="27" hits="102" branch="false"/>
+						<line number="28" hits="101" branch="false"/>
+						<line number="31" hits="102" branch="false"/>
+						<line number="37" hits="67" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.CliSpecification" filename="com/lexicalscope/jewel/cli/CliSpecification.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
@@ -2075,356 +2075,368 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="26" hits="153" branch="false"/>
-								<line number="27" hits="153" branch="false"/>
+								<line number="26" hits="154" branch="false"/>
+								<line number="27" hits="154" branch="false"/>
 							</lines>
 						</method>
 						<method name="convert" signature="(Lcom/lexicalscope/fluentreflection/ReflectedMethod;)Lcom/lexicalscope/jewel/cli/ParsedOptionSpecification;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="30" hits="222" branch="false"/>
+								<line number="30" hits="223" branch="false"/>
 							</lines>
 						</method>
 						<method name="convert" signature="(Ljava/lang/Object;)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="21" hits="181" branch="false"/>
+								<line number="21" hits="182" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="21" hits="181" branch="false"/>
-						<line number="26" hits="153" branch="false"/>
-						<line number="27" hits="153" branch="false"/>
-						<line number="30" hits="222" branch="false"/>
+						<line number="21" hits="182" branch="false"/>
+						<line number="26" hits="154" branch="false"/>
+						<line number="27" hits="154" branch="false"/>
+						<line number="30" hits="223" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.ConvertSetterMethodToParsedOptionSpecification" filename="com/lexicalscope/jewel/cli/ConvertSetterMethodToParsedOptionSpecification.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="26" hits="7" branch="false"/>
-								<line number="27" hits="7" branch="false"/>
+								<line number="26" hits="8" branch="false"/>
+								<line number="27" hits="8" branch="false"/>
 							</lines>
 						</method>
 						<method name="convert" signature="(Lcom/lexicalscope/fluentreflection/ReflectedMethod;)Lcom/lexicalscope/jewel/cli/ParsedOptionSpecification;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="30" hits="22" branch="false"/>
+								<line number="30" hits="23" branch="false"/>
 							</lines>
 						</method>
 						<method name="convert" signature="(Ljava/lang/Object;)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="21" hits="22" branch="false"/>
+								<line number="21" hits="23" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="21" hits="22" branch="false"/>
-						<line number="26" hits="7" branch="false"/>
-						<line number="27" hits="7" branch="false"/>
-						<line number="30" hits="22" branch="false"/>
+						<line number="21" hits="23" branch="false"/>
+						<line number="26" hits="8" branch="false"/>
+						<line number="27" hits="8" branch="false"/>
+						<line number="30" hits="23" branch="false"/>
 					</lines>
 				</class>
-				<class name="com.lexicalscope.jewel.cli.ConvertTypeOfObject" filename="com/lexicalscope/jewel/cli/ConvertTypeOfObject.java" line-rate="0.8709677419354839" branch-rate="0.8055555555555556" complexity="4.5">
+				<class name="com.lexicalscope.jewel.cli.ConvertTypeOfObject" filename="com/lexicalscope/jewel/cli/ConvertTypeOfObject.java" line-rate="0.859375" branch-rate="0.7894736842105263" complexity="4.7">
 					<methods>
-						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/jewel/cli/ValidationErrorBuilder;Lcom/lexicalscope/jewel/cli/OptionSpecification;Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="1.0" branch-rate="1.0">
+						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/jewel/cli/ValidationErrorBuilder;Lcom/lexicalscope/jewel/cli/OptionSpecification;Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="0.875" branch-rate="0.5">
 							<lines>
-								<line number="47" hits="193" branch="false"/>
-								<line number="48" hits="193" branch="false"/>
-								<line number="49" hits="193" branch="false"/>
-								<line number="50" hits="193" branch="false"/>
-								<line number="51" hits="193" branch="false"/>
-								<line number="52" hits="193" branch="false"/>
+								<line number="47" hits="195" branch="false"/>
+								<line number="48" hits="195" branch="false"/>
+								<line number="49" hits="195" branch="false"/>
+								<line number="50" hits="195" branch="false"/>
+								<line number="51" hits="195" branch="false"/>
+								<line number="53" hits="195" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="55" hits="0" branch="false"/>
+								<line number="57" hits="195" branch="false"/>
 							</lines>
 						</method>
 						<method name="convert" signature="(Ljava/lang/Object;)Ljava/lang/Object;" line-rate="0.8571428571428571" branch-rate="0.7857142857142857">
 							<lines>
-								<line number="73" hits="153" branch="true" condition-coverage="100% (2/2)">
+								<line number="78" hits="155" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="74" hits="12" branch="false"/>
-								<line number="75" hits="141" branch="true" condition-coverage="75% (3/4)">
+								<line number="79" hits="12" branch="false"/>
+								<line number="80" hits="143" branch="true" condition-coverage="75% (3/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="76" hits="34" branch="false"/>
-								<line number="77" hits="107" branch="true" condition-coverage="100% (2/2)">
+								<line number="81" hits="34" branch="false"/>
+								<line number="82" hits="109" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="78" hits="32" branch="false"/>
-								<line number="79" hits="75" branch="true" condition-coverage="50% (1/2)">
+								<line number="83" hits="34" branch="false"/>
+								<line number="84" hits="75" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="80" hits="0" branch="false"/>
-								<line number="81" hits="75" branch="true" condition-coverage="50% (1/2)">
+								<line number="85" hits="0" branch="false"/>
+								<line number="86" hits="75" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="82" hits="0" branch="false"/>
-								<line number="86" hits="75" branch="true" condition-coverage="100% (2/2)">
+								<line number="87" hits="0" branch="false"/>
+								<line number="91" hits="75" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="87" hits="20" branch="false"/>
-								<line number="89" hits="55" branch="false"/>
-								<line number="92" hits="75" branch="false"/>
+								<line number="92" hits="20" branch="false"/>
+								<line number="94" hits="55" branch="false"/>
+								<line number="97" hits="75" branch="false"/>
 							</lines>
 						</method>
 						<method name="convertIterable" signature="(Ljava/lang/Object;)Ljava/lang/Object;" line-rate="1.0" branch-rate="0.8333333333333334">
 							<lines>
-								<line number="157" hits="34" branch="false"/>
-								<line number="160" hits="34" branch="false"/>
-								<line number="166" hits="34" branch="true" condition-coverage="75% (3/4)">
+								<line number="162" hits="34" branch="false"/>
+								<line number="165" hits="34" branch="false"/>
+								<line number="171" hits="34" branch="true" condition-coverage="75% (3/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="167" hits="31" branch="false"/>
-								<line number="168" hits="3" branch="true" condition-coverage="100% (2/2)">
+								<line number="172" hits="31" branch="false"/>
+								<line number="173" hits="3" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="169" hits="1" branch="false"/>
-								<line number="172" hits="2" branch="false"/>
+								<line number="174" hits="1" branch="false"/>
+								<line number="177" hits="2" branch="false"/>
 							</lines>
 						</method>
 						<method name="convertValueTo" signature="(Ljava/lang/Object;Lcom/lexicalscope/fluentreflection/ReflectedClass;)Ljava/lang/Object;" line-rate="0.7692307692307693" branch-rate="0.7857142857142857">
 							<lines>
-								<line number="98" hits="75" branch="false"/>
-								<line number="102" hits="75" branch="true" condition-coverage="100% (2/2)">
+								<line number="103" hits="75" branch="false"/>
+								<line number="107" hits="75" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="103" hits="45" branch="false"/>
-								<line number="106" hits="30" branch="false"/>
-								<line number="109" hits="30" branch="true" condition-coverage="100% (2/2)">
+								<line number="108" hits="45" branch="false"/>
+								<line number="111" hits="30" branch="false"/>
+								<line number="114" hits="30" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="110" hits="23" branch="false"/>
-								<line number="113" hits="7" branch="false"/>
-								<line number="116" hits="7" branch="true" condition-coverage="100% (2/2)">
+								<line number="115" hits="23" branch="false"/>
+								<line number="118" hits="7" branch="false"/>
+								<line number="121" hits="7" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="117" hits="1" branch="false"/>
-								<line number="120" hits="6" branch="true" condition-coverage="50% (2/4)">
+								<line number="122" hits="1" branch="false"/>
+								<line number="125" hits="6" branch="true" condition-coverage="50% (2/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 										<condition number="1" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="122" hits="6" branch="false"/>
-								<line number="123" hits="6" branch="true" condition-coverage="100% (2/2)">
+								<line number="127" hits="6" branch="false"/>
+								<line number="128" hits="6" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="124" hits="4" branch="false"/>
-								<line number="128" hits="2" branch="false"/>
-								<line number="131" hits="2" branch="false"/>
-								<line number="134" hits="3" branch="false"/>
-								<line number="135" hits="3" branch="false"/>
-								<line number="136" hits="3" branch="true" condition-coverage="50% (1/2)">
+								<line number="129" hits="4" branch="false"/>
+								<line number="133" hits="2" branch="false"/>
+								<line number="136" hits="2" branch="false"/>
+								<line number="139" hits="3" branch="false"/>
+								<line number="140" hits="3" branch="false"/>
+								<line number="141" hits="3" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="138" hits="3" branch="false"/>
-								<line number="144" hits="0" branch="false"/>
-								<line number="146" hits="3" branch="false"/>
-								<line number="147" hits="0" branch="false"/>
+								<line number="143" hits="3" branch="false"/>
 								<line number="149" hits="0" branch="false"/>
-								<line number="150" hits="0" branch="false"/>
-								<line number="151" hits="0" branch="false"/>
-								<line number="153" hits="0" branch="false"/>
+								<line number="151" hits="3" branch="false"/>
+								<line number="152" hits="0" branch="false"/>
+								<line number="154" hits="0" branch="false"/>
+								<line number="155" hits="0" branch="false"/>
+								<line number="156" hits="0" branch="false"/>
+								<line number="158" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="converterTo" signature="(Lcom/lexicalscope/jewel/cli/ValidationErrorBuilder;Lcom/lexicalscope/jewel/cli/OptionSpecification;Lcom/lexicalscope/fluentreflection/ReflectedClass;)Lcom/lexicalscope/jewel/cli/ConvertTypeOfObject;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="199" hits="159" branch="false"/>
+								<line number="204" hits="161" branch="false"/>
 							</lines>
 						</method>
 						<method name="converterTo" signature="(Lcom/lexicalscope/jewel/cli/ValidationErrorBuilder;Lcom/lexicalscope/jewel/cli/OptionSpecification;Lcom/lexicalscope/fluentreflection/ReflectedMethod;)Lcom/lexicalscope/jewel/cli/ConvertTypeOfObject;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="184" hits="151" branch="true" condition-coverage="100% (2/2)">
+								<line number="189" hits="153" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="186" hits="20" branch="false"/>
-								<line number="190" hits="131" branch="false"/>
-								<line number="192" hits="151" branch="false"/>
+								<line number="191" hits="21" branch="false"/>
+								<line number="195" hits="132" branch="false"/>
+								<line number="197" hits="153" branch="false"/>
 							</lines>
 						</method>
 						<method name="converterTo" signature="(Lcom/lexicalscope/jewel/cli/ValidationErrorBuilder;Lcom/lexicalscope/jewel/cli/OptionSpecification;Lcom/lexicalscope/fluentreflection/TypeToken;)Lcom/lexicalscope/jewel/cli/ConvertTypeOfObject;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="213" hits="4" branch="false"/>
+								<line number="218" hits="4" branch="false"/>
 							</lines>
 						</method>
 						<method name="converterTo" signature="(Lcom/lexicalscope/jewel/cli/ValidationErrorBuilder;Lcom/lexicalscope/jewel/cli/OptionSpecification;Ljava/lang/Class;)Lcom/lexicalscope/jewel/cli/ConvertTypeOfObject;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="206" hits="4" branch="false"/>
+								<line number="211" hits="4" branch="false"/>
 							</lines>
 						</method>
 						<method name="isIterable" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="176" hits="141" branch="false"/>
+								<line number="181" hits="143" branch="false"/>
 							</lines>
 						</method>
 						<method name="unsupportedNumberFormatMessage" signature="(Ljava/lang/NumberFormatException;)Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="218" hits="3" branch="false"/>
+								<line number="223" hits="3" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="47" hits="193" branch="false"/>
-						<line number="48" hits="193" branch="false"/>
-						<line number="49" hits="193" branch="false"/>
-						<line number="50" hits="193" branch="false"/>
-						<line number="51" hits="193" branch="false"/>
-						<line number="52" hits="193" branch="false"/>
-						<line number="73" hits="153" branch="true" condition-coverage="100% (2/2)">
+						<line number="47" hits="195" branch="false"/>
+						<line number="48" hits="195" branch="false"/>
+						<line number="49" hits="195" branch="false"/>
+						<line number="50" hits="195" branch="false"/>
+						<line number="51" hits="195" branch="false"/>
+						<line number="53" hits="195" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="55" hits="0" branch="false"/>
+						<line number="57" hits="195" branch="false"/>
+						<line number="78" hits="155" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="74" hits="12" branch="false"/>
-						<line number="75" hits="141" branch="true" condition-coverage="75% (3/4)">
+						<line number="79" hits="12" branch="false"/>
+						<line number="80" hits="143" branch="true" condition-coverage="75% (3/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="76" hits="34" branch="false"/>
-						<line number="77" hits="107" branch="true" condition-coverage="100% (2/2)">
+						<line number="81" hits="34" branch="false"/>
+						<line number="82" hits="109" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="78" hits="32" branch="false"/>
-						<line number="79" hits="75" branch="true" condition-coverage="50% (1/2)">
+						<line number="83" hits="34" branch="false"/>
+						<line number="84" hits="75" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="80" hits="0" branch="false"/>
-						<line number="81" hits="75" branch="true" condition-coverage="50% (1/2)">
+						<line number="85" hits="0" branch="false"/>
+						<line number="86" hits="75" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="82" hits="0" branch="false"/>
-						<line number="86" hits="75" branch="true" condition-coverage="100% (2/2)">
+						<line number="87" hits="0" branch="false"/>
+						<line number="91" hits="75" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="87" hits="20" branch="false"/>
-						<line number="89" hits="55" branch="false"/>
-						<line number="92" hits="75" branch="false"/>
-						<line number="98" hits="75" branch="false"/>
-						<line number="102" hits="75" branch="true" condition-coverage="100% (2/2)">
+						<line number="92" hits="20" branch="false"/>
+						<line number="94" hits="55" branch="false"/>
+						<line number="97" hits="75" branch="false"/>
+						<line number="103" hits="75" branch="false"/>
+						<line number="107" hits="75" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="103" hits="45" branch="false"/>
-						<line number="106" hits="30" branch="false"/>
-						<line number="109" hits="30" branch="true" condition-coverage="100% (2/2)">
+						<line number="108" hits="45" branch="false"/>
+						<line number="111" hits="30" branch="false"/>
+						<line number="114" hits="30" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="110" hits="23" branch="false"/>
-						<line number="113" hits="7" branch="false"/>
-						<line number="116" hits="7" branch="true" condition-coverage="100% (2/2)">
+						<line number="115" hits="23" branch="false"/>
+						<line number="118" hits="7" branch="false"/>
+						<line number="121" hits="7" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="117" hits="1" branch="false"/>
-						<line number="120" hits="6" branch="true" condition-coverage="50% (2/4)">
+						<line number="122" hits="1" branch="false"/>
+						<line number="125" hits="6" branch="true" condition-coverage="50% (2/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 								<condition number="1" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="122" hits="6" branch="false"/>
-						<line number="123" hits="6" branch="true" condition-coverage="100% (2/2)">
+						<line number="127" hits="6" branch="false"/>
+						<line number="128" hits="6" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="124" hits="4" branch="false"/>
-						<line number="128" hits="2" branch="false"/>
-						<line number="131" hits="2" branch="false"/>
-						<line number="134" hits="3" branch="false"/>
-						<line number="135" hits="3" branch="false"/>
-						<line number="136" hits="3" branch="true" condition-coverage="50% (1/2)">
+						<line number="129" hits="4" branch="false"/>
+						<line number="133" hits="2" branch="false"/>
+						<line number="136" hits="2" branch="false"/>
+						<line number="139" hits="3" branch="false"/>
+						<line number="140" hits="3" branch="false"/>
+						<line number="141" hits="3" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="138" hits="3" branch="false"/>
-						<line number="144" hits="0" branch="false"/>
-						<line number="146" hits="3" branch="false"/>
-						<line number="147" hits="0" branch="false"/>
+						<line number="143" hits="3" branch="false"/>
 						<line number="149" hits="0" branch="false"/>
-						<line number="150" hits="0" branch="false"/>
-						<line number="151" hits="0" branch="false"/>
-						<line number="153" hits="0" branch="false"/>
-						<line number="157" hits="34" branch="false"/>
-						<line number="160" hits="34" branch="false"/>
-						<line number="166" hits="34" branch="true" condition-coverage="75% (3/4)">
+						<line number="151" hits="3" branch="false"/>
+						<line number="152" hits="0" branch="false"/>
+						<line number="154" hits="0" branch="false"/>
+						<line number="155" hits="0" branch="false"/>
+						<line number="156" hits="0" branch="false"/>
+						<line number="158" hits="0" branch="false"/>
+						<line number="162" hits="34" branch="false"/>
+						<line number="165" hits="34" branch="false"/>
+						<line number="171" hits="34" branch="true" condition-coverage="75% (3/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="167" hits="31" branch="false"/>
-						<line number="168" hits="3" branch="true" condition-coverage="100% (2/2)">
+						<line number="172" hits="31" branch="false"/>
+						<line number="173" hits="3" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="169" hits="1" branch="false"/>
-						<line number="172" hits="2" branch="false"/>
-						<line number="176" hits="141" branch="false"/>
-						<line number="184" hits="151" branch="true" condition-coverage="100% (2/2)">
+						<line number="174" hits="1" branch="false"/>
+						<line number="177" hits="2" branch="false"/>
+						<line number="181" hits="143" branch="false"/>
+						<line number="189" hits="153" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="186" hits="20" branch="false"/>
-						<line number="190" hits="131" branch="false"/>
-						<line number="192" hits="151" branch="false"/>
-						<line number="199" hits="159" branch="false"/>
-						<line number="206" hits="4" branch="false"/>
-						<line number="213" hits="4" branch="false"/>
-						<line number="218" hits="3" branch="false"/>
+						<line number="191" hits="21" branch="false"/>
+						<line number="195" hits="132" branch="false"/>
+						<line number="197" hits="153" branch="false"/>
+						<line number="204" hits="161" branch="false"/>
+						<line number="211" hits="4" branch="false"/>
+						<line number="218" hits="4" branch="false"/>
+						<line number="223" hits="3" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.ConvertUnparsedGetterMethodToUnparsedOptionSpecification" filename="com/lexicalscope/jewel/cli/ConvertUnparsedGetterMethodToUnparsedOptionSpecification.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="26" hits="111" branch="false"/>
-								<line number="27" hits="111" branch="false"/>
+								<line number="26" hits="112" branch="false"/>
+								<line number="27" hits="112" branch="false"/>
 							</lines>
 						</method>
 						<method name="convert" signature="(Lcom/lexicalscope/fluentreflection/ReflectedMethod;)Lcom/lexicalscope/jewel/cli/UnparsedOptionSpecification;" line-rate="1.0" branch-rate="1.0">
@@ -2440,8 +2452,8 @@
 					</methods>
 					<lines>
 						<line number="21" hits="28" branch="false"/>
-						<line number="26" hits="111" branch="false"/>
-						<line number="27" hits="111" branch="false"/>
+						<line number="26" hits="112" branch="false"/>
+						<line number="27" hits="112" branch="false"/>
 						<line number="30" hits="28" branch="false"/>
 					</lines>
 				</class>
@@ -2449,8 +2461,8 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="26" hits="7" branch="false"/>
-								<line number="27" hits="7" branch="false"/>
+								<line number="26" hits="8" branch="false"/>
+								<line number="27" hits="8" branch="false"/>
 							</lines>
 						</method>
 						<method name="convert" signature="(Lcom/lexicalscope/fluentreflection/ReflectedMethod;)Lcom/lexicalscope/jewel/cli/UnparsedOptionSpecification;" line-rate="1.0" branch-rate="1.0">
@@ -2466,8 +2478,8 @@
 					</methods>
 					<lines>
 						<line number="21" hits="2" branch="false"/>
-						<line number="26" hits="7" branch="false"/>
-						<line number="27" hits="7" branch="false"/>
+						<line number="26" hits="8" branch="false"/>
+						<line number="27" hits="8" branch="false"/>
 						<line number="30" hits="2" branch="false"/>
 					</lines>
 				</class>
@@ -2785,172 +2797,172 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/jewel/cli/OptionsSpecification;Lcom/lexicalscope/fluentreflection/ReflectedClass;Ljava/lang/Object;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="34" hits="5" branch="false"/>
-								<line number="35" hits="5" branch="false"/>
-								<line number="36" hits="5" branch="false"/>
-								<line number="37" hits="5" branch="false"/>
-								<line number="38" hits="5" branch="false"/>
+								<line number="34" hits="6" branch="false"/>
+								<line number="35" hits="6" branch="false"/>
+								<line number="36" hits="6" branch="false"/>
+								<line number="37" hits="6" branch="false"/>
+								<line number="38" hits="6" branch="false"/>
 							</lines>
 						</method>
 						<method name="presentArguments" signature="(Ljava/util/Map;)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="41" hits="5" branch="true" condition-coverage="100% (2/2)">
+								<line number="41" hits="6" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="42" hits="13" branch="false"/>
-								<line number="43" hits="13" branch="false"/>
-								<line number="44" hits="13" branch="false"/>
-								<line number="45" hits="5" branch="true" condition-coverage="100% (2/2)">
+								<line number="42" hits="14" branch="false"/>
+								<line number="43" hits="14" branch="false"/>
+								<line number="44" hits="14" branch="false"/>
+								<line number="45" hits="6" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="46" hits="1" branch="false"/>
-								<line number="48" hits="5" branch="false"/>
+								<line number="48" hits="6" branch="false"/>
 							</lines>
 						</method>
 						<method name="setValueOnOptions" signature="(Ljava/util/Map;Lcom/lexicalscope/fluentreflection/ReflectedMethod;Z)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="55" hits="14" branch="true" condition-coverage="100% (2/2)">
+								<line number="55" hits="15" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="57" hits="10" branch="true" condition-coverage="100% (2/2)">
+								<line number="57" hits="11" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="59" hits="3" branch="false"/>
-								<line number="61" hits="7" branch="true" condition-coverage="100% (2/2)">
+								<line number="61" hits="8" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="63" hits="6" branch="false"/>
-								<line number="66" hits="14" branch="false"/>
+								<line number="63" hits="7" branch="false"/>
+								<line number="66" hits="15" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="34" hits="5" branch="false"/>
-						<line number="35" hits="5" branch="false"/>
-						<line number="36" hits="5" branch="false"/>
-						<line number="37" hits="5" branch="false"/>
-						<line number="38" hits="5" branch="false"/>
-						<line number="41" hits="5" branch="true" condition-coverage="100% (2/2)">
+						<line number="34" hits="6" branch="false"/>
+						<line number="35" hits="6" branch="false"/>
+						<line number="36" hits="6" branch="false"/>
+						<line number="37" hits="6" branch="false"/>
+						<line number="38" hits="6" branch="false"/>
+						<line number="41" hits="6" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="42" hits="13" branch="false"/>
-						<line number="43" hits="13" branch="false"/>
-						<line number="44" hits="13" branch="false"/>
-						<line number="45" hits="5" branch="true" condition-coverage="100% (2/2)">
+						<line number="42" hits="14" branch="false"/>
+						<line number="43" hits="14" branch="false"/>
+						<line number="44" hits="14" branch="false"/>
+						<line number="45" hits="6" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="46" hits="1" branch="false"/>
-						<line number="48" hits="5" branch="false"/>
-						<line number="55" hits="14" branch="true" condition-coverage="100% (2/2)">
+						<line number="48" hits="6" branch="false"/>
+						<line number="55" hits="15" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="57" hits="10" branch="true" condition-coverage="100% (2/2)">
+						<line number="57" hits="11" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="59" hits="3" branch="false"/>
-						<line number="61" hits="7" branch="true" condition-coverage="100% (2/2)">
+						<line number="61" hits="8" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="63" hits="6" branch="false"/>
-						<line number="66" hits="14" branch="false"/>
+						<line number="63" hits="7" branch="false"/>
+						<line number="66" hits="15" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.InstanceOptionsSpecificationParser" filename="com/lexicalscope/jewel/cli/InstanceOptionsSpecificationParser.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="24" hits="7" branch="false"/>
-								<line number="25" hits="7" branch="false"/>
-								<line number="26" hits="7" branch="false"/>
+								<line number="24" hits="8" branch="false"/>
+								<line number="25" hits="8" branch="false"/>
+								<line number="26" hits="8" branch="false"/>
 							</lines>
 						</method>
 						<method name="buildOptionsSpecification" signature="()Lcom/lexicalscope/jewel/cli/OptionsSpecification;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="29" hits="7" branch="false"/>
+								<line number="29" hits="8" branch="false"/>
 							</lines>
 						</method>
 						<method name="createOptionsSpecificationImpl" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)Lcom/lexicalscope/jewel/cli/OptionsSpecification;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="39" hits="7" branch="false"/>
+								<line number="39" hits="8" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="24" hits="7" branch="false"/>
-						<line number="25" hits="7" branch="false"/>
-						<line number="26" hits="7" branch="false"/>
-						<line number="29" hits="7" branch="false"/>
-						<line number="39" hits="7" branch="false"/>
+						<line number="24" hits="8" branch="false"/>
+						<line number="25" hits="8" branch="false"/>
+						<line number="26" hits="8" branch="false"/>
+						<line number="29" hits="8" branch="false"/>
+						<line number="39" hits="8" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.InterfaceArgumentPresentingStrategy" filename="com/lexicalscope/jewel/cli/InterfaceArgumentPresentingStrategy.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="28" hits="66" branch="false"/>
-								<line number="29" hits="66" branch="false"/>
-								<line number="30" hits="66" branch="false"/>
+								<line number="28" hits="67" branch="false"/>
+								<line number="29" hits="67" branch="false"/>
+								<line number="30" hits="67" branch="false"/>
 							</lines>
 						</method>
 						<method name="presentArguments" signature="(Ljava/util/Map;)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="33" hits="62" branch="false"/>
+								<line number="33" hits="63" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="28" hits="66" branch="false"/>
-						<line number="29" hits="66" branch="false"/>
-						<line number="30" hits="66" branch="false"/>
-						<line number="33" hits="62" branch="false"/>
+						<line number="28" hits="67" branch="false"/>
+						<line number="29" hits="67" branch="false"/>
+						<line number="30" hits="67" branch="false"/>
+						<line number="33" hits="63" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.InterfaceOptionsSpecificationParser" filename="com/lexicalscope/jewel/cli/InterfaceOptionsSpecificationParser.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="24" hits="112" branch="false"/>
-								<line number="25" hits="112" branch="false"/>
-								<line number="26" hits="112" branch="false"/>
+								<line number="24" hits="113" branch="false"/>
+								<line number="25" hits="113" branch="false"/>
+								<line number="26" hits="113" branch="false"/>
 							</lines>
 						</method>
 						<method name="buildOptionsSpecification" signature="()Lcom/lexicalscope/jewel/cli/OptionsSpecification;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="29" hits="112" branch="false"/>
+								<line number="29" hits="113" branch="false"/>
 							</lines>
 						</method>
 						<method name="createOptionsSpecificationImpl" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;)Lcom/lexicalscope/jewel/cli/OptionsSpecification;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="39" hits="112" branch="false"/>
+								<line number="39" hits="113" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="24" hits="112" branch="false"/>
-						<line number="25" hits="112" branch="false"/>
-						<line number="26" hits="112" branch="false"/>
-						<line number="29" hits="112" branch="false"/>
-						<line number="39" hits="112" branch="false"/>
+						<line number="24" hits="113" branch="false"/>
+						<line number="25" hits="113" branch="false"/>
+						<line number="26" hits="113" branch="false"/>
+						<line number="29" hits="113" branch="false"/>
+						<line number="39" hits="113" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.InvalidOptionSpecificationException" filename="com/lexicalscope/jewel/cli/InvalidOptionSpecificationException.java" line-rate="0.25" branch-rate="1.0" complexity="1.0">
@@ -3007,19 +3019,19 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;Lcom/lexicalscope/fluentreflection/ReflectedMethod;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="33" hits="244" branch="false"/>
-								<line number="34" hits="244" branch="false"/>
-								<line number="35" hits="244" branch="false"/>
+								<line number="33" hits="246" branch="false"/>
+								<line number="34" hits="246" branch="false"/>
+								<line number="35" hits="246" branch="false"/>
 							</lines>
 						</method>
 						<method name="defaultToNull" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="46" hits="985" branch="false"/>
+								<line number="46" hits="997" branch="false"/>
 							</lines>
 						</method>
 						<method name="defaultValue" signature="()[Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="50" hits="491" branch="false"/>
+								<line number="50" hits="495" branch="false"/>
 							</lines>
 						</method>
 						<method name="description" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
@@ -3029,12 +3041,12 @@
 						</method>
 						<method name="exactly" signature="()I" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="83" hits="531" branch="false"/>
+								<line number="83" hits="535" branch="false"/>
 							</lines>
 						</method>
 						<method name="helpRequest" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="71" hits="112" branch="false"/>
+								<line number="71" hits="114" branch="false"/>
 							</lines>
 						</method>
 						<method name="isHidden" signature="()Z" line-rate="1.0" branch-rate="1.0">
@@ -3044,7 +3056,7 @@
 						</method>
 						<method name="longName" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="65" hits="750" branch="true" condition-coverage="100% (2/2)">
+								<line number="65" hits="758" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
@@ -3053,70 +3065,70 @@
 						</method>
 						<method name="maximum" signature="()I" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="87" hits="761" branch="false"/>
+								<line number="87" hits="767" branch="false"/>
 							</lines>
 						</method>
 						<method name="minimum" signature="()I" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="79" hits="277" branch="false"/>
+								<line number="79" hits="279" branch="false"/>
 							</lines>
 						</method>
 						<method name="pattern" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="42" hits="154" branch="false"/>
+								<line number="42" hits="156" branch="false"/>
 							</lines>
 						</method>
 						<method name="shortName" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="54" hits="504" branch="false"/>
-								<line number="55" hits="1025" branch="true" condition-coverage="100% (2/2)">
+								<line number="54" hits="510" branch="false"/>
+								<line number="55" hits="1037" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="56" hits="521" branch="false"/>
-								<line number="57" hits="521" branch="true" condition-coverage="100% (2/2)">
+								<line number="56" hits="527" branch="false"/>
+								<line number="57" hits="527" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="58" hits="94" branch="false"/>
-								<line number="61" hits="504" branch="false"/>
+								<line number="61" hits="510" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="33" hits="244" branch="false"/>
-						<line number="34" hits="244" branch="false"/>
-						<line number="35" hits="244" branch="false"/>
+						<line number="33" hits="246" branch="false"/>
+						<line number="34" hits="246" branch="false"/>
+						<line number="35" hits="246" branch="false"/>
 						<line number="38" hits="115" branch="false"/>
-						<line number="42" hits="154" branch="false"/>
-						<line number="46" hits="985" branch="false"/>
-						<line number="50" hits="491" branch="false"/>
-						<line number="54" hits="504" branch="false"/>
-						<line number="55" hits="1025" branch="true" condition-coverage="100% (2/2)">
+						<line number="42" hits="156" branch="false"/>
+						<line number="46" hits="997" branch="false"/>
+						<line number="50" hits="495" branch="false"/>
+						<line number="54" hits="510" branch="false"/>
+						<line number="55" hits="1037" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="56" hits="521" branch="false"/>
-						<line number="57" hits="521" branch="true" condition-coverage="100% (2/2)">
+						<line number="56" hits="527" branch="false"/>
+						<line number="57" hits="527" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="58" hits="94" branch="false"/>
-						<line number="61" hits="504" branch="false"/>
-						<line number="65" hits="750" branch="true" condition-coverage="100% (2/2)">
+						<line number="61" hits="510" branch="false"/>
+						<line number="65" hits="758" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="71" hits="112" branch="false"/>
+						<line number="71" hits="114" branch="false"/>
 						<line number="75" hits="37" branch="false"/>
-						<line number="79" hits="277" branch="false"/>
-						<line number="83" hits="531" branch="false"/>
-						<line number="87" hits="761" branch="false"/>
+						<line number="79" hits="279" branch="false"/>
+						<line number="83" hits="535" branch="false"/>
+						<line number="87" hits="767" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.OptionHelpMessage" filename="com/lexicalscope/jewel/cli/OptionHelpMessage.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
@@ -3175,46 +3187,46 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/fluentreflection/ReflectedClass;Ljava/util/List;Ljava/util/List;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="32" hits="118" branch="false"/>
-								<line number="33" hits="118" branch="false"/>
-								<line number="35" hits="118" branch="false"/>
-								<line number="37" hits="118" branch="false"/>
-								<line number="40" hits="118" branch="false"/>
-								<line number="42" hits="118" branch="false"/>
-								<line number="48" hits="118" branch="false"/>
-								<line number="49" hits="118" branch="false"/>
-								<line number="51" hits="118" branch="true" condition-coverage="100% (2/2)">
+								<line number="32" hits="120" branch="false"/>
+								<line number="33" hits="120" branch="false"/>
+								<line number="35" hits="120" branch="false"/>
+								<line number="37" hits="120" branch="false"/>
+								<line number="40" hits="120" branch="false"/>
+								<line number="42" hits="120" branch="false"/>
+								<line number="48" hits="120" branch="false"/>
+								<line number="49" hits="120" branch="false"/>
+								<line number="51" hits="120" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="52" hits="202" branch="false"/>
-								<line number="55" hits="118" branch="true" condition-coverage="100% (2/2)">
+								<line number="52" hits="204" branch="false"/>
+								<line number="55" hits="120" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="56" hits="30" branch="false"/>
-								<line number="58" hits="118" branch="false"/>
+								<line number="58" hits="120" branch="false"/>
 							</lines>
 						</method>
 						<method name="addOption" signature="(Lcom/lexicalscope/jewel/cli/ParsedOptionSpecification;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="119" hits="202" branch="true" condition-coverage="100% (2/2)">
+								<line number="119" hits="204" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="120" hits="239" branch="false"/>
-								<line number="122" hits="202" branch="false"/>
-								<line number="124" hits="202" branch="false"/>
-								<line number="126" hits="202" branch="true" condition-coverage="100% (2/2)">
+								<line number="120" hits="241" branch="false"/>
+								<line number="122" hits="204" branch="false"/>
+								<line number="124" hits="204" branch="false"/>
+								<line number="126" hits="204" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="127" hits="113" branch="false"/>
-								<line number="129" hits="202" branch="false"/>
+								<line number="129" hits="204" branch="false"/>
 							</lines>
 						</method>
 						<method name="addUnparsedOption" signature="(Lcom/lexicalscope/jewel/cli/UnparsedOptionSpecification;)V" line-rate="1.0" branch-rate="1.0">
@@ -3314,36 +3326,36 @@
 						</method>
 						<method name="getMandatoryOptions" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="0.8333333333333334">
 							<lines>
-								<line number="76" hits="110" branch="false"/>
-								<line number="77" hits="110" branch="true" condition-coverage="100% (2/2)">
+								<line number="76" hits="112" branch="false"/>
+								<line number="77" hits="112" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="78" hits="189" branch="true" condition-coverage="75% (3/4)">
+								<line number="78" hits="191" branch="true" condition-coverage="75% (3/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="79" hits="80" branch="false"/>
-								<line number="83" hits="110" branch="false"/>
+								<line number="79" hits="82" branch="false"/>
+								<line number="83" hits="112" branch="false"/>
 							</lines>
 						</method>
 						<method name="getSpecification" signature="(Lcom/lexicalscope/fluentreflection/ReflectedMethod;)Lcom/lexicalscope/jewel/cli/ParsedOptionSpecification;" line-rate="0.6666666666666666" branch-rate="0.5">
 							<lines>
-								<line number="69" hits="13" branch="true" condition-coverage="50% (1/2)">
+								<line number="69" hits="14" branch="true" condition-coverage="50% (1/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 									</conditions>
 								</line>
-								<line number="70" hits="13" branch="false"/>
+								<line number="70" hits="14" branch="false"/>
 								<line number="72" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="getSpecification" signature="(Ljava/lang/String;)Lcom/lexicalscope/jewel/cli/ParsedOptionSpecification;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="65" hits="112" branch="false"/>
+								<line number="65" hits="114" branch="false"/>
 							</lines>
 						</method>
 						<method name="getUnparsedSpecification" signature="()Lcom/lexicalscope/jewel/cli/UnparsedOptionSpecification;" line-rate="1.0" branch-rate="1.0">
@@ -3362,7 +3374,7 @@
 						</method>
 						<method name="hasUnparsedSpecification" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="95" hits="261" branch="true" condition-coverage="100% (2/2)">
+								<line number="95" hits="267" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
@@ -3371,12 +3383,12 @@
 						</method>
 						<method name="isSpecified" signature="(Ljava/lang/String;)Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="61" hits="116" branch="false"/>
+								<line number="61" hits="118" branch="false"/>
 							</lines>
 						</method>
 						<method name="iterator" signature="()Ljava/util/Iterator;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="87" hits="71" branch="false"/>
+								<line number="87" hits="73" branch="false"/>
 							</lines>
 						</method>
 						<method name="nullOrBlank" signature="(Ljava/lang/String;)Z" line-rate="1.0" branch-rate="0.75">
@@ -3398,53 +3410,53 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="32" hits="118" branch="false"/>
-						<line number="33" hits="118" branch="false"/>
-						<line number="35" hits="118" branch="false"/>
-						<line number="37" hits="118" branch="false"/>
-						<line number="40" hits="118" branch="false"/>
-						<line number="42" hits="118" branch="false"/>
-						<line number="48" hits="118" branch="false"/>
-						<line number="49" hits="118" branch="false"/>
-						<line number="51" hits="118" branch="true" condition-coverage="100% (2/2)">
+						<line number="32" hits="120" branch="false"/>
+						<line number="33" hits="120" branch="false"/>
+						<line number="35" hits="120" branch="false"/>
+						<line number="37" hits="120" branch="false"/>
+						<line number="40" hits="120" branch="false"/>
+						<line number="42" hits="120" branch="false"/>
+						<line number="48" hits="120" branch="false"/>
+						<line number="49" hits="120" branch="false"/>
+						<line number="51" hits="120" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="52" hits="202" branch="false"/>
-						<line number="55" hits="118" branch="true" condition-coverage="100% (2/2)">
+						<line number="52" hits="204" branch="false"/>
+						<line number="55" hits="120" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="56" hits="30" branch="false"/>
-						<line number="58" hits="118" branch="false"/>
-						<line number="61" hits="116" branch="false"/>
-						<line number="65" hits="112" branch="false"/>
-						<line number="69" hits="13" branch="true" condition-coverage="50% (1/2)">
+						<line number="58" hits="120" branch="false"/>
+						<line number="61" hits="118" branch="false"/>
+						<line number="65" hits="114" branch="false"/>
+						<line number="69" hits="14" branch="true" condition-coverage="50% (1/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="70" hits="13" branch="false"/>
+						<line number="70" hits="14" branch="false"/>
 						<line number="72" hits="0" branch="false"/>
-						<line number="76" hits="110" branch="false"/>
-						<line number="77" hits="110" branch="true" condition-coverage="100% (2/2)">
+						<line number="76" hits="112" branch="false"/>
+						<line number="77" hits="112" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="78" hits="189" branch="true" condition-coverage="75% (3/4)">
+						<line number="78" hits="191" branch="true" condition-coverage="75% (3/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="50%"/>
 							</conditions>
 						</line>
-						<line number="79" hits="80" branch="false"/>
-						<line number="83" hits="110" branch="false"/>
-						<line number="87" hits="71" branch="false"/>
+						<line number="79" hits="82" branch="false"/>
+						<line number="83" hits="112" branch="false"/>
+						<line number="87" hits="73" branch="false"/>
 						<line number="91" hits="49" branch="false"/>
-						<line number="95" hits="261" branch="true" condition-coverage="100% (2/2)">
+						<line number="95" hits="267" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
@@ -3471,21 +3483,21 @@
 						</line>
 						<line number="112" hits="7" branch="false"/>
 						<line number="115" hits="8" branch="false"/>
-						<line number="119" hits="202" branch="true" condition-coverage="100% (2/2)">
+						<line number="119" hits="204" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="120" hits="239" branch="false"/>
-						<line number="122" hits="202" branch="false"/>
-						<line number="124" hits="202" branch="false"/>
-						<line number="126" hits="202" branch="true" condition-coverage="100% (2/2)">
+						<line number="120" hits="241" branch="false"/>
+						<line number="122" hits="204" branch="false"/>
+						<line number="124" hits="204" branch="false"/>
+						<line number="126" hits="204" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="127" hits="113" branch="false"/>
-						<line number="129" hits="202" branch="false"/>
+						<line number="129" hits="204" branch="false"/>
 						<line number="132" hits="30" branch="false"/>
 						<line number="134" hits="30" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
@@ -3569,42 +3581,42 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="(Lcom/lexicalscope/jewel/cli/OptionAnnotationAdapter;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="23" hits="244" branch="false"/>
-								<line number="24" hits="243" branch="false"/>
-								<line number="25" hits="243" branch="true" condition-coverage="100% (2/2)">
+								<line number="23" hits="246" branch="false"/>
+								<line number="24" hits="245" branch="false"/>
+								<line number="25" hits="245" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="26" hits="248" branch="true" condition-coverage="100% (2/2)">
+								<line number="26" hits="250" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="28" hits="1" branch="false"/>
-								<line number="33" hits="242" branch="false"/>
+								<line number="33" hits="244" branch="false"/>
 							</lines>
 						</method>
 						<method name="getLongName" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="36" hits="507" branch="false"/>
+								<line number="36" hits="513" branch="false"/>
 							</lines>
 						</method>
 						<method name="getNames" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="44" hits="417" branch="false"/>
-								<line number="45" hits="417" branch="false"/>
-								<line number="46" hits="417" branch="false"/>
+								<line number="44" hits="423" branch="false"/>
+								<line number="45" hits="423" branch="false"/>
+								<line number="46" hits="423" branch="false"/>
 							</lines>
 						</method>
 						<method name="getPattern" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="58" hits="154" branch="false"/>
+								<line number="58" hits="156" branch="false"/>
 							</lines>
 						</method>
 						<method name="getShortNames" signature="()Ljava/util/List;" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="40" hits="504" branch="false"/>
+								<line number="40" hits="510" branch="false"/>
 							</lines>
 						</method>
 						<method name="hasShortName" signature="()Z" line-rate="1.0" branch-rate="1.0">
@@ -3618,7 +3630,7 @@
 						</method>
 						<method name="hasValue" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="62" hits="222" branch="true" condition-coverage="100% (2/2)">
+								<line number="62" hits="224" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
@@ -3627,7 +3639,7 @@
 						</method>
 						<method name="isBoolean" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="66" hits="653" branch="true" condition-coverage="100% (4/4)">
+								<line number="66" hits="660" branch="true" condition-coverage="100% (4/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
@@ -3637,7 +3649,7 @@
 						</method>
 						<method name="isHelpOption" signature="()Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="54" hits="112" branch="false"/>
+								<line number="54" hits="114" branch="false"/>
 							</lines>
 						</method>
 						<method name="toString" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
@@ -3647,38 +3659,38 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="23" hits="244" branch="false"/>
-						<line number="24" hits="243" branch="false"/>
-						<line number="25" hits="243" branch="true" condition-coverage="100% (2/2)">
+						<line number="23" hits="246" branch="false"/>
+						<line number="24" hits="245" branch="false"/>
+						<line number="25" hits="245" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="26" hits="248" branch="true" condition-coverage="100% (2/2)">
+						<line number="26" hits="250" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="28" hits="1" branch="false"/>
-						<line number="33" hits="242" branch="false"/>
-						<line number="36" hits="507" branch="false"/>
-						<line number="40" hits="504" branch="false"/>
-						<line number="44" hits="417" branch="false"/>
-						<line number="45" hits="417" branch="false"/>
-						<line number="46" hits="417" branch="false"/>
+						<line number="33" hits="244" branch="false"/>
+						<line number="36" hits="513" branch="false"/>
+						<line number="40" hits="510" branch="false"/>
+						<line number="44" hits="423" branch="false"/>
+						<line number="45" hits="423" branch="false"/>
+						<line number="46" hits="423" branch="false"/>
 						<line number="50" hits="2" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="54" hits="112" branch="false"/>
-						<line number="58" hits="154" branch="false"/>
-						<line number="62" hits="222" branch="true" condition-coverage="100% (2/2)">
+						<line number="54" hits="114" branch="false"/>
+						<line number="58" hits="156" branch="false"/>
+						<line number="62" hits="224" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="66" hits="653" branch="true" condition-coverage="100% (4/4)">
+						<line number="66" hits="660" branch="true" condition-coverage="100% (4/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
@@ -4279,8 +4291,8 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="6" hits="189" branch="false"/>
-								<line number="8" hits="189" branch="false"/>
+								<line number="6" hits="193" branch="false"/>
+								<line number="8" hits="193" branch="false"/>
 							</lines>
 						</method>
 						<method name="invalidValueForType" signature="(Lcom/lexicalscope/jewel/cli/OptionSpecification;Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
@@ -4333,13 +4345,13 @@
 						</method>
 						<method name="validate" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="60" hits="180" branch="true" condition-coverage="100% (2/2)">
+								<line number="60" hits="184" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
 								<line number="62" hits="35" branch="false"/>
-								<line number="64" hits="145" branch="false"/>
+								<line number="64" hits="149" branch="false"/>
 							</lines>
 						</method>
 						<method name="wrongNumberOfValues" signature="(Lcom/lexicalscope/jewel/cli/OptionSpecification;Ljava/util/List;)V" line-rate="1.0" branch-rate="1.0">
@@ -4350,8 +4362,8 @@
 						</method>
 					</methods>
 					<lines>
-						<line number="6" hits="189" branch="false"/>
-						<line number="8" hits="189" branch="false"/>
+						<line number="6" hits="193" branch="false"/>
+						<line number="8" hits="193" branch="false"/>
 						<line number="13" hits="0" branch="false"/>
 						<line number="14" hits="0" branch="false"/>
 						<line number="18" hits="16" branch="false"/>
@@ -4370,13 +4382,13 @@
 						<line number="51" hits="0" branch="false"/>
 						<line number="55" hits="3" branch="false"/>
 						<line number="56" hits="3" branch="false"/>
-						<line number="60" hits="180" branch="true" condition-coverage="100% (2/2)">
+						<line number="60" hits="184" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
 						<line number="62" hits="35" branch="false"/>
-						<line number="64" hits="145" branch="false"/>
+						<line number="64" hits="149" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.lexicalscope.jewel.cli.ValidationFailure" filename="com/lexicalscope/jewel/cli/ValidationFailure.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">

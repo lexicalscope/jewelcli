@@ -38,10 +38,10 @@
 <a name="28" href="#28">28</a>      OptionsSpecification&lt;O&gt; buildOptionsSpecification() {
 <a name="29" href="#29">29</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> OptionsSpecificationImpl&lt;O&gt;(klass,
 <a name="30" href="#30">30</a>                  convert(
-<a name="31" href="#31">31</a>                          klass.methods(isSetter().and(annotatedWith(Option.<strong class="jxr_keyword">class</strong>))),
+<a name="31" href="#31">31</a>                          klass.methods(isMutator().and(annotatedWith(Option.<strong class="jxr_keyword">class</strong>))),
 <a name="32" href="#32">32</a>                          <strong class="jxr_keyword">new</strong> <a href="../../../../com/lexicalscope/jewel/cli/ConvertSetterMethodToParsedOptionSpecification.html">ConvertSetterMethodToParsedOptionSpecification</a>(klass)),
 <a name="33" href="#33">33</a>                  convert(
-<a name="34" href="#34">34</a>                          klass.methods(isSetter().and(annotatedWith(Unparsed.<strong class="jxr_keyword">class</strong>))),
+<a name="34" href="#34">34</a>                          klass.methods(isMutator().and(annotatedWith(Unparsed.<strong class="jxr_keyword">class</strong>))),
 <a name="35" href="#35">35</a>                          <strong class="jxr_keyword">new</strong> <a href="../../../../com/lexicalscope/jewel/cli/ConvertUnparsedSetterMethodToUnparsedOptionSpecification.html">ConvertUnparsedSetterMethodToUnparsedOptionSpecification</a>(klass)));
 <a name="36" href="#36">36</a>      }
 <a name="37" href="#37">37</a>  
