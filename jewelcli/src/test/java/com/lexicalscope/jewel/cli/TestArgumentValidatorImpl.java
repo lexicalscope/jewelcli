@@ -2,6 +2,7 @@ package com.lexicalscope.jewel.cli;
 
 import static com.lexicalscope.fluentreflection.FluentReflection.type;
 import static com.lexicalscope.jewel.cli.ValidationFailureMatcher.validationError;
+import static com.lexicalscope.jewel.cli.parser.DefaultArgumentParserFactory.createDefaultArgumentParser;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.*;
 
@@ -131,6 +132,10 @@ public class TestArgumentValidatorImpl {
         final ArgumentValidatorImpl<O> impl =
                 new ArgumentValidatorImpl<O>(
                         InterfaceOptionsSpecificationParser.<O>createOptionsSpecificationImpl(type(klass)));
-        return (ArgumentCollectionImpl) impl.validateArguments(new ArgumentParserImpl().parseArguments(arguments));
+
+        final ArgumentCollectionBuilder parsedArguments = new ArgumentCollectionBuilder();
+        createDefaultArgumentParser().parseArguments(parsedArguments, arguments);
+
+        return (ArgumentCollectionImpl) impl.validateArguments(parsedArguments.getParsedArguments());
     }
 }

@@ -4,6 +4,10 @@
                                        
 API Changes
 
+* Changes in version 0.8.2
+
+  * allow option methods to omit the "get" prefix
+
 * Changes in version 0.8.1
 
   * support hidden options that do not show up in help messages

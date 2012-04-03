@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lexicalscope.jewel.cli.parser.ParsedArguments;
+
 /*
  * Copyright 2011 Tim Wood
  *
@@ -18,10 +20,10 @@ import java.util.Map;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
-class ArgumentCollectionBuilder {
+class ArgumentCollectionBuilder implements ParsedArguments {
     private interface IParsingState {
         IParsingState addValue(String value);
 
@@ -89,20 +91,19 @@ class ArgumentCollectionBuilder {
     private IParsingState state = new Initial();
     private List<String> valuesForCurrentArgument;
 
-    void unparsedOptionsFollow() {
+    @Override
+    public void unparsedOptionsFollow() {
         state = new UnparsedState();
     }
 
-    boolean isExpectingUnparsedOptions() {
-        return state.getClass().equals(UnparsedState.class);
-    }
-
-    void addValue(final String value)
+    @Override
+    public void addValue(final String value)
     {
         state = state.addValue(value);
     }
 
-    void addOption(final String option) throws ArgumentValidationException
+    @Override
+    public void addOption(final String option)
     {
         state = state.addOption(option);
     }

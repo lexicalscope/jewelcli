@@ -2,6 +2,7 @@ package com.lexicalscope.jewel.cli;
 
 import java.util.List;
 
+
 interface ArgumentCollection extends Iterable<Argument>
 {
     /**
