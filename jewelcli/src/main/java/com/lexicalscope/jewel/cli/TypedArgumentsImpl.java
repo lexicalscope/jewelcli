@@ -3,6 +3,8 @@ package com.lexicalscope.jewel.cli;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.lexicalscope.jewel.cli.specification.OptionSpecification;
+
 class TypedArgumentsImpl implements TypedArguments
 {
    private final Map<OptionSpecification, Object> m_values = new HashMap<OptionSpecification, Object>();

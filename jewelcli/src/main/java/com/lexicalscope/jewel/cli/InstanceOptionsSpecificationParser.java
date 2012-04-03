@@ -17,6 +17,7 @@ import static ch.lambdaj.Lambda.convert;
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 
 class InstanceOptionsSpecificationParser<O> {
     private final ReflectedClass<O> klass;

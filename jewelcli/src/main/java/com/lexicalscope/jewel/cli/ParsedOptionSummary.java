@@ -13,6 +13,8 @@
  */
 package com.lexicalscope.jewel.cli;
 
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
+
 class ParsedOptionSummary
 {
     private final ParsedOptionSpecification m_option;

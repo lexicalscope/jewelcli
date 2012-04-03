@@ -17,6 +17,7 @@ import ch.lambdaj.function.convert.Converter;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
 
 class ConvertSetterMethodToParsedOptionSpecification extends AbstractConvertMethodToOptionSpecification
         implements

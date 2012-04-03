@@ -17,6 +17,7 @@ package com.lexicalscope.jewel.cli;
 import static com.lexicalscope.fluentreflection.FluentReflection.type;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 
 class CliInterfaceImpl<O> extends AbstractCliImpl<O> {
     public CliInterfaceImpl(final Class<O> options) {

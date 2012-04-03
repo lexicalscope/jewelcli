@@ -13,6 +13,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.lexicalscope.fluentreflection.TypeToken;
+import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 
 /*
  * Copyright 2011 Tim Wood

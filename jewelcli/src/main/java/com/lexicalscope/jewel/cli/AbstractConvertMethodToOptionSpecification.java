@@ -2,6 +2,8 @@ package com.lexicalscope.jewel.cli;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
+import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
 
 /*
  * Copyright 2011 Tim Wood

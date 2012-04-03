@@ -17,6 +17,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.lexicalscope.jewel.cli.specification.CliSpecification;
+
 public class TestCliSpecification {
     @CommandLineInterface(application = "MyApplication") public interface ApplicationName {
 

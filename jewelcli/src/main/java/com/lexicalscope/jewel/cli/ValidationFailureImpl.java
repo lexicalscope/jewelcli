@@ -2,6 +2,8 @@ package com.lexicalscope.jewel.cli;
 
 import java.io.Serializable;
 
+import com.lexicalscope.jewel.cli.specification.OptionSpecification;
+
 /*
  * Copyright 2011 Tim Wood
  *

@@ -18,6 +18,7 @@ import com.lexicalscope.fluentreflection.ReflectedConstructor;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 import com.lexicalscope.fluentreflection.ReflectionRuntimeException;
 import com.lexicalscope.fluentreflection.TypeToken;
+import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 
 /*
  * Copyright 2011 Tim Wood

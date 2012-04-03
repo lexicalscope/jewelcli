@@ -1,5 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
+import com.lexicalscope.jewel.cli.specification.OptionSpecification;
+
 interface TypedArguments
 {
    /**

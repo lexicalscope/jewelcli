@@ -6,6 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lexicalscope.jewel.cli.specification.OptionSpecification;
+import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
+import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
+
 
 class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
     private final OptionsSpecification<O> specification;

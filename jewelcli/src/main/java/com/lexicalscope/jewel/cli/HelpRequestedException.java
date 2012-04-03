@@ -16,6 +16,8 @@ package com.lexicalscope.jewel.cli;
 
 import java.util.Arrays;
 
+import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
+
 /**
  * The user requested help
  * 

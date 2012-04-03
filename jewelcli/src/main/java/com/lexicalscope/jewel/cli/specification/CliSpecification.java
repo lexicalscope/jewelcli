@@ -11,29 +11,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lexicalscope.jewel.cli;
+package com.lexicalscope.jewel.cli.specification;
+
 
 /**
  * The specification of the CLI. This interface is still in development, and may
  * be subject to incompatible changes.
- * 
+ *
+ * BETA: unstable may change in future versions
+ *
  * @author tim
  */
-interface CliSpecification extends Iterable<ParsedOptionSpecification>
+public interface CliSpecification extends Iterable<ParsedOptionSpecification>
 {
     /**
      * The name of the application as specified in the
      * <code>CommandLineInterface</code> annotation
-     * 
+     *
      * @see com.lexicalscope.jewel.cliCommandLineInterface
-     * 
+     *
      * @return The name of the application
      */
     String getApplicationName();
 
     /**
      * Has anything been specified to accept additional unparsed arguments?
-     * 
+     *
      * @return Has anything been specified to accept additional unparsed
      *         arguments?
      */
@@ -42,7 +45,7 @@ interface CliSpecification extends Iterable<ParsedOptionSpecification>
     /**
      * The specification for any additional unparsed arguments, if any have been
      * specified
-     * 
+     *
      * @return The specification for any additional unparsed arguments
      */
     UnparsedOptionSpecification getUnparsedSpecification();

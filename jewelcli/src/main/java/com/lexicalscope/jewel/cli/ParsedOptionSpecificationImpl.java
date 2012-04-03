@@ -16,6 +16,8 @@ package com.lexicalscope.jewel.cli;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
+
 class ParsedOptionSpecificationImpl extends AbstractOptionSpecification implements ParsedOptionSpecification {
     private final OptionAnnotationAdapter optionAnnotation;
 

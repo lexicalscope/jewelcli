@@ -11,6 +11,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
+
 public class TestOptionSpecificationImpl {
     @Rule public ExpectedException exception = ExpectedException.none();
 

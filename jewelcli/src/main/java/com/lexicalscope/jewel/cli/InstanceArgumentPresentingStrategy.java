@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 
 /*
  * Copyright 2011 Tim Wood

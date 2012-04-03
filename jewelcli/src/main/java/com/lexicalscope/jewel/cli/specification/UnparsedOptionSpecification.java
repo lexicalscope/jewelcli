@@ -1,7 +1,7 @@
-package com.lexicalscope.jewel.cli;
+package com.lexicalscope.jewel.cli.specification;
 
 /*
- * Copyright 2012 Tim Wood
+ * Copyright 2011 Tim Wood
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,6 @@ package com.lexicalscope.jewel.cli;
  * limitations under the License.
  */
 
-interface SpecificationMultiplicity<T> {
-    T expectedNoneGotSome();
-
-    T expectedOneGotNone();
-
-    T expectedOneGotSome();
-
-    T expectedExactGotTooFew(int exactly, int valueCount);
-
-    T expectedExactGotTooMany(int exactly, int valueCount);
-
-    T expectedMinimumGotTooFew(int minimum, int valueCount);
-
-    T expectedMaximumGotTooMany(int maximum, int valueCount);
-
-    T allowed();
+public interface UnparsedOptionSpecification extends OptionSpecification {
+    String getValueName();
 }

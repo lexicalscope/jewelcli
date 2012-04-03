@@ -3,6 +3,8 @@ package com.lexicalscope.jewel.cli;
 import static com.lexicalscope.jewel.cli.parser.DefaultArgumentParserFactory.createDefaultArgumentParser;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.jewel.cli.specification.CliSpecification;
+import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 
 /*
  * Copyright 2011 Tim Wood

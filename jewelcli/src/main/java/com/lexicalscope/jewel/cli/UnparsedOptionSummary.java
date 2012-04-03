@@ -13,6 +13,8 @@
  */
 package com.lexicalscope.jewel.cli;
 
+import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
+
 class UnparsedOptionSummary
 {
     private final UnparsedOptionSpecification m_option;

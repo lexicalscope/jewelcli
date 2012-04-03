@@ -25,6 +25,10 @@ import java.util.TreeSet;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.jewel.cli.specification.CliSpecification;
+import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
+import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
 
 class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecification {
     private final ReflectedClass<O> klass;

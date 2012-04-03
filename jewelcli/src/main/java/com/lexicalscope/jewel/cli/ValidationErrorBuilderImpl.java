@@ -3,6 +3,8 @@ package com.lexicalscope.jewel.cli;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lexicalscope.jewel.cli.specification.OptionSpecification;
+
 class ValidationErrorBuilderImpl implements ValidationErrorBuilder
 {
     private final List<ValidationFailure> validationExceptions =

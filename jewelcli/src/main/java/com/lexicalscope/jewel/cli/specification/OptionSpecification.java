@@ -2,7 +2,7 @@
 //Author       : t.wood
 //Copyright    : (c) Teamphone.com Ltd. 2008 - All Rights Reserved
 //
-package com.lexicalscope.jewel.cli;
+package com.lexicalscope.jewel.cli.specification;
 
 import java.util.List;
 
@@ -11,9 +11,11 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
 /**
  * Specifies an Option
  *
+ * BETA: unstable may change in future versions
+ *
  * @author t.wood
  */
-interface OptionSpecification
+public interface OptionSpecification
 {
     /**
      * Get a description of the option. The description can be specified in the

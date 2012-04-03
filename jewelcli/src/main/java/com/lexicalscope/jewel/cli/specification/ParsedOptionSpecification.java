@@ -1,6 +1,7 @@
-package com.lexicalscope.jewel.cli;
+package com.lexicalscope.jewel.cli.specification;
 
 import java.util.List;
+
 
 /*
  * Copyright 2011 Tim Wood
@@ -18,7 +19,7 @@ import java.util.List;
  * limitations under the License.
  */
 
-interface ParsedOptionSpecification extends OptionSpecification {
+public interface ParsedOptionSpecification extends OptionSpecification {
     /**
      * Get all of the short names of this option. Short names are single
      * characters that will by prefixed by the user with "-".
@@ -74,5 +75,4 @@ interface ParsedOptionSpecification extends OptionSpecification {
      * @return option is a boolean option
      */
     boolean isBoolean();
-
 }
