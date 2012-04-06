@@ -20,6 +20,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
 
 
 class ArgumentCollectionImpl implements ArgumentCollection
@@ -110,5 +113,20 @@ class ArgumentCollectionImpl implements ArgumentCollection
             }
         }
         return null;
+    }
+
+    @Override public void forEach(final ArgumentProcessor argumentProcessor) {
+        final Set<Entry<String, List<String>>> entrySet = m_arguments.entrySet();
+        final Iterator<Entry<String, List<String>>> iterator = entrySet.iterator();
+        while (iterator.hasNext()) {
+            final Map.Entry<java.lang.String, java.util.List<java.lang.String>> entry = iterator.next();
+
+            if(iterator.hasNext()) {
+                argumentProcessor.option(entry.getKey(), entry.getValue());
+            } else {
+                argumentProcessor.lastOption(entry.getKey(), entry.getValue());
+            }
+        }
+        argumentProcessor.unparsed(m_unparsed);
     }
 }

@@ -15,11 +15,11 @@
 package com.lexicalscope.jewel.cli;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
 import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
@@ -47,54 +47,55 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
      */
     public ArgumentCollection validateArguments(final ArgumentCollection arguments) throws ArgumentValidationException
     {
-        m_validatedUnparsedArguments.addAll(arguments.getUnparsed());
+        arguments.forEach(new ArgumentProcessor() {
+            @Override public void option(final String optionName, final List<String> allValues) {
+                if (!m_specification.isSpecified(optionName))
+                {
+                    m_validationErrorBuilder.unexpectedOption(optionName);
+                    return;
+                }
 
-        final Iterator<Argument> argumentsIterator = arguments.iterator();
-        while (argumentsIterator.hasNext())
-        {
-            final Argument argument = argumentsIterator.next();
-            final boolean isLast = !argumentsIterator.hasNext();
-
-            if (!m_specification.isSpecified(argument.getOptionName()))
-            {
-                m_validationErrorBuilder.unexpectedOption(argument.getOptionName());
-            }
-            else
-            {
                 final ParsedOptionSpecification optionSpecification =
-                        m_specification.getSpecification(argument.getOptionName());
+                        m_specification.getSpecification(optionName);
                 if (optionSpecification.isHelpOption())
                 {
                     throw new HelpRequestedException(m_specification);
                 }
 
-                final List<String> allValues = argument.getValues();
-                final List<String> values = new ArrayList<String>();
-
-                if(isLast && m_specification.hasUnparsedSpecification())
+                if(!optionSpecification.allowedThisManyValues(allValues.size()))
                 {
-                    final int maximumArgumentConsumption = Math.min(allValues.size(), optionSpecification.maximumArgumentConsumption());
-                    values.addAll(allValues.subList(0, maximumArgumentConsumption));
-                    m_validatedUnparsedArguments.addAll(0, allValues.subList(maximumArgumentConsumption, allValues.size()));
-                }
-                else
-                {
-                    values.addAll(allValues);
-                }
-
-                if(!optionSpecification.allowedThisManyValues(values.size()))
-                {
-                    m_validationErrorBuilder.wrongNumberOfValues(optionSpecification, values);
+                    m_validationErrorBuilder.wrongNumberOfValues(optionSpecification, allValues);
                 }
                 else
                 {
                     checkAndAddValues(
                             optionSpecification,
-                            argument.getOptionName(),
-                            new ArrayList<String>(values));
+                            optionName,
+                            new ArrayList<String>(allValues));
                 }
             }
-        }
+
+            @Override public void lastOption(final String optionName, final List<String> allValues) {
+                final ParsedOptionSpecification optionSpecification =
+                        m_specification.getSpecification(optionName);
+
+                if(m_specification.hasUnparsedSpecification())
+                {
+                    final int maximumArgumentConsumption = Math.min(allValues.size(), optionSpecification.maximumArgumentConsumption());
+                    m_validatedUnparsedArguments.addAll(0, allValues.subList(maximumArgumentConsumption, allValues.size()));
+
+                    option(optionName, new ArrayList<String>(allValues.subList(0, maximumArgumentConsumption)));
+                }
+                else
+                {
+                    option(optionName, allValues);
+                }
+            }
+
+            @Override public void unparsed(final List<String> values) {
+                m_validatedUnparsedArguments.addAll(values);
+            }
+        });
 
         for (final ParsedOptionSpecification optionSpecification : m_specification.getMandatoryOptions())
         {
