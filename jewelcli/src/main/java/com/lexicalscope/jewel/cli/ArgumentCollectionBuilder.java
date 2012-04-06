@@ -1,10 +1,14 @@
 package com.lexicalscope.jewel.cli;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
+import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
 import com.lexicalscope.jewel.cli.parser.ParsedArguments;
 
 /*
@@ -106,6 +110,21 @@ class ArgumentCollectionBuilder implements ParsedArguments {
     public void addOption(final String option)
     {
         state = state.addOption(option);
+    }
+
+    @Override public void processArguments(final ArgumentProcessor argumentProcessor) {
+        final Set<Entry<String, List<String>>> entrySet = arguments.entrySet();
+        final Iterator<Entry<String, List<String>>> iterator = entrySet.iterator();
+        while (iterator.hasNext()) {
+            final Map.Entry<java.lang.String, java.util.List<java.lang.String>> entry = iterator.next();
+
+            if(iterator.hasNext()) {
+                argumentProcessor.processOption(entry.getKey(), entry.getValue());
+            } else {
+                argumentProcessor.processLastOption(entry.getKey(), entry.getValue());
+            }
+        }
+        argumentProcessor.finishedProcessing(unparsed);
     }
 
     ArgumentCollection getParsedArguments()

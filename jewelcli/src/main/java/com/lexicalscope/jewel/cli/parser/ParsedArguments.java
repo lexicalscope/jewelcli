@@ -1,5 +1,7 @@
 package com.lexicalscope.jewel.cli.parser;
 
+import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
+
 /*
  * Copyright 2012 Tim Wood
  *
@@ -42,4 +44,11 @@ public interface ParsedArguments {
      * The remaining options are not parsed
      */
     void unparsedOptionsFollow();
+
+    /**
+     * Process each option and its values
+     *
+     * @param argumentProcessor the processor to apply to the arguments
+     */
+    void processArguments(ArgumentProcessor argumentProcessor);
 }
