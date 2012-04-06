@@ -14,6 +14,8 @@
 
 package com.lexicalscope.jewel.cli;
 
+import static java.lang.Math.min;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,118 +28,120 @@ import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
 
 class ArgumentValidatorImpl<O> implements ArgumentProcessor
 {
-    private final ValidationErrorBuilder m_validationErrorBuilder;
-    private final List<String> m_validatedUnparsedArguments;
-    private final Map<ParsedOptionSpecification, List<String>> m_validatedArguments;
-    private final OptionsSpecification<O> m_specification;
+    private final ValidationErrorBuilder validationErrorBuilder = new ValidationErrorBuilderImpl();
+
+    private final Map<ParsedOptionSpecification, List<String>> validatedArguments = new LinkedHashMap<ParsedOptionSpecification, List<String>>();
+    private final List<String> validatedUnparsedArguments = new ArrayList<String>();
+
+    private final OptionsSpecification<O> specification;
 
     public ArgumentValidatorImpl(final OptionsSpecification<O> specification)
     {
-        m_specification = specification;
-
-        m_validatedArguments = new LinkedHashMap<ParsedOptionSpecification, List<String>>();
-        m_validatedUnparsedArguments = new ArrayList<String>();
-
-        m_validationErrorBuilder = new ValidationErrorBuilderImpl();
+        this.specification = specification;
     }
 
-    @Override public void processOption(final String optionName, final List<String> allValues) {
-        if (!m_specification.isSpecified(optionName))
+    @Override public void processOption(final String optionName, final List<String> values) {
+        if (!specification.isSpecified(optionName))
         {
-            m_validationErrorBuilder.unexpectedOption(optionName);
+            validationErrorBuilder.unexpectedOption(optionName);
             return;
         }
 
-        final ParsedOptionSpecification optionSpecification =
-                m_specification.getSpecification(optionName);
-        if (optionSpecification.isHelpOption())
+        processOption(specification.getSpecification(optionName), values);
+    }
+
+    private void processOption(final ParsedOptionSpecification option, final List<String> values) {
+        if (option.isHelpOption())
         {
-            throw new HelpRequestedException(m_specification);
+            throw new HelpRequestedException(specification);
         }
 
-        if (!optionSpecification.allowedThisManyValues(allValues.size()))
+        if (!option.allowedThisManyValues(values.size()))
         {
-            m_validationErrorBuilder.wrongNumberOfValues(optionSpecification, allValues);
+            validationErrorBuilder.wrongNumberOfValues(option, values);
             return;
         }
         else
         {
-            checkAndAddValues(
-                    optionSpecification,
-                    optionName,
-                    new ArrayList<String>(allValues));
+            checkAndAddValues(option, new ArrayList<String>(values));
         }
     }
 
-    @Override public void processLastOption(final String optionName, final List<String> allValues) {
+    @Override public void processLastOption(final String optionName, final List<String> values) {
+        if (!specification.isSpecified(optionName))
+        {
+            validationErrorBuilder.unexpectedOption(optionName);
+            return;
+        }
+
         final ParsedOptionSpecification optionSpecification =
-                m_specification.getSpecification(optionName);
+                specification.getSpecification(optionName);
 
-        if (m_specification.hasUnparsedSpecification())
-        {
-            final int maximumArgumentConsumption =
-                    Math.min(allValues.size(), optionSpecification.maximumArgumentConsumption());
-            m_validatedUnparsedArguments.addAll(0, allValues.subList(maximumArgumentConsumption, allValues.size()));
+        processOption(optionSpecification, trimExcessOptions(values, optionSpecification));
+    }
 
-            processOption(optionName, new ArrayList<String>(allValues.subList(0, maximumArgumentConsumption)));
+    private List<String> trimExcessOptions(
+            final List<String> values,
+            final ParsedOptionSpecification optionSpecification) {
+        if (!specification.hasUnparsedSpecification()) {
+            return values;
         }
-        else
-        {
-            processOption(optionName, allValues);
-        }
+
+        final int maximumArgumentConsumption = min(values.size(), optionSpecification.maximumArgumentConsumption());
+        validatedUnparsedArguments.addAll(0, values.subList(maximumArgumentConsumption, values.size()));
+        return new ArrayList<String>(values.subList(0, maximumArgumentConsumption));
     }
 
     @Override public void finishedProcessing(final List<String> values) {
-        m_validatedUnparsedArguments.addAll(values);
+        validatedUnparsedArguments.addAll(values);
         validateUnparsedOptions();
 
-        m_validationErrorBuilder.validate();
+        validationErrorBuilder.validate();
 
-        for (final ParsedOptionSpecification mandatoryOptionSpecification : m_specification.getMandatoryOptions())
+        for (final ParsedOptionSpecification mandatoryOptionSpecification : specification.getMandatoryOptions())
         {
-            if (!m_validatedArguments.containsKey(mandatoryOptionSpecification))
+            if (!validatedArguments.containsKey(mandatoryOptionSpecification))
             {
-                m_validationErrorBuilder.missingOption(mandatoryOptionSpecification);
+                validationErrorBuilder.missingOption(mandatoryOptionSpecification);
             }
         }
-        m_validationErrorBuilder.validate();
+        validationErrorBuilder.validate();
     }
 
     private void validateUnparsedOptions()
     {
-        if (m_specification.hasUnparsedSpecification())
+        if (specification.hasUnparsedSpecification())
         {
-            final OptionSpecification argumentSpecification = m_specification.getUnparsedSpecification();
+            final OptionSpecification argumentSpecification = specification.getUnparsedSpecification();
 
-            if (argumentSpecification.isOptional() && m_validatedUnparsedArguments.isEmpty())
+            if (argumentSpecification.isOptional() && validatedUnparsedArguments.isEmpty())
             {
                 // OK
             }
-            else if (!argumentSpecification.allowedThisManyValues(m_validatedUnparsedArguments.size()))
+            else if (!argumentSpecification.allowedThisManyValues(validatedUnparsedArguments.size()))
             {
-                m_validationErrorBuilder.wrongNumberOfValues(argumentSpecification, m_validatedUnparsedArguments);
+                validationErrorBuilder.wrongNumberOfValues(argumentSpecification, validatedUnparsedArguments);
             }
         }
-        else if (!m_validatedUnparsedArguments.isEmpty())
+        else if (!validatedUnparsedArguments.isEmpty())
         {
-            m_validationErrorBuilder.unexpectedTrailingValue(m_validatedUnparsedArguments);
+            validationErrorBuilder.unexpectedTrailingValue(validatedUnparsedArguments);
         }
     }
 
     private void checkAndAddValues(
             final ParsedOptionSpecification optionSpecification,
-            final String option,
             final ArrayList<String> values)
     {
         for (final String value : values)
         {
             if (!patternMatches(optionSpecification, value))
             {
-                m_validationErrorBuilder.patternMismatch(optionSpecification, value);
+                validationErrorBuilder.patternMismatch(optionSpecification, value);
                 return;
             }
         }
-        m_validatedArguments.put(optionSpecification, new ArrayList<String>(values));
+        validatedArguments.put(optionSpecification, new ArrayList<String>(values));
     }
 
     private boolean patternMatches(final ParsedOptionSpecification optionSpecification, final String value)
@@ -147,6 +151,6 @@ class ArgumentValidatorImpl<O> implements ArgumentProcessor
 
     OptionCollection argumentCollection()
     {
-        return new OptionCollectionImpl(m_specification, m_validatedArguments, m_validatedUnparsedArguments);
+        return new OptionCollectionImpl(specification, validatedArguments, validatedUnparsedArguments);
     }
 }
