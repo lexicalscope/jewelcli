@@ -10,6 +10,7 @@ import java.util.Set;
 
 import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
 import com.lexicalscope.jewel.cli.parser.ParsedArguments;
+import com.lexicalscope.jewel.cli.validation.OptionCollection;
 
 /*
  * Copyright 2011 Tim Wood
@@ -112,7 +113,7 @@ class ArgumentCollectionBuilder implements ParsedArguments {
         state = state.addOption(option);
     }
 
-    @Override public void processArguments(final ArgumentProcessor argumentProcessor) {
+    @Override public OptionCollection processArguments(final ArgumentProcessor argumentProcessor) {
         final Set<Entry<String, List<String>>> entrySet = arguments.entrySet();
         final Iterator<Entry<String, List<String>>> iterator = entrySet.iterator();
         while (iterator.hasNext()) {
@@ -124,7 +125,7 @@ class ArgumentCollectionBuilder implements ParsedArguments {
                 argumentProcessor.processLastOption(entry.getKey(), entry.getValue());
             }
         }
-        argumentProcessor.finishedProcessing(unparsed);
+        return argumentProcessor.finishedProcessing(unparsed);
     }
 
     private ArgumentValidationException misplacedOption(final String option) {

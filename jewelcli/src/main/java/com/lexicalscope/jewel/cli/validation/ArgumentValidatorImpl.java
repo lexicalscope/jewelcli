@@ -94,7 +94,7 @@ public class ArgumentValidatorImpl<O> implements ArgumentProcessor
         return new ArrayList<String>(values.subList(0, maximumArgumentConsumption));
     }
 
-    @Override public void finishedProcessing(final List<String> values) {
+    @Override public OptionCollection finishedProcessing(final List<String> values) {
         validatedUnparsedArguments.addAll(values);
         validateUnparsedOptions();
 
@@ -108,6 +108,8 @@ public class ArgumentValidatorImpl<O> implements ArgumentProcessor
             }
         }
         validationErrorBuilder.validate();
+
+        return new OptionCollectionImpl(specification, validatedArguments, validatedUnparsedArguments);
     }
 
     private void validateUnparsedOptions()
@@ -149,10 +151,5 @@ public class ArgumentValidatorImpl<O> implements ArgumentProcessor
     private boolean patternMatches(final ParsedOptionSpecification optionSpecification, final String value)
     {
         return value.matches(optionSpecification.getPattern());
-    }
-
-    public OptionCollection argumentCollection()
-    {
-        return new OptionCollectionImpl(specification, validatedArguments, validatedUnparsedArguments);
     }
 }

@@ -1,11 +1,11 @@
 package com.lexicalscope.jewel.cli;
 
 import static com.lexicalscope.jewel.cli.parser.DefaultArgumentParserFactory.createDefaultArgumentParser;
+import static com.lexicalscope.jewel.cli.validation.DefaultValidatorFactory.createDefaultValidator;
 
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.jewel.cli.specification.CliSpecification;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
-import com.lexicalscope.jewel.cli.validation.ArgumentValidatorImpl;
 
 /*
  * Copyright 2011 Tim Wood
@@ -36,12 +36,10 @@ abstract class AbstractCliImpl<O> implements Cli<O> {
 
     @Override public O parseArguments(final String... arguments) throws ArgumentValidationException {
         final ArgumentCollectionBuilder parsedArguments = new ArgumentCollectionBuilder();
+
         createDefaultArgumentParser().parseArguments(parsedArguments, arguments);
 
-        final ArgumentValidatorImpl<O> argumentValidator = new ArgumentValidatorImpl<O>(optionsSpecification);
-        parsedArguments.processArguments(argumentValidator);
-
-        return argumentPresenter(klass, optionsSpecification).presentArguments(argumentValidator.argumentCollection());
+        return argumentPresenter(klass, optionsSpecification).presentArguments(parsedArguments.processArguments(createDefaultValidator(optionsSpecification)));
     }
 
     protected abstract ArgumentPresenterImpl<O> argumentPresenter(

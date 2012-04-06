@@ -138,8 +138,6 @@ public class TestArgumentValidatorImpl {
         final ArgumentCollectionBuilder parsedArguments = new ArgumentCollectionBuilder();
         createDefaultArgumentParser().parseArguments(parsedArguments, arguments);
 
-        parsedArguments.processArguments(impl);
-
-        return (OptionCollectionImpl) impl.argumentCollection();
+        return (OptionCollectionImpl) parsedArguments.processArguments(impl);
     }
 }
