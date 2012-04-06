@@ -93,63 +93,61 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator<O>
             }
 
             @Override public void unparsed(final List<String> values) {
+                for (final ParsedOptionSpecification mandatoryOptionSpecification : m_specification.getMandatoryOptions())
+                {
+                    if (!arguments.containsAny(mandatoryOptionSpecification.getNames()))
+                    {
+                        m_validationErrorBuilder.missingOption(mandatoryOptionSpecification);
+                    }
+                }
+
                 m_validatedUnparsedArguments.addAll(values);
+                validateUnparsedOptions();
+                m_validationErrorBuilder.validate();
+            }
+
+            private void validateUnparsedOptions()
+            {
+                if (m_specification.hasUnparsedSpecification())
+                {
+                    final OptionSpecification argumentSpecification = m_specification.getUnparsedSpecification();
+
+                    if(argumentSpecification.isOptional() && m_validatedUnparsedArguments.isEmpty())
+                    {
+                        // OK
+                    }
+                    else if(!argumentSpecification.allowedThisManyValues(m_validatedUnparsedArguments.size()))
+                    {
+                        m_validationErrorBuilder.wrongNumberOfValues(argumentSpecification, m_validatedUnparsedArguments);
+                    }
+                }
+                else if (!m_validatedUnparsedArguments.isEmpty())
+                {
+                    m_validationErrorBuilder.unexpectedTrailingValue(m_validatedUnparsedArguments);
+                }
+            }
+
+            private void checkAndAddValues(
+                    final ParsedOptionSpecification optionSpecification,
+                    final String option,
+                    final ArrayList<String> values)
+            {
+                for (final String value : values)
+                {
+                    if (!patternMatches(optionSpecification, value))
+                    {
+                        m_validationErrorBuilder.patternMismatch(optionSpecification, value);
+                    }
+                }
+                m_validatedArguments.put(option, new ArrayList<String>(values));
+            }
+
+            private boolean patternMatches(final ParsedOptionSpecification optionSpecification, final String value)
+            {
+                return value.matches(optionSpecification.getPattern());
             }
         });
 
-        for (final ParsedOptionSpecification optionSpecification : m_specification.getMandatoryOptions())
-        {
-            if (!arguments.containsAny(optionSpecification.getNames()))
-            {
-                m_validationErrorBuilder.missingOption(optionSpecification);
-            }
-        }
-
-        validateUnparsedOptions();
-
-        m_validationErrorBuilder.validate();
-
         return new ArgumentCollectionImpl(m_validatedArguments, m_validatedUnparsedArguments);
-    }
-
-    private void validateUnparsedOptions()
-    {
-        if (m_specification.hasUnparsedSpecification())
-        {
-            final OptionSpecification argumentSpecification = m_specification.getUnparsedSpecification();
-
-            if(argumentSpecification.isOptional() && m_validatedUnparsedArguments.isEmpty())
-            {
-                // OK
-            }
-            else if(!argumentSpecification.allowedThisManyValues(m_validatedUnparsedArguments.size()))
-            {
-                m_validationErrorBuilder.wrongNumberOfValues(argumentSpecification, m_validatedUnparsedArguments);
-            }
-        }
-        else if (!m_validatedUnparsedArguments.isEmpty())
-        {
-            m_validationErrorBuilder.unexpectedTrailingValue(m_validatedUnparsedArguments);
-        }
-    }
-
-    private void checkAndAddValues(
-            final ParsedOptionSpecification optionSpecification,
-            final String option,
-            final ArrayList<String> values)
-    {
-        for (final String value : values)
-        {
-            if (!patternMatches(optionSpecification, value))
-            {
-                m_validationErrorBuilder.patternMismatch(optionSpecification, value);
-            }
-        }
-        m_validatedArguments.put(option, new ArrayList<String>(values));
-    }
-
-    private boolean patternMatches(final ParsedOptionSpecification optionSpecification, final String value)
-    {
-        return value.matches(optionSpecification.getPattern());
     }
 }
