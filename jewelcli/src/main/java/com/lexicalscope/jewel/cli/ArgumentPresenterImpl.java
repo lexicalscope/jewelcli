@@ -10,6 +10,8 @@ import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
 import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
+import com.lexicalscope.jewel.cli.validation.Argument;
+import com.lexicalscope.jewel.cli.validation.OptionCollection;
 
 
 class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
@@ -33,7 +35,7 @@ class ArgumentPresenterImpl<O> implements ArgumentPresenter<O> {
                     converterTo(validationErrorBuilder, optionSpecification, optionSpecification.getMethod());
             putDefaultInMap(argumentMap, optionSpecification, convertTypeOfObject);
 
-            final Argument argument = validatedArguments.getArgument(optionSpecification.getNames());
+            final Argument argument = validatedArguments.getArgument(optionSpecification);
             if (argument != null) {
                 putValuesInMap(argumentMap, optionSpecification, convertTypeOfObject, argument.getValues());
             }

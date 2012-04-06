@@ -2,7 +2,7 @@
 //Author       : t.wood
 //Copyright    : (c) Teamphone.com Ltd. 2008 - All Rights Reserved
 //
-package com.lexicalscope.jewel.cli;
+package com.lexicalscope.jewel.cli.validation;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
  *
  * @author t.wood
  */
-interface Argument
+public interface Argument
 {
    /**
     * The option name

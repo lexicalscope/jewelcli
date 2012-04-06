@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 
-class ValidationErrorBuilderImpl implements ValidationErrorBuilder
+public class ValidationErrorBuilderImpl implements ValidationErrorBuilder
 {
     private final List<ValidationFailure> validationExceptions =
             new ArrayList<ValidationFailure>();

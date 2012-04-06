@@ -5,6 +5,7 @@ import static com.lexicalscope.jewel.cli.parser.DefaultArgumentParserFactory.cre
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.jewel.cli.specification.CliSpecification;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
+import com.lexicalscope.jewel.cli.validation.ArgumentValidatorImpl;
 
 /*
  * Copyright 2011 Tim Wood

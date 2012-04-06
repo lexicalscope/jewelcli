@@ -11,6 +11,8 @@ import java.util.List;
 import org.junit.Test;
 
 import com.lexicalscope.jewel.cli.examples.RmExample;
+import com.lexicalscope.jewel.cli.validation.ArgumentValidatorImpl;
+import com.lexicalscope.jewel.cli.validation.OptionCollectionImpl;
 
 public class TestArgumentValidatorImpl {
     public interface NoValue {

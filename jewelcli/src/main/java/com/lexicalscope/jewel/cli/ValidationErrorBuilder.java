@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 
-interface ValidationErrorBuilder
+public interface ValidationErrorBuilder
 {
     void unexpectedOption(String name);
 

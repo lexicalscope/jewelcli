@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.lexicalscope.jewel.cli;
+package com.lexicalscope.jewel.cli.validation;
 
 import static java.lang.Math.min;
 
@@ -21,12 +21,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lexicalscope.jewel.cli.HelpRequestedException;
+import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
+import com.lexicalscope.jewel.cli.ValidationErrorBuilderImpl;
 import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
 import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
 
-class ArgumentValidatorImpl<O> implements ArgumentProcessor
+public class ArgumentValidatorImpl<O> implements ArgumentProcessor
 {
     private final ValidationErrorBuilder validationErrorBuilder = new ValidationErrorBuilderImpl();
 
@@ -74,8 +77,7 @@ class ArgumentValidatorImpl<O> implements ArgumentProcessor
             return;
         }
 
-        final ParsedOptionSpecification optionSpecification =
-                specification.getSpecification(optionName);
+        final ParsedOptionSpecification optionSpecification = specification.getSpecification(optionName);
 
         processOption(optionSpecification, trimExcessOptions(values, optionSpecification));
     }
@@ -149,7 +151,7 @@ class ArgumentValidatorImpl<O> implements ArgumentProcessor
         return value.matches(optionSpecification.getPattern());
     }
 
-    OptionCollection argumentCollection()
+    public OptionCollection argumentCollection()
     {
         return new OptionCollectionImpl(specification, validatedArguments, validatedUnparsedArguments);
     }
