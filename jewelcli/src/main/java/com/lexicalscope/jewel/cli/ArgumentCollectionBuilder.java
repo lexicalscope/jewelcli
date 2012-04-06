@@ -127,13 +127,6 @@ class ArgumentCollectionBuilder implements ParsedArguments {
         argumentProcessor.finishedProcessing(unparsed);
     }
 
-    ArgumentCollection getParsedArguments()
-    {
-        return new ArgumentCollectionImpl(
-                new LinkedHashMap<String, List<String>>(arguments),
-                new ArrayList<String>(unparsed));
-    }
-
     private ArgumentValidationException misplacedOption(final String option) {
         return new ArgumentValidationException(new ValidationFailureMisplacedOption(option));
     }

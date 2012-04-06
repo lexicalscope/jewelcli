@@ -5,21 +5,28 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.*;
 
+import java.util.Collections;
+import java.util.List;
+
+import org.jmock.Expectations;
+import org.jmock.auto.Mock;
+import org.jmock.integration.junit4.JUnitRuleMockery;
+import org.junit.Rule;
 import org.junit.Test;
 
+import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
+
 public class TestArgumentCollectionBuilder {
+    @Rule public final JUnitRuleMockery context = new JUnitRuleMockery();
+    @Mock public ArgumentProcessor argumentProcessor;
+
     private final ArgumentCollectionBuilder argumentCollectionBuilder = new ArgumentCollectionBuilder();
 
-    private ArgumentCollection parsed() {
-        return argumentCollectionBuilder.getParsedArguments();
-    }
-
-    private boolean containsAny(final String string) {
-        return parsed().containsAny(asList(string));
-    }
-
     @Test public void testParseArguments() throws ArgumentValidationException {
-        assertEquals(0, parsed().getUnparsed().size());
+        context.checking(new Expectations() {{
+            oneOf(argumentProcessor).finishedProcessing(emptyStringList());
+        }});
+        argumentCollectionBuilder.processArguments(argumentProcessor);
     }
 
     @Test public void testParseArgumentsNotUparsed() throws ArgumentValidationException {
@@ -27,11 +34,13 @@ public class TestArgumentCollectionBuilder {
         argumentCollectionBuilder.addOption("b");
         argumentCollectionBuilder.addOption("c");
 
-        assertTrue(containsAny("a"));
-        assertTrue(containsAny("b"));
-        assertTrue(containsAny("c"));
-
-        assertEquals(0, parsed().getUnparsed().size());
+        context.checking(new Expectations() {{
+            oneOf(argumentProcessor).processOption("a", emptyStringList());
+            oneOf(argumentProcessor).processOption("b", emptyStringList());
+            oneOf(argumentProcessor).processLastOption("c", emptyStringList());
+            oneOf(argumentProcessor).finishedProcessing(emptyStringList());
+        }});
+        argumentCollectionBuilder.processArguments(argumentProcessor);
     }
 
     @Test public void noOptionsProducesUnparsed() throws ArgumentValidationException {
@@ -39,10 +48,10 @@ public class TestArgumentCollectionBuilder {
         argumentCollectionBuilder.addValue("2");
         argumentCollectionBuilder.addValue("3");
 
-        assertEquals(3, parsed().getUnparsed().size());
-        assertEquals("1", parsed().getUnparsed().get(0));
-        assertEquals("2", parsed().getUnparsed().get(1));
-        assertEquals("3", parsed().getUnparsed().get(2));
+        context.checking(new Expectations() {{
+            oneOf(argumentProcessor).finishedProcessing(asList("1", "2", "3"));
+        }});
+        argumentCollectionBuilder.processArguments(argumentProcessor);
     }
 
     @Test public void testParseArgumentsUnparsed() throws ArgumentValidationException {
@@ -50,15 +59,19 @@ public class TestArgumentCollectionBuilder {
         argumentCollectionBuilder.addValue("3");
         argumentCollectionBuilder.addValue("4");
 
-        assertEquals(2, parsed().getUnparsed().size());
-        assertEquals("3", parsed().getUnparsed().get(0));
-        assertEquals("4", parsed().getUnparsed().get(1));
+        context.checking(new Expectations() {{
+            oneOf(argumentProcessor).finishedProcessing(asList("3", "4"));
+        }});
+        argumentCollectionBuilder.processArguments(argumentProcessor);
     }
 
     @Test public void testParseArgumentsOnlyUnparsedSeperator() throws ArgumentValidationException {
         argumentCollectionBuilder.unparsedOptionsFollow();
 
-        assertEquals(0, parsed().getUnparsed().size());
+        context.checking(new Expectations() {{
+            oneOf(argumentProcessor).finishedProcessing(emptyStringList());
+        }});
+        argumentCollectionBuilder.processArguments(argumentProcessor);
     }
 
     @Test public void testParseArgumentsMisplacedValue() {
@@ -69,5 +82,9 @@ public class TestArgumentCollectionBuilder {
         } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.MisplacedOption)));
         }
+    }
+
+    public static List<String> emptyStringList() {
+        return Collections.emptyList();
     }
 }
