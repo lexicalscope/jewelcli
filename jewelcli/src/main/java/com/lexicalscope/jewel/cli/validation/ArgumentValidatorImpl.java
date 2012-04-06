@@ -24,12 +24,11 @@ import java.util.Map;
 import com.lexicalscope.jewel.cli.HelpRequestedException;
 import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
 import com.lexicalscope.jewel.cli.ValidationErrorBuilderImpl;
-import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
 import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
 
-public class ArgumentValidatorImpl<O> implements ArgumentProcessor
+class ArgumentValidatorImpl<O> implements ArgumentValidator
 {
     private final ValidationErrorBuilder validationErrorBuilder = new ValidationErrorBuilderImpl();
 

@@ -1,4 +1,4 @@
-package com.lexicalscope.jewel.cli;
+package com.lexicalscope.jewel.cli.validation;
 
 import static com.lexicalscope.fluentreflection.FluentReflection.type;
 import static com.lexicalscope.jewel.cli.ValidationFailureMatcher.validationError;
@@ -10,9 +10,13 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.lexicalscope.jewel.cli.ArgumentCollectionBuilder;
+import com.lexicalscope.jewel.cli.ArgumentValidationException;
+import com.lexicalscope.jewel.cli.InterfaceOptionsSpecificationParser;
+import com.lexicalscope.jewel.cli.Option;
+import com.lexicalscope.jewel.cli.Unparsed;
+import com.lexicalscope.jewel.cli.ValidationFailureType;
 import com.lexicalscope.jewel.cli.examples.RmExample;
-import com.lexicalscope.jewel.cli.validation.ArgumentValidatorImpl;
-import com.lexicalscope.jewel.cli.validation.OptionCollectionImpl;
 
 public class TestArgumentValidatorImpl {
     public interface NoValue {

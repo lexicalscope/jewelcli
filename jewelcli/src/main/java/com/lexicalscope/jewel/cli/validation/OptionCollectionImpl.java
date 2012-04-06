@@ -22,7 +22,7 @@ import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
 
 
-public class OptionCollectionImpl implements OptionCollection
+class OptionCollectionImpl implements OptionCollection
 {
     private final OptionsSpecification<?> specification;
     private final Map<ParsedOptionSpecification, List<String>> arguments;
@@ -39,7 +39,7 @@ public class OptionCollectionImpl implements OptionCollection
         this.unparsed = unparsed;
     }
 
-    public List<String> getUnparsed()
+    @Override public List<String> getUnparsed()
     {
         return new ArrayList<String>(unparsed);
     }
@@ -51,7 +51,7 @@ public class OptionCollectionImpl implements OptionCollection
         return null;
     }
 
-    public List<String> getValues(final String... options)
+    @Override public List<String> getValues(final String... options)
     {
         for (final String option : options)
         {

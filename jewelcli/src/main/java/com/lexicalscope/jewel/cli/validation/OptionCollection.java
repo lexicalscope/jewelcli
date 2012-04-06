@@ -15,4 +15,6 @@ public interface OptionCollection
     List<String> getUnparsed();
 
     Argument getArgument(ParsedOptionSpecification option);
+
+    List<String> getValues(String... options);
 }

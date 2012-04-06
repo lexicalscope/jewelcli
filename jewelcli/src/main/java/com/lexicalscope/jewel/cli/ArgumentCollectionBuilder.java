@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
 import com.lexicalscope.jewel.cli.parser.ParsedArguments;
+import com.lexicalscope.jewel.cli.validation.ArgumentValidator;
 import com.lexicalscope.jewel.cli.validation.OptionCollection;
 
 /*
@@ -28,7 +28,7 @@ import com.lexicalscope.jewel.cli.validation.OptionCollection;
  * limitations under the License.
  */
 
-class ArgumentCollectionBuilder implements ParsedArguments {
+public class ArgumentCollectionBuilder implements ParsedArguments {
     private interface IParsingState {
         IParsingState addValue(String value);
 
@@ -113,7 +113,7 @@ class ArgumentCollectionBuilder implements ParsedArguments {
         state = state.addOption(option);
     }
 
-    @Override public OptionCollection processArguments(final ArgumentProcessor argumentProcessor) {
+    @Override public OptionCollection processArguments(final ArgumentValidator argumentProcessor) {
         final Set<Entry<String, List<String>>> entrySet = arguments.entrySet();
         final Iterator<Entry<String, List<String>>> iterator = entrySet.iterator();
         while (iterator.hasNext()) {

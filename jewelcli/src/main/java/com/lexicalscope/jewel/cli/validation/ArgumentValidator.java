@@ -1,8 +1,7 @@
-package com.lexicalscope.jewel.cli.arguments;
+package com.lexicalscope.jewel.cli.validation;
 
 import java.util.List;
 
-import com.lexicalscope.jewel.cli.validation.OptionCollection;
 
 /*
  * Copyright 2012 Tim Wood
@@ -20,7 +19,7 @@ import com.lexicalscope.jewel.cli.validation.OptionCollection;
  * limitations under the License.
  */
 
-public interface ArgumentProcessor {
+public interface ArgumentValidator {
     void processOption(String option, List<String> values);
 
     void processLastOption(String option, List<String> values);

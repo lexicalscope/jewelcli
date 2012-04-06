@@ -1,6 +1,5 @@
 package com.lexicalscope.jewel.cli.validation;
 
-import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 
 
@@ -21,7 +20,7 @@ import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
  */
 
 public final class DefaultValidatorFactory {
-    public static final <O> ArgumentProcessor createDefaultValidator(final OptionsSpecification<O> optionsSpecification)
+    public static final <O> ArgumentValidator createDefaultValidator(final OptionsSpecification<O> optionsSpecification)
     {
         return new ArgumentValidatorImpl<O>(optionsSpecification);
     }

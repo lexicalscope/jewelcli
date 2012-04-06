@@ -19,7 +19,7 @@ import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 import com.lexicalscope.fluentreflection.ReflectedClass;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 
-class InterfaceOptionsSpecificationParser<O> {
+public class InterfaceOptionsSpecificationParser<O> {
     private final ReflectedClass<O> klass;
 
     InterfaceOptionsSpecificationParser(final ReflectedClass<O> klass) {
@@ -36,7 +36,7 @@ class InterfaceOptionsSpecificationParser<O> {
                         new ConvertUnparsedGetterMethodToUnparsedOptionSpecification(klass)));
     }
 
-    static <O> OptionsSpecification<O> createOptionsSpecificationImpl(final ReflectedClass<O> klass) {
+    public static <O> OptionsSpecification<O> createOptionsSpecificationImpl(final ReflectedClass<O> klass) {
         return new InterfaceOptionsSpecificationParser<O>(klass).buildOptionsSpecification();
     }
 }

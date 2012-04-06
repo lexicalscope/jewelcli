@@ -14,11 +14,11 @@ import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
 import org.junit.Test;
 
-import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
+import com.lexicalscope.jewel.cli.validation.ArgumentValidator;
 
 public class TestArgumentCollectionBuilder {
     @Rule public final JUnitRuleMockery context = new JUnitRuleMockery();
-    @Mock public ArgumentProcessor argumentProcessor;
+    @Mock public ArgumentValidator argumentProcessor;
 
     private final ArgumentCollectionBuilder argumentCollectionBuilder = new ArgumentCollectionBuilder();
 

@@ -1,6 +1,6 @@
 package com.lexicalscope.jewel.cli.parser;
 
-import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
+import com.lexicalscope.jewel.cli.validation.ArgumentValidator;
 import com.lexicalscope.jewel.cli.validation.OptionCollection;
 
 /*
@@ -53,5 +53,5 @@ public interface ParsedArguments {
      *
      * @return the parsed options
      */
-    OptionCollection processArguments(ArgumentProcessor argumentProcessor);
+    OptionCollection processArguments(ArgumentValidator argumentProcessor);
 }
