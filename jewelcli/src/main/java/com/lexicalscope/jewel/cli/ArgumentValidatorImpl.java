@@ -28,20 +28,20 @@ class ArgumentValidatorImpl<O> implements ArgumentProcessor
 {
     private final ValidationErrorBuilder m_validationErrorBuilder;
     private final List<String> m_validatedUnparsedArguments;
-    private final Map<String, List<String>> m_validatedArguments;
+    private final Map<ParsedOptionSpecification, List<String>> m_validatedArguments;
     private final OptionsSpecification<O> m_specification;
 
     public ArgumentValidatorImpl(final OptionsSpecification<O> specification)
     {
         m_specification = specification;
 
-        m_validatedArguments = new LinkedHashMap<String, List<String>>();
+        m_validatedArguments = new LinkedHashMap<ParsedOptionSpecification, List<String>>();
         m_validatedUnparsedArguments = new ArrayList<String>();
 
         m_validationErrorBuilder = new ValidationErrorBuilderImpl();
     }
 
-    @Override public void option(final String optionName, final List<String> allValues) {
+    @Override public void processOption(final String optionName, final List<String> allValues) {
         if (!m_specification.isSpecified(optionName))
         {
             m_validationErrorBuilder.unexpectedOption(optionName);
@@ -69,7 +69,7 @@ class ArgumentValidatorImpl<O> implements ArgumentProcessor
         }
     }
 
-    @Override public void lastOption(final String optionName, final List<String> allValues) {
+    @Override public void processLastOption(final String optionName, final List<String> allValues) {
         final ParsedOptionSpecification optionSpecification =
                 m_specification.getSpecification(optionName);
 
@@ -79,15 +79,15 @@ class ArgumentValidatorImpl<O> implements ArgumentProcessor
                     Math.min(allValues.size(), optionSpecification.maximumArgumentConsumption());
             m_validatedUnparsedArguments.addAll(0, allValues.subList(maximumArgumentConsumption, allValues.size()));
 
-            option(optionName, new ArrayList<String>(allValues.subList(0, maximumArgumentConsumption)));
+            processOption(optionName, new ArrayList<String>(allValues.subList(0, maximumArgumentConsumption)));
         }
         else
         {
-            option(optionName, allValues);
+            processOption(optionName, allValues);
         }
     }
 
-    @Override public void unparsed(final List<String> values) {
+    @Override public void finishedProcessing(final List<String> values) {
         m_validatedUnparsedArguments.addAll(values);
         validateUnparsedOptions();
 
@@ -95,24 +95,12 @@ class ArgumentValidatorImpl<O> implements ArgumentProcessor
 
         for (final ParsedOptionSpecification mandatoryOptionSpecification : m_specification.getMandatoryOptions())
         {
-            if (!containsAny(mandatoryOptionSpecification.getNames()))
+            if (!m_validatedArguments.containsKey(mandatoryOptionSpecification))
             {
                 m_validationErrorBuilder.missingOption(mandatoryOptionSpecification);
             }
         }
         m_validationErrorBuilder.validate();
-    }
-
-    public boolean containsAny(final List<String> options)
-    {
-        for (final String option : options)
-        {
-            if (m_validatedArguments.containsKey(option))
-            {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void validateUnparsedOptions()
@@ -149,7 +137,7 @@ class ArgumentValidatorImpl<O> implements ArgumentProcessor
                 return;
             }
         }
-        m_validatedArguments.put(option, new ArrayList<String>(values));
+        m_validatedArguments.put(optionSpecification, new ArrayList<String>(values));
     }
 
     private boolean patternMatches(final ParsedOptionSpecification optionSpecification, final String value)
@@ -157,8 +145,8 @@ class ArgumentValidatorImpl<O> implements ArgumentProcessor
         return value.matches(optionSpecification.getPattern());
     }
 
-    ArgumentCollection argumentCollection()
+    OptionCollection argumentCollection()
     {
-        return new ArgumentCollectionImpl(m_validatedArguments, m_validatedUnparsedArguments);
+        return new OptionCollectionImpl(m_specification, m_validatedArguments, m_validatedUnparsedArguments);
     }
 }

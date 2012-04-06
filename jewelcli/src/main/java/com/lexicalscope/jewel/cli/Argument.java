@@ -6,6 +6,8 @@ package com.lexicalscope.jewel.cli;
 
 import java.util.List;
 
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
+
 /**
  * A parsed argument
  *
@@ -18,7 +20,7 @@ interface Argument
     *
     * @return the option name
     */
-   String getOptionName();
+   ParsedOptionSpecification getOptionName();
 
    /**
     * The values

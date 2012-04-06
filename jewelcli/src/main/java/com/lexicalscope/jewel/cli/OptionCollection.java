@@ -2,10 +2,8 @@ package com.lexicalscope.jewel.cli;
 
 import java.util.List;
 
-import com.lexicalscope.jewel.cli.arguments.ArgumentProcessor;
 
-
-interface ArgumentCollection
+interface OptionCollection extends Iterable<Argument>
 {
     /**
      * Get any unparsed arguments
@@ -24,5 +22,7 @@ interface ArgumentCollection
      */
     boolean containsAny(List<String> options);
 
-    void forEach(ArgumentProcessor argumentProcessor);
+    Argument getArgument(List<String> options);
+
+//    void forEach(ArgumentProcessor argumentProcessor);
 }

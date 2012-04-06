@@ -15,7 +15,6 @@
 package com.lexicalscope.jewel.cli;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -36,42 +35,9 @@ class ArgumentCollectionImpl implements ArgumentCollection
         m_unparsed = unparsed;
     }
 
-    public boolean hasUnparsed()
-    {
-        return !m_unparsed.isEmpty();
-    }
-
     public List<String> getUnparsed()
     {
         return new ArrayList<String>(m_unparsed);
-    }
-
-    public Iterator<Argument> iterator()
-    {
-        return new Iterator<Argument>() {
-            final Iterator<Map.Entry<String, List<String>>> m_iterator = m_arguments.entrySet().iterator();
-
-            public boolean hasNext()
-            {
-                return m_iterator.hasNext();
-            }
-
-            public Argument next()
-            {
-                final Entry<String, List<String>> next = m_iterator.next();
-                return new ArgumentImpl(next.getKey(), next.getValue());
-            }
-
-            public void remove()
-            {
-                m_iterator.remove();
-            }
-        };
-    }
-
-    boolean containsAny(final String... options)
-    {
-        return containsAny(Arrays.asList(options));
     }
 
     /**
@@ -89,32 +55,6 @@ class ArgumentCollectionImpl implements ArgumentCollection
         return false;
     }
 
-    @Override public Argument getArgument(final List<String> options) {
-        for (final String option : options) {
-            if (m_arguments.containsKey(option)) {
-                return new ArgumentImpl(option, m_arguments.get(option));
-            }
-        }
-        return null;
-    }
-
-    List<String> getValues(final String... options)
-    {
-        return getValues(Arrays.asList(options));
-    }
-
-    private List<String> getValues(final List<String> options)
-    {
-        for (final String option : options)
-        {
-            if (m_arguments.containsKey(option))
-            {
-                return m_arguments.get(option);
-            }
-        }
-        return null;
-    }
-
     @Override public void forEach(final ArgumentProcessor argumentProcessor) {
         final Set<Entry<String, List<String>>> entrySet = m_arguments.entrySet();
         final Iterator<Entry<String, List<String>>> iterator = entrySet.iterator();
@@ -122,11 +62,11 @@ class ArgumentCollectionImpl implements ArgumentCollection
             final Map.Entry<java.lang.String, java.util.List<java.lang.String>> entry = iterator.next();
 
             if(iterator.hasNext()) {
-                argumentProcessor.option(entry.getKey(), entry.getValue());
+                argumentProcessor.processOption(entry.getKey(), entry.getValue());
             } else {
-                argumentProcessor.lastOption(entry.getKey(), entry.getValue());
+                argumentProcessor.processLastOption(entry.getKey(), entry.getValue());
             }
         }
-        argumentProcessor.unparsed(m_unparsed);
+        argumentProcessor.finishedProcessing(m_unparsed);
     }
 }

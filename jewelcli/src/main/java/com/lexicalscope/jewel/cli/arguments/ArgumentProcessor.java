@@ -19,9 +19,9 @@ import java.util.List;
  */
 
 public interface ArgumentProcessor {
-    void option(String option, List<String> values);
+    void processOption(String option, List<String> values);
 
-    void lastOption(String option, List<String> values);
+    void processLastOption(String option, List<String> values);
 
-    void unparsed(List<String> values);
+    void finishedProcessing(List<String> values);
 }

@@ -6,12 +6,14 @@ package com.lexicalscope.jewel.cli;
 
 import java.util.List;
 
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
+
 class ArgumentImpl implements Argument
 {
-    private final String m_optionName;
+    private final ParsedOptionSpecification m_optionName;
     private final List<String> m_values;
 
-    ArgumentImpl(final String optionName, final List<String> values)
+    ArgumentImpl(final ParsedOptionSpecification optionName, final List<String> values)
     {
         m_optionName = optionName;
         m_values = values;
@@ -20,7 +22,7 @@ class ArgumentImpl implements Argument
     /**
      * {@inheritDoc}
      */
-    public String getOptionName()
+    public ParsedOptionSpecification getOptionName()
     {
         return m_optionName;
     }

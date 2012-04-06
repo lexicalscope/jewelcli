@@ -64,14 +64,14 @@ public class TestArgumentValidatorImpl {
     }
 
     @Test public void testMultipleValueEndOfArguments() throws ArgumentValidationException {
-        final ArgumentCollectionImpl validated =
+        final OptionCollectionImpl validated =
                 validate(new String[] { "--name", "a", "b", "--", "c", "d" }, MultipleValue.class);
         assertEquals(2, validated.getUnparsed().size());
         assertEquals(2, validated.getValues("name").size());
     }
 
     @Test public void testMultipleValueNotEndOfArguments() throws ArgumentValidationException {
-        final ArgumentCollectionImpl validated =
+        final OptionCollectionImpl validated =
                 validate(
                         new String[] { "--name0", "a", "b", "--name1", "c", "d", "e", "--", "f", "g" },
                         ExtraValue.class);
@@ -81,7 +81,7 @@ public class TestArgumentValidatorImpl {
     }
 
     @Test public void testAdjacentShortOptions() throws ArgumentValidationException {
-        final ArgumentCollection validated = validate(new String[] { "-vrf", "./" }, RmExample.class);
+        final OptionCollectionImpl validated = validate(new String[] { "-vrf", "./" }, RmExample.class);
         assertEquals(1, validated.getUnparsed().size());
     }
 
@@ -122,12 +122,12 @@ public class TestArgumentValidatorImpl {
     }
 
     @Test public void testOptionAndUnparsed() throws ArgumentValidationException {
-        final ArgumentCollectionImpl validated =
+        final OptionCollectionImpl validated =
                 validate(new String[] { "--name0", "value0", "remaining0" }, OptionAndUnparsed.class);
         assertEquals(1, validated.getUnparsed().size());
     }
 
-    private <O> ArgumentCollectionImpl validate(final String[] arguments, final Class<O> klass)
+    private <O> OptionCollectionImpl validate(final String[] arguments, final Class<O> klass)
             throws ArgumentValidationException {
         final ArgumentValidatorImpl<O> impl =
                 new ArgumentValidatorImpl<O>(
@@ -138,6 +138,6 @@ public class TestArgumentValidatorImpl {
 
         parsedArguments.getParsedArguments().forEach(impl);
 
-        return (ArgumentCollectionImpl) impl.argumentCollection();
+        return (OptionCollectionImpl) impl.argumentCollection();
     }
 }
