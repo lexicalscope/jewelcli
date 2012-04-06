@@ -37,10 +37,10 @@ abstract class AbstractCliImpl<O> implements Cli<O> {
         final ArgumentCollectionBuilder parsedArguments = new ArgumentCollectionBuilder();
         createDefaultArgumentParser().parseArguments(parsedArguments, arguments);
 
-        final ArgumentCollection validatedArguments =
-                new ArgumentValidatorImpl<O>(optionsSpecification).validateArguments(parsedArguments.getParsedArguments());
+        final ArgumentValidatorImpl<O> argumentValidator = new ArgumentValidatorImpl<O>(optionsSpecification);
+        parsedArguments.getParsedArguments().forEach(argumentValidator);
 
-        return argumentPresenter(klass, optionsSpecification).presentArguments(validatedArguments);
+        return argumentPresenter(klass, optionsSpecification).presentArguments(argumentValidator.argumentCollection());
     }
 
     protected abstract ArgumentPresenterImpl<O> argumentPresenter(

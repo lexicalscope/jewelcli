@@ -109,8 +109,7 @@ public class TestCliImpl {
             fail();
         } catch (final ArgumentValidationException e) {
             assertThat(e.getValidationFailures(), contains(
-                    validationError(ValidationFailureType.UnexpectedOption),
-                    validationError(ValidationFailureType.MissingOption)));
+                    validationError(ValidationFailureType.UnexpectedOption)));
         }
     }
 

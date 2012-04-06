@@ -136,6 +136,8 @@ public class TestArgumentValidatorImpl {
         final ArgumentCollectionBuilder parsedArguments = new ArgumentCollectionBuilder();
         createDefaultArgumentParser().parseArguments(parsedArguments, arguments);
 
-        return (ArgumentCollectionImpl) impl.validateArguments(parsedArguments.getParsedArguments());
+        parsedArguments.getParsedArguments().forEach(impl);
+
+        return (ArgumentCollectionImpl) impl.argumentCollection();
     }
 }

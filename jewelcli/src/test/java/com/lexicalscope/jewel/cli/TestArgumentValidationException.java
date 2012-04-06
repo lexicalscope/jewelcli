@@ -20,10 +20,9 @@ public class TestArgumentValidationException {
         @Option(description = "the count") int getCount();
     }
 
-    @Test public void testUnrecognisedAndMissingOption() {
+    @Test public void testUnrecognisedOptionDoesNotCauseMissingOption() {
         exception.expect(validationExceptionWithMessageLines(
-                "Unexpected Option: coutn",
-                "Option is mandatory: --count1 value"));
+                "Unexpected Option: coutn"));
 
         parseArguments(TwoOptions.class, new String[] { "--count0", "3", "--coutn", "5" });
     }
