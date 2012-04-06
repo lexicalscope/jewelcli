@@ -15,10 +15,11 @@ import com.lexicalscope.jewel.cli.ArgumentValidationException;
 import com.lexicalscope.jewel.cli.InterfaceOptionsSpecificationParser;
 import com.lexicalscope.jewel.cli.Option;
 import com.lexicalscope.jewel.cli.Unparsed;
+import com.lexicalscope.jewel.cli.ValidationErrorBuilderImpl;
 import com.lexicalscope.jewel.cli.ValidationFailureType;
 import com.lexicalscope.jewel.cli.examples.RmExample;
 
-public class TestArgumentValidatorImpl {
+public class TestArgumentValidatorImpl2 {
     public interface NoValue {
         @Option boolean getName0();
 
@@ -137,7 +138,7 @@ public class TestArgumentValidatorImpl {
             throws ArgumentValidationException {
         final ArgumentValidatorImpl<O> impl =
                 new ArgumentValidatorImpl<O>(
-                        InterfaceOptionsSpecificationParser.<O>createOptionsSpecificationImpl(type(klass)));
+                        InterfaceOptionsSpecificationParser.<O>createOptionsSpecificationImpl(type(klass)), new ValidationErrorBuilderImpl());
 
         final ArgumentCollectionBuilder parsedArguments = new ArgumentCollectionBuilder();
         createDefaultArgumentParser().parseArguments(parsedArguments, arguments);

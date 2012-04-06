@@ -23,23 +23,25 @@ import java.util.Map;
 
 import com.lexicalscope.jewel.cli.HelpRequestedException;
 import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
-import com.lexicalscope.jewel.cli.ValidationErrorBuilderImpl;
 import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
 
 class ArgumentValidatorImpl<O> implements ArgumentValidator
 {
-    private final ValidationErrorBuilder validationErrorBuilder = new ValidationErrorBuilderImpl();
+    private final ValidationErrorBuilder validationErrorBuilder;
 
     private final Map<ParsedOptionSpecification, List<String>> validatedArguments = new LinkedHashMap<ParsedOptionSpecification, List<String>>();
     private final List<String> validatedUnparsedArguments = new ArrayList<String>();
 
     private final OptionsSpecification<O> specification;
 
-    public ArgumentValidatorImpl(final OptionsSpecification<O> specification)
+    public ArgumentValidatorImpl(
+            final OptionsSpecification<O> specification,
+            final ValidationErrorBuilder validationErrorBuilder)
     {
         this.specification = specification;
+        this.validationErrorBuilder = validationErrorBuilder;
     }
 
     @Override public void processOption(final String optionName, final List<String> values) {
@@ -136,19 +138,23 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
             final ParsedOptionSpecification optionSpecification,
             final ArrayList<String> values)
     {
-        for (final String value : values)
+        if(!values.isEmpty())
         {
-            if (!patternMatches(optionSpecification, value))
+            final String pattern = optionSpecification.getPattern();
+            for (final String value : values)
             {
-                validationErrorBuilder.patternMismatch(optionSpecification, value);
-                return;
+                if (!patternMatches(pattern, value))
+                {
+                    validationErrorBuilder.patternMismatch(optionSpecification, value);
+                    return;
+                }
             }
         }
         validatedArguments.put(optionSpecification, new ArrayList<String>(values));
     }
 
-    private boolean patternMatches(final ParsedOptionSpecification optionSpecification, final String value)
+    private boolean patternMatches(final String pattern, final String value)
     {
-        return value.matches(optionSpecification.getPattern());
+        return value.matches(pattern);
     }
 }
