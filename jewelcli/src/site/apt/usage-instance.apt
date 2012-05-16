@@ -101,7 +101,7 @@ public static void main(String [] args)
 {
   try
   {
-    MyExample result = CliFactory.createCliUsingInstance(new MyExample(), args);
+    MyExample result = CliFactory.parseArgumentsUsingInstance(new MyExample(), args);
     [...]
   }
   catch(ArgumentValidationException e)
