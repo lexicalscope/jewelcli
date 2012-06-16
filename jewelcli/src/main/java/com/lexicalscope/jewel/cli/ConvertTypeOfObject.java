@@ -102,22 +102,22 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
         try
         {
             final List<ReflectedMethod> valueOfMethods =
-                    klassToCreate.methods(callableHasName("valueOf").and(callableHasArguments(value.getClass())).and(
-                            callableHasReturnType(klass)));
+                    klassToCreate.methods(hasName("valueOf").and(hasArguments(value.getClass())).and(
+                            hasType(klass)));
 
             if (!valueOfMethods.isEmpty()) {
                 return (S) valueOfMethods.get(0).call(value);
             }
 
             final List<ReflectedConstructor<S>> singleArgumentConstructors =
-                    klassToCreate.constructors(callableHasArguments(value.getClass()));
+                    klassToCreate.constructors(hasArguments(value.getClass()));
 
             if (!singleArgumentConstructors.isEmpty()) {
                 return singleArgumentConstructors.get(0).call(value);
             }
 
             final List<ReflectedConstructor<S>> typeTokenConstructors =
-                    klassToCreate.constructors(callableHasArguments(value.getClass(), Type.class));
+                    klassToCreate.constructors(hasArguments(value.getClass(), Type.class));
 
             if (!typeTokenConstructors.isEmpty()) {
                 return typeTokenConstructors.get(0).call(value, klassToCreate.type());
@@ -161,7 +161,7 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
 
     private T convertIterable(final Object value) {
         final ReflectedClass<?> desiredCollectionReflectedType =
-                reflectedKlass.asType(reflectedTypeReflectingOn(Iterable.class)).typeArgument(0);
+                reflectedKlass.asType(reflectingOn(Iterable.class)).typeArgument(0);
 
         final List<Object> convertedTypes = Lambda.convert(value,
                 new ConvertTypeOfObject<Object>(
@@ -193,7 +193,7 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
         }
         else
         {
-            methodType = (ReflectedClass<T>) method.returnType();
+            methodType = (ReflectedClass<T>) method.type();
         }
         return converterTo(validationErrorBuilder, specification, methodType);
     }

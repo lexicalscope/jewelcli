@@ -125,7 +125,8 @@ public class ArgumentCollectionBuilder implements ParsedArguments {
                 argumentProcessor.processLastOption(entry.getKey(), entry.getValue());
             }
         }
-        return argumentProcessor.finishedProcessing(unparsed);
+        argumentProcessor.processUnparsed(unparsed);
+        return argumentProcessor.finishedProcessing();
     }
 
     private ArgumentValidationException misplacedOption(final String option) {

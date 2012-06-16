@@ -95,10 +95,12 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
         return new ArrayList<String>(values.subList(0, maximumArgumentConsumption));
     }
 
-    @Override public OptionCollection finishedProcessing(final List<String> values) {
+    @Override public void processUnparsed(final List<String> values) {
         validatedUnparsedArguments.addAll(values);
         validateUnparsedOptions();
+    }
 
+    @Override public OptionCollection finishedProcessing() {
         validationErrorBuilder.validate();
 
         for (final ParsedOptionSpecification mandatoryOptionSpecification : specification.getMandatoryOptions())
@@ -138,23 +140,14 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
             final ParsedOptionSpecification optionSpecification,
             final ArrayList<String> values)
     {
-        if(!values.isEmpty())
+        for (final String value : values)
         {
-            final String pattern = optionSpecification.getPattern();
-            for (final String value : values)
+            if (!optionSpecification.allowedValue(value))
             {
-                if (!patternMatches(pattern, value))
-                {
-                    validationErrorBuilder.patternMismatch(optionSpecification, value);
-                    return;
-                }
+                validationErrorBuilder.patternMismatch(optionSpecification, value);
+                return;
             }
         }
         validatedArguments.put(optionSpecification, new ArrayList<String>(values));
-    }
-
-    private boolean patternMatches(final String pattern, final String value)
-    {
-        return value.matches(pattern);
     }
 }

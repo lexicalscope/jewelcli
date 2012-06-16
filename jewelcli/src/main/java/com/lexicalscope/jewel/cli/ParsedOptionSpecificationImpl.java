@@ -71,4 +71,8 @@ class ParsedOptionSpecificationImpl extends AbstractOptionSpecification implemen
     @Override public String toString() {
         return new ParsedOptionSummary(this).toString();
     }
+
+    @Override public boolean allowedValue(final String value) {
+        return value.matches(getPattern());
+    }
 }

@@ -57,6 +57,8 @@ public interface ParsedOptionSpecification extends OptionSpecification {
      */
     String getPattern();
 
+    boolean allowedValue(String value);
+
     /**
      * Does the option take any arguments?
      *

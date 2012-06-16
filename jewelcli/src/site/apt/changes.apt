@@ -4,6 +4,10 @@
                                        
 API Changes
 
+* Changes in version 0.8.3
+
+  * provide the option to display help message in the order that the methods are defined (actually the order that the JVM Java reflection API implementation returns the methods). Please see the CommandLineInterface annotation for more details
+
 * Changes in version 0.8.2
 
   * allow option methods to omit the "get" prefix

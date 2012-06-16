@@ -32,7 +32,7 @@ import com.lexicalscope.fluentreflection.TypeToken;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 class ConvertTypeOfObject<T> implements Converter<Object, T> {
@@ -54,19 +54,19 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
     /**
      * If T is assignable from value, then return the value. Otherwise tries to
      * create an instance of this type using the provided argument.
-     * 
+     *
      * Will first attempt to find a static method called "valueOf" which returns
      * this type and takes a single argument compatible with the type of the
      * value given. If that is not found, tries to find a constructor which
      * takes an argument of the type of the given value. Otherwise throws a
      * ClassCastException
-     * 
+     *
      * @param value
      *            the value to be converted
-     * 
+     *
      * @throws ClassCastException
      *             if the types cannot be converted
-     * 
+     *
      * @return the converted value
      */
     @Override public T convert(final Object value) {
@@ -96,22 +96,22 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
         try
         {
             final List<ReflectedMethod> valueOfMethods =
-                    klassToCreate.methods(callableHasName("valueOf").and(callableHasArguments(value.getClass())).and(
-                            callableHasReturnType(klass)));
+                    klassToCreate.methods(hasName("valueOf").and(hasArguments(value.getClass())).and(
+                            hasType(klass)));
 
             if (!valueOfMethods.isEmpty()) {
                 return (S) valueOfMethods.get(0).call(value);
             }
 
             final List<ReflectedConstructor<S>> singleArgumentConstructors =
-                    klassToCreate.constructors(callableHasArguments(value.getClass()));
+                    klassToCreate.constructors(hasArguments(value.getClass()));
 
             if (!singleArgumentConstructors.isEmpty()) {
                 return singleArgumentConstructors.get(0).call(value);
             }
 
             final List<ReflectedConstructor<S>> typeTokenConstructors =
-                    klassToCreate.constructors(callableHasArguments(value.getClass(), Type.class));
+                    klassToCreate.constructors(hasArguments(value.getClass(), Type.class));
 
             if (!typeTokenConstructors.isEmpty()) {
                 return typeTokenConstructors.get(0).call(value, klassToCreate.type());
@@ -155,7 +155,7 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
 
     private T convertIterable(final Object value) {
         final ReflectedClass<?> desiredCollectionReflectedType =
-                reflectedKlass.asType(reflectedTypeReflectingOn(Iterable.class)).typeArgument(0);
+                reflectedKlass.asType(reflectingOn(Iterable.class)).typeArgument(0);
 
         final List<Object> convertedTypes = Lambda.convert(value,
                 new ConvertTypeOfObject<Object>(
@@ -187,7 +187,7 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
         }
         else
         {
-            methodType = (ReflectedClass<T>) method.returnType();
+            methodType = (ReflectedClass<T>) method.type();
         }
         return converterTo(validationErrorBuilder, specification, methodType);
     }

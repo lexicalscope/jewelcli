@@ -22,7 +22,7 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 abstract class AbstractOptionAdapter implements OptionAdapter {
@@ -41,7 +41,7 @@ abstract class AbstractOptionAdapter implements OptionAdapter {
         }
         else
         {
-            this.methodType = method.returnType();
+            this.methodType = method.type();
         }
     }
 
@@ -57,7 +57,7 @@ abstract class AbstractOptionAdapter implements OptionAdapter {
 
         final List<ReflectedMethod> methods =
                 klass.methods(
-                        callableHasName(addPrefix("is", method.propertyName())).and(isExistence()));
+                        hasName(addPrefix("is", method.propertyName())).and(isExistence()));
         if (!methods.isEmpty()) {
             return methods.get(0);
         }
@@ -69,16 +69,16 @@ abstract class AbstractOptionAdapter implements OptionAdapter {
     }
 
     @Override public final boolean isMultiValued() {
-        return methodType.isType(reflectedTypeReflectingOn(Collection.class));
+        return methodType.isType(reflectingOn(Collection.class));
     }
 
     @Override public final ReflectedClass<? extends Object> getValueType() {
         final ReflectedClass<? extends Object> valueType =
                 isMultiValued()
-                        ? methodType.asType(reflectedTypeReflectingOn(Collection.class)).typeArgument(0)
+                        ? methodType.asType(reflectingOn(Collection.class)).typeArgument(0)
                         : methodType;
 
-        return reflectedTypeReflectingOn(Object.class).matches(valueType)
+        return reflectingOn(Object.class).matches(valueType)
                 ? type(String.class)
                 : valueType;
     }

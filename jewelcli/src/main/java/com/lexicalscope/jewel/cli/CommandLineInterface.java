@@ -20,4 +20,9 @@ public @interface CommandLineInterface
     * @return The name of the application that this is the interface for
     */
    String application() default "";
+
+   /**
+    * @return what order should the options be displayed in?
+    */
+   OptionOrder order() default OptionOrder.LEXICOGRAPHIC;
 }

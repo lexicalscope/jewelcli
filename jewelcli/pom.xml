@@ -111,7 +111,7 @@
         <dependency>
             <groupId>com.lexicalscope.fluent-reflection</groupId>
             <artifactId>fluent-reflection</artifactId>
-            <version>0.0.12</version>
+            <version>0.1.0</version>
             <classifier>no_deps</classifier>
             <type>jar</type>
             <scope>compile</scope>

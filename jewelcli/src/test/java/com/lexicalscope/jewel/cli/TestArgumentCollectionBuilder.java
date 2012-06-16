@@ -24,7 +24,8 @@ public class TestArgumentCollectionBuilder {
 
     @Test public void testParseArguments() throws ArgumentValidationException {
         context.checking(new Expectations() {{
-            oneOf(argumentProcessor).finishedProcessing(emptyStringList());
+            oneOf(argumentProcessor).processUnparsed(emptyStringList());
+            oneOf(argumentProcessor).finishedProcessing();
         }});
         argumentCollectionBuilder.processArguments(argumentProcessor);
     }
@@ -38,7 +39,8 @@ public class TestArgumentCollectionBuilder {
             oneOf(argumentProcessor).processOption("a", emptyStringList());
             oneOf(argumentProcessor).processOption("b", emptyStringList());
             oneOf(argumentProcessor).processLastOption("c", emptyStringList());
-            oneOf(argumentProcessor).finishedProcessing(emptyStringList());
+            oneOf(argumentProcessor).processUnparsed(emptyStringList());
+            oneOf(argumentProcessor).finishedProcessing();
         }});
         argumentCollectionBuilder.processArguments(argumentProcessor);
     }
@@ -49,7 +51,8 @@ public class TestArgumentCollectionBuilder {
         argumentCollectionBuilder.addValue("3");
 
         context.checking(new Expectations() {{
-            oneOf(argumentProcessor).finishedProcessing(asList("1", "2", "3"));
+            oneOf(argumentProcessor).processUnparsed(asList("1", "2", "3"));
+            oneOf(argumentProcessor).finishedProcessing();
         }});
         argumentCollectionBuilder.processArguments(argumentProcessor);
     }
@@ -60,7 +63,8 @@ public class TestArgumentCollectionBuilder {
         argumentCollectionBuilder.addValue("4");
 
         context.checking(new Expectations() {{
-            oneOf(argumentProcessor).finishedProcessing(asList("3", "4"));
+            oneOf(argumentProcessor).processUnparsed(asList("3", "4"));
+            oneOf(argumentProcessor).finishedProcessing();
         }});
         argumentCollectionBuilder.processArguments(argumentProcessor);
     }
@@ -69,7 +73,8 @@ public class TestArgumentCollectionBuilder {
         argumentCollectionBuilder.unparsedOptionsFollow();
 
         context.checking(new Expectations() {{
-            oneOf(argumentProcessor).finishedProcessing(emptyStringList());
+            oneOf(argumentProcessor).processUnparsed(emptyStringList());
+            oneOf(argumentProcessor).finishedProcessing();
         }});
         argumentCollectionBuilder.processArguments(argumentProcessor);
     }

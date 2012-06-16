@@ -1,7 +1,4 @@
-package com.lexicalscope.jewel.cli.validation;
-
-import java.util.List;
-
+package com.lexicalscope.jewel.cli;
 
 /*
  * Copyright 2012 Tim Wood
@@ -19,12 +16,19 @@ import java.util.List;
  * limitations under the License.
  */
 
-public interface ArgumentValidator {
-    void processOption(String option, List<String> values);
+/**
+ * Defines the order that the options will be displayed in
+ *
+ * @author tim
+ */
+public enum OptionOrder {
+    /**
+     * display the options in alphabetical order
+     */
+    LEXICOGRAPHIC,
 
-    void processLastOption(String option, List<String> values);
-
-    void processUnparsed(List<String> unparsed);
-
-    OptionCollection finishedProcessing();
+    /**
+     * display the options in the order that the reflection API returns them
+     */
+    DEFINITION
 }

@@ -17,9 +17,10 @@ package com.lexicalscope.jewel.cli;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedSet;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -33,7 +34,7 @@ import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
 class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecification {
     private final ReflectedClass<O> klass;
 
-    private final SortedSet<ParsedOptionSpecification> options = new TreeSet<ParsedOptionSpecification>();
+    private final Set<ParsedOptionSpecification> options;
     private final Map<String, ParsedOptionSpecification> optionsByName =
             new TreeMap<String, ParsedOptionSpecification>();
     private final Map<ReflectedMethod, ParsedOptionSpecification> optionsMethod =
@@ -51,6 +52,16 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
             final List<ParsedOptionSpecification> optionSpecifications,
             final List<UnparsedOptionSpecification> unparsedSpecifications) {
         this.klass = klass;
+
+        if(klass.annotatedWith(CommandLineInterface.class) &&
+           klass.annotation(CommandLineInterface.class).order().equals(OptionOrder.DEFINITION))
+        {
+            options = new LinkedHashSet<ParsedOptionSpecification>();
+        }
+        else
+        {
+            options = new TreeSet<ParsedOptionSpecification>();
+        }
 
         for (final ParsedOptionSpecification optionSpecification : optionSpecifications) {
             addOption(optionSpecification);
