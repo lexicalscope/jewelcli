@@ -4,7 +4,7 @@
     <parent>
         <artifactId>jewelcli-parent</artifactId>
         <groupId>com.lexicalscope.jewelcli</groupId>
-        <version>0.8.3</version>
+        <version>0.8.4-SNAPSHOT</version>
     </parent>
     <artifactId>jewelcli-maven-report-plugin</artifactId>
     <packaging>maven-plugin</packaging>
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.lexicalscope.jewelcli</groupId>
             <artifactId>jewelcli</artifactId>
-            <version>0.8.3</version>
+            <version>0.8.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.googlecode.lambdaj</groupId>
