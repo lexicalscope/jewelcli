@@ -42,7 +42,7 @@
 <a name="32" href="#32">32</a>          @Option <strong class="jxr_keyword">boolean</strong> getName();
 <a name="33" href="#33">33</a>      }
 <a name="34" href="#34">34</a>  
-<a name="35" href="#35">35</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestArgumentValidatorImpl.html">OptionalOption</a> {
+<a name="35" href="#35">35</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestObjectMethods.html">OptionalOption</a> {
 <a name="36" href="#36">36</a>          @Option String getName();
 <a name="37" href="#37">37</a>  
 <a name="38" href="#38">38</a>          <strong class="jxr_keyword">boolean</strong> isName();
@@ -106,14 +106,14 @@
 <a name="96" href="#96">96</a>      }
 <a name="97" href="#97">97</a>  
 <a name="98" href="#98">98</a>      @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testToStringOptionalMissing() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
-<a name="99" href="#99">99</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestArgumentValidatorImpl.html">OptionalOption</a> parsedArguments = CliFactory.parseArguments(OptionalOption.<strong class="jxr_keyword">class</strong>);
+<a name="99" href="#99">99</a>          <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestObjectMethods.html">OptionalOption</a> parsedArguments = CliFactory.parseArguments(OptionalOption.<strong class="jxr_keyword">class</strong>);
 <a name="100" href="#100">100</a>         assertEquals(
 <a name="101" href="#101">101</a>                 <span class="jxr_string">"com.lexicalscope.jewel.cli.TestObjectMethods$OptionalOption {}"</span>,
 <a name="102" href="#102">102</a>                 parsedArguments.toString());
 <a name="103" href="#103">103</a>     }
 <a name="104" href="#104">104</a> 
 <a name="105" href="#105">105</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testToStringOptionalPresent() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
-<a name="106" href="#106">106</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestArgumentValidatorImpl.html">OptionalOption</a> parsedArguments = CliFactory.parseArguments(OptionalOption.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"--name"</span>, <span class="jxr_string">"value"</span>);
+<a name="106" href="#106">106</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestObjectMethods.html">OptionalOption</a> parsedArguments = CliFactory.parseArguments(OptionalOption.<strong class="jxr_keyword">class</strong>, <span class="jxr_string">"--name"</span>, <span class="jxr_string">"value"</span>);
 <a name="107" href="#107">107</a>         assertEquals(
 <a name="108" href="#108">108</a>                 <span class="jxr_string">"com.lexicalscope.jewel.cli.TestObjectMethods$OptionalOption {name=value}"</span>,
 <a name="109" href="#109">109</a>                 parsedArguments.toString());

@@ -12,28 +12,30 @@
 <a name="2" href="#2">2</a>   
 <a name="3" href="#3">3</a>   <strong class="jxr_keyword">import</strong> java.util.List;
 <a name="4" href="#4">4</a>   
-<a name="5" href="#5">5</a>   <strong class="jxr_keyword">interface</strong> <a href="../../../../com/lexicalscope/jewel/cli/ValidationErrorBuilder.html">ValidationErrorBuilder</a>
-<a name="6" href="#6">6</a>   {
-<a name="7" href="#7">7</a>       <strong class="jxr_keyword">void</strong> unexpectedOption(String name);
-<a name="8" href="#8">8</a>   
-<a name="9" href="#9">9</a>       <strong class="jxr_keyword">void</strong> unexpectedValue(<a href="../../../../com/lexicalscope/jewel/cli/OptionSpecification.html">OptionSpecification</a> optionSpecification, List&lt;String&gt; values);
+<a name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.specification.OptionSpecification;
+<a name="6" href="#6">6</a>   
+<a name="7" href="#7">7</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a href="../../../../com/lexicalscope/jewel/cli/ValidationErrorBuilder.html">ValidationErrorBuilder</a>
+<a name="8" href="#8">8</a>   {
+<a name="9" href="#9">9</a>       <strong class="jxr_keyword">void</strong> unexpectedOption(String name);
 <a name="10" href="#10">10</a>  
-<a name="11" href="#11">11</a>      <strong class="jxr_keyword">void</strong> missingValue(<a href="../../../../com/lexicalscope/jewel/cli/OptionSpecification.html">OptionSpecification</a> optionSpecification);
+<a name="11" href="#11">11</a>      <strong class="jxr_keyword">void</strong> unexpectedValue(<a href="../../../../com/lexicalscope/jewel/cli/specification/OptionSpecification.html">OptionSpecification</a> optionSpecification, List&lt;String&gt; values);
 <a name="12" href="#12">12</a>  
-<a name="13" href="#13">13</a>      <strong class="jxr_keyword">void</strong> wrongNumberOfValues(<a href="../../../../com/lexicalscope/jewel/cli/OptionSpecification.html">OptionSpecification</a> optionSpecification, List&lt;String&gt; values);
+<a name="13" href="#13">13</a>      <strong class="jxr_keyword">void</strong> missingValue(<a href="../../../../com/lexicalscope/jewel/cli/specification/OptionSpecification.html">OptionSpecification</a> optionSpecification);
 <a name="14" href="#14">14</a>  
-<a name="15" href="#15">15</a>      <strong class="jxr_keyword">void</strong> unexpectedTrailingValue(List&lt;String&gt; unparsedArguments);
+<a name="15" href="#15">15</a>      <strong class="jxr_keyword">void</strong> wrongNumberOfValues(<a href="../../../../com/lexicalscope/jewel/cli/specification/OptionSpecification.html">OptionSpecification</a> optionSpecification, List&lt;String&gt; values);
 <a name="16" href="#16">16</a>  
-<a name="17" href="#17">17</a>      <strong class="jxr_keyword">void</strong> missingOption(<a href="../../../../com/lexicalscope/jewel/cli/OptionSpecification.html">OptionSpecification</a> optionSpecification);
+<a name="17" href="#17">17</a>      <strong class="jxr_keyword">void</strong> unexpectedTrailingValue(List&lt;String&gt; unparsedArguments);
 <a name="18" href="#18">18</a>  
-<a name="19" href="#19">19</a>      <strong class="jxr_keyword">void</strong> unableToConstructType(<a href="../../../../com/lexicalscope/jewel/cli/OptionSpecification.html">OptionSpecification</a> optionSpecification, String message);
+<a name="19" href="#19">19</a>      <strong class="jxr_keyword">void</strong> missingOption(<a href="../../../../com/lexicalscope/jewel/cli/specification/OptionSpecification.html">OptionSpecification</a> optionSpecification);
 <a name="20" href="#20">20</a>  
-<a name="21" href="#21">21</a>      <strong class="jxr_keyword">void</strong> invalidValueForType(<a href="../../../../com/lexicalscope/jewel/cli/OptionSpecification.html">OptionSpecification</a> optionSpecification, String message);
+<a name="21" href="#21">21</a>      <strong class="jxr_keyword">void</strong> unableToConstructType(<a href="../../../../com/lexicalscope/jewel/cli/specification/OptionSpecification.html">OptionSpecification</a> optionSpecification, String message);
 <a name="22" href="#22">22</a>  
-<a name="23" href="#23">23</a>      <strong class="jxr_keyword">void</strong> patternMismatch(<a href="../../../../com/lexicalscope/jewel/cli/OptionSpecification.html">OptionSpecification</a> optionSpecification, String value);
+<a name="23" href="#23">23</a>      <strong class="jxr_keyword">void</strong> invalidValueForType(<a href="../../../../com/lexicalscope/jewel/cli/specification/OptionSpecification.html">OptionSpecification</a> optionSpecification, String message);
 <a name="24" href="#24">24</a>  
-<a name="25" href="#25">25</a>      <strong class="jxr_keyword">void</strong> validate() <strong class="jxr_keyword">throws</strong> ArgumentValidationException;
-<a name="26" href="#26">26</a>  }
+<a name="25" href="#25">25</a>      <strong class="jxr_keyword">void</strong> patternMismatch(<a href="../../../../com/lexicalscope/jewel/cli/specification/OptionSpecification.html">OptionSpecification</a> optionSpecification, String value);
+<a name="26" href="#26">26</a>  
+<a name="27" href="#27">27</a>      <strong class="jxr_keyword">void</strong> validate() <strong class="jxr_keyword">throws</strong> ArgumentValidationException;
+<a name="28" href="#28">28</a>  }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

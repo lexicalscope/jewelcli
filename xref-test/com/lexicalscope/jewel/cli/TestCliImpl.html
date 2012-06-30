@@ -119,80 +119,79 @@
 <a name="109" href="#109">109</a>             fail();
 <a name="110" href="#110">110</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> ArgumentValidationException e) {
 <a name="111" href="#111">111</a>             assertThat(e.getValidationFailures(), contains(
-<a name="112" href="#112">112</a>                     validationError(ValidationFailureType.UnexpectedOption),
-<a name="113" href="#113">113</a>                     validationError(ValidationFailureType.MissingOption)));
-<a name="114" href="#114">114</a>         }
-<a name="115" href="#115">115</a>     }
-<a name="116" href="#116">116</a> 
-<a name="117" href="#117">117</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSingleOptionalOption() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
-<a name="118" href="#118">118</a>         <a href="../../../../com/lexicalscope/jewel/cli/TestCliImpl.html">SingleOptionalOption</a> option =
-<a name="119" href="#119">119</a>                 <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;SingleOptionalOption&gt;(SingleOptionalOption.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] {
-<a name="120" href="#120">120</a>                         <span class="jxr_string">"--name"</span>,
-<a name="121" href="#121">121</a>                 <span class="jxr_string">"value"</span> });
-<a name="122" href="#122">122</a>         assertEquals(option.getName(), <span class="jxr_string">"value"</span>);
-<a name="123" href="#123">123</a>         assertTrue(option.isName());
-<a name="124" href="#124">124</a> 
-<a name="125" href="#125">125</a>         option = <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;SingleOptionalOption&gt;(SingleOptionalOption.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] {});
-<a name="126" href="#126">126</a>         assertFalse(option.isName());
-<a name="127" href="#127">127</a>     }
-<a name="128" href="#128">128</a> 
-<a name="129" href="#129">129</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSingleOptionalOptionRequestMissing() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
-<a name="130" href="#130">130</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestCliImpl.html">SingleOptionalOption</a> option =
-<a name="131" href="#131">131</a>                 <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;SingleOptionalOption&gt;(SingleOptionalOption.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] {});
-<a name="132" href="#132">132</a> 
-<a name="133" href="#133">133</a>         assertThat(option.getName(), equalTo(<strong class="jxr_keyword">null</strong>));
-<a name="134" href="#134">134</a>     }
-<a name="135" href="#135">135</a> 
-<a name="136" href="#136">136</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testCharacterValue() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
-<a name="137" href="#137">137</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestCliImpl.html">CharacterValue</a> option =
-<a name="138" href="#138">138</a>                 <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;CharacterValue&gt;(CharacterValue.<strong class="jxr_keyword">class</strong>)
-<a name="139" href="#139">139</a>                 .parseArguments(<strong class="jxr_keyword">new</strong> String[] { <span class="jxr_string">"--name"</span>, <span class="jxr_string">"a"</span> });
-<a name="140" href="#140">140</a>         assertEquals((Character) 'a', option.getName());
-<a name="141" href="#141">141</a>     }
-<a name="142" href="#142">142</a> 
-<a name="143" href="#143">143</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testInvalidCharacterValue() {
-<a name="144" href="#144">144</a>         <strong class="jxr_keyword">try</strong> {
-<a name="145" href="#145">145</a>             <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;CharacterValue&gt;(CharacterValue.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] { <span class="jxr_string">"--name"</span>, <span class="jxr_string">"aa"</span> });
-<a name="146" href="#146">146</a>             fail();
-<a name="147" href="#147">147</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> ArgumentValidationException e) {
-<a name="148" href="#148">148</a>             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.InvalidValueForType)));
-<a name="149" href="#149">149</a>         }
-<a name="150" href="#150">150</a>     }
-<a name="151" href="#151">151</a> 
-<a name="152" href="#152">152</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testMethodWithArguments() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
-<a name="153" href="#153">153</a>         <strong class="jxr_keyword">try</strong> {
-<a name="154" href="#154">154</a>             <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;SingleOptionWithArgument&gt;(SingleOptionWithArgument.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] {
-<a name="155" href="#155">155</a>                     <span class="jxr_string">"--name"</span>,
-<a name="156" href="#156">156</a>             <span class="jxr_string">"value"</span> });
-<a name="157" href="#157">157</a>             fail();
-<a name="158" href="#158">158</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> ArgumentValidationException e) {
-<a name="159" href="#159">159</a>             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.UnexpectedOption)));
-<a name="160" href="#160">160</a>         }
-<a name="161" href="#161">161</a>     }
-<a name="162" href="#162">162</a> 
-<a name="163" href="#163">163</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testMethodWithMissingAnnotation() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
-<a name="164" href="#164">164</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestCliImpl.html">SingleOptionMissingAnnotation</a> result =
-<a name="165" href="#165">165</a>                 <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;SingleOptionMissingAnnotation&gt;(SingleOptionMissingAnnotation.<strong class="jxr_keyword">class</strong>)
-<a name="166" href="#166">166</a>                 .parseArguments(<strong class="jxr_keyword">new</strong> String[] {});
-<a name="167" href="#167">167</a> 
-<a name="168" href="#168">168</a>         assertThat(result.getName(), equalTo(<strong class="jxr_keyword">null</strong>));
-<a name="169" href="#169">169</a>     }
-<a name="170" href="#170">170</a> 
-<a name="171" href="#171">171</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testListOptionMissingValue() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
-<a name="172" href="#172">172</a>         <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;ListOption&gt;(ListOption.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] { <span class="jxr_string">"--name"</span> });
-<a name="173" href="#173">173</a>     }
-<a name="174" href="#174">174</a> 
-<a name="175" href="#175">175</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testEnumDefaultList() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
-<a name="176" href="#176">176</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestCliImpl.html">EnumDefaultListOption</a> result =
-<a name="177" href="#177">177</a>                 <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;EnumDefaultListOption&gt;(EnumDefaultListOption.<strong class="jxr_keyword">class</strong>)
-<a name="178" href="#178">178</a>                 .parseArguments(<strong class="jxr_keyword">new</strong> String[] {});
-<a name="179" href="#179">179</a> 
-<a name="180" href="#180">180</a>         <strong class="jxr_keyword">final</strong> List&lt;TestEnum&gt; enumValues = result.getName();
-<a name="181" href="#181">181</a>         assertEquals(2, enumValues.size());
-<a name="182" href="#182">182</a>         assertEquals(TestEnum.Value0, enumValues.get(0));
-<a name="183" href="#183">183</a>         assertEquals(TestEnum.Value1, enumValues.get(1));
-<a name="184" href="#184">184</a>     }
-<a name="185" href="#185">185</a> }
+<a name="112" href="#112">112</a>                     validationError(ValidationFailureType.UnexpectedOption)));
+<a name="113" href="#113">113</a>         }
+<a name="114" href="#114">114</a>     }
+<a name="115" href="#115">115</a> 
+<a name="116" href="#116">116</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSingleOptionalOption() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
+<a name="117" href="#117">117</a>         <a href="../../../../com/lexicalscope/jewel/cli/TestCliImpl.html">SingleOptionalOption</a> option =
+<a name="118" href="#118">118</a>                 <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;SingleOptionalOption&gt;(SingleOptionalOption.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] {
+<a name="119" href="#119">119</a>                         <span class="jxr_string">"--name"</span>,
+<a name="120" href="#120">120</a>                 <span class="jxr_string">"value"</span> });
+<a name="121" href="#121">121</a>         assertEquals(option.getName(), <span class="jxr_string">"value"</span>);
+<a name="122" href="#122">122</a>         assertTrue(option.isName());
+<a name="123" href="#123">123</a> 
+<a name="124" href="#124">124</a>         option = <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;SingleOptionalOption&gt;(SingleOptionalOption.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] {});
+<a name="125" href="#125">125</a>         assertFalse(option.isName());
+<a name="126" href="#126">126</a>     }
+<a name="127" href="#127">127</a> 
+<a name="128" href="#128">128</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSingleOptionalOptionRequestMissing() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
+<a name="129" href="#129">129</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestCliImpl.html">SingleOptionalOption</a> option =
+<a name="130" href="#130">130</a>                 <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;SingleOptionalOption&gt;(SingleOptionalOption.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] {});
+<a name="131" href="#131">131</a> 
+<a name="132" href="#132">132</a>         assertThat(option.getName(), equalTo(<strong class="jxr_keyword">null</strong>));
+<a name="133" href="#133">133</a>     }
+<a name="134" href="#134">134</a> 
+<a name="135" href="#135">135</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testCharacterValue() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
+<a name="136" href="#136">136</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestCliImpl.html">CharacterValue</a> option =
+<a name="137" href="#137">137</a>                 <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;CharacterValue&gt;(CharacterValue.<strong class="jxr_keyword">class</strong>)
+<a name="138" href="#138">138</a>                 .parseArguments(<strong class="jxr_keyword">new</strong> String[] { <span class="jxr_string">"--name"</span>, <span class="jxr_string">"a"</span> });
+<a name="139" href="#139">139</a>         assertEquals((Character) 'a', option.getName());
+<a name="140" href="#140">140</a>     }
+<a name="141" href="#141">141</a> 
+<a name="142" href="#142">142</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testInvalidCharacterValue() {
+<a name="143" href="#143">143</a>         <strong class="jxr_keyword">try</strong> {
+<a name="144" href="#144">144</a>             <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;CharacterValue&gt;(CharacterValue.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] { <span class="jxr_string">"--name"</span>, <span class="jxr_string">"aa"</span> });
+<a name="145" href="#145">145</a>             fail();
+<a name="146" href="#146">146</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> ArgumentValidationException e) {
+<a name="147" href="#147">147</a>             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.InvalidValueForType)));
+<a name="148" href="#148">148</a>         }
+<a name="149" href="#149">149</a>     }
+<a name="150" href="#150">150</a> 
+<a name="151" href="#151">151</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testMethodWithArguments() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
+<a name="152" href="#152">152</a>         <strong class="jxr_keyword">try</strong> {
+<a name="153" href="#153">153</a>             <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;SingleOptionWithArgument&gt;(SingleOptionWithArgument.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] {
+<a name="154" href="#154">154</a>                     <span class="jxr_string">"--name"</span>,
+<a name="155" href="#155">155</a>             <span class="jxr_string">"value"</span> });
+<a name="156" href="#156">156</a>             fail();
+<a name="157" href="#157">157</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> ArgumentValidationException e) {
+<a name="158" href="#158">158</a>             assertThat(e.getValidationFailures(), contains(validationError(ValidationFailureType.UnexpectedOption)));
+<a name="159" href="#159">159</a>         }
+<a name="160" href="#160">160</a>     }
+<a name="161" href="#161">161</a> 
+<a name="162" href="#162">162</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testMethodWithMissingAnnotation() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
+<a name="163" href="#163">163</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestCliImpl.html">SingleOptionMissingAnnotation</a> result =
+<a name="164" href="#164">164</a>                 <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;SingleOptionMissingAnnotation&gt;(SingleOptionMissingAnnotation.<strong class="jxr_keyword">class</strong>)
+<a name="165" href="#165">165</a>                 .parseArguments(<strong class="jxr_keyword">new</strong> String[] {});
+<a name="166" href="#166">166</a> 
+<a name="167" href="#167">167</a>         assertThat(result.getName(), equalTo(<strong class="jxr_keyword">null</strong>));
+<a name="168" href="#168">168</a>     }
+<a name="169" href="#169">169</a> 
+<a name="170" href="#170">170</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testListOptionMissingValue() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
+<a name="171" href="#171">171</a>         <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;ListOption&gt;(ListOption.<strong class="jxr_keyword">class</strong>).parseArguments(<strong class="jxr_keyword">new</strong> String[] { <span class="jxr_string">"--name"</span> });
+<a name="172" href="#172">172</a>     }
+<a name="173" href="#173">173</a> 
+<a name="174" href="#174">174</a>     @Test <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testEnumDefaultList() <strong class="jxr_keyword">throws</strong> ArgumentValidationException {
+<a name="175" href="#175">175</a>         <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/TestCliImpl.html">EnumDefaultListOption</a> result =
+<a name="176" href="#176">176</a>                 <strong class="jxr_keyword">new</strong> CliInterfaceImpl&lt;EnumDefaultListOption&gt;(EnumDefaultListOption.<strong class="jxr_keyword">class</strong>)
+<a name="177" href="#177">177</a>                 .parseArguments(<strong class="jxr_keyword">new</strong> String[] {});
+<a name="178" href="#178">178</a> 
+<a name="179" href="#179">179</a>         <strong class="jxr_keyword">final</strong> List&lt;TestEnum&gt; enumValues = result.getName();
+<a name="180" href="#180">180</a>         assertEquals(2, enumValues.size());
+<a name="181" href="#181">181</a>         assertEquals(TestEnum.Value0, enumValues.get(0));
+<a name="182" href="#182">182</a>         assertEquals(TestEnum.Value1, enumValues.get(1));
+<a name="183" href="#183">183</a>     }
+<a name="184" href="#184">184</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>
