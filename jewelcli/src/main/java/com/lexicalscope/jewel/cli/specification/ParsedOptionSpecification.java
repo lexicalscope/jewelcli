@@ -1,5 +1,7 @@
 package com.lexicalscope.jewel.cli.specification;
 
+import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
+
 import java.util.List;
 
 
@@ -77,4 +79,6 @@ public interface ParsedOptionSpecification extends OptionSpecification {
      * @return option is a boolean option
      */
     boolean isBoolean();
+
+    void reportMissing(ValidationErrorBuilder validationErrorBuilder);
 }

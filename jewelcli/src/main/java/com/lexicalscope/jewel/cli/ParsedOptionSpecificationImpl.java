@@ -13,10 +13,10 @@
  */
 package com.lexicalscope.jewel.cli;
 
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
 
 class ParsedOptionSpecificationImpl extends AbstractOptionSpecification implements ParsedOptionSpecification {
     private final OptionAnnotationAdapter optionAnnotation;
@@ -74,5 +74,9 @@ class ParsedOptionSpecificationImpl extends AbstractOptionSpecification implemen
 
     @Override public boolean allowedValue(final String value) {
         return value.matches(getPattern());
+    }
+
+    @Override public void reportMissing(final ValidationErrorBuilder validationErrorBuilder) {
+       validationErrorBuilder.missingOption(this);
     }
 }

@@ -14,24 +14,29 @@
 
 package com.lexicalscope.jewel.cli.validation;
 
-import static java.lang.Math.min;
+import static com.lexicalscope.fluent.FluentDollar.$;
+import static com.lexicalscope.fluent.adapters.PreventConversion.preventConversion;
+import static com.lexicalscope.jewel.cli.specification.OptionSpecificationMatchers.mandatory;
+import static com.lexicalscope.jewel.cli.validation.RawOptionMatchers.lastOption;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.lexicalscope.jewel.cli.HelpRequestedException;
+import com.lexicalscope.fluent.map.FluentMap;
 import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
 import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 class ArgumentValidatorImpl<O> implements ArgumentValidator
 {
     private final ValidationErrorBuilder validationErrorBuilder;
 
-    private final Map<ParsedOptionSpecification, List<String>> validatedArguments = new LinkedHashMap<ParsedOptionSpecification, List<String>>();
+    private final Map<RawOption, List<String>> rawArguments;
+    private final FluentMap<ParsedOptionSpecification, List<String>> validatedArguments;
+    private final FluentMap<ParsedOptionSpecification, List<String>> validatedMandatoryArguments;
+
     private final List<String> validatedUnparsedArguments = new ArrayList<String>();
 
     private final OptionsSpecification<O> specification;
@@ -42,57 +47,26 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
     {
         this.specification = specification;
         this.validationErrorBuilder = validationErrorBuilder;
+
+        validatedArguments = $.<ParsedOptionSpecification, List<String>>map().
+                 $vetoPuts(new ReportWrongFormatValues(validationErrorBuilder)).
+                 $vetoPuts(new ReportWrongNumberOfValues(validationErrorBuilder)).
+                 $vetoKeys(new RejectHelpOption(specification));
+
+        rawArguments = validatedArguments.
+                 $convertKeys(preventConversion(ParsedOptionSpecification.class, RawOption.class), new ConverterRawOptionToParsedOptionSpecification(specification)).
+                 $processPuts(lastOption(), new TrimExccessOptions(specification, validatedUnparsedArguments)).
+                 $vetoKeys(new ReportUnexpectedOption(specification, validationErrorBuilder));
+
+        validatedMandatoryArguments = $(validatedArguments).$retainKeys(mandatory());
     }
 
     @Override public void processOption(final String optionName, final List<String> values) {
-        if (!specification.isSpecified(optionName))
-        {
-            validationErrorBuilder.unexpectedOption(optionName);
-            return;
-        }
-
-        processOption(specification.getSpecification(optionName), values);
-    }
-
-    private void processOption(final ParsedOptionSpecification option, final List<String> values) {
-        if (option.isHelpOption())
-        {
-            throw new HelpRequestedException(specification);
-        }
-
-        if (!option.allowedThisManyValues(values.size()))
-        {
-            validationErrorBuilder.wrongNumberOfValues(option, values);
-            return;
-        }
-        else
-        {
-            checkAndAddValues(option, new ArrayList<String>(values));
-        }
+        rawArguments.put(new RawOption(optionName), values);
     }
 
     @Override public void processLastOption(final String optionName, final List<String> values) {
-        if (!specification.isSpecified(optionName))
-        {
-            validationErrorBuilder.unexpectedOption(optionName);
-            return;
-        }
-
-        final ParsedOptionSpecification optionSpecification = specification.getSpecification(optionName);
-
-        processOption(optionSpecification, trimExcessOptions(values, optionSpecification));
-    }
-
-    private List<String> trimExcessOptions(
-            final List<String> values,
-            final ParsedOptionSpecification optionSpecification) {
-        if (!specification.hasUnparsedSpecification()) {
-            return values;
-        }
-
-        final int maximumArgumentConsumption = min(values.size(), optionSpecification.maximumArgumentConsumption());
-        validatedUnparsedArguments.addAll(0, values.subList(maximumArgumentConsumption, values.size()));
-        return new ArrayList<String>(values.subList(0, maximumArgumentConsumption));
+        rawArguments.put(new RawOption(optionName, true), values);
     }
 
     @Override public void processUnparsed(final List<String> values) {
@@ -103,13 +77,12 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
     @Override public OptionCollection finishedProcessing() {
         validationErrorBuilder.validate();
 
-        for (final ParsedOptionSpecification mandatoryOptionSpecification : specification.getMandatoryOptions())
-        {
-            if (!validatedArguments.containsKey(mandatoryOptionSpecification))
-            {
-                validationErrorBuilder.missingOption(mandatoryOptionSpecification);
-            }
-        }
+        specification.
+           getMandatoryOptions().
+              _removeAll(validatedMandatoryArguments.keySet()).
+              _forEach(ParsedOptionSpecification.class).
+              reportMissing(validationErrorBuilder);
+
         validationErrorBuilder.validate();
 
         return new OptionCollectionImpl(specification, validatedArguments, validatedUnparsedArguments);
@@ -134,20 +107,5 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
         {
             validationErrorBuilder.unexpectedTrailingValue(validatedUnparsedArguments);
         }
-    }
-
-    private void checkAndAddValues(
-            final ParsedOptionSpecification optionSpecification,
-            final ArrayList<String> values)
-    {
-        for (final String value : values)
-        {
-            if (!optionSpecification.allowedValue(value))
-            {
-                validationErrorBuilder.patternMismatch(optionSpecification, value);
-                return;
-            }
-        }
-        validatedArguments.put(optionSpecification, new ArrayList<String>(values));
     }
 }

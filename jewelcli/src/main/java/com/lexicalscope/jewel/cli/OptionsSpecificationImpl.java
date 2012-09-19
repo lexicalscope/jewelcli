@@ -14,6 +14,15 @@
 
 package com.lexicalscope.jewel.cli;
 
+import com.lexicalscope.fluent.FluentDollar;
+import com.lexicalscope.fluent.list.FluentList;
+import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.jewel.cli.specification.CliSpecification;
+import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
+import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,13 +32,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
-import com.lexicalscope.jewel.cli.specification.CliSpecification;
-import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
-import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
-import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
 
 class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecification {
     private final ReflectedClass<O> klass;
@@ -87,8 +89,8 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         return optionalOptionsMethod.get(method);
     }
 
-    @Override public List<ParsedOptionSpecification> getMandatoryOptions() {
-        final List<ParsedOptionSpecification> result = new ArrayList<ParsedOptionSpecification>();
+    @Override public FluentList<ParsedOptionSpecification> getMandatoryOptions() {
+        final FluentList<ParsedOptionSpecification> result = FluentDollar.$.list(ParsedOptionSpecification.class);
         for (final ParsedOptionSpecification specification : options) {
             if (!specification.isOptional() && !specification.hasDefaultValue()) {
                 result.add(specification);

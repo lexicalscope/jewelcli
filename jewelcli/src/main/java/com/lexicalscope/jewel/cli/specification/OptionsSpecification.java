@@ -1,7 +1,6 @@
 package com.lexicalscope.jewel.cli.specification;
 
-import java.util.List;
-
+import com.lexicalscope.fluent.list.FluentList;
 import com.lexicalscope.fluentreflection.ReflectedMethod;
 import com.lexicalscope.jewel.cli.HelpMessage;
 
@@ -17,7 +16,7 @@ public interface OptionsSpecification<O> extends CliSpecification {
 
     ParsedOptionSpecification getSpecification(String key);
 
-    List<ParsedOptionSpecification> getMandatoryOptions();
+    FluentList<ParsedOptionSpecification> getMandatoryOptions();
 
     ParsedOptionSpecification getSpecification(ReflectedMethod reflectedMethod);
 
