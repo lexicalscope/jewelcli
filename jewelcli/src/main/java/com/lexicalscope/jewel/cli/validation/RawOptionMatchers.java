@@ -4,15 +4,18 @@
 //
 package com.lexicalscope.jewel.cli.validation;
 
+import java.util.List;
+import java.util.Map.Entry;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 public class RawOptionMatchers
 {
-   public static Matcher<RawOption> isLastOption()
+   public static Matcher<Entry<RawOption, List<String>>> isLastOption()
    {
-      return new TypeSafeMatcher<RawOption>()
+      return new TypeSafeMatcher<Entry<RawOption, List<String>>>()
       {
          @Override
          public void describeTo(final Description description)
@@ -21,9 +24,9 @@ public class RawOptionMatchers
          }
 
          @Override
-         protected boolean matchesSafely(final RawOption item)
+         protected boolean matchesSafely(final Entry<RawOption, List<String>> item)
          {
-            return item.isLast();
+            return item.getKey().isLast();
          }
       };
    }

@@ -6,10 +6,9 @@ package com.lexicalscope.jewel.cli.validation;
 
 import static com.lexicalscope.fluent.FluentDollar.$;
 import static com.lexicalscope.jewel.cli.validation.RawOptionMatchers.isLastOption;
+import ch.lambdaj.function.convert.Converter;
 
 import com.lexicalscope.fluent.functions.BiConverter;
-import com.lexicalscope.fluent.functions.PredicatedConverter;
-import com.lexicalscope.fluent.functions.TypeSafePredicatedConverter;
 import com.lexicalscope.fluent.map.transforms.MapPipelineBuilder;
 import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
@@ -45,22 +44,9 @@ class ValidationPipeline
       return new KnownOptions(specification, validationErrorBuilder);
    }
 
-   private PredicatedConverter<Entry<RawOption, List<String>>, Entry<RawOption, List<String>>> trimExcessOptionsInto(final List<String> validatedUnparsedArguments)
+   private Converter<Entry<RawOption, List<String>>, Entry<RawOption, List<String>>> trimExcessOptionsInto(final List<String> validatedUnparsedArguments)
    {
-      return new TypeSafePredicatedConverter<Entry<RawOption, List<String>>, Entry<RawOption, List<String>>>()
-      {
-         @Override
-         public Entry<RawOption, List<String>> convert(final Entry<RawOption, List<String>> from)
-         {
-            return new TrimExccessValues(specification, validatedUnparsedArguments).convert(from);
-         }
-
-         @Override
-         protected boolean matchesSafely(final Entry<RawOption, List<String>> item)
-         {
-            return isLastOption().matches(item.getKey());
-         }
-      };
+      return $.predicatedConverter(isLastOption(), new TrimExccessValues(specification, validatedUnparsedArguments));
    }
 
    private BiConverter<ParsedOptionSpecification, RawOption> lookupSpecifcationFromOption()

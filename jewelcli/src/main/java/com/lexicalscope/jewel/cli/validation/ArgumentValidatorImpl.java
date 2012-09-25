@@ -61,10 +61,10 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
 
     @Override public void processUnparsed(final List<String> values) {
         validatedUnparsedArguments.addAll(values);
-        validateUnparsedOptions();
     }
 
     @Override public OptionCollection finishedProcessing() {
+        validateUnparsedOptions();
         validationErrorBuilder.validate();
 
         specification.
