@@ -15,9 +15,8 @@
 package com.lexicalscope.jewel.cli.validation;
 
 import static com.lexicalscope.fluent.FluentDollar.$;
-import static com.lexicalscope.fluent.adapters.PreventConversion.preventConversion;
 import static com.lexicalscope.jewel.cli.specification.OptionSpecificationMatchers.mandatory;
-import static com.lexicalscope.jewel.cli.validation.RawOptionMatchers.isLastOption;
+import static com.lexicalscope.jewel.cli.validation.ValidationPipeline.buildValidationPipeline;
 
 import com.lexicalscope.fluent.map.FluentMap;
 import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
@@ -35,7 +34,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
 
     private final Map<RawOption, List<String>> rawArguments;
     private final FluentMap<ParsedOptionSpecification, List<String>> validatedArguments = $.<ParsedOptionSpecification, List<String>>map();
-    private final FluentMap<ParsedOptionSpecification, List<String>> validatedMandatoryArguments;
+    private final FluentMap<ParsedOptionSpecification, List<String>> validatedMandatoryArguments = $(validatedArguments).$retainKeys(mandatory());
 
     private final List<String> validatedUnparsedArguments = new ArrayList<String>();
 
@@ -48,21 +47,9 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
         this.specification = specification;
         this.validationErrorBuilder = validationErrorBuilder;
 
-        rawArguments = $.<RawOption, List<String>>mapPipeline().
-                 allowKeys(new KnownOptions(specification, validationErrorBuilder)).
-                 processPuts(
-                          isLastOption(),
-                          new TrimExccessValues(specification, validatedUnparsedArguments)).
-                 convertKeys(
-                          preventConversion(ParsedOptionSpecification.class, RawOption.class),
-                          new ConverterRawOptionToParsedOptionSpecification(specification)).
-                 allowKeys(new RejectHelpOption(specification)).
-                 vetoPuts(new ReportWrongNumberOfValues(validationErrorBuilder)).
-                 vetoPuts(new ReportWrongFormatValues(validationErrorBuilder)).
-                 transform(validatedArguments);
-
-        validatedMandatoryArguments = $(validatedArguments).$retainKeys(mandatory());
+        rawArguments = buildValidationPipeline(specification, validationErrorBuilder, validatedUnparsedArguments).transform(validatedArguments);
     }
+
 
     @Override public void processOption(final String optionName, final List<String> values) {
         rawArguments.put(new RawOption(optionName), values);

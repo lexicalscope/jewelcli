@@ -4,12 +4,11 @@
 //
 package com.lexicalscope.jewel.cli.validation;
 
-import ch.lambdaj.function.convert.Converter;
-
+import com.lexicalscope.fluent.functions.BiConverter;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
 
-public class ConverterRawOptionToParsedOptionSpecification implements Converter<RawOption, ParsedOptionSpecification>
+public class ConverterRawOptionToParsedOptionSpecification implements BiConverter<ParsedOptionSpecification, RawOption>
 {
    private final OptionsSpecification<?> specification;
 
@@ -19,7 +18,13 @@ public class ConverterRawOptionToParsedOptionSpecification implements Converter<
    }
 
    @Override
-   public ParsedOptionSpecification convert(final RawOption from)
+   public RawOption forward(@SuppressWarnings("unused") final ParsedOptionSpecification from)
+   {
+      throw new IllegalStateException("there is not unique conversion from an option to a string");
+   }
+
+   @Override
+   public ParsedOptionSpecification reverse(final RawOption from)
    {
       return specification.getSpecification(from.stringValue());
    }
