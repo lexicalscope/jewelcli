@@ -13,12 +13,12 @@ import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class TrimExccessOptions implements ConverterProcessor<Entry<RawOption, List<String>>>
+public class TrimExccessValues implements ConverterProcessor<Entry<RawOption, List<String>>>
 {
    private final OptionsSpecification<?> specification;
    private final List<String> validatedUnparsedArguments;
 
-   public TrimExccessOptions(final OptionsSpecification<?> specification, final List<String> validatedUnparsedArguments) {
+   public TrimExccessValues(final OptionsSpecification<?> specification, final List<String> validatedUnparsedArguments) {
       this.specification = specification;
       this.validatedUnparsedArguments = validatedUnparsedArguments;
    }

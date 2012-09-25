@@ -17,7 +17,7 @@ package com.lexicalscope.jewel.cli.validation;
 import static com.lexicalscope.fluent.FluentDollar.$;
 import static com.lexicalscope.fluent.adapters.PreventConversion.preventConversion;
 import static com.lexicalscope.jewel.cli.specification.OptionSpecificationMatchers.mandatory;
-import static com.lexicalscope.jewel.cli.validation.RawOptionMatchers.lastOption;
+import static com.lexicalscope.jewel.cli.validation.RawOptionMatchers.isLastOption;
 
 import com.lexicalscope.fluent.map.FluentMap;
 import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
@@ -34,7 +34,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
     private final ValidationErrorBuilder validationErrorBuilder;
 
     private final Map<RawOption, List<String>> rawArguments;
-    private final FluentMap<ParsedOptionSpecification, List<String>> validatedArguments;
+    private final FluentMap<ParsedOptionSpecification, List<String>> validatedArguments = $.<ParsedOptionSpecification, List<String>>map();
     private final FluentMap<ParsedOptionSpecification, List<String>> validatedMandatoryArguments;
 
     private final List<String> validatedUnparsedArguments = new ArrayList<String>();
@@ -48,15 +48,18 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
         this.specification = specification;
         this.validationErrorBuilder = validationErrorBuilder;
 
-        validatedArguments = $.<ParsedOptionSpecification, List<String>>map().
-                 $vetoPuts(new ReportWrongFormatValues(validationErrorBuilder)).
-                 $vetoPuts(new ReportWrongNumberOfValues(validationErrorBuilder)).
-                 $vetoKeys(new RejectHelpOption(specification));
-
-        rawArguments = validatedArguments.
-                 $convertKeys(preventConversion(ParsedOptionSpecification.class, RawOption.class), new ConverterRawOptionToParsedOptionSpecification(specification)).
-                 $processPuts(lastOption(), new TrimExccessOptions(specification, validatedUnparsedArguments)).
-                 $vetoKeys(new ReportUnexpectedOption(specification, validationErrorBuilder));
+        rawArguments = $.<RawOption, List<String>>mapPipeline().
+                 allowKeys(new KnownOptions(specification, validationErrorBuilder)).
+                 processPuts(
+                          isLastOption(),
+                          new TrimExccessValues(specification, validatedUnparsedArguments)).
+                 convertKeys(
+                          preventConversion(ParsedOptionSpecification.class, RawOption.class),
+                          new ConverterRawOptionToParsedOptionSpecification(specification)).
+                 allowKeys(new RejectHelpOption(specification)).
+                 vetoPuts(new ReportWrongNumberOfValues(validationErrorBuilder)).
+                 vetoPuts(new ReportWrongFormatValues(validationErrorBuilder)).
+                 transform(validatedArguments);
 
         validatedMandatoryArguments = $(validatedArguments).$retainKeys(mandatory());
     }

@@ -10,7 +10,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 public class RawOptionMatchers
 {
-   public static Matcher<RawOption> lastOption()
+   public static Matcher<RawOption> isLastOption()
    {
       return new TypeSafeMatcher<RawOption>()
       {

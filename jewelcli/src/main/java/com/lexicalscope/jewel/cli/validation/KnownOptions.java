@@ -10,12 +10,12 @@ import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-public class ReportUnexpectedOption extends TypeSafeMatcher<RawOption>
+public class KnownOptions extends TypeSafeMatcher<RawOption>
 {
    private final OptionsSpecification<?> specification;
    private final ValidationErrorBuilder validationErrorBuilder;
 
-   public ReportUnexpectedOption(final OptionsSpecification<?> specification, final ValidationErrorBuilder validationErrorBuilder)
+   public KnownOptions(final OptionsSpecification<?> specification, final ValidationErrorBuilder validationErrorBuilder)
    {
       this.specification = specification;
       this.validationErrorBuilder = validationErrorBuilder;
