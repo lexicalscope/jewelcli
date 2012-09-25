@@ -80,5 +80,5 @@ public interface ParsedOptionSpecification extends OptionSpecification {
      */
     boolean isBoolean();
 
-    void reportMissing(ValidationErrorBuilder validationErrorBuilder);
+    void reportMissingTo(ValidationErrorBuilder validationErrorBuilder);
 }

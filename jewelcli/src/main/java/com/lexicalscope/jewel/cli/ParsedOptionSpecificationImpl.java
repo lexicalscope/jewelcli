@@ -76,7 +76,7 @@ class ParsedOptionSpecificationImpl extends AbstractOptionSpecification implemen
         return value.matches(getPattern());
     }
 
-    @Override public void reportMissing(final ValidationErrorBuilder validationErrorBuilder) {
+    @Override public void reportMissingTo(final ValidationErrorBuilder validationErrorBuilder) {
        validationErrorBuilder.missingOption(this);
     }
 }

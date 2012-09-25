@@ -33,8 +33,8 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
     private final ValidationErrorBuilder validationErrorBuilder;
 
     private final Map<RawOption, List<String>> rawArguments;
-    private final FluentMap<ParsedOptionSpecification, List<String>> validatedArguments = $.<ParsedOptionSpecification, List<String>>map();
-    private final FluentMap<ParsedOptionSpecification, List<String>> validatedMandatoryArguments = $(validatedArguments).$retainKeys(mandatory());
+    private final FluentMap<ParsedOptionSpecification, List<String>> arguments = $.<ParsedOptionSpecification, List<String>>map();
+    private final FluentMap<ParsedOptionSpecification, List<String>> mandatoryArguments = $(arguments).$retainKeys(mandatory());
 
     private final List<String> validatedUnparsedArguments = new ArrayList<String>();
 
@@ -47,9 +47,8 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
         this.specification = specification;
         this.validationErrorBuilder = validationErrorBuilder;
 
-        rawArguments = buildValidationPipeline(specification, validationErrorBuilder, validatedUnparsedArguments).transform(validatedArguments);
+        rawArguments = buildValidationPipeline(specification, validationErrorBuilder, validatedUnparsedArguments).outputTo(arguments);
     }
-
 
     @Override public void processOption(final String optionName, final List<String> values) {
         rawArguments.put(new RawOption(optionName), values);
@@ -69,28 +68,28 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
 
         specification.
            getMandatoryOptions().
-              _removeAll(validatedMandatoryArguments.keySet()).
+              _withoutKeys(mandatoryArguments).
               _forEach(ParsedOptionSpecification.class).
-              reportMissing(validationErrorBuilder);
+              reportMissingTo(validationErrorBuilder);
 
         validationErrorBuilder.validate();
 
-        return new OptionCollectionImpl(specification, validatedArguments, validatedUnparsedArguments);
+        return new OptionCollectionImpl(specification, arguments, validatedUnparsedArguments);
     }
 
     private void validateUnparsedOptions()
     {
         if (specification.hasUnparsedSpecification())
         {
-            final OptionSpecification argumentSpecification = specification.getUnparsedSpecification();
+            final OptionSpecification unparsedSpecification = specification.getUnparsedSpecification();
 
-            if (argumentSpecification.isOptional() && validatedUnparsedArguments.isEmpty())
+            if (unparsedSpecification.isOptional() && validatedUnparsedArguments.isEmpty())
             {
                 // OK
             }
-            else if (!argumentSpecification.allowedThisManyValues(validatedUnparsedArguments.size()))
+            else if (!unparsedSpecification.allowedThisManyValues(validatedUnparsedArguments.size()))
             {
-                validationErrorBuilder.wrongNumberOfValues(argumentSpecification, validatedUnparsedArguments);
+                validationErrorBuilder.wrongNumberOfValues(unparsedSpecification, validatedUnparsedArguments);
             }
         }
         else if (!validatedUnparsedArguments.isEmpty())
