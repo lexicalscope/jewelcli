@@ -267,6 +267,7 @@
                                 <include>org.apache.commons:commons-lang3</include>
                                 <include>com.google.guava:guava</include>
                                 <include>com.lexicalscope.fluent-reflection:fluent-reflection</include>
+                                <include>com.lexicalscope.fluent-collections:fluent-collections</include>
                                 <include>cglib:cglib-nodep</include>
                                 <include>org.hamcrest:hamcrest-core</include>
                                 <include>org.hamcrest:hamcrest-library</include>
@@ -333,6 +334,14 @@
                                     <pattern>com.lexicalscope.fluentreflection.*</pattern>
                                     <result>com.lexicalscope.jewelcli.internal.fluentreflection.$@1</result>
                                 </rule>
+                                <rule>
+                                    <pattern>com.lexicalscope.fluent.**.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.fluentcollections@1.$@2</result>
+                                </rule>
+                                <rule>
+                                    <pattern>com.lexicalscope.fluent.*</pattern>
+                                    <result>com.lexicalscope.jewelcli.internal.fluentcollections.$@1</result>
+                                </rule>
                             </rules>
                         </configuration>
                     </execution>
@@ -351,9 +360,9 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>com.pyx4me</groupId>
+                <groupId>com.github.wvengen</groupId>
                 <artifactId>proguard-maven-plugin</artifactId>
-                <version>2.0.4</version>
+                <version>2.0.6</version>
                 <executions>
                    <execution>
                        <phase>package</phase>
@@ -385,9 +394,10 @@
                             java.lang.Object writeReplace();
                             java.lang.Object readResolve();
                         }</option>
-                        <option>-keep class com.lexicalscope.jewelcli.internal.fluentreflection.$ReflectedClass</option>
-                        <option>-keep class com.lexicalscope.jewelcli.internal.fluentreflection.$ReflectedMethod</option>
+                        <option>-keep class com.lexicalscope.jewelcli.internal.fluentreflection.$FluentClass</option>
+                        <option>-keep class com.lexicalscope.jewelcli.internal.fluentreflection.$FluentMethod</option>
                         <option>-keep class com.lexicalscope.jewelcli.internal.fluentreflection.FluentReflection</option>
+                        <option>-keep class com.lexicalscope.jewelcli.internal.fluentcollections.$FluentDollar</option>
                         <option>-keep interface uk.co.flamingpenguin.jewel.cli.ArgumentValidationException.ValidationError</option>
                         <option>-keep public class com.lexicalscope.jewel.cli.* { public protected *; }</option>
                         <option>-keepclassmembernames class com.lexicalscope.jewel.cli.* {
@@ -411,6 +421,14 @@
                         <lib>${java.home}/lib/rt.jar</lib>
                     </libs>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.proguard</groupId>
+                        <artifactId>proguard-base</artifactId>
+                        <version>4.8</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -419,7 +437,7 @@
             <plugin>
                 <groupId>com.github.github</groupId>
                 <artifactId>site-maven-plugin</artifactId>
-                <version>0.5</version>
+                <version>0.7</version>
                 <executions>
                    <execution>
                       <goals>
