@@ -113,7 +113,7 @@
         <dependency>
             <groupId>com.lexicalscope.fluent-reflection</groupId>
             <artifactId>fluent-reflection</artifactId>
-            <version>0.1.1-SNAPSHOT</version>
+            <version>0.1.1</version>
             <classifier>no_deps</classifier>
             <type>jar</type>
             <scope>compile</scope>
@@ -122,7 +122,7 @@
         <dependency>
             <groupId>com.lexicalscope.fluent-collections</groupId>
             <artifactId>fluent-collections</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1</version>
             <type>jar</type>
             <scope>compile</scope>
             <optional>true</optional>
