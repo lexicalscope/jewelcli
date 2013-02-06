@@ -4,7 +4,7 @@ import static com.lexicalscope.fluentreflection.bean.MapBean.bean;
 
 import java.util.Map;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.fluentreflection.FluentClass;
 
 /*
  * Copyright 2011 Tim Wood
@@ -19,13 +19,13 @@ import com.lexicalscope.fluentreflection.ReflectedClass;
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 class InterfaceArgumentPresentingStrategy<O> implements ArgumentPresentingStrategy<O> {
-    private final ReflectedClass<O> klass;
+    private final FluentClass<O> klass;
 
-    public InterfaceArgumentPresentingStrategy(final ReflectedClass<O> klass) {
+    public InterfaceArgumentPresentingStrategy(final FluentClass<O> klass) {
         this.klass = klass;
     }
 

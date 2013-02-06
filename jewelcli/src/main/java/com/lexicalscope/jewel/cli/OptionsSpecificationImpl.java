@@ -14,15 +14,6 @@
 
 package com.lexicalscope.jewel.cli;
 
-import com.lexicalscope.fluent.FluentDollar;
-import com.lexicalscope.fluent.list.FluentList;
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
-import com.lexicalscope.jewel.cli.specification.CliSpecification;
-import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
-import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
-import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,24 +24,33 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.lexicalscope.fluent.FluentDollar;
+import com.lexicalscope.fluent.list.FluentList;
+import com.lexicalscope.fluentreflection.FluentClass;
+import com.lexicalscope.fluentreflection.FluentMethod;
+import com.lexicalscope.jewel.cli.specification.CliSpecification;
+import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
+import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
+import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
+
 class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecification {
-    private final ReflectedClass<O> klass;
+    private final FluentClass<O> klass;
 
     private final Set<ParsedOptionSpecification> options;
     private final Map<String, ParsedOptionSpecification> optionsByName =
             new TreeMap<String, ParsedOptionSpecification>();
-    private final Map<ReflectedMethod, ParsedOptionSpecification> optionsMethod =
-            new HashMap<ReflectedMethod, ParsedOptionSpecification>();
-    private final Map<ReflectedMethod, ParsedOptionSpecification> optionalOptionsMethod =
-            new HashMap<ReflectedMethod, ParsedOptionSpecification>();
+    private final Map<FluentMethod, ParsedOptionSpecification> optionsMethod =
+            new HashMap<FluentMethod, ParsedOptionSpecification>();
+    private final Map<FluentMethod, ParsedOptionSpecification> optionalOptionsMethod =
+            new HashMap<FluentMethod, ParsedOptionSpecification>();
 
-    private final Map<ReflectedMethod, UnparsedOptionSpecification> unparsedOptionsMethod =
-            new HashMap<ReflectedMethod, UnparsedOptionSpecification>();
-    private final Map<ReflectedMethod, UnparsedOptionSpecification> unparsedOptionalOptionsMethod =
-            new HashMap<ReflectedMethod, UnparsedOptionSpecification>();
+    private final Map<FluentMethod, UnparsedOptionSpecification> unparsedOptionsMethod =
+            new HashMap<FluentMethod, UnparsedOptionSpecification>();
+    private final Map<FluentMethod, UnparsedOptionSpecification> unparsedOptionalOptionsMethod =
+            new HashMap<FluentMethod, UnparsedOptionSpecification>();
 
     OptionsSpecificationImpl(
-            final ReflectedClass<O> klass,
+            final FluentClass<O> klass,
             final List<ParsedOptionSpecification> optionSpecifications,
             final List<UnparsedOptionSpecification> unparsedSpecifications) {
         this.klass = klass;
@@ -82,7 +82,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
         return optionsByName.get(key);
     }
 
-    @Override public ParsedOptionSpecification getSpecification(final ReflectedMethod method) {
+    @Override public ParsedOptionSpecification getSpecification(final FluentMethod method) {
         if (optionsMethod.containsKey(method)) {
             return optionsMethod.get(method);
         }

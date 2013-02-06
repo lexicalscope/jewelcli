@@ -1,7 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.fluentreflection.FluentClass;
+import com.lexicalscope.fluentreflection.FluentMethod;
 import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
 import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
 
@@ -22,19 +22,19 @@ import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
  */
 
 class AbstractConvertMethodToOptionSpecification {
-    protected final ReflectedClass<?> klass;
+    protected final FluentClass<?> klass;
 
-    public AbstractConvertMethodToOptionSpecification(final ReflectedClass<?> klass) {
+    public AbstractConvertMethodToOptionSpecification(final FluentClass<?> klass) {
         this.klass = klass;
     }
 
     protected UnparsedOptionSpecification createUnparsedOptionSpecificationFrom(
-            final ReflectedMethod method) {
+            final FluentMethod method) {
 
         return new UnparsedOptionSpecificationImpl(new UnparsedAnnotationAdapter(klass, method, method.annotation(Unparsed.class)));
     }
 
-    protected ParsedOptionSpecification createParsedOptionSpecificationFrom(final ReflectedMethod method) {
+    protected ParsedOptionSpecification createParsedOptionSpecificationFrom(final FluentMethod method) {
         return new ParsedOptionSpecificationImpl(new OptionAnnotationAdapter(klass, method));
     }
 }

@@ -3,7 +3,7 @@ package com.lexicalscope.jewel.cli;
 import static com.lexicalscope.jewel.cli.parser.DefaultArgumentParserFactory.createDefaultArgumentParser;
 import static com.lexicalscope.jewel.cli.validation.DefaultValidatorFactory.createDefaultValidator;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.fluentreflection.FluentClass;
 import com.lexicalscope.jewel.cli.specification.CliSpecification;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 
@@ -24,11 +24,11 @@ import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
  */
 
 abstract class AbstractCliImpl<O> implements Cli<O> {
-    private final ReflectedClass<O> klass;
+    private final FluentClass<O> klass;
     private final OptionsSpecification<O> optionsSpecification;
 
     public AbstractCliImpl(
-            final ReflectedClass<O> klass,
+            final FluentClass<O> klass,
             final OptionsSpecification<O> optionsSpecification) {
         this.klass = klass;
         this.optionsSpecification = optionsSpecification;
@@ -43,7 +43,7 @@ abstract class AbstractCliImpl<O> implements Cli<O> {
     }
 
     protected abstract ArgumentPresenterImpl<O> argumentPresenter(
-            ReflectedClass<O> klass,
+            FluentClass<O> klass,
             OptionsSpecification<O> specification);
 
     @Override public String getHelpMessage() {

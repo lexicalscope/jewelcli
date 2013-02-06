@@ -16,13 +16,13 @@ package com.lexicalscope.jewel.cli;
 import static ch.lambdaj.Lambda.convert;
 import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.fluentreflection.FluentClass;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 
 class InstanceOptionsSpecificationParser<O> {
-    private final ReflectedClass<O> klass;
+    private final FluentClass<O> klass;
 
-    InstanceOptionsSpecificationParser(final ReflectedClass<O> klass) {
+    InstanceOptionsSpecificationParser(final FluentClass<O> klass) {
         this.klass = klass;
     }
 
@@ -36,7 +36,7 @@ class InstanceOptionsSpecificationParser<O> {
                         new ConvertUnparsedSetterMethodToUnparsedOptionSpecification(klass)));
     }
 
-    static <O> OptionsSpecification<O> createOptionsSpecificationImpl(final ReflectedClass<O> klass) {
+    static <O> OptionsSpecification<O> createOptionsSpecificationImpl(final FluentClass<O> klass) {
         return new InstanceOptionsSpecificationParser<O>(klass).buildOptionsSpecification();
     }
 }

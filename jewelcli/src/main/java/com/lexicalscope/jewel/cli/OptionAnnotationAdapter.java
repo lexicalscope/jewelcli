@@ -5,8 +5,8 @@ import static java.util.Arrays.asList;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.fluentreflection.FluentClass;
+import com.lexicalscope.fluentreflection.FluentMethod;
 
 /*
  * Copyright 2011 Tim Wood
@@ -28,8 +28,8 @@ class OptionAnnotationAdapter extends AbstractOptionAdapter {
     private final Option option;
 
     OptionAnnotationAdapter(
-            final ReflectedClass<?> klass,
-            final ReflectedMethod method) {
+            final FluentClass<?> klass,
+            final FluentMethod method) {
         super(klass, method);
         this.option = method.annotation(Option.class);
     }
@@ -63,7 +63,7 @@ class OptionAnnotationAdapter extends AbstractOptionAdapter {
 
     public List<String> longName() {
         return option.longName().length == 0
-                ? asList(method.propertyName())
+                ? asList(method.property())
                 : asList(option.longName());
     }
 

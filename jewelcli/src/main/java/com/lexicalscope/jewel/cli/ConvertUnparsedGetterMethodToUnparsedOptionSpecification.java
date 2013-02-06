@@ -15,19 +15,19 @@ package com.lexicalscope.jewel.cli;
 
 import ch.lambdaj.function.convert.Converter;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.fluentreflection.FluentClass;
+import com.lexicalscope.fluentreflection.FluentMethod;
 import com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
 
 class ConvertUnparsedGetterMethodToUnparsedOptionSpecification extends AbstractConvertMethodToOptionSpecification
         implements
-        Converter<ReflectedMethod, UnparsedOptionSpecification> {
+        Converter<FluentMethod, UnparsedOptionSpecification> {
 
-    public ConvertUnparsedGetterMethodToUnparsedOptionSpecification(final ReflectedClass<?> klass) {
+    public ConvertUnparsedGetterMethodToUnparsedOptionSpecification(final FluentClass<?> klass) {
         super(klass);
     }
 
-    @Override public UnparsedOptionSpecification convert(final ReflectedMethod method) {
+    @Override public UnparsedOptionSpecification convert(final FluentMethod method) {
         return createUnparsedOptionSpecificationFrom(method);
     }
 }

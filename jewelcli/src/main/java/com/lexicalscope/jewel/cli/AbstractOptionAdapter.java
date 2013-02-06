@@ -5,9 +5,10 @@ import static com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.fluentreflection.FluentClass;
+import com.lexicalscope.fluentreflection.FluentMethod;
 
 /*
  * Copyright 2011 Tim Wood
@@ -26,18 +27,18 @@ import com.lexicalscope.fluentreflection.ReflectedMethod;
  */
 
 abstract class AbstractOptionAdapter implements OptionAdapter {
-    private final ReflectedClass<?> klass;
-    protected final ReflectedMethod method;
-    private final ReflectedClass<?> methodType;
+    private final FluentClass<?> klass;
+    protected final FluentMethod method;
+    private final FluentClass<?> methodType;
 
     AbstractOptionAdapter(
-            final ReflectedClass<?> klass,
-            final ReflectedMethod method) {
+            final FluentClass<?> klass,
+            final FluentMethod method) {
         this.klass = klass;
         this.method = method;
         if (isMutator().matches(method))
         {
-            this.methodType = method.argumentTypes().get(0);
+            this.methodType = method.args().get(0);
         }
         else
         {
@@ -45,19 +46,19 @@ abstract class AbstractOptionAdapter implements OptionAdapter {
         }
     }
 
-    @Override public final ReflectedMethod method() {
+    @Override public final FluentMethod method() {
         return method;
     }
 
-    @Override public final ReflectedMethod correspondingOptionalityMethod() {
+    @Override public final FluentMethod correspondingOptionalityMethod() {
         if (isMutator().matches(method))
         {
             return null;
         }
 
-        final List<ReflectedMethod> methods =
+        final List<FluentMethod> methods =
                 klass.methods(
-                        hasName(addPrefix("is", method.propertyName())).and(isExistence()));
+                        hasName(addPrefix("is", method.property())).and(isExistence()));
         if (!methods.isEmpty()) {
             return methods.get(0);
         }
@@ -69,11 +70,11 @@ abstract class AbstractOptionAdapter implements OptionAdapter {
     }
 
     @Override public final boolean isMultiValued() {
-        return methodType.isType(reflectingOn(Collection.class));
+        return methodType.isType(reflectingOn(Collection.class)) && (methodType.assignableFrom(List.class) || methodType.assignableFrom(Set.class));
     }
 
-    @Override public final ReflectedClass<? extends Object> getValueType() {
-        final ReflectedClass<? extends Object> valueType =
+    @Override public final FluentClass<? extends Object> getValueType() {
+        final FluentClass<? extends Object> valueType =
                 isMultiValued()
                         ? methodType.asType(reflectingOn(Collection.class)).typeArgument(0)
                         : methodType;

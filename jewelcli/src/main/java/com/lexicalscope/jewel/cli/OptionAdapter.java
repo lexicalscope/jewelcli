@@ -1,7 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.fluentreflection.FluentClass;
+import com.lexicalscope.fluentreflection.FluentMethod;
 
 /*
  * Copyright 2011 Tim Wood
@@ -33,7 +33,7 @@ interface OptionAdapter {
     int exactly();
     int maximum();
 
-    ReflectedClass<? extends Object> getValueType();
-    ReflectedMethod method();
-    ReflectedMethod correspondingOptionalityMethod();
+    FluentClass<? extends Object> getValueType();
+    FluentMethod method();
+    FluentMethod correspondingOptionalityMethod();
 }

@@ -1,7 +1,7 @@
 package com.lexicalscope.jewel.cli;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.fluentreflection.FluentClass;
+import com.lexicalscope.fluentreflection.FluentMethod;
 
 /*
  * Copyright 2011 Tim Wood
@@ -23,8 +23,8 @@ final class UnparsedAnnotationAdapter extends AbstractOptionAdapter {
     private final Unparsed option;
 
     UnparsedAnnotationAdapter(
-            final ReflectedClass<?> klass,
-            final ReflectedMethod method,
+            final FluentClass<?> klass,
+            final FluentMethod method,
             final Unparsed unparsed) {
         super(klass, method);
         this.option = unparsed;

@@ -6,7 +6,7 @@ package com.lexicalscope.jewel.cli.specification;
 
 import java.util.List;
 
-import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.fluentreflection.FluentMethod;
 
 /**
  * Specifies an Option
@@ -96,9 +96,9 @@ public interface OptionSpecification
      */
     boolean allowedThisManyValues(int count);
 
-    ReflectedMethod getMethod();
+    FluentMethod getMethod();
 
-    ReflectedMethod getOptionalityMethod();
+    FluentMethod getOptionalityMethod();
 
     boolean hasExactCount();
 

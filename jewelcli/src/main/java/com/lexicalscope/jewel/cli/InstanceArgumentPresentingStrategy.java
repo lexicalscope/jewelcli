@@ -4,8 +4,8 @@ import static com.lexicalscope.fluentreflection.ReflectionMatchers.annotatedWith
 
 import java.util.Map;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.fluentreflection.FluentClass;
+import com.lexicalscope.fluentreflection.FluentMethod;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 
 /*
@@ -26,12 +26,12 @@ import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 
 class InstanceArgumentPresentingStrategy<O> implements ArgumentPresentingStrategy<O> {
     private final O options;
-    private final ReflectedClass<O> klass;
+    private final FluentClass<O> klass;
     private final OptionsSpecification<O> specification;
 
     public InstanceArgumentPresentingStrategy(
             final OptionsSpecification<O> specification,
-            final ReflectedClass<O> klass,
+            final FluentClass<O> klass,
             final O options) {
         this.specification = specification;
         this.klass = klass;
@@ -39,11 +39,11 @@ class InstanceArgumentPresentingStrategy<O> implements ArgumentPresentingStrateg
     }
 
     @Override public O presentArguments(final Map<String, Object> argumentMap) {
-        for (final ReflectedMethod reflectedMethod : klass.methods(annotatedWith(Option.class))) {
+        for (final FluentMethod reflectedMethod : klass.methods(annotatedWith(Option.class))) {
             final boolean isBoolean = specification.getSpecification(reflectedMethod).isBoolean();
             setValueOnOptions(argumentMap, reflectedMethod, isBoolean);
         }
-        for (final ReflectedMethod reflectedMethod : klass.methods(annotatedWith(Unparsed.class))) {
+        for (final FluentMethod reflectedMethod : klass.methods(annotatedWith(Unparsed.class))) {
             setValueOnOptions(argumentMap, reflectedMethod, false);
         }
         return options;
@@ -51,17 +51,17 @@ class InstanceArgumentPresentingStrategy<O> implements ArgumentPresentingStrateg
 
     private void setValueOnOptions(
             final Map<String, Object> argumentMap,
-            final ReflectedMethod reflectedMethod,
+            final FluentMethod reflectedMethod,
             final boolean isBoolean) {
-        if (argumentMap.containsKey(reflectedMethod.propertyName()))
+        if (argumentMap.containsKey(reflectedMethod.property()))
         {
             if (isBoolean)
             {
-                reflectedMethod.call(options, argumentMap.containsKey(reflectedMethod.propertyName()));
+                reflectedMethod.call(options, argumentMap.containsKey(reflectedMethod.property()));
             }
-            else if (argumentMap.get(reflectedMethod.propertyName()) != null)
+            else if (argumentMap.get(reflectedMethod.property()) != null)
             {
-                reflectedMethod.call(options, argumentMap.get(reflectedMethod.propertyName()));
+                reflectedMethod.call(options, argumentMap.get(reflectedMethod.property()));
             }
         }
     }

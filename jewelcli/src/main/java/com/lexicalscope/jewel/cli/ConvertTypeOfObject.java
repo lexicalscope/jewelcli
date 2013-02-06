@@ -12,10 +12,10 @@ import java.util.Set;
 import ch.lambdaj.Lambda;
 import ch.lambdaj.function.convert.Converter;
 
+import com.lexicalscope.fluentreflection.FluentClass;
+import com.lexicalscope.fluentreflection.FluentConstructor;
+import com.lexicalscope.fluentreflection.FluentMethod;
 import com.lexicalscope.fluentreflection.InvocationTargetRuntimeException;
-import com.lexicalscope.fluentreflection.ReflectedClass;
-import com.lexicalscope.fluentreflection.ReflectedConstructor;
-import com.lexicalscope.fluentreflection.ReflectedMethod;
 import com.lexicalscope.fluentreflection.ReflectionRuntimeException;
 import com.lexicalscope.fluentreflection.TypeToken;
 import com.lexicalscope.jewel.cli.specification.OptionSpecification;
@@ -37,7 +37,7 @@ import com.lexicalscope.jewel.cli.specification.OptionSpecification;
  */
 
 class ConvertTypeOfObject<T> implements Converter<Object, T> {
-    private final ReflectedClass<T> reflectedKlass;
+    private final FluentClass<T> reflectedKlass;
     private final Class<?> klass;
     private final OptionSpecification specification;
     private final ValidationErrorBuilder validationErrorBuilder;
@@ -45,7 +45,7 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
     public ConvertTypeOfObject(
             final ValidationErrorBuilder validationErrorBuilder,
             final OptionSpecification specification,
-            final ReflectedClass<T> reflectedKlass) {
+            final FluentClass<T> reflectedKlass) {
         this.validationErrorBuilder = validationErrorBuilder;
         this.specification = specification;
         this.reflectedKlass = reflectedKlass;
@@ -88,7 +88,7 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
             return (T) value;
         }
 
-        ReflectedClass<?> klassToCreate;
+        FluentClass<?> klassToCreate;
         if (reflectedKlass.isPrimitive()) {
             klassToCreate = reflectedKlass.boxedType();
         } else {
@@ -98,29 +98,29 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
         return (T) convertValueTo(value, klassToCreate);
     }
 
-    private <S> S convertValueTo(final Object value, final ReflectedClass<S> klassToCreate) {
+    private <S> S convertValueTo(final Object value, final FluentClass<S> klassToCreate) {
         try
         {
-            final List<ReflectedMethod> valueOfMethods =
+            final List<FluentMethod> valueOfMethods =
                     klassToCreate.methods(hasName("valueOf").and(hasArguments(value.getClass())).and(
                             hasType(klass)));
 
             if (!valueOfMethods.isEmpty()) {
-                return (S) valueOfMethods.get(0).call(value);
+                return (S) valueOfMethods.get(0).call(value).value();
             }
 
-            final List<ReflectedConstructor<S>> singleArgumentConstructors =
+            final List<FluentConstructor<S>> singleArgumentConstructors =
                     klassToCreate.constructors(hasArguments(value.getClass()));
 
             if (!singleArgumentConstructors.isEmpty()) {
-                return singleArgumentConstructors.get(0).call(value);
+                return singleArgumentConstructors.get(0).call(value).value();
             }
 
-            final List<ReflectedConstructor<S>> typeTokenConstructors =
+            final List<FluentConstructor<S>> typeTokenConstructors =
                     klassToCreate.constructors(hasArguments(value.getClass(), Type.class));
 
             if (!typeTokenConstructors.isEmpty()) {
-                return typeTokenConstructors.get(0).call(value, klassToCreate.type());
+                return typeTokenConstructors.get(0).call(value, klassToCreate.type()).value();
             }
 
             if (klassToCreate.classUnderReflection().equals(Character.class) && value.getClass().equals(String.class)) {
@@ -160,14 +160,14 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
     }
 
     private T convertIterable(final Object value) {
-        final ReflectedClass<?> desiredCollectionReflectedType =
+        final FluentClass<?> desiredCollectionReflectedType =
                 reflectedKlass.asType(reflectingOn(Iterable.class)).typeArgument(0);
 
         final List<Object> convertedTypes = Lambda.convert(value,
                 new ConvertTypeOfObject<Object>(
                         validationErrorBuilder,
                         specification,
-                        (ReflectedClass<Object>) desiredCollectionReflectedType));
+                        (FluentClass<Object>) desiredCollectionReflectedType));
 
         if (List.class.isAssignableFrom(klass) && Collection.class.isAssignableFrom(klass)) {
             return (T) convertedTypes;
@@ -185,15 +185,15 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
     static <T> ConvertTypeOfObject<T> converterTo(
             final ValidationErrorBuilder validationErrorBuilder,
             final OptionSpecification specification,
-            final ReflectedMethod method) {
-        ReflectedClass<T> methodType;
+            final FluentMethod method) {
+       FluentClass<T> methodType;
         if (isMutator().matches(method))
         {
-            methodType = (ReflectedClass<T>) method.argumentTypes().get(0);
+            methodType = (FluentClass<T>) method.args().get(0);
         }
         else
         {
-            methodType = (ReflectedClass<T>) method.type();
+            methodType = (FluentClass<T>) method.type();
         }
         return converterTo(validationErrorBuilder, specification, methodType);
     }
@@ -201,7 +201,7 @@ class ConvertTypeOfObject<T> implements Converter<Object, T> {
     private static <T> ConvertTypeOfObject<T> converterTo(
             final ValidationErrorBuilder validationErrorBuilder,
             final OptionSpecification specification,
-            final ReflectedClass<T> type) {
+            final FluentClass<T> type) {
         return new ConvertTypeOfObject<T>(validationErrorBuilder, specification, type);
     }
 

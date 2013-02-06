@@ -16,27 +16,27 @@ package com.lexicalscope.jewel.cli;
 
 import static com.lexicalscope.fluentreflection.FluentReflection.type;
 
-import com.lexicalscope.fluentreflection.ReflectedClass;
+import com.lexicalscope.fluentreflection.FluentClass;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 
 class CliInstanceImpl<O> extends AbstractCliImpl<O> {
     private final O options;
 
     public CliInstanceImpl(final O options) {
-        this(options, (ReflectedClass<O>) type(options.getClass()));
+        this(options, (FluentClass<O>) type(options.getClass()));
     }
 
-    public CliInstanceImpl(final O options, final ReflectedClass<O> type) {
+    public CliInstanceImpl(final O options, final FluentClass<O> type) {
         super(type, createOptionSpecification(type));
         this.options = options;
     }
 
-    private static <O> OptionsSpecification<O> createOptionSpecification(final ReflectedClass<O> klass) {
+    private static <O> OptionsSpecification<O> createOptionSpecification(final FluentClass<O> klass) {
         return InstanceOptionsSpecificationParser.<O>createOptionsSpecificationImpl(klass);
     }
 
     @Override protected ArgumentPresenterImpl<O> argumentPresenter(
-            final ReflectedClass<O> klass,
+            final FluentClass<O> klass,
             final OptionsSpecification<O> specification) {
         return new ArgumentPresenterImpl<O>(specification, new InstanceArgumentPresentingStrategy<O>(
                 specification,

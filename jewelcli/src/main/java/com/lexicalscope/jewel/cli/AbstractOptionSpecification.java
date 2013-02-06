@@ -4,7 +4,7 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
-import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.fluentreflection.FluentMethod;
 import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 import com.lexicalscope.jewel.cli.specification.SpecificationMultiplicity;
 
@@ -100,14 +100,14 @@ abstract class AbstractOptionSpecification implements OptionSpecification, Compa
     public abstract boolean isBoolean();
 
     @Override public final String getCanonicalIdentifier() {
-        return getMethod().propertyName();
+        return getMethod().property();
     }
 
-    @Override public final ReflectedMethod getMethod() {
+    @Override public final FluentMethod getMethod() {
         return annotation.method();
     }
 
-    @Override public final ReflectedMethod getOptionalityMethod() {
+    @Override public final FluentMethod getOptionalityMethod() {
         return annotation.correspondingOptionalityMethod();
     }
 
@@ -139,19 +139,23 @@ abstract class AbstractOptionSpecification implements OptionSpecification, Compa
         return false;
     }
 
-    public final int maximum() {
+    @Override
+   public final int maximum() {
         return annotation.maximum();
     }
 
-    public final int minimum() {
+    @Override
+   public final int minimum() {
         return annotation.minimum();
     }
 
-    public final int exactly() {
+    @Override
+   public final int exactly() {
         return annotation.exactly();
     }
 
-    public final boolean hasExactCount() {
+    @Override
+   public final boolean hasExactCount() {
         return annotation.exactly() >= 0;
     }
 

@@ -2,7 +2,7 @@ package com.lexicalscope.jewel.cli;
 
 import java.util.List;
 
-import com.lexicalscope.fluentreflection.ReflectedMethod;
+import com.lexicalscope.fluentreflection.FluentMethod;
 import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 import com.lexicalscope.jewel.cli.specification.SpecificationMultiplicity;
 
@@ -34,11 +34,11 @@ class UnexpectedOptionSpecification implements OptionSpecification
         return false;
     }
 
-    @Override public ReflectedMethod getMethod() {
+    @Override public FluentMethod getMethod() {
         return null;
     }
 
-    @Override public ReflectedMethod getOptionalityMethod() {
+    @Override public FluentMethod getOptionalityMethod() {
         return null;
     }
 
