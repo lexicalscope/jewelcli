@@ -6,6 +6,10 @@ package com.lexicalscope.jewel.cli.validation;
 
 import static com.lexicalscope.fluent.FluentDollar.$;
 import static com.lexicalscope.jewel.cli.validation.RawOptionMatchers.isLastOption;
+
+import java.util.List;
+import java.util.Map.Entry;
+
 import ch.lambdaj.function.convert.Converter;
 
 import com.lexicalscope.fluent.functions.BiConverter;
@@ -13,9 +17,6 @@ import com.lexicalscope.fluent.map.transforms.MapPipelineBuilder;
 import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
-
-import java.util.List;
-import java.util.Map.Entry;
 
 class ValidationPipeline
 {
@@ -67,13 +68,5 @@ class ValidationPipeline
    private RejectHelpOption butRejectHelpOption()
    {
       return new RejectHelpOption(specification);
-   }
-
-   static MapPipelineBuilder<RawOption, List<String>, ParsedOptionSpecification, List<String>> buildValidationPipeline(
-            final OptionsSpecification<?> specification,
-            final ValidationErrorBuilder validationErrorBuilder,
-            final List<String> validatedUnparsedArguments)
-   {
-      return new ValidationPipeline(specification, validationErrorBuilder).buildValidationPipeline(validatedUnparsedArguments);
    }
 }

@@ -16,17 +16,16 @@ package com.lexicalscope.jewel.cli.validation;
 
 import static com.lexicalscope.fluent.FluentDollar.$;
 import static com.lexicalscope.jewel.cli.specification.OptionSpecificationMatchers.mandatory;
-import static com.lexicalscope.jewel.cli.validation.ValidationPipeline.buildValidationPipeline;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import com.lexicalscope.fluent.map.FluentMap;
 import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
 import com.lexicalscope.jewel.cli.specification.OptionSpecification;
 import com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 import com.lexicalscope.jewel.cli.specification.ParsedOptionSpecification;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 class ArgumentValidatorImpl<O> implements ArgumentValidator
 {
@@ -47,7 +46,7 @@ class ArgumentValidatorImpl<O> implements ArgumentValidator
         this.specification = specification;
         this.validationErrorBuilder = validationErrorBuilder;
 
-        rawArguments = buildValidationPipeline(specification, validationErrorBuilder, validatedUnparsedArguments).outputTo(arguments);
+        rawArguments = new ValidationPipeline(specification, validationErrorBuilder).buildValidationPipeline(validatedUnparsedArguments).outputTo(arguments);
     }
 
     @Override public void processOption(final String optionName, final List<String> values) {
