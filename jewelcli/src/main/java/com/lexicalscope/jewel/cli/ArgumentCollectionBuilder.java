@@ -138,7 +138,11 @@ public class ArgumentCollectionBuilder implements ParsedArguments {
     }
 
     private void addFirstValueForOption(final String option) {
-        valuesForCurrentArgument = new ArrayList<String>();
-        arguments.put(option, valuesForCurrentArgument);
+       if(!arguments.containsKey(option))
+       {
+          valuesForCurrentArgument = new ArrayList<String>();
+          arguments.put(option, valuesForCurrentArgument);
+       }
+       valuesForCurrentArgument = arguments.get(option);
     }
 }

@@ -1,11 +1,11 @@
 package com.lexicalscope.jewel.issues;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import com.lexicalscope.jewel.cli.CliFactory;
@@ -25,6 +25,6 @@ public class Github20 {
 
     @Test public void main() {
       final Options options = CliFactory.parseArguments(Options.class, "--list", "foo;;bar");
-      assertThat(options.getList(), Matchers.contains("foo", "bar"));
+      assertThat(options.getList(), contains("foo", "bar"));
     }
 }
