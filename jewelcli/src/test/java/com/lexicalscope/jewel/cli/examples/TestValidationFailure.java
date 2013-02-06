@@ -271,6 +271,26 @@ public class TestValidationFailure {
         }
     }
 
+    public interface UnexpectedAdditionalValueInListWithExactMultiValuedArity {
+       @Option(exactly = 2) List<String> getMyOption();
+       @Option String getMyOtherOption();
+   }
+
+   @Test public void unexpectedAdditionalValueInListWithExactMultiValuedArityThrowsException() throws ArgumentValidationException
+   {
+       try
+       {
+           parseArguments(UnexpectedAdditionalValueInListWithExactMultiValuedArity.class, "--myOption", "myValue", "myOtherValue", "myExcessValue", "--myOtherOption", "anotherValue");
+           fail("exception should have been thrown");
+       }
+       catch(final ArgumentValidationException e)
+       {
+           final String expectedMessage = format("Option takes exactly 2 values; please remove [myExcessValue]: --myOption value...");
+           assertThat(e.getMessage(), equalTo(expectedMessage));
+           assertThat(e.getValidationFailures(), contains(validationError(TooManyValues, expectedMessage)));
+       }
+   }
+
     public interface UnexpectedAdditionalUnparsedValue {
         @Option Integer getMyOption();
         @Unparsed String getMyUnparsed();
