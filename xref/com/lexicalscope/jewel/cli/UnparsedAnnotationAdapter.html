@@ -10,8 +10,8 @@
 
 <a name="1" href="#1">1</a>   <strong class="jxr_keyword">package</strong> com.lexicalscope.jewel.cli;
 <a name="2" href="#2">2</a>   
-<a name="3" href="#3">3</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.ReflectedClass;
-<a name="4" href="#4">4</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.ReflectedMethod;
+<a name="3" href="#3">3</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.FluentClass;
+<a name="4" href="#4">4</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.FluentMethod;
 <a name="5" href="#5">5</a>   
 <a name="6" href="#6">6</a>   <em class="jxr_comment">/*</em>
 <a name="7" href="#7">7</a>   <em class="jxr_comment"> * Copyright 2011 Tim Wood</em>
@@ -33,8 +33,8 @@
 <a name="23" href="#23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/Unparsed.html">Unparsed</a> option;
 <a name="24" href="#24">24</a>  
 <a name="25" href="#25">25</a>      <a href="../../../../com/lexicalscope/jewel/cli/UnparsedAnnotationAdapter.html">UnparsedAnnotationAdapter</a>(
-<a name="26" href="#26">26</a>              <strong class="jxr_keyword">final</strong> ReflectedClass&lt;?&gt; klass,
-<a name="27" href="#27">27</a>              <strong class="jxr_keyword">final</strong> ReflectedMethod method,
+<a name="26" href="#26">26</a>              <strong class="jxr_keyword">final</strong> FluentClass&lt;?&gt; klass,
+<a name="27" href="#27">27</a>              <strong class="jxr_keyword">final</strong> FluentMethod method,
 <a name="28" href="#28">28</a>              <strong class="jxr_keyword">final</strong> <a href="../../../../com/lexicalscope/jewel/cli/Unparsed.html">Unparsed</a> unparsed) {
 <a name="29" href="#29">29</a>          <strong class="jxr_keyword">super</strong>(klass, method);
 <a name="30" href="#30">30</a>          <strong class="jxr_keyword">this</strong>.option = unparsed;

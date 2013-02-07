@@ -26,13 +26,13 @@
 <a name="16" href="#16">16</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> ch.lambdaj.Lambda.convert;
 <a name="17" href="#17">17</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> com.lexicalscope.fluentreflection.ReflectionMatchers.*;
 <a name="18" href="#18">18</a>  
-<a name="19" href="#19">19</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.ReflectedClass;
+<a name="19" href="#19">19</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.FluentClass;
 <a name="20" href="#20">20</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.specification.OptionsSpecification;
 <a name="21" href="#21">21</a>  
 <a name="22" href="#22">22</a>  <strong class="jxr_keyword">class</strong> InstanceOptionsSpecificationParser&lt;O&gt; {
-<a name="23" href="#23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> ReflectedClass&lt;O&gt; klass;
+<a name="23" href="#23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> FluentClass&lt;O&gt; klass;
 <a name="24" href="#24">24</a>  
-<a name="25" href="#25">25</a>      <a href="../../../../com/lexicalscope/jewel/cli/InstanceOptionsSpecificationParser.html">InstanceOptionsSpecificationParser</a>(<strong class="jxr_keyword">final</strong> ReflectedClass&lt;O&gt; klass) {
+<a name="25" href="#25">25</a>      <a href="../../../../com/lexicalscope/jewel/cli/InstanceOptionsSpecificationParser.html">InstanceOptionsSpecificationParser</a>(<strong class="jxr_keyword">final</strong> FluentClass&lt;O&gt; klass) {
 <a name="26" href="#26">26</a>          <strong class="jxr_keyword">this</strong>.klass = klass;
 <a name="27" href="#27">27</a>      }
 <a name="28" href="#28">28</a>  
@@ -46,7 +46,7 @@
 <a name="36" href="#36">36</a>                          <strong class="jxr_keyword">new</strong> <a href="../../../../com/lexicalscope/jewel/cli/ConvertUnparsedSetterMethodToUnparsedOptionSpecification.html">ConvertUnparsedSetterMethodToUnparsedOptionSpecification</a>(klass)));
 <a name="37" href="#37">37</a>      }
 <a name="38" href="#38">38</a>  
-<a name="39" href="#39">39</a>      <strong class="jxr_keyword">static</strong> &lt;O&gt; OptionsSpecification&lt;O&gt; createOptionsSpecificationImpl(<strong class="jxr_keyword">final</strong> ReflectedClass&lt;O&gt; klass) {
+<a name="39" href="#39">39</a>      <strong class="jxr_keyword">static</strong> &lt;O&gt; OptionsSpecification&lt;O&gt; createOptionsSpecificationImpl(<strong class="jxr_keyword">final</strong> FluentClass&lt;O&gt; klass) {
 <a name="40" href="#40">40</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> InstanceOptionsSpecificationParser&lt;O&gt;(klass).buildOptionsSpecification();
 <a name="41" href="#41">41</a>      }
 <a name="42" href="#42">42</a>  }

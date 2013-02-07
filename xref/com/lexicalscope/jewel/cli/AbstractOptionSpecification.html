@@ -14,7 +14,7 @@
 <a name="4" href="#4">4</a>   
 <a name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> java.util.List;
 <a name="6" href="#6">6</a>   
-<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.ReflectedMethod;
+<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.FluentMethod;
 <a name="8" href="#8">8</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.specification.OptionSpecification;
 <a name="9" href="#9">9</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.specification.SpecificationMultiplicity;
 <a name="10" href="#10">10</a>  
@@ -110,14 +110,14 @@
 <a name="100" href="#100">100</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">boolean</strong> isBoolean();
 <a name="101" href="#101">101</a> 
 <a name="102" href="#102">102</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> String getCanonicalIdentifier() {
-<a name="103" href="#103">103</a>         <strong class="jxr_keyword">return</strong> getMethod().propertyName();
+<a name="103" href="#103">103</a>         <strong class="jxr_keyword">return</strong> getMethod().property();
 <a name="104" href="#104">104</a>     }
 <a name="105" href="#105">105</a> 
-<a name="106" href="#106">106</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> ReflectedMethod getMethod() {
+<a name="106" href="#106">106</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> FluentMethod getMethod() {
 <a name="107" href="#107">107</a>         <strong class="jxr_keyword">return</strong> annotation.method();
 <a name="108" href="#108">108</a>     }
 <a name="109" href="#109">109</a> 
-<a name="110" href="#110">110</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> ReflectedMethod getOptionalityMethod() {
+<a name="110" href="#110">110</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> FluentMethod getOptionalityMethod() {
 <a name="111" href="#111">111</a>         <strong class="jxr_keyword">return</strong> annotation.correspondingOptionalityMethod();
 <a name="112" href="#112">112</a>     }
 <a name="113" href="#113">113</a> 
@@ -149,60 +149,64 @@
 <a name="139" href="#139">139</a>         <strong class="jxr_keyword">return</strong> false;
 <a name="140" href="#140">140</a>     }
 <a name="141" href="#141">141</a> 
-<a name="142" href="#142">142</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> maximum() {
-<a name="143" href="#143">143</a>         <strong class="jxr_keyword">return</strong> annotation.maximum();
-<a name="144" href="#144">144</a>     }
-<a name="145" href="#145">145</a> 
-<a name="146" href="#146">146</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> minimum() {
-<a name="147" href="#147">147</a>         <strong class="jxr_keyword">return</strong> annotation.minimum();
-<a name="148" href="#148">148</a>     }
-<a name="149" href="#149">149</a> 
-<a name="150" href="#150">150</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> exactly() {
-<a name="151" href="#151">151</a>         <strong class="jxr_keyword">return</strong> annotation.exactly();
-<a name="152" href="#152">152</a>     }
-<a name="153" href="#153">153</a> 
-<a name="154" href="#154">154</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> hasExactCount() {
-<a name="155" href="#155">155</a>         <strong class="jxr_keyword">return</strong> annotation.exactly() &gt;= 0;
-<a name="156" href="#156">156</a>     }
-<a name="157" href="#157">157</a> 
-<a name="158" href="#158">158</a>     @Override <strong class="jxr_keyword">public</strong> &lt;T&gt; T compareCountToSpecification(
-<a name="159" href="#159">159</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> valueCount,
-<a name="160" href="#160">160</a>             <strong class="jxr_keyword">final</strong> SpecificationMultiplicity&lt;T&gt; specificationMultiplicity) {
-<a name="161" href="#161">161</a>         <strong class="jxr_keyword">if</strong>(!hasValue() &amp;&amp; valueCount &gt; 0) {
-<a name="162" href="#162">162</a>             <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedNoneGotSome();
-<a name="163" href="#163">163</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(!isMultiValued() &amp;&amp; hasValue() &amp;&amp; valueCount == 0) {
-<a name="164" href="#164">164</a>             <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedOneGotNone();
-<a name="165" href="#165">165</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(!isMultiValued() &amp;&amp; valueCount &gt; 1) {
-<a name="166" href="#166">166</a>             <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedOneGotSome();
-<a name="167" href="#167">167</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(isMultiValued()) {
-<a name="168" href="#168">168</a>             <strong class="jxr_keyword">if</strong>(hasExactCount() &amp;&amp; valueCount != exactly()) {
-<a name="169" href="#169">169</a>                 <strong class="jxr_keyword">if</strong>(valueCount &lt; exactly()) {
-<a name="170" href="#170">170</a>                     <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedExactGotTooFew(exactly(), valueCount);
-<a name="171" href="#171">171</a>                 } <strong class="jxr_keyword">else</strong> {
-<a name="172" href="#172">172</a>                     <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedExactGotTooMany(exactly(), valueCount);
-<a name="173" href="#173">173</a>                 }
-<a name="174" href="#174">174</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(valueCount &lt; minimum()) {
-<a name="175" href="#175">175</a>                 <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedMinimumGotTooFew(minimum(), valueCount);
-<a name="176" href="#176">176</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(valueCount &gt; maximum()) {
-<a name="177" href="#177">177</a>                 <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedMaximumGotTooMany(maximum(), valueCount);
-<a name="178" href="#178">178</a>             }
-<a name="179" href="#179">179</a>         }
-<a name="180" href="#180">180</a>         <strong class="jxr_keyword">return</strong> specificationMultiplicity.allowed();
-<a name="181" href="#181">181</a>     }
-<a name="182" href="#182">182</a> 
-<a name="183" href="#183">183</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> maximumArgumentConsumption() {
-<a name="184" href="#184">184</a>         <strong class="jxr_keyword">if</strong>(isMultiValued()) {
-<a name="185" href="#185">185</a>             <strong class="jxr_keyword">if</strong>(hasExactCount()) {
-<a name="186" href="#186">186</a>                 <strong class="jxr_keyword">return</strong> exactly();
-<a name="187" href="#187">187</a>             } <strong class="jxr_keyword">else</strong> {
-<a name="188" href="#188">188</a>                 <strong class="jxr_keyword">return</strong> maximum();
-<a name="189" href="#189">189</a>             }
-<a name="190" href="#190">190</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (hasValue()) {
-<a name="191" href="#191">191</a>             <strong class="jxr_keyword">return</strong> 1;
-<a name="192" href="#192">192</a>         }
-<a name="193" href="#193">193</a>         <strong class="jxr_keyword">return</strong> 0;
-<a name="194" href="#194">194</a>     }
-<a name="195" href="#195">195</a> }
+<a name="142" href="#142">142</a>     @Override
+<a name="143" href="#143">143</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> maximum() {
+<a name="144" href="#144">144</a>         <strong class="jxr_keyword">return</strong> annotation.maximum();
+<a name="145" href="#145">145</a>     }
+<a name="146" href="#146">146</a> 
+<a name="147" href="#147">147</a>     @Override
+<a name="148" href="#148">148</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> minimum() {
+<a name="149" href="#149">149</a>         <strong class="jxr_keyword">return</strong> annotation.minimum();
+<a name="150" href="#150">150</a>     }
+<a name="151" href="#151">151</a> 
+<a name="152" href="#152">152</a>     @Override
+<a name="153" href="#153">153</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> exactly() {
+<a name="154" href="#154">154</a>         <strong class="jxr_keyword">return</strong> annotation.exactly();
+<a name="155" href="#155">155</a>     }
+<a name="156" href="#156">156</a> 
+<a name="157" href="#157">157</a>     @Override
+<a name="158" href="#158">158</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">boolean</strong> hasExactCount() {
+<a name="159" href="#159">159</a>         <strong class="jxr_keyword">return</strong> annotation.exactly() &gt;= 0;
+<a name="160" href="#160">160</a>     }
+<a name="161" href="#161">161</a> 
+<a name="162" href="#162">162</a>     @Override <strong class="jxr_keyword">public</strong> &lt;T&gt; T compareCountToSpecification(
+<a name="163" href="#163">163</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> valueCount,
+<a name="164" href="#164">164</a>             <strong class="jxr_keyword">final</strong> SpecificationMultiplicity&lt;T&gt; specificationMultiplicity) {
+<a name="165" href="#165">165</a>         <strong class="jxr_keyword">if</strong>(!hasValue() &amp;&amp; valueCount &gt; 0) {
+<a name="166" href="#166">166</a>             <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedNoneGotSome();
+<a name="167" href="#167">167</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(!isMultiValued() &amp;&amp; hasValue() &amp;&amp; valueCount == 0) {
+<a name="168" href="#168">168</a>             <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedOneGotNone();
+<a name="169" href="#169">169</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(!isMultiValued() &amp;&amp; valueCount &gt; 1) {
+<a name="170" href="#170">170</a>             <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedOneGotSome();
+<a name="171" href="#171">171</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(isMultiValued()) {
+<a name="172" href="#172">172</a>             <strong class="jxr_keyword">if</strong>(hasExactCount() &amp;&amp; valueCount != exactly()) {
+<a name="173" href="#173">173</a>                 <strong class="jxr_keyword">if</strong>(valueCount &lt; exactly()) {
+<a name="174" href="#174">174</a>                     <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedExactGotTooFew(exactly(), valueCount);
+<a name="175" href="#175">175</a>                 } <strong class="jxr_keyword">else</strong> {
+<a name="176" href="#176">176</a>                     <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedExactGotTooMany(exactly(), valueCount);
+<a name="177" href="#177">177</a>                 }
+<a name="178" href="#178">178</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(valueCount &lt; minimum()) {
+<a name="179" href="#179">179</a>                 <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedMinimumGotTooFew(minimum(), valueCount);
+<a name="180" href="#180">180</a>             } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(valueCount &gt; maximum()) {
+<a name="181" href="#181">181</a>                 <strong class="jxr_keyword">return</strong> specificationMultiplicity.expectedMaximumGotTooMany(maximum(), valueCount);
+<a name="182" href="#182">182</a>             }
+<a name="183" href="#183">183</a>         }
+<a name="184" href="#184">184</a>         <strong class="jxr_keyword">return</strong> specificationMultiplicity.allowed();
+<a name="185" href="#185">185</a>     }
+<a name="186" href="#186">186</a> 
+<a name="187" href="#187">187</a>     @Override <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> maximumArgumentConsumption() {
+<a name="188" href="#188">188</a>         <strong class="jxr_keyword">if</strong>(isMultiValued()) {
+<a name="189" href="#189">189</a>             <strong class="jxr_keyword">if</strong>(hasExactCount()) {
+<a name="190" href="#190">190</a>                 <strong class="jxr_keyword">return</strong> exactly();
+<a name="191" href="#191">191</a>             } <strong class="jxr_keyword">else</strong> {
+<a name="192" href="#192">192</a>                 <strong class="jxr_keyword">return</strong> maximum();
+<a name="193" href="#193">193</a>             }
+<a name="194" href="#194">194</a>         } <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (hasValue()) {
+<a name="195" href="#195">195</a>             <strong class="jxr_keyword">return</strong> 1;
+<a name="196" href="#196">196</a>         }
+<a name="197" href="#197">197</a>         <strong class="jxr_keyword">return</strong> 0;
+<a name="198" href="#198">198</a>     }
+<a name="199" href="#199">199</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

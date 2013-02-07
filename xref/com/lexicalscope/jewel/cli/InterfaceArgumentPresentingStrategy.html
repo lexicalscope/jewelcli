@@ -14,7 +14,7 @@
 <a name="4" href="#4">4</a>   
 <a name="5" href="#5">5</a>   <strong class="jxr_keyword">import</strong> java.util.Map;
 <a name="6" href="#6">6</a>   
-<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.ReflectedClass;
+<a name="7" href="#7">7</a>   <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.FluentClass;
 <a name="8" href="#8">8</a>   
 <a name="9" href="#9">9</a>   <em class="jxr_comment">/*</em>
 <a name="10" href="#10">10</a>  <em class="jxr_comment"> * Copyright 2011 Tim Wood</em>
@@ -29,13 +29,13 @@
 <a name="19" href="#19">19</a>  <em class="jxr_comment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
 <a name="20" href="#20">20</a>  <em class="jxr_comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
 <a name="21" href="#21">21</a>  <em class="jxr_comment"> * See the License for the specific language governing permissions and</em>
-<a name="22" href="#22">22</a>  <em class="jxr_comment"> * limitations under the License. </em>
+<a name="22" href="#22">22</a>  <em class="jxr_comment"> * limitations under the License.</em>
 <a name="23" href="#23">23</a>  <em class="jxr_comment"> */</em>
 <a name="24" href="#24">24</a>  
 <a name="25" href="#25">25</a>  <strong class="jxr_keyword">class</strong> InterfaceArgumentPresentingStrategy&lt;O&gt; implements ArgumentPresentingStrategy&lt;O&gt; {
-<a name="26" href="#26">26</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> ReflectedClass&lt;O&gt; klass;
+<a name="26" href="#26">26</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> FluentClass&lt;O&gt; klass;
 <a name="27" href="#27">27</a>  
-<a name="28" href="#28">28</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/InterfaceArgumentPresentingStrategy.html">InterfaceArgumentPresentingStrategy</a>(<strong class="jxr_keyword">final</strong> ReflectedClass&lt;O&gt; klass) {
+<a name="28" href="#28">28</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/InterfaceArgumentPresentingStrategy.html">InterfaceArgumentPresentingStrategy</a>(<strong class="jxr_keyword">final</strong> FluentClass&lt;O&gt; klass) {
 <a name="29" href="#29">29</a>          <strong class="jxr_keyword">this</strong>.klass = klass;
 <a name="30" href="#30">30</a>      }
 <a name="31" href="#31">31</a>  

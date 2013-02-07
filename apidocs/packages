@@ -1,7 +1,5 @@
+com.lexicalscope.jewel
 com.lexicalscope.jewel.cli
+com.lexicalscope.jewel.cli.specification
 com.lexicalscope.jewel.cli.validation
 com.lexicalscope.jewel.cli.parser
-com.lexicalscope.jewel.cli.specification
-com.lexicalscope.jewel
-uk.co.flamingpenguin.jewel
-uk.co.flamingpenguin.jewel.cli

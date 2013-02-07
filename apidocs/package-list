@@ -3,5 +3,3 @@ com.lexicalscope.jewel.cli
 com.lexicalscope.jewel.cli.parser
 com.lexicalscope.jewel.cli.specification
 com.lexicalscope.jewel.cli.validation
-uk.co.flamingpenguin.jewel
-uk.co.flamingpenguin.jewel.cli

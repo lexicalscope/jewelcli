@@ -25,19 +25,19 @@
 <a name="15" href="#15">15</a>  
 <a name="16" href="#16">16</a>  <strong class="jxr_keyword">import</strong> ch.lambdaj.function.convert.Converter;
 <a name="17" href="#17">17</a>  
-<a name="18" href="#18">18</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.ReflectedClass;
-<a name="19" href="#19">19</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.ReflectedMethod;
+<a name="18" href="#18">18</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.FluentClass;
+<a name="19" href="#19">19</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.fluentreflection.FluentMethod;
 <a name="20" href="#20">20</a>  <strong class="jxr_keyword">import</strong> com.lexicalscope.jewel.cli.specification.UnparsedOptionSpecification;
 <a name="21" href="#21">21</a>  
 <a name="22" href="#22">22</a>  <strong class="jxr_keyword">class</strong> <a href="../../../../com/lexicalscope/jewel/cli/ConvertUnparsedGetterMethodToUnparsedOptionSpecification.html">ConvertUnparsedGetterMethodToUnparsedOptionSpecification</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../com/lexicalscope/jewel/cli/AbstractConvertMethodToOptionSpecification.html">AbstractConvertMethodToOptionSpecification</a>
 <a name="23" href="#23">23</a>          implements
-<a name="24" href="#24">24</a>          Converter&lt;ReflectedMethod, UnparsedOptionSpecification&gt; {
+<a name="24" href="#24">24</a>          Converter&lt;FluentMethod, UnparsedOptionSpecification&gt; {
 <a name="25" href="#25">25</a>  
-<a name="26" href="#26">26</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/ConvertUnparsedGetterMethodToUnparsedOptionSpecification.html">ConvertUnparsedGetterMethodToUnparsedOptionSpecification</a>(<strong class="jxr_keyword">final</strong> ReflectedClass&lt;?&gt; klass) {
+<a name="26" href="#26">26</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/ConvertUnparsedGetterMethodToUnparsedOptionSpecification.html">ConvertUnparsedGetterMethodToUnparsedOptionSpecification</a>(<strong class="jxr_keyword">final</strong> FluentClass&lt;?&gt; klass) {
 <a name="27" href="#27">27</a>          <strong class="jxr_keyword">super</strong>(klass);
 <a name="28" href="#28">28</a>      }
 <a name="29" href="#29">29</a>  
-<a name="30" href="#30">30</a>      @Override <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/specification/UnparsedOptionSpecification.html">UnparsedOptionSpecification</a> convert(<strong class="jxr_keyword">final</strong> ReflectedMethod method) {
+<a name="30" href="#30">30</a>      @Override <strong class="jxr_keyword">public</strong> <a href="../../../../com/lexicalscope/jewel/cli/specification/UnparsedOptionSpecification.html">UnparsedOptionSpecification</a> convert(<strong class="jxr_keyword">final</strong> FluentMethod method) {
 <a name="31" href="#31">31</a>          <strong class="jxr_keyword">return</strong> createUnparsedOptionSpecificationFrom(method);
 <a name="32" href="#32">32</a>      }
 <a name="33" href="#33">33</a>  }
