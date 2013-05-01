@@ -58,6 +58,8 @@ Alternatives
 
   * {{{https://github.com/alexy/optional} optional (scala, multiple github forks)}}
   
+  * {{{https://github.com/Softhouse/jargo} jargo (builder and query with generics)}} 
+  
 Reviews, blog posts, etc
 
   * {{{http://javathink.blogspot.com/2008_04_01_archive.html} Why does parsing arguments in Java SUCK so much?}}

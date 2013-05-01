@@ -4,6 +4,12 @@
                                        
 API Changes
 
+* Changes in version 0.8.5
+
+  * bug fix for repeatedly specified options, in previous versions all but the last occurence was ignored. Now values are accumulated from every occurence. 
+
+  * bug fix for options specified to return a custom subclass of list, only collection types assignable from either List or Set will now be treated as multivalued: this prevents the occurence of a clast cast exception
+
 * Changes in version 0.8.3
 
   * provide the option to display help message in the order that the methods are defined (actually the order that the JVM Java reflection API implementation returns the methods). Please see the CommandLineInterface annotation for more details
