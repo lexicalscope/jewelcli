@@ -4,6 +4,10 @@
                                        
 API Changes
 
+* Changes in version 0.8.6
+
+  * change back to Java 6 class file format
+
 * Changes in version 0.8.5
 
   * bug fix for repeatedly specified options, in previous versions all but the last occurence was ignored. Now values are accumulated from every occurence. 
