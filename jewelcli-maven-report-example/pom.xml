@@ -4,7 +4,7 @@
     <parent>
         <artifactId>jewelcli-parent</artifactId>
         <groupId>com.lexicalscope.jewelcli</groupId>
-        <version>0.8.7-SNAPSHOT</version>
+        <version>0.8.7</version>
     </parent>
     <artifactId>jewelcli-maven-report-example</artifactId>
     <name>JewelCli Maven Report Example</name>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.lexicalscope.jewelcli</groupId>
             <artifactId>jewelcli</artifactId>
-            <version>0.8.7-SNAPSHOT</version>
+            <version>0.8.7</version>
         </dependency>
     </dependencies>
     <reporting>
@@ -55,7 +55,7 @@
             <plugin>
                 <groupId>com.lexicalscope.jewelcli</groupId>
                 <artifactId>jewelcli-maven-report-plugin</artifactId>
-                <version>0.8.7-SNAPSHOT</version>
+                <version>0.8.7</version>
                 <configuration>
                    <interfaces>
                         <interface>com.lexicalscope.jewelcli.maven.report.example.RmExample</interface>
