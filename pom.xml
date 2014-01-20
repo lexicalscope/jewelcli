@@ -4,7 +4,7 @@
     <groupId>com.lexicalscope.jewelcli</groupId>
     <artifactId>jewelcli-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.8.7</version>
+    <version>0.8.8-SNAPSHOT</version>
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
