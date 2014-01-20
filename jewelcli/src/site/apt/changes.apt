@@ -6,6 +6,10 @@ API Changes
 
 * Changes in version 0.8.6
 
+  * fix NPE bug for options that are boolean and omit the "get" prefix
+
+* Changes in version 0.8.6
+
   * change back to Java 6 class file format
 
 * Changes in version 0.8.5

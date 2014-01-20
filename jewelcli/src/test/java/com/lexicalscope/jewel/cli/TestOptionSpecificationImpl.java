@@ -46,6 +46,10 @@ public class TestOptionSpecificationImpl {
         @Option(longName = "") String getName0();
     }
 
+    public interface SingleCharacterBoolean {
+    	@Option boolean f();
+    }
+
     public interface Value {
         @Option String getName();
 
@@ -217,6 +221,10 @@ public class TestOptionSpecificationImpl {
     @Test public void testIsOptional() throws SecurityException, NoSuchMethodException {
         assertFalse(createOption(HasOptionalOption.class, "getName1").isOptional());
         assertTrue(createOption(HasOptionalOption.class, "getName2").isOptional());
+    }
+
+    @Test public void testSingleCharacterBoolean() throws SecurityException, NoSuchMethodException {
+        assertTrue(createOption(SingleCharacterBoolean.class, "f").isBoolean());
     }
 
     private ParsedOptionSpecification createOption(final Class<?> klass, final String methodName)
