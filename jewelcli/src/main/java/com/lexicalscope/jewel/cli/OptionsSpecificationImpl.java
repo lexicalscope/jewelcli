@@ -186,11 +186,19 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
 
         helpMessage.startOfOptions();
 
-        for (final ParsedOptionSpecification specification : options) {
-            if(!specification.isHidden())
-            {
-                new ParsedOptionSummary(specification).describeOptionTo(helpMessage.option());
+        ParsedOptionSpecification helpOption = null;
+        for (final Map.Entry<String, ParsedOptionSpecification> optionEntry : optionsByName.entrySet()) {
+            final ParsedOptionSpecification specification = optionEntry.getValue();
+            if (!specification.isHidden()) {
+                if (specification.isHelpOption()) {
+                    helpOption = specification;
+                } else {
+                    new ParsedOptionSummary(specification).describeOptionTo(helpMessage.option());
+                }
             }
+        }
+        if (helpOption != null) {
+            new ParsedOptionSummary(helpOption).describeOptionTo(helpMessage.option());
         }
 
         helpMessage.endOfOptions();

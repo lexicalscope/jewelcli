@@ -38,6 +38,18 @@ public class TestHelpMessageOrder {
         @Option(helpRequest = true)
         boolean getHelp();
     }
+    
+    interface LexicographicOrderWithLongName
+    {
+        @Option(longName = "aardvark")
+        int getB();
+
+        @Option(longName = "zebra")
+        int getA();
+
+        @Option(helpRequest = true)
+        boolean getHelp();
+    }
 
     @CommandLineInterface(order = OptionOrder.DEFINITION)
     interface DefinitionOrder
@@ -57,6 +69,14 @@ public class TestHelpMessageOrder {
         assertThat(createCli(LexicographicOrder.class).getHelpMessage(), containsString(String.format("%s%n\t%s", "--a value", "--b value")));
     }
 
+    @Test public void lexicographicOrderWithLongNameSupported()
+    {
+        assertThat(
+    		createCli(LexicographicOrderWithLongName.class).getHelpMessage(), 
+    		containsString(String.format("%s%n\t%s", "--aardvark value", "--zebra value"))
+		);
+    }
+    
     @Test public void definitionOrderSupported()
     {
     	// in recent versions of the JDK, definition order is unreliable
