@@ -40,7 +40,7 @@ public interface ParsedOptionSpecification extends OptionSpecification {
     /**
      * Does this option have a Short Name
      *
-     * @return true iff the options has a short name
+     * @return true if the options has a short name
      */
     boolean hasShortName();
 
@@ -64,14 +64,14 @@ public interface ParsedOptionSpecification extends OptionSpecification {
     /**
      * Does the option take any arguments?
      *
-     * @return True iff the the option takes at least one argument
+     * @return True if the the option takes at least one argument
      */
     boolean hasValue();
 
     /**
      * Is this option a request for help
      *
-     * @return True iff this option is a request for help
+     * @return True if this option is a request for help
      */
     boolean isHelpOption();
 
