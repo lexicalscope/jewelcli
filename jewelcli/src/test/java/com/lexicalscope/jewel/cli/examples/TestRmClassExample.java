@@ -32,11 +32,11 @@ public class TestRmClassExample {
         assertEquals(
                 UtilitiesForTesting.joinLines(
                         "Usage: rm [options] FILE...",
+                        "\t[--directory -d] : unlink FILE, even if it is a non-empty directory (super-user only)",
                         "\t[--force -f] : ignore nonexistent files, never prompt",
                         "\t[--help] : display this help and exit",
                         "\t[--interactive -i] : prompt before any removal",
                         "\t[--recursive -r -R] : remove the contents of directories recursively",
-                        "\t[--directory -d] : unlink FILE, even if it is a non-empty directory (super-user only)",
                         "\t[--verbose -v] : explain what is being done",
                         "\t[--version] : output version information and exit"), result0.getHelpMessage());
     }

@@ -15,6 +15,8 @@
 package com.lexicalscope.jewel.cli;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -186,19 +188,20 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
 
         helpMessage.startOfOptions();
 
-        ParsedOptionSpecification helpOption = null;
-        for (final Map.Entry<String, ParsedOptionSpecification> optionEntry : optionsByName.entrySet()) {
-            final ParsedOptionSpecification specification = optionEntry.getValue();
-            if (!specification.isHidden()) {
-                if (specification.isHelpOption()) {
-                    helpOption = specification;
-                } else {
-                    new ParsedOptionSummary(specification).describeOptionTo(helpMessage.option());
-                }
+        final List<ParsedOptionSpecification> sortedOptions = new ArrayList<ParsedOptionSpecification>(options);
+        Collections.sort(sortedOptions, new Comparator<ParsedOptionSpecification>() {
+            @Override
+            public int compare(ParsedOptionSpecification o1,
+                    ParsedOptionSpecification o2) {
+                final String o1Name = o1.getLongName().get(0);
+                final String o2Name = o2.getLongName().get(0);
+                return o1Name.compareTo(o2Name);
             }
-        }
-        if (helpOption != null) {
-            new ParsedOptionSummary(helpOption).describeOptionTo(helpMessage.option());
+        });
+        for (final ParsedOptionSpecification specification : sortedOptions) {
+            if (!specification.isHidden()) {
+                new ParsedOptionSummary(specification).describeOptionTo(helpMessage.option());
+            }
         }
 
         helpMessage.endOfOptions();

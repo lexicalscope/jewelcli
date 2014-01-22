@@ -16,9 +16,9 @@ public class TestHelpExample {
                             "The options available are:",
                             "\t--count value",
                             "\t--email /^[^\\S@]+@[\\w.]+$/ : your email address",
+                            "\t--firstLongName --secondLongName -m -n value : many aliases",
                             "\t[--help -h] : display help",
                             "\t--location value : the location of something",
-                            "\t--firstLongName --secondLongName -m -n value : many aliases",
                             "\t--pattern -p value : a pattern");
 
     @Test public void testHelpExample() {

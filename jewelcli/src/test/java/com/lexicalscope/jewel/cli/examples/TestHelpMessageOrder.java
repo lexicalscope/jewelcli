@@ -44,7 +44,7 @@ public class TestHelpMessageOrder {
         @Option(longName = "aardvark")
         int getB();
 
-        @Option(longName = "zebra")
+        @Option(longName = "echidna")
         int getA();
 
         @Option(helpRequest = true)
@@ -71,9 +71,10 @@ public class TestHelpMessageOrder {
 
     @Test public void lexicographicOrderWithLongNameSupported()
     {
+        
         assertThat(
     		createCli(LexicographicOrderWithLongName.class).getHelpMessage(), 
-    		containsString(String.format("%s%n\t%s", "--aardvark value", "--zebra value"))
+    		containsString(String.format("%s%n\t%s", "--aardvark value", "--echidna value"))
 		);
     }
     
