@@ -15,7 +15,6 @@
 package com.lexicalscope.jewel.cli;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -50,8 +49,6 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
             new HashMap<FluentMethod, UnparsedOptionSpecification>();
     private final Map<FluentMethod, UnparsedOptionSpecification> unparsedOptionalOptionsMethod =
             new HashMap<FluentMethod, UnparsedOptionSpecification>();
-    
-    private final OptionOrder ordering;
 
     OptionsSpecificationImpl(
             final FluentClass<O> klass,
@@ -59,15 +56,22 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
             final List<UnparsedOptionSpecification> unparsedSpecifications) {
         this.klass = klass;
 
-        if (klass.annotatedWith(CommandLineInterface.class)) {
-            this.ordering = klass.annotation(CommandLineInterface.class).order();
-        } else {
-            this.ordering = OptionOrder.LEXICOGRAPHIC;
-        }
-        if (OptionOrder.DEFINITION.equals(this.ordering)) {
-            options = new LinkedHashSet<ParsedOptionSpecification>();
-        } else {
-            options = new TreeSet<ParsedOptionSpecification>();
+        switch (optionOrdering(klass)) {
+            case LONGNAME:
+               options = new TreeSet<ParsedOptionSpecification>(new Comparator<ParsedOptionSpecification>() {
+                  @Override public int compare(final ParsedOptionSpecification o1, final ParsedOptionSpecification o2) {
+                     final String o1Name = o1.getLongName().get(0);
+                     final String o2Name = o2.getLongName().get(0);
+                     return o1Name.compareTo(o2Name);
+                  }
+               });
+               break;
+            case LEXICOGRAPHIC:
+               options = new TreeSet<ParsedOptionSpecification>();
+               break;
+            default:
+               options = new LinkedHashSet<ParsedOptionSpecification>();
+               break;
         }
 
         for (final ParsedOptionSpecification optionSpecification : optionSpecifications) {
@@ -78,6 +82,13 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
             addUnparsedOption(optionSpecification);
         }
     }
+
+	private OptionOrder optionOrdering(final FluentClass<O> klass) {
+		if (klass.annotatedWith(CommandLineInterface.class)) {
+            return klass.annotation(CommandLineInterface.class).order();
+        }
+        return OptionOrder.LEXICOGRAPHIC;
+	}
 
     @Override public boolean isSpecified(final String key) {
         return optionsByName.containsKey(key);
@@ -191,19 +202,7 @@ class OptionsSpecificationImpl<O> implements OptionsSpecification<O>, CliSpecifi
 
         helpMessage.startOfOptions();
 
-        final List<ParsedOptionSpecification> sortedOptions = new ArrayList<ParsedOptionSpecification>(options);
-        if (OptionOrder.LEXICOGRAPHIC.equals(this.ordering)) {
-            Collections.sort(sortedOptions, new Comparator<ParsedOptionSpecification>() {
-                @Override
-                public int compare(ParsedOptionSpecification o1,
-                        ParsedOptionSpecification o2) {
-                    final String o1Name = o1.getLongName().get(0);
-                    final String o2Name = o2.getLongName().get(0);
-                    return o1Name.compareTo(o2Name);
-                }
-            });
-        }
-        for (final ParsedOptionSpecification specification : sortedOptions) {
+        for (final ParsedOptionSpecification specification : options) {
             if (!specification.isHidden()) {
                 new ParsedOptionSummary(specification).describeOptionTo(helpMessage.option());
             }

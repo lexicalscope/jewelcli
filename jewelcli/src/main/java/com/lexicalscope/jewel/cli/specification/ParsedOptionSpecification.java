@@ -1,8 +1,8 @@
 package com.lexicalscope.jewel.cli.specification;
 
-import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
-
 import java.util.List;
+
+import com.lexicalscope.jewel.cli.ValidationErrorBuilder;
 
 
 /*
@@ -22,63 +22,63 @@ import java.util.List;
  */
 
 public interface ParsedOptionSpecification extends OptionSpecification {
-    /**
-     * Get all of the short names of this option. Short names are single
-     * characters that will by prefixed by the user with "-".
-     *
-     * @return the short names of this option
-     */
-    List<String> getShortNames();
+   /**
+    * Get all of the short names of this option. Short names are single
+    * characters that will by prefixed by the user with "-".
+    *
+    * @return the short names of this option
+    */
+   List<String> getShortNames();
 
-    /**
-     * All the names of the option
-     *
-     * @return all the names of the option
-     */
-    List<String> getNames();
+   /**
+    * All the names of the option
+    *
+    * @return all the names of the option
+    */
+   List<String> getNames();
 
-    /**
-     * Does this option have a Short Name
-     *
-     * @return true if the options has a short name
-     */
-    boolean hasShortName();
+   /**
+    * Does this option have a Short Name
+    *
+    * @return true iff the options has a short name
+    */
+   boolean hasShortName();
 
-    /**
-     * Get the long name of this option. Long names are multiple characters that
-     * will be prefixed by the user with "--".
-     *
-     * @return the long name of this option
-     */
-    List<String> getLongName();
+   /**
+    * Get the long name of this option. Long names are multiple characters that
+    * will be prefixed by the user with "--".
+    *
+    * @return the long name of this option
+    */
+   List<String> getLongName();
 
-    /**
-     * The pattern that values must conform to
-     *
-     * @return the regular expression that values must conform to
-     */
-    String getPattern();
+   /**
+    * The pattern that values must conform to
+    *
+    * @return the regular expression that values must conform to
+    */
+   String getPattern();
 
-    boolean allowedValue(String value);
+   boolean allowedValue(String value);
 
-    /**
-     * Does the option take any arguments?
-     *
-     * @return True if the the option takes at least one argument
-     */
-    boolean hasValue();
+   /**
+    * Does the option take any arguments?
+    *
+    * @return True iff the the option takes at least one argument
+    */
+   @Override boolean hasValue();
 
-    /**
-     * Is this option a request for help
-     *
-     * @return True if this option is a request for help
-     */
-    boolean isHelpOption();
+   /**
+    * Is this option a request for help
+    *
+    * @return True iff this option is a request for help
+    */
+   boolean isHelpOption();
 
-    /**
-     * @return option is a boolean option
-     */
-    boolean isBoolean();
+   /**
+    * @return option is a boolean option
+    */
+   boolean isBoolean();
 
-    void reportMissingTo(ValidationErrorBuilder validationErrorBuilder);
+   void reportMissingTo(ValidationErrorBuilder validationErrorBuilder);
 }

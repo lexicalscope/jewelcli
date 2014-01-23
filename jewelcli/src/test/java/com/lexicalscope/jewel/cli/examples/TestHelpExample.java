@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.lexicalscope.jewel.UtilitiesForTesting;
+import com.lexicalscope.jewel.cli.ArgumentValidationException;
 import com.lexicalscope.jewel.cli.Cli;
 import com.lexicalscope.jewel.cli.CliFactory;
-import com.lexicalscope.jewel.cli.ArgumentValidationException;
 
 public class TestHelpExample {
     private static final String HELP_MESSAGE =
@@ -16,9 +16,9 @@ public class TestHelpExample {
                             "The options available are:",
                             "\t--count value",
                             "\t--email /^[^\\S@]+@[\\w.]+$/ : your email address",
-                            "\t--firstLongName --secondLongName -m -n value : many aliases",
                             "\t[--help -h] : display help",
                             "\t--location value : the location of something",
+                            "\t--firstLongName --secondLongName -m -n value : many aliases",
                             "\t--pattern -p value : a pattern");
 
     @Test public void testHelpExample() {

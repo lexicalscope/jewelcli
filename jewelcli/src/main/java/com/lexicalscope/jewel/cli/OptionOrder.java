@@ -28,6 +28,11 @@ public enum OptionOrder {
     LEXICOGRAPHIC,
 
     /**
+     * display the options alphabetically by long name
+     */
+   LONGNAME,
+
+    /**
      * display the options in the order that the reflection API returns them
      */
     DEFINITION
