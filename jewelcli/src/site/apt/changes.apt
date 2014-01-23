@@ -4,7 +4,11 @@
                                        
 API Changes
 
-* Changes in version 0.8.6
+* Changes in version 0.8.8
+
+  * add ability to sort options by long name
+
+* Changes in version 0.8.7
 
   * fix NPE bug for options that are boolean and omit the "get" prefix
 
