@@ -113,7 +113,7 @@
         <dependency>
             <groupId>com.lexicalscope.fluent-reflection</groupId>
             <artifactId>fluent-reflection</artifactId>
-            <version>0.1.2</version>
+            <version>0.1.5</version>
             <classifier>no_deps</classifier>
             <type>jar</type>
             <scope>compile</scope>
@@ -178,7 +178,7 @@
             <!-- workaround for m2e not handling workspace resolution of classifiers -->
             <groupId>com.lexicalscope.fluent-reflection</groupId>
             <artifactId>fluent-reflection</artifactId>
-            <version>0.0.12</version>
+            <version>0.1.5</version>
             <type>jar</type>
             <scope>test</scope>
             <optional>true</optional>
