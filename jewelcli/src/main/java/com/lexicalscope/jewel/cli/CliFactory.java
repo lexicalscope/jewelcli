@@ -93,7 +93,7 @@ public abstract class CliFactory
     	} catch (InvocationTargetRuntimeException e) {
     		Throwable rootCause = Throwables.getRootCause(e); 
     		if (rootCause instanceof RuntimeException) {
-    			throw (RuntimeException) e;
+    			throw (RuntimeException) rootCause;
     		} else {
 				throw new InvalidOptionSpecificationException(
 						"Throwing checked exceptions in setter methods is not allowed");
