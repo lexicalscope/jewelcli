@@ -1,5 +1,8 @@
 package com.lexicalscope.jewel.cli;
 
+import com.google.common.base.Throwables;
+import com.lexicalscope.fluentreflection.InvocationTargetRuntimeException;
+
 /**
  * Constructs a Cli from an annotated interface definition.
  *
@@ -80,10 +83,21 @@ public abstract class CliFactory
      *
      * @throws ArgumentValidationException the arguments do not meet the CLI specification
      * @throws InvalidOptionSpecificationException the CLI specification is not valid
+     * @throws RuntimeException a setter method has thrown an exception 
      */
     public static <O> O parseArgumentsUsingInstance(final O options, final String... arguments)
-            throws ArgumentValidationException, InvalidOptionSpecificationException
+            throws ArgumentValidationException, InvalidOptionSpecificationException, RuntimeException
     {
-        return createCliUsingInstance(options).parseArguments(arguments);
+    	try {
+    		return createCliUsingInstance(options).parseArguments(arguments);
+    	} catch (InvocationTargetRuntimeException e) {
+    		Throwable rootCause = Throwables.getRootCause(e); 
+    		if (rootCause instanceof RuntimeException) {
+    			throw (RuntimeException) rootCause;
+    		} else {
+				throw new InvalidOptionSpecificationException(
+						"Throwing checked exceptions in setter methods is not allowed");
+    		}
+    	}
     }
 }
